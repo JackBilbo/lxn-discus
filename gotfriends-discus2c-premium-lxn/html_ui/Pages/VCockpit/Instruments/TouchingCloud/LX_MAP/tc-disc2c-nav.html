@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.css" />
+<link rel="stylesheet" href="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.css?aa" />
 <link rel="stylesheet" href="/Pages/VCockpit/Instruments/TouchingCloud/ATTITUDE_INDICATOR/tc-disc2c-attitude-indicator.css" />
 
 <script type="text/html" id="lxn">
@@ -57,10 +57,7 @@
 						<span class="livedata" data-value="mccready" showunit="no"></span>
 					</div>
 					<a href="#" class="datacell-clickspot"></a>
-					<div class="mcbuttons">
-						<button class="button inc">+</button>
-						<button class="button dec">-</button>
-					</div>
+					
 				</div>
 			</div>
 	
@@ -128,69 +125,28 @@
 							<div class="content airportinfo">
 								<div class="icao"> <span class="livedata" data-value="sel_apt_icao" showunit="no"></span></div>
 								<h1><span class="livedata airportname" data-value="sel_apt_name" showunit="no"></span></h1>
+								<div class="elevation">Elevation: <span class="livedata" data-value="sel_apt_alt"></span></div>
 								<div class="distancbearing"> <span class="livedata" data-value="sel_apt_bearing"></span> @  <span class="livedata" data-value="sel_apt_dist"></span></div>
 								<br><br>
-								<h4>Longest Runway:</h4>
-								<div class="runwaylength"></div>
-								<div class="runwayorientation"></div>
+								<h4>Runways:</h4>
+								<div class="runways"></div>
 							</div>
 							
 						</div>
 						<div class="page">
-							<div class="content">
-								<div id="NearestAirport" class="NrstContainer">
-									<table class="NearestList">
-										<caption>Nearest Airports</caption>
-										<thead>
-											<tr>
-												<th>Airport</th>
-												<th>BRG</th>
-												<th>DIS</th>
-												<th>APPR/RWY</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr id="SizeSetter">
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-										</tbody>
-									</table>
-									<table class="SelectionMenu" state="Inactive">
-										<tr>
-											<td>
-												<div class="gradientButton" id="NrstAirport_Drct">
-													<div class="mainText"><img class="DrctImg" src="/Pages/VCockpit/Instruments/NavSystems/Shared/Images/TSC/Icons/ICON_MAP_DIRECT_TO_1.png" /></div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<div class="gradientButton" id="NrstAirport_InsertInFpl">
-													<div class="mainText">Insert in Flight Plan</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<div class="gradientButton" id="NrstAirport_AirportInfo" state="Hidden">
-													<div class="mainText">Airport Info</div>
-												</div>
-											</td>
-										</tr>
-									</table>
-								</div>
+							<div class="content hasScrollbars">
+								<ul id="nearestairports">
+									
+									
+								</ul>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="panel">
 					<div class="pageheader">
-						<div class="title">WPT: <span class="livedata wp_name" data-value="wp_name" showunit="no"></span> (<span class="livedata" data-value="wp_alt"></span>)</div>
-						<div id="wpselect"><a href="#" id="wp_back"><</a><a href="#" id="wp_next">></a></div>
-						<div class="time"><span class="livedata" data-value="localtime" showunit="no"></span></div>
+						<div class="title">WPT: <span class="livedata wp_name" data-value="wp_name" showunit="no"></span> (<span class="livedata" data-value="wp_alt"></span>)</div>	
+						<div class="time"><div id="wpselect"><a href="#" id="wp_back"><</a><a href="#" id="wp_next">></a></div><span class="livedata" data-value="localtime" showunit="no"></span></div>
 					</div>
 					<div class="pageframe">
 						<div class="page">
@@ -234,7 +190,7 @@
 							<div id="tasklist" class="task_not_started hasScrollbars">
 								<header>
 									<h1>
-										<span class="header_prestart">Task not startet</span>
+										<span class="header_prestart">Task not started</span>
 										<span class="header_running">Task running</span>
 										<span class="header_finished">Task finished</span>
 									</h1>
@@ -563,4 +519,8 @@
 <script type="text/html" import-script="/Pages/VCockpit/Instruments/Shared/FlightElements/NearestWaypoint.js"></script>
 <script type="text/html" import-script="/Pages/VCockpit/Instruments/Shared/FlightElements/Waypoint.js"></script>
 
+<script type="text/html" import-script="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navmap.js"></script>
+<script type="text/html" import-script="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/interface.js"></script>
+<script type="text/html" import-script="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navpanel.js"></script>
+<script type="text/html" import-script="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/configpanel.js"></script>
 <script type="text/html" import-script="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.js?ag"></script>
