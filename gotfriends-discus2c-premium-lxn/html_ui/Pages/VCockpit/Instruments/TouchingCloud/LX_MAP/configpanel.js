@@ -102,6 +102,11 @@ class configpanel {
 class rangeinput {
     constructor(el, callback) {
         this.rangebg = el;
+        
+        this.marker = document.createElement("div");
+        this.marker.setAttribute("class","marker");
+        el.appendChild(this.marker);
+        
         this.rail = document.createElement("div");
         this.rail.setAttribute("class","rail");
 
@@ -132,20 +137,17 @@ class rangeinput {
         let thisinput = this;
         thisinput.rail.addEventListener("mousedown", (e)=> {
             thisinput.handle.style.backgroundColor = "#888";
-            thisinput.rangebg.style.backgroundColor = "#00d7fe"
             thisinput.clickposition = e.offsetX;
             thisinput.isActive = true;
         })
 
         thisinput.rail.addEventListener("mouseup", (e)=> {
             thisinput.handle.style.backgroundColor = "#ccc";
-            thisinput.rangebg.style.backgroundColor = "transparent";
             thisinput.isActive = false;
         })
 
         thisinput.rail.addEventListener("mouseleave", (e)=> {
             thisinput.handle.style.backgroundColor = "#ccc";
-            thisinput.rangebg.style.backgroundColor = "transparent";
             thisinput.isActive = false;
         })
 
@@ -156,6 +158,7 @@ class rangeinput {
                 pos = pos < 0 ? 0 : pos;
                 pos = pos < max - thisinput.handle.clientWidth / 2 ? pos : max ;
 
+                thisinput.marker.style.width = (pos + thisinput.handle.clientWidth / 2)  + "px";
                 thisinput.handle.style.left = pos + "px";
 
                 let diff = thisinput.maxvalue - thisinput.minvalue;
@@ -173,6 +176,7 @@ class rangeinput {
         let max = this.rail.clientWidth - this.handle.clientWidth;
         let pos = (max / diff) * (val - this.minvalue);
         this.handle.style.left = pos + "px";
+        this.marker.style.width = (pos + this.handle.clientWidth / 2)  + "px";
     }
 
 }
