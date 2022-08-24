@@ -693,39 +693,37 @@ lxn-nav {
 
 /* AIRPORT LIST */
 
-.NearestList thead {
-	display: none;
-}
+#airportlist ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            border-top: 1px solid #ccc;
+        }
 
-.NearestList td {
-	padding: var(--verticalpadding) var(--horizontalpadding);
-	border-bottom: 1px solid #888;
-}
+#airportlist li {
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            padding: 0 0.5rem;
+            cursor:pointer;
+            font-size: 1.6rem;
+        }
 
-.NearestList tr { border: 2px solid transparent; }
-.NearestList tr.selected {
-	background-color: #ffcc00;
-	color: #000;
-	border: 2px solid #ffcc00;
-}
+#airportlist li.selected {
+            outline: 2px solid #ffcc00;
+            color: #ffcc00;
+        }
 
-.gradientButton {
-	display: flex;
-}
+#airportlist li>span { padding: 1rem 0.5rem; }
+        .apt_icao { width: 4rem;  }
+        .apt_direction { width: 2rem; }
+        .apt_name { width: 100%; }
+        .apt_dist { width: 4rem; }
 
-.gradientButton div {
-	padding: 0 var(--horizontalpadding);
-}
+#airportlist li.empty, #airportlist li.template {
+            display: none;
+        }
 
-.gradientButton img { order: 0; }
-.gradientButton .mainValue { order: 1; }
-.gradientButton .title { order: 2; }
-
-#aplist {
-	width: 100%;
-}
-
-.SelectionMenu { display: none; }
+.apt_direction span { position: relative; }
 
  #Map {
     position: absolute;
