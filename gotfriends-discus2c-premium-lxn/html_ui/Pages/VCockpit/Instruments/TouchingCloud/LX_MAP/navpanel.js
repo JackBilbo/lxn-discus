@@ -17,7 +17,6 @@ class navpanel {
         this.airportlister.Update(20,200);
 
         if(this.airportlister.loadState == 6 && !this.listisbulidt) {
-            console.log(this.airportlister.airports);
             this.oldairportlist = this.airportlister.airports;
             this.buildAirportList();
 
@@ -113,7 +112,11 @@ class navpanel {
         
         for(let i=0;i<this.airportlister.airports.length;i++) {
             let item = document.createElement("li");
-            item.innerHTML = this.airportlister.airports[i].ident + " - " + this.airportlister.airports[i].name + " - " + this.airportlister.airports[i].distance.toFixed(1);
+            item.innerHTML  = '<span class="apt_icao">' + this.airportlister.airports[i].ident + '</span>';
+            item.innerHTML += '<span class="apt_name">' + this.airportlister.airports[i].name + '</span>';
+            item.innerHTML += '<span class="apt_direction"><span style="transform: rotate(' + this.airportlister.airports[i].direction + 'deg)">&#8593;</span></span>';
+            item.innerHTML += '<span class="apt_dist">' + this.airportlister.airports[i].distance.toFixed(1) + '</span>';
+            item.innerHTML =   + " - " + ;
             aptlist.appendChild(item);
         }
 
