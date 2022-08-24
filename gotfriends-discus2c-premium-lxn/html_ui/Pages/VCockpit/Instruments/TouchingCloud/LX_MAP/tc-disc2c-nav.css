@@ -623,6 +623,16 @@ lxn-nav {
 
 }
 
+.marker {
+        background-color: #2656a3;
+        height: 3.8rem;
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-top-left-radius: 2rem;
+        border-bottom-left-radius: 2rem;
+    }
+
 .rangeinput .handle {
     position: absolute;
     height: 3.4rem;
