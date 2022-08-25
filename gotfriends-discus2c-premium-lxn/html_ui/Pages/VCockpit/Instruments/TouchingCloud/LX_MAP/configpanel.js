@@ -11,16 +11,19 @@ class configpanel {
             navlights: false
         }
 
+        this.ballastIsInit = false;
+
         this.unitstore = SimVar.GetSimVarValue("L:UNITS_IMPERIAL","percent");
     }
 
     initSystemSettings() {
-    
+        let instrument = this.instrument;
         document.querySelectorAll(".lxconfigbtn").forEach((el)=> {
             el.addEventListener("click", function(e) {
                 e.stopPropagation();
                 let target = this.getAttribute("aria-controls");
                 document.getElementById(target).classList.add("active");
+                UI.isswipeinteractive = false;
             })
         });
     
@@ -28,6 +31,7 @@ class configpanel {
             el.addEventListener("click", function(e) {
                 document.querySelectorAll(".configpanel").forEach((el)=>{
                     el.classList.remove("active");
+                    UI.isswipeinteractive = true;
                 })
             })
         });
@@ -35,11 +39,11 @@ class configpanel {
         /* Unitswitching on systemspanel - simple buttons, while we don't have anything more sophisticated */
     
         document.getElementById("conf_units_imperial").addEventListener("click", function(e) {
-            LXNAV.setUnitPrefs("imperial");
+            instrument.setUnitPrefs("imperial");
         })
     
         document.getElementById("conf_units_metric").addEventListener("click", function(e) {
-            LXNAV.setUnitPrefs("metric");
+            instrument.setUnitPrefs("metric");
         })
     
         
@@ -50,14 +54,39 @@ class configpanel {
                 let el = e.target.parentNode;
                 el.setAttribute("state", (el.getAttribute("state") == "on" ? "off" : "on"));
 
-                if(el.getAttribute("data-var")) { SimVar.SetSimVarValue("L:CANOPY_TOGGLE","bool", !SimVar.GetSimVarValue("L:CANOPY_TOGGLE","bool")) }
+                if(el.getAttribute("data-var") == "canopy-tint") { SimVar.SetSimVarValue("L:CANOPY_TOGGLE","bool", !SimVar.GetSimVarValue("L:CANOPY_TOGGLE","bool")) }
+                if(el.getAttribute("data-var") == "canopy-cover") { SimVar.SetSimVarValue("L:COVER_TOGGLE","bool", !SimVar.GetSimVarValue("L:COVER_TOGGLE","bool")) }
             })
         })
 
-        let brightnessrange = new rangeinput(document.querySelector("#brightnesslider"), function(val) { SimVar.SetSimVarValue("L:NAV_BRIGHTNESS", "", val); document.querySelector("#output").innerHTML = val; });
-        let glareshiledrange = new rangeinput(document.querySelector("#glareshieldslider"), function(val) { SimVar.SetSimVarValue("A:LIGHT POTENTIOMETER:5", "", val); document.querySelector("#output").innerHTML = val; });
+        this.brightnessrange = new rangeinput(document.querySelector("#brightnesslider"), function(val) { SimVar.SetSimVarValue("L:NAV_BRIGHTNESS", "number", val); });
+        this.glareshiledrange = new rangeinput(document.querySelector("#glareshieldslider"), function(val) { SimVar.SetSimVarValue("A:LIGHT POTENTIOMETER:5", "number", val); });
+        
+        let isFES = SimVar.GetSimVarValue("L:IsFES","bool");
+        if(isFES == 1) {
+            this.maxballast = {
+                left: 110,
+                right: 110,
+                tail: 9,
+                total: 229
+            }
+        } else {
+            this.maxballast = {
+                left: 220,
+                right: 220,
+                tail: 18,
+                total: 458
+            }
+        }
         
 
+        this.ballastslider = new rangeinput(document.querySelector("#ballastslider"), function(val) {
+            instrument.vars.ballast_pct.value = val;
+
+            SimVar.SetSimVarValue("PAYLOAD STATION WEIGHT:2", "lbs", CONFIGPANEL.maxballast.left / 100 * val);
+            SimVar.SetSimVarValue("PAYLOAD STATION WEIGHT:3", "lbs", CONFIGPANEL.maxballast.right / 100 * val)
+            SimVar.SetSimVarValue("PAYLOAD STATION WEIGHT:4", "lbs", CONFIGPANEL.maxballast.tail / 100 * val);
+        })
 
         this.systeminitReady = true;
     }
@@ -71,6 +100,15 @@ class configpanel {
             this.unitstore = masterunits;
         }
 
+        this.instrument.vars.ballast.value = parseFloat(SimVar.GetSimVarValue("PAYLOAD STATION WEIGHT:2", "lbs") + SimVar.GetSimVarValue("PAYLOAD STATION WEIGHT:3", "lbs") + SimVar.GetSimVarValue("PAYLOAD STATION WEIGHT:4", "lbs"));
+        this.instrument.vars.ballast_pct.value = this.instrument.vars.ballast.value / this.maxballast.total * 100;
+        
+        if(UI.pageposX = 4) {
+            this.updateBallastDisplay();
+            this.brightnessrange.setValue(SimVar.GetSimVarValue("L:NAV_BRIGHTNESS", "number"));
+            this.glareshiledrange.setValue(SimVar.GetSimVarValue("A:LIGHT POTENTIOMETER:5", "number"));
+        }
+        
     }
 
     setUnitPrefs(sys) {
@@ -96,6 +134,13 @@ class configpanel {
         document.getElementById("nav_debug").innerHTML += "Units set to " + sys;
     }
 
+    updateBallastDisplay() {
+        document. querySelectorAll(".ballasttank").forEach((el) => {
+            this.ballastslider.setValue(this.instrument.vars.ballast_pct.value);
+            el.querySelector(".level").style.height = this.instrument.vars.ballast_pct.value + "%";
+            el.querySelector(".number").innerHTML = this.instrument.displayValue((this.maxballast[el.getAttribute("data-tank")] / 100) * this.instrument.vars.ballast_pct.value,"lbs","weight") + this.instrument.units.weight.pref;
+        })
+    }
 }
 
 
@@ -127,10 +172,11 @@ class rangeinput {
 
         this.callback = callback;
 
-        this.outputvalue = el.getAttribute("data-value");
+        this.initvalue = parseFloat(el.getAttribute("data-value"));
+        this.outputvalue = "";
 
         this.init();
-        this.setValue(this.outputvalue);
+        
     }
 
     init() {
@@ -168,6 +214,8 @@ class rangeinput {
                 thisinput.callback(thisinput.outputvalue);
             }
         })
+        
+        this.setValue(this.initvalue);
     }
 
     setValue(val) {

@@ -552,6 +552,55 @@ lxn-nav {
             padding: 5px 0;
         }
 
+		/* Ballast settings */
+
+.tanks {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 400px;
+    margin-bottom: 4rem;
+	margin-top: 10rem;
+}
+
+.ballasttank {
+    border: 2px solid #ccc;
+    height: 100%;
+    position: relative;
+}
+
+.left, .right {
+    width:30%;
+}
+
+.tail {
+    width: 20%;
+    height: 50%;
+}
+
+.level {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50%;
+    background-color: #2656a3;
+}
+
+.ballasttank .number {
+    position: absolute;
+    bottom: 0;
+    color: #fff;
+    font-size: 2.6rem;
+    width: 100%;
+    text-align: center;
+}
+
+.total {
+	font-size: 2.6rem;
+}
+
 /* Togglebuttons for system settings */
 
 .config_entry {
@@ -583,7 +632,7 @@ lxn-nav {
 }
 
 .config_toggle[state="on"] {
-    background-color: #00d7fe;
+    background-color: #2656a3;
 }
 
 .config_toggle .handle {
@@ -703,6 +752,11 @@ lxn-nav {
 	
 }
 
+.airportinfo {
+	font-size: 3rem;
+	line-height: 5rem;
+	padding: 50px;
+}
 
 /* AIRPORT LIST */
 

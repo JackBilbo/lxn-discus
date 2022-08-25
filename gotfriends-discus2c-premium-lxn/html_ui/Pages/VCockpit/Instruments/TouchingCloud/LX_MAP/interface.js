@@ -12,7 +12,7 @@ class ui {
         this.pagepos_y = 0;
         this.pagewidth = 867;
         this.pageheight = 1319;
-
+        this.isswipeinteractive = true;
     }
 
     init() {
@@ -47,7 +47,7 @@ class ui {
         })
     
         this.panelframe.addEventListener("mouseup", (e)=> {
-            if(typeof(mousedownpos) == "object") {
+            if(typeof(mousedownpos) == "object" && this.isswipeinteractive) {
                 if(e.offsetX - mousedownpos.offsetX < -300) { this.pageRight() }
                 else if(e.offsetX - mousedownpos.offsetX > 300) { this.pageLeft() }
                 else if(e.offsetY - mousedownpos.offsetY < -300) { this.pageDown() }

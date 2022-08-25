@@ -124,7 +124,7 @@
 						<div class="page">
 							<div class="content airportinfo">
 								<div class="icao"> <span class="livedata" data-value="sel_apt_icao" showunit="no"></span></div>
-								<h1><span class="livedata airportname" data-value="sel_apt_name" showunit="no"></span></h1>
+								<h2><span class="livedata airportname" data-value="sel_apt_name" showunit="no"></span></h2>
 								<div class="elevation">Elevation: <span class="livedata" data-value="sel_apt_alt"></span></div>
 								<div class="distancbearing"> <span class="livedata" data-value="sel_apt_bearing"></span> @  <span class="livedata" data-value="sel_apt_dist"></span></div>
 								<br><br>
@@ -312,7 +312,7 @@
 						<div class="page">
 							<div id="systemconfig">
 								<div class="buttonwrapper">
-									<button class="lxconfigbtn" id="conf_wb" aria-controls="conf_panel_wb">Weight & Balance</button>
+									<button class="lxconfigbtn" id="conf_wb" aria-controls="conf_panel_wb">Ballast</button>
 									<button class="lxconfigbtn" id="conf_system" aria-controls="conf_panel_system">System Settings</button>
 									<button class="lxconfigbtn" id="conf_units" aria-controls="conf_panel_units">Units</button>
 									<!--
@@ -321,14 +321,17 @@
 									-->	
 								</div>
 								<div class="configpanel" id="conf_panel_wb" aria-controlledby="conf_wb">
-									<header>Weight & Balance</header>
+									<header>Water Ballast</header>
 									<div class="configpanel_content">
-										<table>
-											<caption>Weights</caption>
-											<tr><th>Empty</th><td>270kg (static Value in HTML)</td></tr>
-											<tr><th>Max </th><td>525kg (static Value in HTML)</td></tr>
-											<tr><th>Ballast</th><td><span class="livedata" data-value="ballast"></span>  (updated from SimVar)</td></tr>
-									   </table>
+										<div class="configpanel_content">
+											<div class="tanks">
+												<div class="ballasttank left" data-tank="left"><div class="level"></div><div class="number"></div></div>
+												<div class="ballasttank tail" data-tank="tail"><div class="level"></div><div class="number"></div></div>
+												<div class="ballasttank right" data-tank="right"><div class="level"></div><div class="number"></div></div>
+											</div>
+											<div id="ballastslider" class="rangeinput" data-min="0" data-max="100" data-value="50" data-callback="output"></div>
+											<div class="total">Total: <span class="livedata" data-value="ballast"></span></div>
+										</div>
 									</div>
 									<div class="configpanel_buttons">
 										<a href="#" class="configpanel_close">CLOSE</a>
@@ -346,20 +349,28 @@
 												<div class="handle"></div>
 											</div>
 										</div>
+										<div class="config_entry">
+											<div class="config_label">
+												<div class="title">Canopy cover</div>
+											</div>
+											<div class="config_toggle" state="off" data-var="canopy-cover">
+												<div class="handle"></div>
+											</div>
+										</div>
 										<div class="config_entry range">
 											<div class="config_label">
 												<div class="title">Display Brightness</div>
 												<div class="description">Brightness of all cockpit displays</div>
 											</div>
-											<div id="brightnesslider" class="rangeinput" data-min="0" data-max="1" data-value="0" data-callback="output"></div>
+											<div id="brightnesslider" class="rangeinput" data-min="0" data-max="1" data-value="1"></div>
 										</div>
 										<div class="config_entry range">
 											<div class="config_label">
 												<div class="title">Glareshield Light Brightness</div>
 											</div>
-											<div id="glareshieldslider" class="rangeinput" data-min="0" data-max="1" data-value="0" data-callback="output"></div>
+											<div id="glareshieldslider" class="rangeinput" data-min="0" data-max="1" data-value="0.5"></div>
 										</div>
-										<div id="output">000</div>
+										
 
 									</div>
 									<div class="configpanel_buttons">
