@@ -3,11 +3,30 @@ class navpanel {
         this.instrument = instrument;
         this.instrumentIdentifier = "lxn";
         this.oldairportlist;
+        this.manualselectedairport = "";
     }
 
     init() {
         this.airportlister = new NearestAirportList(this);
         this.selectedAirport = new AirportInfo(this.instrument);
+
+        document.querySelector("#nearestairports").addEventListener("click",function(e) {
+            let el = e.target.parentNode;
+            let icao = el.getAttribute("data-airport");
+
+            document.querySelectorAll("#nearestairports li").forEach((el) => { el.classList.remove("selected") })
+
+            if(NAVPANEL.manualselectedairport == icao) {
+                NAVPANEL.manualselectedairport = "";
+            } else {
+                el.classList.add("selected");
+                NAVPANEL.manualselectedairport = icao;
+            }
+
+            NAVPANEL.getSelectedAirport();
+            console.log(el.getAttribute("data-airport"));
+            
+        })
 
         this.navinit = true;
     }
@@ -16,37 +35,41 @@ class navpanel {
         if(!this.navinit) {  return; }
         this.airportlister.Update(20,200);
 
-        if(this.airportlister.loadState == 6 && !this.listisbulidt) {
+        if(this.airportlister.loadState == 6 &&  this.oldairportlist != this.airportlister.airports) {
             this.oldairportlist = this.airportlister.airports;
             this.buildAirportList();
-
             this.getSelectedAirport();
-            
         }
+        
         this.updateSelectedAirport();
+
+        if(UI.pagepos_x == 0 && UI.pagepos_y == 2) {
+            this.buildAirportList();
+        }
     }
 
     getSelectedAirport() {
         if(this.airportlister.airportslength == 0) { return false; }
 
-        if(!this.airportUserselected) {
-            this.setselectedAirport(this.airportlister.airports[0]);
-        }        
-        return this.selectedAirport;
+        if(this.manualselectedairport != "") {
+            this.selectedAirport.icao = this.manualselectedairport;
+            console.log("setting manual Airport: " + this.selectedAirport.icao);
+        } else {
+            this.selectedAirport.icao = this.airportlister.airports[0].icao;
+            console.log("setting nearest Airport: " + this.selectedAirport.icao);
+        }
+      
+        this.selectedAirport.UpdateInfos(null, false);
+        // return this.selectedAirport;
     }
 
     setselectedAirport(apt) {
         this.selectedAirport.icao = apt.icao
         this.selectedAirport.UpdateInfos(null, false);
-
     }
 
     updateSelectedAirport() {
-        let svg_el = document.querySelector("#lift_dots");
-        if(svg_el.querySelector("#aptline") != null) {
-            svg_el.removeChild(svg_el.querySelector("#aptline"));
-        }
-
+        
         if(UI.pagepos_x != 0) { return; }  // don't update APT page, if not visible
             
             let aptlatlng = {lat: this.selectedAirport.coordinates.lat, long: this.selectedAirport.coordinates.long};
@@ -57,10 +80,7 @@ class navpanel {
             this.instrument.vars.sel_apt_dist.value = Geo.get_distance_m(this.instrument.PLANE_POSITION, aptlatlng) / 1852;
             this.instrument.vars.sel_apt_arr_agl.value = 0;
               
-            let line = NAVMAP.svg_line( this.instrument.PLANE_POSITION, aptlatlng, 3,"#ffcc00",0,0); 
-            line.setAttribute("id","aptline");
-                    
-            svg_el.appendChild(line);
+            
 
             this.selectedAirport.runways.forEach(function(rwy) {
                 document.querySelector(".airportinfo .runways").innerHTML = rwy.designation + ": " + NAVPANEL.instrument.displayValue(rwy.length / 0.3048,"ft","alt") +"x" + NAVPANEL.instrument.displayValue(rwy.width / 0.3048,"ft","alt") + NAVPANEL.instrument.units.alt.pref;
@@ -109,18 +129,28 @@ class navpanel {
 
     buildAirportList() {
         let aptlist = document.querySelector("#nearestairports");
+        aptlist.innerHTML = "";
         
         for(let i=0;i<this.airportlister.airports.length;i++) {
             let item = document.createElement("li");
+            item.setAttribute("data-airport", this.airportlister.airports[i].icao);
             item.innerHTML  = '<span class="apt_icao">' + this.airportlister.airports[i].ident + '</span>';
             item.innerHTML += '<span class="apt_name">' + this.airportlister.airports[i].name + '</span>';
-            item.innerHTML += '<span class="apt_direction"><span style="transform: rotate(' + this.airportlister.airports[i].bearing + 'deg)">&#8593;</span></span>';
+            item.innerHTML += '<span class="apt_direction"><span style="transform: rotate(' + this.airportlister.airports[i].infos.bearing + 'deg)">&#8593;</span></span>';
             item.innerHTML += '<span class="apt_dist">' + this.airportlister.airports[i].distance.toFixed(1) + '</span>';
+            
+            if(this.airportlister.airports[i].icao == this.manualselectedairport) {
+                item.setAttribute("class","selected");
+            }
+
             aptlist.appendChild(item);
         }
 
-
         this.listisbulidt = true;
+    }
+
+    selectAirport(ident) {
+        console.log("selected: " + ident);
     }
 }
 

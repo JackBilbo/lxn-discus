@@ -718,7 +718,7 @@ lxn-nav {
             display: flex;
             padding: 0 0.5rem;
             cursor:pointer;
-            font-size: 1.6rem;
+            font-size: 2.5rem;
         }
 
 #nearestairports li.selected {
@@ -727,10 +727,10 @@ lxn-nav {
         }
 
 #nearestairports li>span { padding: 1rem 0.5rem; }
-        .apt_icao { width: 4rem;  }
-        .apt_direction { width: 2rem; }
+        .apt_icao { width: 4em;  }
+        .apt_direction { width: 2em; }
         .apt_name { width: 100%; }
-        .apt_dist { width: 4rem; }
+        .apt_dist { width: 4em; }
 
 #nearestairports li.empty, #airportlist li.template {
             display: none;

@@ -117,7 +117,8 @@ class navmap {
         // Before draw_task(), we need to check SvgMap (navMap) is ready after startup
         if (B21_SOARING_ENGINE.task_active() && this.map_instrument.navMap.centerCoordinates != null ) {
             this.draw_task();
-         }
+            this.draw_courseline();
+        }
     }
 
     set_center(LL) {
@@ -451,5 +452,24 @@ class navmap {
         return line;
     }
 
+    draw_courseline() {
+        let svg_el = document.querySelector("#lift_dots");
+        let targetcoords;
+        if(svg_el.querySelector("#courseline") != null) {
+            svg_el.removeChild(svg_el.querySelector("#courseline"));
+        }
 
+        if(UI.pagepos_x == 0 && NAVPANEL.selectedAirport.coordinates.lat) { 
+            targetcoords = {lat: NAVPANEL.selectedAirport.coordinates.lat, long: NAVPANEL.selectedAirport.coordinates.long};
+        } else if(UI.pagepos_x == 1) {
+            targetcoords = B21_SOARING_ENGINE.current_wp().position;
+        } else {
+            return;
+        }
+
+        let line = this.svg_line( this.instrument.PLANE_POSITION, targetcoords, 3,this.TASK_LINE_CURRENT_COLOR,0,0); 
+        line.setAttribute("id","courseline");
+                    
+        svg_el.appendChild(line);
+    }
 }
