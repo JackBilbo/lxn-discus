@@ -169,6 +169,9 @@ lxn-nav {
 	white-space: nowrap;
 }
 
+.datacell.smallfont .number { font-size: 0.9em; }
+.datacell.smallfont .unit { display: none; }
+
 .datacell .unit {
 	font-size: 0.4em;
 }
@@ -703,14 +706,14 @@ lxn-nav {
 
 /* AIRPORT LIST */
 
-#airportlist ul {
+#nearestairports ul {
             margin: 0;
             padding: 0;
             list-style: none;
             border-top: 1px solid #ccc;
         }
 
-#airportlist li {
+#nearestairports li {
             border-bottom: 1px solid #ccc;
             display: flex;
             padding: 0 0.5rem;
@@ -718,18 +721,18 @@ lxn-nav {
             font-size: 1.6rem;
         }
 
-#airportlist li.selected {
+#nearestairports li.selected {
             outline: 2px solid #ffcc00;
             color: #ffcc00;
         }
 
-#airportlist li>span { padding: 1rem 0.5rem; }
+#nearestairports li>span { padding: 1rem 0.5rem; }
         .apt_icao { width: 4rem;  }
         .apt_direction { width: 2rem; }
         .apt_name { width: 100%; }
         .apt_dist { width: 4rem; }
 
-#airportlist li.empty, #airportlist li.template {
+#nearestairports li.empty, #airportlist li.template {
             display: none;
         }
 
@@ -1051,39 +1054,6 @@ lxn-nav {
 	height: 120px;
 	background-color:rgb(15, 86, 18);
 	transition: all 0.3s;
-}
-
-.mccready .datacell-clickspot {
-	position: absolute;
-	width: calc(var(--devicewidth) / 6);
-	height: 100%;
-	left: 0;
-	top: 0;
-}
-
-.mccready .value {
-	width: 124px;
-}
-
-.mcbuttons {
-	display: none;
-	position: absolute;
-	top: 20px;
-	right: 10px;
-	width: 120px;
-	height: 80%;
-
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.mccready.expanded {
-	width: 200%;
-	height: 240px;
-}
-
-.mccready.expanded .mcbuttons {
-	display: flex;
 }
 
 .speedgauge .label { font-size: 32px;  }

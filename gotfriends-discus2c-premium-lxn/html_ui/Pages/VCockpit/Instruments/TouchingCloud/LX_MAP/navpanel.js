@@ -114,9 +114,8 @@ class navpanel {
             let item = document.createElement("li");
             item.innerHTML  = '<span class="apt_icao">' + this.airportlister.airports[i].ident + '</span>';
             item.innerHTML += '<span class="apt_name">' + this.airportlister.airports[i].name + '</span>';
-            item.innerHTML += '<span class="apt_direction"><span style="transform: rotate(' + this.airportlister.airports[i].direction + 'deg)">&#8593;</span></span>';
+            item.innerHTML += '<span class="apt_direction"><span style="transform: rotate(' + this.airportlister.airports[i].bearing + 'deg)">&#8593;</span></span>';
             item.innerHTML += '<span class="apt_dist">' + this.airportlister.airports[i].distance.toFixed(1) + '</span>';
-            item.innerHTML =   + " - " + ;
             aptlist.appendChild(item);
         }
 

@@ -41,6 +41,7 @@ class lxn extends NavSystemTouch {
             oat: { value: 1, label: "OAT", longlabel: "Outside Air Temperature",category:"temperature", baseunit: "F"},
             ballast: { value: 348, label: "Ballast", longlabel: "Current Ballast",category:"weight", baseunit: "lbs"},
             localtime: { value: 0, label: "Local", longlabel: "Local Time", category: "time_of_day", baseunit: "s"},
+            tasktime: { value: 0, label: "Task", longlabel: "Task Time", category: "time_of_day", baseunit: "s"},
             sel_apt_icao: { value: "XXXX", label: "APT ICAO", longlabel: "Selected Airport ICAO", category: "plaintext", baseunit: "none" },
             sel_apt_name: { value: "NAME", label: "APT NAME", longlabel: "Selected Airport Name", category: "plaintext", baseunit: "none" },
             sel_apt_alt: { value: 0, label: "APT ALT", longlabel: "Selected Airport Altitude", category: "alt", baseunit: "ft" },
@@ -279,6 +280,12 @@ class lxn extends NavSystemTouch {
         
                     cell.querySelector(".label").innerHTML = LXNAV.vars[currentconfig.value].label;
                     
+                    if(LXNAV.vars[currentconfig.value].category == "time_of_day") {
+                        cell.classList.add("smallfont");
+                    } else {
+                        cell.classList.remove("smallfont");
+                    }
+
                     if(LXNAV.vars[currentconfig.value].category != "plaintext") {
                         cell.querySelector(".number").innerHTML = displaynumber;
                         cell.querySelector(".unit").innerHTML = LXNAV.units[LXNAV.vars[currentconfig.value].category].pref;
@@ -319,12 +326,12 @@ class lxn extends NavSystemTouch {
         
         if (this.prev_knobs_var[2] > this.KNOBS_VAR[2] || (this.prev_knobs_var[2] == 0 && this.KNOBS_VAR[2] == 7)) {
             this.prev_knobs_var = this.KNOBS_VAR;
-            this.map_instrument.zoomOut();
+            NAVMAP.zoom_out();
         }
 
         if (this.prev_knobs_var[2] < this.KNOBS_VAR[2] || (this.prev_knobs_var[2] == 7 && this.KNOBS_VAR[2] == 0)) {
             this.prev_knobs_var = this.KNOBS_VAR;
-            this.map_instrument.zoomIn();
+            NAVMAP.zoom_in();
         }
 
         if (this.prev_knobs_var[3] > this.KNOBS_VAR[3] || (this.prev_knobs_var[3] == 0 && this.KNOBS_VAR[3] == 7)) {
@@ -596,7 +603,7 @@ class lxn extends NavSystemTouch {
 
         let color = this.vars.current_netto.value > 0 ? "#14852c" : "#cc0000";
         let radius = Math.max(3, Math.min(Math.abs(this.vars.current_netto.value) * 6, 15));
-        var newdot = this.svg_circle(position, radius, 1, color);
+        var newdot = NAVMAP.svg_circle(position, radius, 1, color);
         newdot.setAttribute("fill", color);
     
         this.lift_dots.unshift({
@@ -613,7 +620,7 @@ class lxn extends NavSystemTouch {
 
         for(let i = 0; i < this.lift_dots.length; i++) {
             let dot = this.lift_dots[i];
-            let xy = this.LL_to_XY(dot.latlng);
+            let xy = NAVMAP.LL_to_XY(dot.latlng);
             dot.el.setAttribute("cx", "" + xy.x);
             dot.el.setAttribute("cy", "" + xy.y);
             dot.el.setAttribute("r", dot.radius);
@@ -730,14 +737,30 @@ class lxn extends NavSystemTouch {
         if(!this.taskpage_built) { this.build_taskpage(); return; }
         if(!B21_SOARING_ENGINE.task_finished()) {
             document.querySelector(".task-state .task-timer").innerHTML = this.displayValue(B21_SOARING_ENGINE.task_time_s(),"s","time_of_day");
+            this.vars.tasktime.value = B21_SOARING_ENGINE.task_time_s();
         } else {
+            document.querySelector(".task-state .task-timer").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.finish_time_s - B21_SOARING_ENGINE.task.start_time_s,"s","time_of_day");
+            document.querySelector(".task-state .taskaverage .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.finish_speed_ms(),"ms","speed");
+            document.querySelector(".task-state .taskaverage .unit").innerHTML = this.units.speed.pref;
+            
+            this.vars.tasktime.value = B21_SOARING_ENGINE.task.finish_time_s - B21_SOARING_ENGINE.task.start_time_s;
+            
             /*
             let completion_time = B21_SOARING_ENGINE.finish_time_s - this.task.start_time_s
             document.querySelector(".task-state .timer .number").innerHTML = this.displayValue(completion_time,"s","time_of_day");
-            document.querySelector(".task-state .taskaverage .number").innerHTML = this.displayValue(this.task.finish_speed_ms,"ms","speed");
-            document.querySelector(".task-state .taskaverage .unit").innerHTML = this.units.speed.pref;
+            
             */
         }
+
+        /* TBD later. Cheat-Warnings
+            if (this.SIM_TIME_PAUSED || this.SIM_TIME_SLEWED || this.SIM_TIME_NEGATIVE || this.SIM_TIME_ENGINE) {
+            let alert_msg = this.SIM_TIME_PAUSED ? "+PAUSED " : "";
+            alert_msg += this.SIM_TIME_SLEWED ? "+SLEWED " : "";
+            alert_msg += this.SIM_TIME_NEGATIVE ? "+TIME_SLIDE " : "";
+            alert_msg += this.SIM_TIME_ENGINE ? "+MOTOR" : "";
+            alert_str = '<br/><div class="lx_9050_task_page_small">ALERT: '+alert_msg+'</div>';
+        }
+        */
 
         document.querySelector(".task-state .distance .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.distance_m(),"m","dist");
         document.querySelector(".task-state .distance .unit").innerHTML = this.units.dist.pref;
@@ -762,30 +785,34 @@ class lxn extends NavSystemTouch {
                 wp_el.classList.remove("iscurrentwp")
             }
 
-            if (wp.leg_is_completed) {
-                wp_el.classList.add("wp-ok");
-                document.getElementById("tasklist").appendChild(wp_el);
-            }
-        
-            wp_el.querySelector(".wp-name").innerHTML = wp.name + " (" + this.displayValue(wp.alt_m, "m", "alt") + this.units.alt.pref + ")"; 
-            wp_el.querySelector(".bearing .number").innerHTML = wp.leg_bearing_deg.toFixed(0);
-            wp_el.querySelector(".distance .number").innerHTML = this.displayValue(wp.leg_distance_m, "m", "dist");
-            wp_el.querySelector(".distance .unit").innerHTML = this.units.dist.pref;
-            wp_el.querySelector(".ete .number").innerHTML = (wp.ete_s / 60).toFixed(0);
-            wp_el.querySelector(".ete .unit").innerHTML = "min";
-            wp_el.querySelector(".wind .number").innerHTML = this.displayValue(wp.tailwind_ms, "ms", "windspeed");
-            wp_el.querySelector(".wind .unit").innerHTML = this.units.windspeed.pref;
-            wp_el.querySelector(".arrivalheight .number").innerHTML = this.displayValue(wp.arrival_height_msl_m, "m", "alt");
-            wp_el.querySelector(".arrivalheight .unit").innerHTML = this.units.alt.pref;
+            if(wp_index >= B21_SOARING_ENGINE.task.start_index && wp_index <= B21_SOARING_ENGINE.task.finish_index) {
+                if (wp.leg_is_completed) {
+                    wp_el.classList.add("wp-ok");
+                    document.getElementById("tasklist").appendChild(wp_el);
+                }
+            
+                wp_el.querySelector(".wp-name").innerHTML = wp.name + " (" + this.displayValue(wp.alt_m, "m", "alt") + this.units.alt.pref + ")"; 
+                wp_el.querySelector(".bearing .number").innerHTML = wp.leg_bearing_deg.toFixed(0);
+                wp_el.querySelector(".distance .number").innerHTML = this.displayValue(wp.leg_distance_m, "m", "dist");
+                wp_el.querySelector(".distance .unit").innerHTML = this.units.dist.pref;
+                wp_el.querySelector(".ete .number").innerHTML = (wp.ete_s / 60).toFixed(0);
+                wp_el.querySelector(".ete .unit").innerHTML = "min";
+                wp_el.querySelector(".wind .number").innerHTML = this.displayValue(wp.tailwind_ms, "ms", "windspeed");
+                wp_el.querySelector(".wind .unit").innerHTML = this.units.windspeed.pref;
+                wp_el.querySelector(".arrivalheight .number").innerHTML = this.displayValue(wp.arrival_height_msl_m, "m", "alt");
+                wp_el.querySelector(".arrivalheight .unit").innerHTML = this.units.alt.pref;
 
 
-            if(wp.radius_m != null || wp.min_alt_m != null || wp.max_alt_m != null) {
-                wp_el.querySelector(".wp-min").innerHTML = wp.min_alt_m != null ? "Min: " + this.displayValue(wp.min_alt_m, "m", "alt") +  this.units.alt.pref : "";
-                wp_el.querySelector(".wp-max").innerHTML = wp.max_alt_m != null ? "Max: " + this.displayValue(wp.max_alt_m, "m", "alt") +  this.units.alt.pref : "";
-                wp_el.querySelector(".wp-radius").innerHTML = wp.radius_m != null ? "Radius: " + this.displayValue(wp.radius_m, "m", "alt") +  this.units.alt.pref : "";
+                if(wp.radius_m != null || wp.min_alt_m != null || wp.max_alt_m != null) {
+                    wp_el.querySelector(".wp-min").innerHTML = wp.min_alt_m != null ? "Min: " + this.displayValue(wp.min_alt_m, "m", "alt") +  this.units.alt.pref : "";
+                    wp_el.querySelector(".wp-max").innerHTML = wp.max_alt_m != null ? "Max: " + this.displayValue(wp.max_alt_m, "m", "alt") +  this.units.alt.pref : "";
+                    wp_el.querySelector(".wp-radius").innerHTML = wp.radius_m != null ? "Radius: " + this.displayValue(wp.radius_m, "m", "alt") +  this.units.alt.pref : "";
+                } else {
+                    wp_el.querySelector(".wp-minmax").style.display = "none";
+                }
             } else {
-                wp_el.querySelector(".wp-minmax").style.display = "none";
-            }
+                wp_el.style.display = "none";
+            }  
         }       
     }
 

@@ -324,7 +324,7 @@ class navmap {
 
         const line_color = current_task_line ? this.TASK_LINE_CURRENT_COLOR : this.TASK_LINE_COLOR;
 
-        const initial_offset = current_task_line ? (this.TIME_S % 4) / 2 * this.TASK_LINE_DASH_SIZE : 0;
+        const initial_offset = current_task_line ? (this.instrument.TIME_S % 4) / 2 * this.TASK_LINE_DASH_SIZE : 0;
 
         const line = this.svg_line( wp["position"],
                                     B21_SOARING_ENGINE.task.waypoints[wp_index-1]["position"],
