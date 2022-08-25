@@ -40,8 +40,9 @@ class lxn extends NavSystemTouch {
             alt_gnd: { value: 3318, label: "ALT (GND)", longlabel: "Altitude above Ground", category: "alt", baseunit: "ft" },
             oat: { value: 1, label: "OAT", longlabel: "Outside Air Temperature",category:"temperature", baseunit: "F"},
             ballast: { value: 348, label: "Ballast", longlabel: "Current Ballast",category:"weight", baseunit: "lbs"},
+            ballast_pct: { value: 50, label: "Ballast %", longlabel: "Current Ballast Percent",category:"percent", baseunit: "%"},
             localtime: { value: 0, label: "Local", longlabel: "Local Time", category: "time_of_day", baseunit: "s"},
-            tasktime: { value: 0, label: "Task", longlabel: "Task Time", category: "time_of_day", baseunit: "s"},
+            tasktime: { value: 0, label: "Task Time", longlabel: "Task Time", category: "time_of_day", baseunit: "s"},
             sel_apt_icao: { value: "XXXX", label: "APT ICAO", longlabel: "Selected Airport ICAO", category: "plaintext", baseunit: "none" },
             sel_apt_name: { value: "NAME", label: "APT NAME", longlabel: "Selected Airport Name", category: "plaintext", baseunit: "none" },
             sel_apt_alt: { value: 0, label: "APT ALT", longlabel: "Selected Airport Altitude", category: "alt", baseunit: "ft" },
@@ -72,7 +73,8 @@ class lxn extends NavSystemTouch {
             temperature: {  pref: "F", imperial: "F", metric: "C", options: ["F", "C"] },
             time: { pref: "min", imperial: "min", metric: "min", options: ["min","sec"] },
             time_of_day:  { pref: "hms24", imperial: "hms12", metric: "hms24", options: ["hms12","hms24"] },
-            plaintext:  { pref: "none", imperial: "none", metric: "none", options: ["none"] }
+            plaintext:  { pref: "none", imperial: "none", metric: "none", options: ["none"] },
+            percent:  { pref: "%", imperial: "%", metric: "%", options: ["%"] }
         }
         
         this.factors = {
@@ -121,6 +123,9 @@ class lxn extends NavSystemTouch {
             time_of_day: {
                 hms24: 1,
                 hms12: 1
+            },
+            percent: {
+                "%": 1
             }
         }
 		
@@ -243,7 +248,6 @@ class lxn extends NavSystemTouch {
             this.TIMER_1 = this.TIME_S;
 
             this.vars.oat.value = parseFloat(SimVar.GetSimVarValue("A:AMBIENT TEMPERATURE", "fahrenheit"));
-            this.vars.ballast.value = parseFloat(SimVar.GetSimVarValue("PAYLOAD STATION WEIGHT:2", "lbs") + SimVar.GetSimVarValue("PAYLOAD STATION WEIGHT:3", "lbs") + SimVar.GetSimVarValue("PAYLOAD STATION WEIGHT:4", "lbs"));
             this.vars.localtime.value = SimVar.GetSimVarValue("E:LOCAL TIME","seconds");
 
             this.updateLiftdots();

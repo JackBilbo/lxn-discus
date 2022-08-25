@@ -24,8 +24,6 @@ class navpanel {
             }
 
             NAVPANEL.getSelectedAirport();
-            console.log(el.getAttribute("data-airport"));
-            
         })
 
         this.navinit = true;
@@ -53,10 +51,8 @@ class navpanel {
 
         if(this.manualselectedairport != "") {
             this.selectedAirport.icao = this.manualselectedairport;
-            console.log("setting manual Airport: " + this.selectedAirport.icao);
         } else {
             this.selectedAirport.icao = this.airportlister.airports[0].icao;
-            console.log("setting nearest Airport: " + this.selectedAirport.icao);
         }
       
         this.selectedAirport.UpdateInfos(null, false);
@@ -149,8 +145,5 @@ class navpanel {
         this.listisbulidt = true;
     }
 
-    selectAirport(ident) {
-        console.log("selected: " + ident);
-    }
 }
 
