@@ -56,6 +56,8 @@ class configpanel {
 
                 if(el.getAttribute("data-var") == "canopy-tint") { SimVar.SetSimVarValue("L:CANOPY_TOGGLE","bool", !SimVar.GetSimVarValue("L:CANOPY_TOGGLE","bool")) }
                 if(el.getAttribute("data-var") == "canopy-cover") { SimVar.SetSimVarValue("L:COVER_TOGGLE","bool", !SimVar.GetSimVarValue("L:COVER_TOGGLE","bool")) }
+
+                if(el.getAttribute("data-var") == "datafields-toggle") { UI.toggleDatafieldSize() }
             })
         })
 

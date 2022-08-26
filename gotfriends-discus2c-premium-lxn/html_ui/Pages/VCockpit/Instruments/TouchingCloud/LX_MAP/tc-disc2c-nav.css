@@ -94,6 +94,8 @@ lxn-nav {
 	padding-top: 50px;
 }
 
+.bigdatafields .page { padding-top: 80px;}
+
 .pageheader {
 	position: absolute;
 	top:0;
@@ -107,6 +109,15 @@ lxn-nav {
 	z-index:1;
 	display: flex;
 	justify-content: space-between;
+	overflow: hidden;
+}
+
+.pageheader .title { overflow: hidden; }
+
+.bigdatafields .pageheader {
+	height: 80px;
+	font-size: 50px;
+	line-height: 80px;
 }
 
 .time { display: flex; }
@@ -125,6 +136,10 @@ lxn-nav {
 	flex-wrap: wrap;
 	flex-direction: row;
 	z-index: 100;
+}
+
+.bigdatafields .datacells_top, .bigdatafields .datacells_bottom {
+	height: 210px;
 }
 
 .datacells_bottom {
@@ -175,6 +190,18 @@ lxn-nav {
 .datacell .unit {
 	font-size: 0.4em;
 }
+
+/* Bigger datacells */
+
+.bigdatafields .datacell {
+	width: 33.3333%;
+	height: 210px;
+}
+
+.bigdatafields .label { font-size: 35px; }
+.bigdatafields .value { font-size: 100px; }
+
+.bigdatafields .datacell:nth-child(n+4) { display: none; }
 
 .textinfo {
 	background-color: #000;
@@ -490,6 +517,7 @@ lxn-nav {
             border-radius: 4px;
             position: relative;
             margin-bottom: 3px;
+			padding: 0.5rem;
         }
 
         .lxsettingsbtn {

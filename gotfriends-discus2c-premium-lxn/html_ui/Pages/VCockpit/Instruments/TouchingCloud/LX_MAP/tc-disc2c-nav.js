@@ -140,7 +140,6 @@ class lxn extends NavSystemTouch {
     connectedCallback() {
         super.connectedCallback();
 
-        
         NAVMAP = new navmap(this);
         NAVPANEL = new navpanel(this); NAVPANEL.init();
         CONFIGPANEL = new configpanel(this); CONFIGPANEL.initSystemSettings();
@@ -155,7 +154,6 @@ class lxn extends NavSystemTouch {
         this.v80_mcvalue = SimVar.GetSimVarValue("L:BEZEL_CAL", "percent");
 
         B21_SOARING_ENGINE.register_callback(this, this.engine_event_callback);
-        
 
         this._isConnected = true;
 	}
@@ -268,6 +266,7 @@ class lxn extends NavSystemTouch {
 
         /* now update all visible datacells with their selected values */
         document.querySelectorAll(".current .datacell").forEach((cell)=> {
+
             let currentconfigstr = cell.getAttribute("data-userconfig") != "" ? cell.getAttribute("data-userconfig") : cell.getAttribute("data-default");
             
             if(currentconfigstr != null) {
@@ -461,7 +460,7 @@ class lxn extends NavSystemTouch {
 
     jbb_update_stf()  {
         // No "Bugs" on simulated wings so far
-        let bugs = 100;
+        let bugs = document.querySelector("#buginput").value;
         let ballast = this.vars.ballast.value;
         let wf = Math.sqrt(eval(this.jbb_refwt + parseFloat(ballast)) / this.jbb_refwt);
     
