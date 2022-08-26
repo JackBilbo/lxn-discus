@@ -1,19 +1,14 @@
 {
   "content": [
     {
-      "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/backupscripts.js",
-      "size": 0,
-      "date": 133055863613886899
-    },
-    {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/configpanel.js",
-      "size": 6898,
-      "date": 133057485742000188
+      "size": 9517,
+      "date": 133059088772406405
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/interface.js",
-      "size": 13314,
-      "date": 133056675246496354
+      "size": 11044,
+      "date": 133059088772411225
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/mapConfig.json",
@@ -22,28 +17,28 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navmap.js",
-      "size": 18392,
-      "date": 133056677544856060
+      "size": 19287,
+      "date": 133058909238062752
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navpanel.js",
-      "size": 0,
-      "date": 133057420716350020
+      "size": 6827,
+      "date": 133059977652665573
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.css",
-      "size": 21209,
-      "date": 133055860217601377
+      "size": 22098,
+      "date": 133059924816056788
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.html",
-      "size": 29570,
-      "date": 133057493145552391
+      "size": 28883,
+      "date": 133059088772426051
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.js",
-      "size": 48024,
-      "date": 133057486376025458
+      "size": 46110,
+      "date": 133059088772430608
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_includes/geo.js",
@@ -68,7 +63,7 @@
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_soaring_engine/b21_soaring_engine.js",
       "size": 63130,
-      "date": 133056752494948518
+      "date": 133057526077005628
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_soaring_engine/README.md",
