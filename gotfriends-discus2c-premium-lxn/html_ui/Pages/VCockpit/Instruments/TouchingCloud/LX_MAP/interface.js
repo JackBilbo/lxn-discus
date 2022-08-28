@@ -18,13 +18,7 @@ class ui {
     init() {
         let LXNAV = this
         let instrument = this.instrument;
-
-        if(GetStoredData("Discus_unitsetting")) {
-            CONFIGPANEL.setUnitPrefs(GetStoredData("Discus_unitsetting"));           
-        } else {
-            CONFIGPANEL.setUnitPrefs("metric");
-        }
-    
+   
         document.getElementById("nav_debug").innerHTML += "System init<br />";
         /* Collect available panels and pages */
         document.querySelectorAll(".panel").forEach( function(p,i) {
@@ -241,6 +235,7 @@ class ui {
         }
     }
 
+    
 }
 
 

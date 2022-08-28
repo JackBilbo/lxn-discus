@@ -32,18 +32,25 @@ class configpanel {
                 document.querySelectorAll(".configpanel").forEach((el)=>{
                     el.classList.remove("active");
                     UI.isswipeinteractive = true;
+                    CONFIGPANEL.savePersistentData();
                 })
             })
         });
             
         /* Unitswitching on systemspanel - simple buttons, while we don't have anything more sophisticated */
+
+        if(GetStoredData("Discus_unitsetting")) {
+            this.setUnitPrefs(GetStoredData("Discus_unitsetting"));           
+        } else {
+            this.setUnitPrefs("metric");
+        }
     
         document.getElementById("conf_units_imperial").addEventListener("click", function(e) {
-            instrument.setUnitPrefs("imperial");
+            CONFIGPANEL.setUnitPrefs("imperial");
         })
     
         document.getElementById("conf_units_metric").addEventListener("click", function(e) {
-            instrument.setUnitPrefs("metric");
+            CONFIGPANEL.setUnitPrefs("metric");
         })
     
         
@@ -52,18 +59,23 @@ class configpanel {
         document.querySelectorAll(".config_toggle .handle").forEach((el)=> {
             el.addEventListener("click", (e)=> {
                 let el = e.target.parentNode;
-                el.setAttribute("state", (el.getAttribute("state") == "on" ? "off" : "on"));
+                let callback = el.getAttribute("data-callback");
+                let state = el.getAttribute("state") == "on" ? "off" : "on";
+                el.setAttribute("state", state );
 
-                if(el.getAttribute("data-var") == "canopy-tint") { SimVar.SetSimVarValue("L:CANOPY_TOGGLE","bool", !SimVar.GetSimVarValue("L:CANOPY_TOGGLE","bool")) }
-                if(el.getAttribute("data-var") == "canopy-cover") { SimVar.SetSimVarValue("L:COVER_TOGGLE","bool", !SimVar.GetSimVarValue("L:COVER_TOGGLE","bool")) }
+                CONFIGPANEL[callback](state);
             })
         })
 
+        this.rangesliders = []
+
         this.brightnessrange = new rangeinput(document.querySelector("#brightnesslider"), function(val) { SimVar.SetSimVarValue("L:NAV_BRIGHTNESS", "number", val); });
+        this.rangesliders.push(this.brightnessrange);
         this.glareshiledrange = new rangeinput(document.querySelector("#glareshieldslider"), function(val) { SimVar.SetSimVarValue("A:LIGHT POTENTIOMETER:5", "number", val); });
-        
+        this.rangesliders.push(this.glareshiledrange);
+
         let isFES = SimVar.GetSimVarValue("L:IsFES","bool");
-        if(isFES == 1) {
+        if(isFES == "1") {
             this.maxballast = {
                 left: 110,
                 right: 110,
@@ -79,7 +91,6 @@ class configpanel {
             }
         }
         
-
         this.ballastslider = new rangeinput(document.querySelector("#ballastslider"), function(val) {
             instrument.vars.ballast_pct.value = val;
 
@@ -87,6 +98,9 @@ class configpanel {
             SimVar.SetSimVarValue("PAYLOAD STATION WEIGHT:3", "lbs", CONFIGPANEL.maxballast.right / 100 * val)
             SimVar.SetSimVarValue("PAYLOAD STATION WEIGHT:4", "lbs", CONFIGPANEL.maxballast.tail / 100 * val);
         })
+
+        this.loadPersistentData();
+        this.buildUnitDetailSetting();
 
         this.systeminitReady = true;
     }
@@ -121,6 +135,7 @@ class configpanel {
         }
 
         SetStoredData("Discus_unitsetting", sys);
+        this.buildUnitDetailSetting();
         
         if(sys == "imperial") {
             document.getElementById("conf_units_imperial").classList.add("highlighted");
@@ -141,12 +156,105 @@ class configpanel {
             el.querySelector(".number").innerHTML = this.instrument.displayValue((this.maxballast[el.getAttribute("data-tank")] / 100) * this.instrument.vars.ballast_pct.value,"lbs","weight") + this.instrument.units.weight.pref;
         })
     }
+
+    toggleCanopyTint(val) {
+        if(val == "on") { SimVar.SetSimVarValue("L:CANOPY_TOGGLE","bool",1); } else { SimVar.SetSimVarValue("L:CANOPY_TOGGLE","bool",0); }
+    }
+
+    toggleCanopyCover(val) {
+        if(val == "on") { SimVar.SetSimVarValue("L:COVER_TOGGLE","bool",1); } else { SimVar.SetSimVarValue("L:COVER_TOGGLE","bool",0); }
+    }
+
+    toggleDatafieldSize(val) {
+        if (val == "on") {  document.querySelector("#panelframe").classList.add("bigdatafields") } else { document.querySelector("#panelframe").classList.remove("bigdatafields") }
+    }
+
+
+    savePersistentData() {
+        let toggledata = {}
+        let sliderdata = {}
+
+        document.querySelectorAll(".configpanel .config_toggle").forEach((el)=> {
+            toggledata[el.getAttribute("data-callback")] = el.getAttribute("state")
+        })
+
+        this.rangesliders.forEach((el) => {
+            sliderdata[el.id] = el.getValue();
+        })
+
+        SetStoredData("Discus_configtoggle", JSON.stringify(toggledata));
+        SetStoredData("Discus_sliderdata", JSON.stringify(sliderdata));
+
+    }
+
+    loadPersistentData() {
+        let togglerawdata = GetStoredData("Discus_configtoggle");
+        let sliderrawdata = GetStoredData("Discus_sliderdata");
+
+        if(togglerawdata != "") {
+            try {
+                let toggledata = JSON.parse(togglerawdata);
+                for (var toggle in toggledata) {
+                    document.querySelector("[data-callback=" + toggle + "]").setAttribute("state", toggledata[toggle]);
+                    CONFIGPANEL[toggle](toggledata[toggle]);
+                  }
+            } catch(e) { console.log( "Could not load togglesettings: " + e )  }
+        }
+        
+        if(sliderrawdata != "") {
+            try {
+                let sliderdata = JSON.parse(sliderrawdata);
+                this.rangesliders.forEach((el) => {
+                    if(sliderdata[el.id]) {
+                        el.setValue(sliderdata[el.id]);
+                        el.callback(sliderdata[el.id]);
+                    }
+                })
+            } catch(e) { console.log( "Could not load slidersettings: " + e )  }
+        }
+    }
+
+    buildUnitDetailSetting() {
+        let wrapper = document.querySelector("#unitdetailsetting");
+        wrapper.innerHTML = "";
+
+        for(var unit in this.instrument.units) {
+            if(this.instrument.units[unit].options.length > 1 && unit != "time" && unit != "time_of_day" ) {
+                let inputwrapper = document.createElement("div");
+                inputwrapper.classList.add("inputwrapper");
+
+                let label = document.createElement("label");
+                label.innerHTML = this.instrument.units[unit].label + ":";
+                inputwrapper.appendChild(label);
+                inputwrapper.setAttribute("data-unit",unit);
+
+                for(var i = 0; i<this.instrument.units[unit].options.length; i++) {
+                    let option = document.createElement("span");
+                    option.classList.add("unitselect");
+                    option.setAttribute("data-value", this.instrument.units[unit].options[i])
+                    if(this.instrument.units[unit].options[i] == this.instrument.units[unit].pref) { option.classList.add("selected"); }
+                    option.innerHTML = this.instrument.units[unit].options[i];
+                    option.addEventListener("click", (e) => { 
+                        console.log(e.target);
+                        let unit = e.target.parentNode.getAttribute("data-unit");
+                        CONFIGPANEL.instrument.units[unit].pref = e.target.getAttribute("data-value");
+                        inputwrapper.querySelector(".selected").classList.remove("selected");
+                        e.target.classList.add("selected");                       
+                    })
+                    inputwrapper.appendChild(option);
+                }
+
+                wrapper.appendChild(inputwrapper);
+            }
+        }
+    }
 }
 
 
 class rangeinput {
     constructor(el, callback) {
         this.rangebg = el;
+        this.id = el.getAttribute("id");
         
         this.marker = document.createElement("div");
         this.marker.setAttribute("class","marker");
@@ -173,7 +281,7 @@ class rangeinput {
         this.callback = callback;
 
         this.initvalue = parseFloat(el.getAttribute("data-value"));
-        this.outputvalue = "";
+        this.outputvalue = this.initvalue;
 
         this.init();
         
@@ -225,6 +333,9 @@ class rangeinput {
         let pos = (max / diff) * (val - this.minvalue);
         this.handle.style.left = pos + "px";
         this.marker.style.width = (pos + this.handle.clientWidth / 2)  + "px";
+        this.outputvalue = val;
     }
+
+    getValue() { return this.outputvalue; }
 
 }

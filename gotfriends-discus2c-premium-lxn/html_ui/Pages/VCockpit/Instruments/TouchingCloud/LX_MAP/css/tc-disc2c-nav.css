@@ -107,7 +107,10 @@ lxn-nav {
 	z-index:1;
 	display: flex;
 	justify-content: space-between;
+	overflow: hidden;
 }
+
+.pageheader .title { overflow: hidden; }
 
 .time { display: flex; }
 #wpselect {
@@ -470,7 +473,6 @@ lxn-nav {
             height: 100%;
             width: 100%;
             background-color: #000;
-
             padding-top: 50px;
         }
 
@@ -490,6 +492,7 @@ lxn-nav {
             border-radius: 4px;
             position: relative;
             margin-bottom: 3px;
+			padding: 0.5rem;
         }
 
         .lxsettingsbtn {
@@ -530,6 +533,9 @@ lxn-nav {
 			font-size: 2.5rem;
         }
 
+		.configpanel_content * { font-size: 3rem; line-height: 4.5rem; }
+		.configpanel_content p { margin-bottom: 0.5em; }
+
         .configpanel_buttons {
             position: absolute;
             bottom: 0;
@@ -551,6 +557,38 @@ lxn-nav {
             text-decoration: none;
             padding: 5px 0;
         }
+
+		/* Unitdetailsettings */
+
+		.quickselect {text-align: center; }
+
+		#unitdetailsetting {
+			padding-top: 2rem;
+			margin-top: 2rem;
+			border-top: 2px solid #fff;
+		}
+
+		.inputwrapper { clear: both; }
+
+		#unitdetailsetting label {
+			display: block; float: left;
+			width: 35%;
+			margin: 0.75rem 0;
+		}
+
+		#unitdetailsetting .unitselect {
+			background-color: #333;
+			border: 1px solid #666;
+			padding: 0.5rem 1rem;
+			margin: 0.75rem;
+		}
+
+		#unitdetailsetting .unitselect:hover { background-color: #555; }
+
+		#unitdetailsetting .unitselect.selected {
+			background-color: #ccc;
+			color: #000;
+		}
 
 		/* Ballast settings */
 

@@ -63,18 +63,18 @@ class lxn extends NavSystemTouch {
         }
         
         this.units = {
-            speed: { pref: "kts", imperial: "kts", metric: "kmh", options: ["kts","kmh","ms","mph"] },
-            dist: { pref: "nm", imperial: "nm", metric: "km", options: ["nm","ml","km","m"] },
-            alt: { pref: "ft", imperial: "ft", metric: "m", options: ["ft","m"] },
-            windspeed: { pref: "kts", imperial: "kts", metric: "ms", options: ["kts","kmh","ms","fs"] },
-            verticalspeed: { pref: "kts", imperial: "kts", metric: "ms", options: ["kts","kmh","ms","fs"] },
-            direction: { pref: "deg", imperial: "deg", metric: "deg", options: ["deg"] },
-            weight: {  pref: "lbs", imperial: "lbs", metric: "kg", options: ["lbs", "kg"] },
-            temperature: {  pref: "F", imperial: "F", metric: "C", options: ["F", "C"] },
-            time: { pref: "min", imperial: "min", metric: "min", options: ["min","sec"] },
-            time_of_day:  { pref: "hms24", imperial: "hms12", metric: "hms24", options: ["hms12","hms24"] },
-            plaintext:  { pref: "none", imperial: "none", metric: "none", options: ["none"] },
-            percent:  { pref: "%", imperial: "%", metric: "%", options: ["%"] }
+            speed: { pref: "kts", imperial: "kts", metric: "kmh", options: ["kts","kmh","ms","mph"], label: "Speed" },
+            dist: { pref: "nm", imperial: "nm", metric: "km", options: ["nm","ml","km","m"], label: "Distance" },
+            alt: { pref: "ft", imperial: "ft", metric: "m", options: ["ft","m"], label: "Altitude" },
+            windspeed: { pref: "kts", imperial: "kts", metric: "ms", options: ["kts","kmh","ms","fs"], label: "Windspeed" },
+            verticalspeed: { pref: "kts", imperial: "kts", metric: "ms", options: ["kts","kmh","ms","fs"], label: "Vert. Speed" },
+            direction: { pref: "deg", imperial: "deg", metric: "deg", options: ["deg"], label: "Direction" },
+            weight: {  pref: "lbs", imperial: "lbs", metric: "kg", options: ["lbs", "kg"], label: "Weight" },
+            temperature: {  pref: "F", imperial: "F", metric: "C", options: ["F", "C"], label: "Temperature" },
+            time: { pref: "min", imperial: "min", metric: "min", options: ["min","sec"], label: "Time" },
+            time_of_day:  { pref: "hms24", imperial: "hms12", metric: "hms24", options: ["hms12","hms24"], label: "Time of Day" },
+            plaintext:  { pref: "none", imperial: "none", metric: "none", options: ["none"], label: "Plain Text" },
+            percent:  { pref: "%", imperial: "%", metric: "%", options: ["%"], label: "Percentage" }
         }
         
         this.factors = {
@@ -140,7 +140,6 @@ class lxn extends NavSystemTouch {
     connectedCallback() {
         super.connectedCallback();
 
-        
         NAVMAP = new navmap(this);
         NAVPANEL = new navpanel(this); NAVPANEL.init();
         CONFIGPANEL = new configpanel(this); CONFIGPANEL.initSystemSettings();
@@ -155,7 +154,6 @@ class lxn extends NavSystemTouch {
         this.v80_mcvalue = SimVar.GetSimVarValue("L:BEZEL_CAL", "percent");
 
         B21_SOARING_ENGINE.register_callback(this, this.engine_event_callback);
-        
 
         this._isConnected = true;
 	}
@@ -268,6 +266,7 @@ class lxn extends NavSystemTouch {
 
         /* now update all visible datacells with their selected values */
         document.querySelectorAll(".current .datacell").forEach((cell)=> {
+
             let currentconfigstr = cell.getAttribute("data-userconfig") != "" ? cell.getAttribute("data-userconfig") : cell.getAttribute("data-default");
             
             if(currentconfigstr != null) {
@@ -461,7 +460,7 @@ class lxn extends NavSystemTouch {
 
     jbb_update_stf()  {
         // No "Bugs" on simulated wings so far
-        let bugs = 100;
+        let bugs = document.querySelector("#buginput").value;
         let ballast = this.vars.ballast.value;
         let wf = Math.sqrt(eval(this.jbb_refwt + parseFloat(ballast)) / this.jbb_refwt);
     
