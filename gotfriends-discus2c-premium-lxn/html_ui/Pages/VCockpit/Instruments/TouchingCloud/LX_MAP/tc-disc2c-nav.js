@@ -63,18 +63,18 @@ class lxn extends NavSystemTouch {
         }
         
         this.units = {
-            speed: { pref: "kts", imperial: "kts", metric: "kmh", options: ["kts","kmh","ms","mph"] },
-            dist: { pref: "nm", imperial: "nm", metric: "km", options: ["nm","ml","km","m"] },
-            alt: { pref: "ft", imperial: "ft", metric: "m", options: ["ft","m"] },
-            windspeed: { pref: "kts", imperial: "kts", metric: "ms", options: ["kts","kmh","ms","fs"] },
-            verticalspeed: { pref: "kts", imperial: "kts", metric: "ms", options: ["kts","kmh","ms","fs"] },
-            direction: { pref: "deg", imperial: "deg", metric: "deg", options: ["deg"] },
-            weight: {  pref: "lbs", imperial: "lbs", metric: "kg", options: ["lbs", "kg"] },
-            temperature: {  pref: "F", imperial: "F", metric: "C", options: ["F", "C"] },
-            time: { pref: "min", imperial: "min", metric: "min", options: ["min","sec"] },
-            time_of_day:  { pref: "hms24", imperial: "hms12", metric: "hms24", options: ["hms12","hms24"] },
-            plaintext:  { pref: "none", imperial: "none", metric: "none", options: ["none"] },
-            percent:  { pref: "%", imperial: "%", metric: "%", options: ["%"] }
+            speed: { pref: "kts", imperial: "kts", metric: "kmh", options: ["kts","kmh","ms","mph"], label: "Speed" },
+            dist: { pref: "nm", imperial: "nm", metric: "km", options: ["nm","ml","km","m"], label: "Distance" },
+            alt: { pref: "ft", imperial: "ft", metric: "m", options: ["ft","m"], label: "Altitude" },
+            windspeed: { pref: "kts", imperial: "kts", metric: "ms", options: ["kts","kmh","ms","fs"], label: "Windspeed" },
+            verticalspeed: { pref: "kts", imperial: "kts", metric: "ms", options: ["kts","kmh","ms","fs"], label: "Vert. Speed" },
+            direction: { pref: "deg", imperial: "deg", metric: "deg", options: ["deg"], label: "Direction" },
+            weight: {  pref: "lbs", imperial: "lbs", metric: "kg", options: ["lbs", "kg"], label: "Weight" },
+            temperature: {  pref: "F", imperial: "F", metric: "C", options: ["F", "C"], label: "Temperature" },
+            time: { pref: "min", imperial: "min", metric: "min", options: ["min","sec"], label: "Time" },
+            time_of_day:  { pref: "hms24", imperial: "hms12", metric: "hms24", options: ["hms12","hms24"], label: "Time of Day" },
+            plaintext:  { pref: "none", imperial: "none", metric: "none", options: ["none"], label: "Plain Text" },
+            percent:  { pref: "%", imperial: "%", metric: "%", options: ["%"], label: "Percentage" }
         }
         
         this.factors = {

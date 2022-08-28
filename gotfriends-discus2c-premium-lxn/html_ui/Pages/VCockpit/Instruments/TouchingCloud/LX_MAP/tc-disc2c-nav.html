@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.css?aa" />
+<link rel="stylesheet" href="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/tc-disc2c-nav.css?aa" />
+<link rel="stylesheet" href="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/bignumbers.css" />
 <link rel="stylesheet" href="/Pages/VCockpit/Instruments/TouchingCloud/ATTITUDE_INDICATOR/tc-disc2c-attitude-indicator.css" />
 
 <script type="text/html" id="lxn">
@@ -346,7 +347,7 @@
 												<div class="title">Canopy tint</div>
 												<div class="description">Toggles the glass color of your canopy</div>
 											</div>
-											<div class="config_toggle" state="off" data-var="canopy-tint">
+											<div class="config_toggle" state="off" data-callback="toggleCanopyTint">
 												<div class="handle"></div>
 											</div>
 										</div>
@@ -354,7 +355,7 @@
 											<div class="config_label">
 												<div class="title">Canopy cover</div>
 											</div>
-											<div class="config_toggle" state="off" data-var="canopy-cover">
+											<div class="config_toggle" state="off" data-callback="toggleCanopyCover">
 												<div class="handle"></div>
 											</div>
 										</div>
@@ -380,8 +381,14 @@
 								</div>
 								<div class="configpanel" id="conf_panel_units" aria-controlledby="conf_units"><header>Units</header>
 									<div class="configpanel_content">
-										<button class="lxsettingsbtn" id="conf_units_imperial">Imperial</button>
-										<button class="lxsettingsbtn" id="conf_units_metric">Metric</button>
+										<div class="quickselect">
+											<button class="lxsettingsbtn" id="conf_units_imperial">Imperial</button>
+											<button class="lxsettingsbtn" id="conf_units_metric">Metric</button>
+										</div>
+										<div id="unitdetailsetting">
+
+										</div>
+
 									</div>
 									<div class="configpanel_buttons">
 										<a href="#" class="configpanel_close">CLOSE</a>
@@ -406,10 +413,10 @@
 									<div class="configpanel_content">
 										<div class="config_entry">
 											<div class="config_label">
-												<div class="title">Bigger Datafield</div>
+												<div class="title">Improved Readability</div>
 												<div class="description">Use only six much larger datafields per page</div>
 											</div>
-											<div class="config_toggle" state="off" data-var="datafields-toggle">
+											<div class="config_toggle" state="off" data-callback="toggleDatafieldSize">
 												<div class="handle"></div>
 											</div>
 										</div>
