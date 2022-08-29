@@ -14,7 +14,6 @@ class lxn extends NavSystemTouch {
 
         this.jbb_mccready = 0;
         this.jbb_mccready_ms = 0;
-        this.jbb_refwt = 944;
         this.jbb_avg_wind_direction = 0;
         this.jbb_avg_wind_speed = 0;   
         
@@ -145,6 +144,8 @@ class lxn extends NavSystemTouch {
         CONFIGPANEL = new configpanel(this); CONFIGPANEL.initSystemSettings();
         UI = new ui(this); UI.init();
 
+        this.jbb_refwt = SimVar.GetSimVarValue("L:IsFES","bool") == "1" ? 944 : 812;
+
         this.init_speedgauge();
         this.jbb_init_calc_polar();
                 
@@ -273,9 +274,11 @@ class lxn extends NavSystemTouch {
                 let currentconfig = JSON.parse(currentconfigstr);
                 if(currentconfig.value != "none") {
 
+                    let forceunit = currentconfig.forceunit != null ? currentconfig.forceunit : "";
+
                     let displaynumber; 
                     if(LXNAV.vars[currentconfig.value].category != "plaintext") {
-                        displaynumber = LXNAV.displayValue(LXNAV.vars[currentconfig.value].value, LXNAV.vars[currentconfig.value].baseunit, LXNAV.vars[currentconfig.value].category);
+                        displaynumber = LXNAV.displayValue(LXNAV.vars[currentconfig.value].value, LXNAV.vars[currentconfig.value].baseunit, LXNAV.vars[currentconfig.value].category, forceunit);
                     } 
                     
                     cell.style.backgroundColor = displaynumber > 0 ? currentconfig.back + "BB" : currentconfig.backneg + "BB";
@@ -291,7 +294,7 @@ class lxn extends NavSystemTouch {
 
                     if(LXNAV.vars[currentconfig.value].category != "plaintext") {
                         cell.querySelector(".number").innerHTML = displaynumber;
-                        cell.querySelector(".unit").innerHTML = LXNAV.units[LXNAV.vars[currentconfig.value].category].pref;
+                        cell.querySelector(".unit").innerHTML = forceunit != "" ? LXNAV.units[LXNAV.vars[currentconfig.value].category][forceunit] + "*" : LXNAV.units[LXNAV.vars[currentconfig.value].category].pref;
                     } else {
                         cell.querySelector(".number").innerHTML = LXNAV.vars[currentconfig.value].value;
                         cell.querySelector(".unit").innerHTML = "";
@@ -371,9 +374,15 @@ class lxn extends NavSystemTouch {
     /* Unit abbreviation (and Batteries) not included */
     /* Unit abbreviation can be easily retrieved: units.category.pref */
 
-    displayValue(val,baseunit,category) {
+    displayValue(val,baseunit,category,forceunit) {
         val = parseFloat(val); // better make sure, it's a number
-        let selected_unit = this.units[category].pref;
+        let selected_unit;
+
+        if(forceunit && this.units[category][forceunit]) {
+            selected_unit = this.units[category][forceunit];
+        } else {
+            selected_unit = this.units[category].pref;
+        }
         let result = 0;
 
         if(this.factors[category][baseunit] == 1) {

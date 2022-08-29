@@ -534,10 +534,16 @@
 						<option value="none">No Display</option>
 					</select>
 	
-					<br /><br />
-					<input type="submit" id="configsubmit" value="SET">
-					<input type="reset" id="configreset" value="CANCEL">
-					<input type="button" id="resetall" value="RESET ALL">
+					<br />
+						<div id="forceunit">
+							<label for="forceunit-none"><input type="radio" name="unitselect" value="" id="forceunit-none"> Unit as selected</label>
+							<label for="forceunit-metric"><input type="radio" name="unitselect" value="metric" id="forceunit-metric"> metric</label>
+							<label for="forceunit-imperial"><input type="radio" name="unitselect" value="imperial" id="forceunit-imperial"> imperial</label>
+						</div>
+					<br />
+					<input type="submit" id="configsubmit" class="cellconfigbtn" value="SET">
+					<input type="reset" id="configreset" class="cellconfigbtn" value="CANCEL">
+					<input type="button" id="resetall" class="cellconfigbtn" value="RESET ALL">
 				</form>
 			</div>
 	
