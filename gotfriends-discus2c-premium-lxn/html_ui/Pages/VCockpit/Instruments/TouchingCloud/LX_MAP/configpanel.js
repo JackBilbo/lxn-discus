@@ -31,16 +31,28 @@ class configpanel {
             el.addEventListener("click", function(e) {
                 document.querySelectorAll(".configpanel").forEach((el)=>{
                     el.classList.remove("active");
-                    UI.isswipeinteractive = true;
-                    CONFIGPANEL.savePersistentData();
                 })
+                UI.isswipeinteractive = true;
+                CONFIGPANEL.savePersistentData();
             })
         });
             
         /* Unitswitching on systemspanel - simple buttons, while we don't have anything more sophisticated */
 
         if(GetStoredData("Discus_unitsetting")) {
-            this.setUnitPrefs(GetStoredData("Discus_unitsetting"));           
+            let unitsettings = GetStoredData("Discus_unitsetting");
+
+            if (unitsettings == "metric" || unitsettings == "imperial") {
+                this.setUnitPrefs(GetStoredData("Discus_unitsetting"));
+            } else {
+                try {
+                    let unitobject = JSON.parse(unitsettings);
+                    for(var unit in unitobject) {
+                        this.instrument.units[unit].pref = unitobject[unit];
+                    }
+                } catch(e) { console.log("couldn't restore unitsettings : " + e)}
+            }
+                       
         } else {
             this.setUnitPrefs("metric");
         }
@@ -53,9 +65,6 @@ class configpanel {
             CONFIGPANEL.setUnitPrefs("metric");
         })
     
-        
-        
-        
         document.querySelectorAll(".config_toggle .handle").forEach((el)=> {
             el.addEventListener("click", (e)=> {
                 let el = e.target.parentNode;
@@ -173,6 +182,7 @@ class configpanel {
     savePersistentData() {
         let toggledata = {}
         let sliderdata = {}
+        let unitprefs = {}
 
         document.querySelectorAll(".configpanel .config_toggle").forEach((el)=> {
             toggledata[el.getAttribute("data-callback")] = el.getAttribute("state")
@@ -182,6 +192,11 @@ class configpanel {
             sliderdata[el.id] = el.getValue();
         })
 
+        for(var unit in this.instrument.units) {
+            unitprefs[unit] = this.instrument.units[unit].pref;
+        }
+
+        SetStoredData("Discus_unitsetting", JSON.stringify(unitprefs));
         SetStoredData("Discus_configtoggle", JSON.stringify(toggledata));
         SetStoredData("Discus_sliderdata", JSON.stringify(sliderdata));
 
