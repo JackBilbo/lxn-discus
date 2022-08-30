@@ -93,6 +93,7 @@ class navmap {
         this.map_instrument.init(this);
 
         this.set_zoom(7);
+        this.currentmapzoom = 7;
 
         this.ex=447;
         this.map_instrument_loaded = true;
@@ -118,6 +119,18 @@ class navmap {
         if (B21_SOARING_ENGINE.task_active() && this.map_instrument.navMap.centerCoordinates != null ) {
             this.draw_task();
             this.draw_courseline();
+        }
+
+        if( SimVar.GetSimVarValue("L:MAP_ZOOM", "number") > this.currentmapzoom ) {
+            console.log(SimVar.GetSimVarValue("L:MAP_ZOOM", "number"), this.currentmapzoom);
+            this.zoom_in();
+            this.currentmapzoom = SimVar.GetSimVarValue("L:MAP_ZOOM", "number");
+        }
+
+        if( SimVar.GetSimVarValue("L:MAP_ZOOM", "number") < this.currentmapzoom ) {
+            console.log(SimVar.GetSimVarValue("L:MAP_ZOOM", "number"), this.currentmapzoom);
+            this.zoom_out();
+            this.currentmapzoom = SimVar.GetSimVarValue("L:MAP_ZOOM", "number");
         }
     }
 

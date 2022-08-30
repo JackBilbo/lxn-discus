@@ -178,6 +178,18 @@ class configpanel {
         if (val == "on") {  document.querySelector("#panelframe").classList.add("bigdatafields") } else { document.querySelector("#panelframe").classList.remove("bigdatafields") }
     }
 
+    toggleLiftdots(val) {
+        if (val == "on") {  this.instrument.showLiftdots = true; } else { this.instrument.showLiftdots = false; }
+    }
+
+    toggleOxygen(val) {
+        if (val == "on") {  SimVar.SetSimVarValue("L:OXYGEN_TOGGLE","number",1); } else { SimVar.SetSimVarValue("L:OXYGEN_TOGGLE","number",0); }
+    }
+
+    toggleNavlight(val) {
+        if (val == "on") {  SimVar.SetSimVarValue("L:NAV_TOGGLE","number",1); } else { SimVar.SetSimVarValue("L:NAV_TOGGLE","number",0); }
+    }
+
 
     savePersistentData() {
         let toggledata = {}

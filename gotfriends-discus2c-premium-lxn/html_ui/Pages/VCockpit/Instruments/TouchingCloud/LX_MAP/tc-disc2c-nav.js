@@ -20,6 +20,7 @@ class lxn extends NavSystemTouch {
         this.jbb_lift_dot_delay = 3;
         this.lift_dots = [];
         this.lift_dots_max = 40;
+        this.showLiftdots = true;
 
        	
         this.vars = {            
@@ -260,7 +261,7 @@ class lxn extends NavSystemTouch {
             this.lift_dots_timer_prev = this.TIME_S;
         }
 
-        if(this.TIME_S - this.lift_dots_timer_prev > this.jbb_lift_dot_delay && this.vars.ias.value > 40) {
+        if(this.TIME_S - this.lift_dots_timer_prev > this.jbb_lift_dot_delay && this.vars.ias.value > 40 && this.showLiftdots) {
             this.lift_dots_timer_prev = this.TIME_S;
             this.addLiftdot()
         }
@@ -360,7 +361,7 @@ class lxn extends NavSystemTouch {
             UI.pageUp();
          }
     	           
-
+         
 	
     }
 
@@ -642,7 +643,11 @@ class lxn extends NavSystemTouch {
                 svg_el.removeChild(dot.el);
                 this.lift_dots.length = this.lift_dots_max;
             }
+            if(!this.showLiftdots) { svg_el.removeChild(dot.el); }
         }
+
+        // Dot Trail deactivated, clear Dot-Array
+        if(!this.showLiftdots) { this.lift_dots = []; }
     }
 
     

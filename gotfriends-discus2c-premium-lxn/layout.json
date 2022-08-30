@@ -2,13 +2,13 @@
   "content": [
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/configpanel.js",
-      "size": 9557,
-      "date": 133061760716908186
+      "size": 15286,
+      "date": 133063547386487421
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/interface.js",
-      "size": 11164,
-      "date": 133061747267613987
+      "size": 11360,
+      "date": 133062717063863303
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/mapConfig.json",
@@ -17,8 +17,8 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navmap.js",
-      "size": 19287,
-      "date": 133058909238062752
+      "size": 19798,
+      "date": 133063564159156225
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navpanel.js",
@@ -27,13 +27,13 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.html",
-      "size": 30412,
-      "date": 133061759560454760
+      "size": 31893,
+      "date": 133063551711469334
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.js",
-      "size": 46130,
-      "date": 133061747267633912
+      "size": 47051,
+      "date": 133063541337941893
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_includes/geo.js",
@@ -67,18 +67,28 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/bignumbers.css",
-      "size": 603,
-      "date": 133061755180389796
+      "size": 681,
+      "date": 133062594885783247
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/tc-disc2c-nav.css",
-      "size": 22303,
-      "date": 133061752657708066
+      "size": 24107,
+      "date": 133062683345940200
+    },
+    {
+      "path": "SimObjects/Airplanes/gotfriends-discus2c/model/D2C_FES_INT.xml",
+      "size": 79439,
+      "date": 133037745108088077
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/panel/panel.cfg",
       "size": 2192,
       "date": 133056759528357472
+    },
+    {
+      "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/model/D2C_FES_INT.xml",
+      "size": 79303,
+      "date": 133063561078477562
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/panel/panel.cfg",
