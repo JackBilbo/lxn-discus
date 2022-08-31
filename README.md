@@ -4,7 +4,7 @@ Replacement mod for the GotFriends Discus' Nav computer
 <h2>New from last version</h2>
 
 - detailed unit settings: instead of only metric/imperial you can now select your units of measurement for every category. You can have distance in statute miles, speed in knots and altitude in meters all at the same time - and your gliders perfomance measured in rabbit ear rotations per square ounce.
-- even more unit confusion: For any individual data field you can force metric or imperial measurement regardless of global settings. So you can fly all metric an still have one data field reading the altitude in feet to compare with map readings or multiplayer messages.
+- even more unit confusion: For any individual data field you can force metric or imperial measurement regardless of global settings. So you can fly all metric and still have one data field reading the altitude in feet to compare with map readings or multiplayer messages.
 - "readability mode": Less, but way bigger datafields and some more font-sizing to make the display easier on the eyes. I call it my "VR mode", btw. Far from perfect or finished.
 - Task page rework. Better readability on waypoint data. Waypoints only show distance and arrival height by default and can be clicked to see detail data. If your estimated arrival height is out of Min/Max range or your estimated arrival height AGL is negative you'll get a red warning. 
 
