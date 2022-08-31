@@ -342,7 +342,7 @@
 							<div id="systemconfig">
 								<div class="buttonwrapper">
 									<button class="lxconfigbtn" id="conf_wb" aria-controls="conf_panel_wb">Ballast</button>
-									<button class="lxconfigbtn" id="conf_system" aria-controls="conf_panel_system">System Settings</button>
+									<button class="lxconfigbtn" id="conf_system" aria-controls="conf_panel_system">Aircraft Settings</button>
 									<button class="lxconfigbtn" id="conf_units" aria-controls="conf_panel_units">Units</button>
 									<button class="lxconfigbtn" id="conf_interface" aria-controls="conf_panel_interface">Interface Options</button>
 									<button class="lxconfigbtn" id="conf_bugs" aria-controls="conf_panel_bugs">Bugs</button>
@@ -368,7 +368,7 @@
 									</div>
 								</div>
 								<div class="configpanel" id="conf_panel_system" aria-controlledby="conf_system">
-									<header>System Settings</header>
+									<header>Aircraft Settings</header>
 									<div class="configpanel_content">
 										<div class="config_entry">
 											<div class="config_label">
@@ -419,7 +419,7 @@
 
 									</div>
 									<div class="configpanel_buttons">
-										<a href="#" class="configpanel_close">CLOSE</a>
+										<a href="#" class="configpanel_close">CLOSE & SAVE</a>
 									</div>
 								</div>
 								<div class="configpanel" id="conf_panel_units" aria-controlledby="conf_units"><header>Units</header>
@@ -434,17 +434,12 @@
 
 									</div>
 									<div class="configpanel_buttons">
-										<a href="#" class="configpanel_close">CLOSE</a>
+										<a href="#" class="configpanel_close">CLOSE & SAVE</a>
 									</div>
 								</div>
 								<div class="configpanel" id="conf_panel_bugs" aria-controlledby="conf_bugs"><header>Bugs? Bugs!</header>
 									<div class="configpanel_content">
-										<p>Dead insects on the wings can seriously influence a gliders performance. Therefore the amount of dead bugs on the wings
-											is accounted for in arrival height estimation.
-										</p>
-										<p>Currently there are no simulated bugs on simulated wings, but we can use the value as a sort of correction factor for inaccuracies
-											of the flight model inefficiency of the pilot. So if you tend to arrive lower than estimated, try a bug value lower than 100 to
-											make the estimation more pessimistic.
+										<p>IRL a factor for dirt and dead bugs on the wings. Can be used to adjust arrival height calculations. See README-file.
 										</p>
 										<div style="text-align: center;"><input id="buginput" type="text" size="6" value="100" /></div>
 									</div>
@@ -473,7 +468,7 @@
 										</div>
 									</div>
 									<div class="configpanel_buttons">
-										<a href="#" class="configpanel_close">CLOSE</a>
+										<a href="#" class="configpanel_close">CLOSE & SAVE</a>
 									</div>
 								</div>
 								<div class="configpanel" id="conf_panel_pc" aria-controlledby="conf_pc"><header>Polar Curve</header>
@@ -481,7 +476,7 @@
 	
 									</div>
 									<div class="configpanel_buttons">
-										<a href="#" class="configpanel_close">CLOSE</a>
+										<a href="#" class="configpanel_close">CLOSE & SAVE</a>
 									</div>
 								</div>
 							</div>
