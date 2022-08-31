@@ -43,6 +43,7 @@ The Config-Page gives you access to various settings:
 - Interface Options: Settings for the Nav Interface. "Readability Mode" can be activated here to get some bigger readouts (and less data fields) and the liftdot-trail on the map can be deactivated
 - Bugs: An experimental feature to control arrival height calculations. In real life gliders dead insects on the wings leading edge will deteriorate glide perfomance. Therefore a "bug factor" can be used in arrival height calculations. While you won't kill any simulated insects on your simulated wings you can still use this factor to account for inaccuracies in the flight model or inefficiencies of the pilot. If you find you are constantly arriving lower than the predicted altitude try flying with a lower "bugs" value. This value is not persistent between sessions, because we all know, that you are cleaning your wings after each flight.
 
+All config settings apart from bugs and ballast are persistent between sessions. Just make sure to click "close" after making any changes.
 
 <h2>Some more Details</h2>
 
