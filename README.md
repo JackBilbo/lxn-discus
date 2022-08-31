@@ -1,6 +1,14 @@
 # lxn-discus
 Replacement mod for the GotFriends Discus' Nav computer
 
+<h2>New from last version</h2>
+
+- detailed unit settings: instead of only metric/imperial you can now select your units of measurement for every category. You can have distance in statute miles, speed in knots and altitude in meters all at the same time - and your gliders perfomance measured in rabbit ear rotations per square ounce.
+- even more unit confusion: For any individual data field you can force metric or imperial measurement regardless of global settings. So you can fly all metric an still have one data field reading the altitude in feet to compare with map readings or multiplayer messages.
+- "readability mode": Less, but way bigger datafields and some more font-sizing to make the display easier on the eyes. I call it my "VR mode", btw. Far from perfect or finished.
+- Task page rework. Better readability on waypoint data. Waypoints only show distance and arrival height by default and can be clicked to see detail data. If your estimated arrival height is out of Min/Max range or your estimated arrival height AGL is negative you'll get a red warning. 
+
+
 <h2>Installation:</h2>
 
 Simply drop the included folder "gotfriends-discus2c-premium-lxn" into your community folder. If you use the freeware version you need to change the folder name to "gotfriends-discus2c-freeware-lxn", everything else will work fine in both versions. No need to change anything in your existing installation. To uninstall, delete the folder and you're "back to normal".
@@ -21,9 +29,20 @@ Currently there are five main pages: „APT“ for navigation to the selected Ai
 
 Data field Configurations are persistent between simulator sessions. Click „reset all“ in the configuration popup to reset all data fields to default. Configurations are also persitent with different versions of this mod, so if you used an oder version or install an update, your settings will be save. There is however a slight chance, that a variable name gets mixed up, so if you experience any erratic behaviour with the datafields, try "reset all" and see if that helps.
 
+Datefields can be forced to use either metric or imperial units of measurement. Use with caution. If activated, the datafield will ignore the global unit selection. This feaature gives you the option to e.g. display altitude in feet side by side with altitude in meters. If a datafield has been cónfigured this way an "*" is shown next to the unit as a reminder. 
+
 The task management system is Ian „B21“ Lewis’ Soaring Engine from the AS33. Some features like calculating glide ratios could not be recreated, as they are dependent of other instruments in the AS33. Others are still on the to do list.
 
 The wind indicator in the center of the map is loosely based on the real world LX-„Hawk“ system displaying current (blue) and average (grey) wind-arrows and a green/red column indicator for the vertical wind component.
+
+The Config-Page gives you access to various settings:
+
+- Ballast: A light version of ballast loading system that can even be used in flight - which would be shameless cheating of course!
+- Aircraft Settings: Options that are originally controlled by knobs and buttons around the display. Moved here to free up the buttons for future use.
+- Units: allows you to select the units of measurement to use for various categories or generally "metric" or "imperial" system. 
+- Interface Options: Settings for the Nav Interface. "Readability Mode" can be activated here to get some bigger readouts (and less data fields) and the liftdot-trail on the map can be deactivated
+- Bugs: An experimental feature to control arrival height calculations. In real life gliders dead insects on the wings leading edge will deteriorate glide perfomance. Therefore a "bug factor" can be used in arrival height calculations. While you won't kill any simulated insects on your simulated wings you can still use this factor to account for inaccuracies in the flight model or inefficiencies of the pilot. If you find you are constantly arriving lower than the predicted altitude try flying with a lower "bugs" value. This value is not persistent between sessions, because we all know, that you are cleaning your wings after each flight.
+
 
 <h2>Some more Details</h2>
 
