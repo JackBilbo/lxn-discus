@@ -783,10 +783,10 @@ class lxn extends NavSystemTouch {
         taskheader.querySelector(".task-state .task-arrivalheight .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - B21_SOARING_ENGINE.task.finish_wp().alt_m,"m","alt"); 
         taskheader.querySelector(".task-state .task-arrivalheight .unit").innerHTML = this.units.alt.pref;
 
-        if(B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - B21_SOARING_ENGINE.task.finish_wp().alt_m < 0) {
-            taskheader.querySelector(".task-state .task-arrivalheight").classList.add("alert");
+        if(B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - B21_SOARING_ENGINE.task.finish_wp().alt_m > 0) {
+            taskheader.querySelector(".task-state .task-arrivalheight").classList.add("finishalt_ok");
         } else {
-                taskheader.querySelector(".task-state .task-arrivalheight").classList.remove("alert");
+            taskheader.querySelector(".task-state .task-arrivalheight").classList.remove("finishalt_ok");
         }   
 	    
         if(B21_SOARING_ENGINE.task_started()) {
