@@ -42,7 +42,7 @@ The Config-Page gives you access to various settings:
 - Aircraft Settings: Options that are originally controlled by knobs and buttons around the display. Moved here to free up the buttons for future use.
 - Units: allows you to select the units of measurement to use for various categories or generally "metric" or "imperial" system. Only "metric" or "imperial" settings have an effect on other instruments in the cockpit. Detailled settings only work inside the nav computer.
 - Interface Options: Settings for the Nav Interface. "Readability Mode" can be activated here to get some bigger readouts (and less data fields) and the liftdot-trail on the map can be deactivated
-- Bugs: An experimental feature to control arrival height calculations. In real life gliders dead insects on the wing's leading edge will deteriorate glide perfomance. Therefore a "bug factor" can be used in arrival height calculations. While you won't kill any simulated insects on your simulated wings, you can still use this factor to account for inaccuracies in the flight model or inefficiencies of the pilot. If you find you are constantly arriving lower than the predicted altitude try flying with a lower "bugs" value. This value is not persistent between sessions, because we all know, that you are cleaning your wings after each flight. To point that out again: this setting does NOT affect your gliders performance in any way. ONLY the calculated arrival height.
+- Bugs: An experimental feature to control arrival height calculations. In real life gliders dead insects on the wing's leading edge will deteriorate glide perfomance. Therefore a "bug factor" can be used in arrival height calculations. While you won't kill any simulated insects on your simulated wings, you can still use this factor to account for inaccuracies in the flight model or inefficiencies of the pilot. If you find you are constantly arriving lower than the predicted altitude try flying with a lower "bugs" value. This value is not persistent between sessions, because we all know, that you are cleaning your wings after each flight. Values can range from 0 to 100, default is 100 - completely clean, shiny wings. To point that out again: this setting does NOT affect your gliders performance in any way. ONLY the calculated arrival height.
 
 All config settings apart from bugs and ballast are persistent between sessions. Just make sure to click "close" after making any changes.
 
@@ -76,6 +76,8 @@ Changing pages and subpages with "click and drag" in flight requires a lot of mo
 The map can not be panned. To avoid collision with „click and drag“ page changing another „mode switch“ would be needed. Considering the current quality of the ingame map, I don’t think it’s worth the added complexity.
 
 „Thermalling help“ through the typical green and red dots is a very basic „quick and dirty“ implementation. So far it can not be toggled. As soon as you are in the air the dotted trail will show.
+
+If you don't use a flightplan, the waypoint page uses the starting waypoint as "Home". This waypoint currently has no altitude, screwing up the estimation of arrival height above ground level in thie constellation.
 
 <h2>Conflicts with other mods</h2>
 
