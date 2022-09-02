@@ -7,6 +7,7 @@ Replacement mod for the GotFriends Discus' Nav computer
 - even more unit confusion: For any individual data field you can force metric or imperial measurement regardless of global settings. So you can fly all metric and still have one data field reading the altitude in feet to compare with map readings or multiplayer messages.
 - "readability mode": Less, but way bigger datafields and some more font-sizing to make the display easier on the eyes. I call it my "VR mode", btw. Far from perfect or finished.
 - Task page rework. Better readability on waypoint data. Waypoints only show distance and arrival height by default and can be clicked to see detail data. If your estimated arrival height is out of Min/Max range or your estimated arrival height AGL is negative you'll get a red warning. 
+- Config-Option "Bugs" can be used to adjust altitude estimation.
 
 
 <h2>Installation:</h2>
@@ -39,7 +40,7 @@ The Config-Page gives you access to various settings:
 
 - Ballast: A light version of ballast loading system that can even be used in flight - which would be shameless cheating of course!
 - Aircraft Settings: Options that are originally controlled by knobs and buttons around the display. Moved here to free up the buttons for future use.
-- Units: allows you to select the units of measurement to use for various categories or generally "metric" or "imperial" system. 
+- Units: allows you to select the units of measurement to use for various categories or generally "metric" or "imperial" system. Only "metric" or "imperial" settings have an effect on other instruments in the cockpit. Detailled settings only work inside the nav computer.
 - Interface Options: Settings for the Nav Interface. "Readability Mode" can be activated here to get some bigger readouts (and less data fields) and the liftdot-trail on the map can be deactivated
 - Bugs: An experimental feature to control arrival height calculations. In real life gliders dead insects on the wing's leading edge will deteriorate glide perfomance. Therefore a "bug factor" can be used in arrival height calculations. While you won't kill any simulated insects on your simulated wings, you can still use this factor to account for inaccuracies in the flight model or inefficiencies of the pilot. If you find you are constantly arriving lower than the predicted altitude try flying with a lower "bugs" value. This value is not persistent between sessions, because we all know, that you are cleaning your wings after each flight. To point that out again: this setting does NOT affect your gliders performance in any way. ONLY the calculated arrival height.
 
