@@ -41,21 +41,21 @@ class configpanel {
 
         if(GetStoredData("Discus_unitsetting")) {
             let unitsettings = GetStoredData("Discus_unitsetting");
-
             if (unitsettings == "metric" || unitsettings == "imperial") {
-                this.setUnitPrefs(GetStoredData("Discus_unitsetting"));
+                this.setUnitPrefs(GetStoredData(unitsettings));
             } else {
+                this.setUnitPrefs("metric");
+            }   
+        }
+        
+        if(GetStoredData("Discus_unitsetting_detail")) {
                 try {
                     let unitobject = JSON.parse(unitsettings);
                     for(var unit in unitobject) {
                         this.instrument.units[unit].pref = unitobject[unit];
                     }
-                } catch(e) { console.log("couldn't restore unitsettings : " + e)}
-            }
-                       
-        } else {
-            this.setUnitPrefs("metric");
-        }
+                } catch(e) { console.log("couldn't restore unit-detailsettings : " + e)}             
+        } 
     
         document.getElementById("conf_units_imperial").addEventListener("click", function(e) {
             CONFIGPANEL.setUnitPrefs("imperial");
@@ -208,7 +208,7 @@ class configpanel {
             unitprefs[unit] = this.instrument.units[unit].pref;
         }
 
-        SetStoredData("Discus_unitsetting", JSON.stringify(unitprefs));
+        SetStoredData("Discus_unitsetting_detail", JSON.stringify(unitprefs));
         SetStoredData("Discus_configtoggle", JSON.stringify(toggledata));
         SetStoredData("Discus_sliderdata", JSON.stringify(sliderdata));
 
