@@ -49,6 +49,7 @@ class configpanel {
         }
         
         if(GetStoredData("Discus_unitsetting_detail")) {
+                let unitsettings = GetStoredData("Discus_unitsetting_detail");
                 try {
                     let unitobject = JSON.parse(unitsettings);
                     for(var unit in unitobject) {
