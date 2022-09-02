@@ -121,17 +121,17 @@ class navmap {
             this.draw_courseline();
         }
 
+        /*
         if( SimVar.GetSimVarValue("L:MAP_ZOOM", "number") > this.currentmapzoom ) {
-            console.log(SimVar.GetSimVarValue("L:MAP_ZOOM", "number"), this.currentmapzoom);
             this.zoom_in();
             this.currentmapzoom = SimVar.GetSimVarValue("L:MAP_ZOOM", "number");
         }
 
         if( SimVar.GetSimVarValue("L:MAP_ZOOM", "number") < this.currentmapzoom ) {
-            console.log(SimVar.GetSimVarValue("L:MAP_ZOOM", "number"), this.currentmapzoom);
             this.zoom_out();
             this.currentmapzoom = SimVar.GetSimVarValue("L:MAP_ZOOM", "number");
         }
+        */
     }
 
     set_center(LL) {

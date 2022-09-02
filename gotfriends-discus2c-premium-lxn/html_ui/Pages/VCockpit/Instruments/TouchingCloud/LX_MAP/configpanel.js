@@ -42,7 +42,7 @@ class configpanel {
         if(GetStoredData("Discus_unitsetting")) {
             let unitsettings = GetStoredData("Discus_unitsetting");
             if (unitsettings == "metric" || unitsettings == "imperial") {
-                this.setUnitPrefs(GetStoredData(unitsettings));
+                this.setUnitPrefs(unitsettings);
             } else {
                 this.setUnitPrefs("metric");
             }   
@@ -55,6 +55,7 @@ class configpanel {
                     for(var unit in unitobject) {
                         this.instrument.units[unit].pref = unitobject[unit];
                     }
+                    this.buildUnitDetailSetting();
                 } catch(e) { console.log("couldn't restore unit-detailsettings : " + e)}             
         } 
     
@@ -136,12 +137,8 @@ class configpanel {
     }
 
     setUnitPrefs(sys) {
-        // security. We currently only support imp & metric
-        sys = sys == "imperial" ? "imperial" : "metric";
-        document.getElementById("nav_debug").innerHTML += "Setting: " + sys;
         for(var cat in this.instrument.units) {
             this.instrument.units[cat].pref = this.instrument.units[cat][sys];
-            document.getElementById("nav_debug").innerHTML += cat + ": " + this.instrument.units[cat].pref + "<br />";
         }
 
         SetStoredData("Discus_unitsetting", sys);
@@ -151,12 +148,14 @@ class configpanel {
             document.getElementById("conf_units_imperial").classList.add("highlighted");
             document.getElementById("conf_units_metric").classList.remove("highlighted");
             SimVar.SetSimVarValue("L:UNITS_IMPERIAL", "percent", 100);
+            this.unitstore = 100;
         } else {
             document.getElementById("conf_units_metric").classList.add("highlighted");
             document.getElementById("conf_units_imperial").classList.remove("highlighted");
             SimVar.SetSimVarValue("L:UNITS_IMPERIAL", "percent", 0);
+            this.unitstore = 0;
         }
-        document.getElementById("nav_debug").innerHTML += "Units set to " + sys;
+
     }
 
     updateBallastDisplay() {
