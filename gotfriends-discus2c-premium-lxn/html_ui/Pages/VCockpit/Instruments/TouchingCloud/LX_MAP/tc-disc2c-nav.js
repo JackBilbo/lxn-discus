@@ -59,7 +59,8 @@ class lxn extends NavSystemTouch {
             wp_arr_msl: { value: 0, label: "WP ARR (MSL)", longlabel: "Waypoint Arrival (MSL)", category: "alt", baseunit: "ft" },
             wp_ete: { value: 0, label: "WP ETE", longlabel: "Waypoint Time Enroute", category: "time", baseunit: "min" },
             task_arr_agl: { value: 0, label: "TSK FIN (AGL)", longlabel: "Task Finish Altitude (AGL)", category: "alt", baseunit: "ft" },
-            task_arr_msl: { value: 0, label: "TSK FIN (MSL)", longlabel: "Task Finish Altitude (MSL)", category: "alt", baseunit: "ft" }
+            task_arr_msl: { value: 0, label: "TSK FIN (MSL)", longlabel: "Task Finish Altitude (MSL)", category: "alt", baseunit: "ft" },
+            task_spd: { value: 0, label: "TSK SPD", longlabel: "Task Speed", category: "speed", baseunit: "kts"}
         }
         
         this.units = {
@@ -153,6 +154,9 @@ class lxn extends NavSystemTouch {
         this.KNOBS_VAR = ("0000" + SimVar.GetSimVarValue("TRANSPONDER CODE:1", "number")).slice(-4);
         this.prev_knobs_var = this.KNOBS_VAR;
 
+        this.COMCODE = SimVar.GetSimVarValue("COM ACTIVE FREQUENCY:1","MHz").toString().split(".");
+        this.prevcomcode = this.COMCODE;
+
         this.v80_mcvalue = SimVar.GetSimVarValue("L:BEZEL_CAL", "percent");
 
         B21_SOARING_ENGINE.register_callback(this, this.engine_event_callback);
@@ -240,6 +244,7 @@ class lxn extends NavSystemTouch {
                 this.vars.wp_arr_agl.value = (B21_SOARING_ENGINE.current_wp().arrival_height_msl_m - B21_SOARING_ENGINE.current_wp().alt_m) / 0.3048;
                 this.vars.task_arr_msl.value = B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m / 0.3048;
                 this.vars.task_arr_agl.value = (B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - B21_SOARING_ENGINE.task.finish_wp().alt_m ) / 0.3048;
+                this.vars.task_spd.value = B21_SOARING_ENGINE.task.avg_task_speed_kts();
             }
 
             this.updateKineticAssistant();
@@ -343,14 +348,18 @@ class lxn extends NavSystemTouch {
             NAVMAP.zoom_in();
         }
 
-        if (this.prev_knobs_var[3] > this.KNOBS_VAR[3] || (this.prev_knobs_var[3] == 0 && this.KNOBS_VAR[3] == 7)) {
+        if (this.prev_knobs_var[0] > this.KNOBS_VAR[0] || (this.prev_knobs_var[0] == 0 && this.KNOBS_VAR[0] == 7)) {
             this.prev_knobs_var = this.KNOBS_VAR;
-            UI.pageLeft();
+            if(B21_SOARING_ENGINE.task_index() > 0) {
+                B21_SOARING_ENGINE.change_wp(-1);
+            }
          }
  
-         if (this.prev_knobs_var[3] < this.KNOBS_VAR[3] || (this.prev_knobs_var[3] == 7 && this.KNOBS_VAR[3] == 0)) {
+         if (this.prev_knobs_var[0] < this.KNOBS_VAR[0] || (this.prev_knobs_var[0] == 7 && this.KNOBS_VAR[0] == 0)) {
             this.prev_knobs_var = this.KNOBS_VAR;
-            UI.pageRight();
+            if(B21_SOARING_ENGINE.task_index() < B21_SOARING_ENGINE.task_length() -1 ) {
+                B21_SOARING_ENGINE.change_wp(1);
+            }
          }
 
          if (this.prev_knobs_var[1] > this.KNOBS_VAR[1] || (this.prev_knobs_var[1] == 0 && this.KNOBS_VAR[1] == 7)) {
@@ -362,8 +371,40 @@ class lxn extends NavSystemTouch {
             this.prev_knobs_var = this.KNOBS_VAR;
             UI.pageUp();
          }
+
+         if(this.prev_knobs_var[3] != this.KNOBS_VAR[3]) {
+            this.prev_knobs_var = this.KNOBS_VAR;
+            if(navmap.map_rotation == 1) {
+                navmap.map_rotation = EMapRotationMode.NorthUp;
+                document.querySelector("#battery_required").setAttribute("class","map_northup");
+            } else {
+                navmap.map_rotation = EMapRotationMode.TrackUp;
+                document.querySelector("#battery_required").setAttribute("class","map_trackup");
+            }
+            navmap.set_map_rotation(navmap.map_rotation);
+         }
     	           
-         
+         this.COMCODE = SimVar.GetSimVarValue("COM ACTIVE FREQUENCY:1","MHz").toString().split(".");
+
+         if(parseInt(this.prevcomcode[0]) < parseInt(this.COMCODE[0])) {
+            this.prevcomcode = this.COMCODE;
+            UI.pageRight();
+         }
+
+         if(parseInt(this.prevcomcode[0]) > parseInt(this.COMCODE[0])) {
+            this.prevcomcode = this.COMCODE;
+            UI.pageLeft();
+         }
+
+         if(parseInt(this.prevcomcode[1]) < parseInt(this.COMCODE[1])) {
+            this.prevcomcode = this.COMCODE;
+            UI.pageUp();
+         }
+
+         if(parseInt(this.prevcomcode[1]) > parseInt(this.COMCODE[1])) {
+            this.prevcomcode = this.COMCODE;
+            UI.pageDown();
+         }
 	
     }
 
