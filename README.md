@@ -11,6 +11,8 @@ Replacement mod for the GotFriends Discus' Nav computer
   - Page switch up/down: COM1-Frequency farcture inc/dec
   
 - New displayable variable: average task speed  
+- Visual Stall warning: red flashing screen
+- Waypoint arrival height calculation accounts for min height.
 
 
 <h2>Installation:</h2>
