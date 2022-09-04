@@ -1174,3 +1174,29 @@ input[type="radio"] {
 #touching_cloud img {
 	width: 45%;
 }
+
+/* Stallwarning */
+
+#stallwarner {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#stallwarner.active {
+	width: 100%;
+	height: 100%;
+	z-index: 1000;
+	background-color: #ff0000;
+  	animation-name: blink_1;
+  	animation-duration: 1s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes blink_1 {
+    0% {  opacity: 0  }
+    5%   { opacity: 1 }
+	10% { opacity: 1 }
+	15% { opacity: 0 }
+	100% { opacity: 0 }
+}

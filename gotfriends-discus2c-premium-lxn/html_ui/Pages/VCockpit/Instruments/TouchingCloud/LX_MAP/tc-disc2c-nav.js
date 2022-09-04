@@ -55,7 +55,7 @@ class lxn extends NavSystemTouch {
             wp_alt: { value: 0, label: "WP ALT", longlabel: "Waypoint Altitude", category: "alt", baseunit: "ft" },
             wp_bearing: { value: 0, label: "WP BRG", longlabel: "Waypoint Bearing", category: "direction", baseunit: "deg" },
             wp_dist: { value: 0, label: "WP DIST", longlabel: "Waypoint Distance", category: "dist", baseunit: "nm" },
-            wp_arr_agl: { value: 0, label: "WP ARR (AGL)", longlabel: "Waypoint Arrival (AGL)", category: "alt", baseunit: "ft" },
+            wp_arr_agl: { value: 0, label: "WP ARR (WP)", longlabel: "Waypoint Arrival (WP) incl. min-height", category: "alt", baseunit: "ft" },
             wp_arr_msl: { value: 0, label: "WP ARR (MSL)", longlabel: "Waypoint Arrival (MSL)", category: "alt", baseunit: "ft" },
             wp_ete: { value: 0, label: "WP ETE", longlabel: "Waypoint Time Enroute", category: "time", baseunit: "min" },
             task_arr_agl: { value: 0, label: "TSK FIN (AGL)", longlabel: "Task Finish Altitude (AGL)", category: "alt", baseunit: "ft" },
@@ -161,6 +161,7 @@ class lxn extends NavSystemTouch {
 
         B21_SOARING_ENGINE.register_callback(this, this.engine_event_callback);
 
+        this.stallwarner = document.querySelector("#stallwarner");
         this._isConnected = true;
 	}
 	
@@ -216,6 +217,14 @@ class lxn extends NavSystemTouch {
         
         this.jbb_update_hawk();
         this.update_speedgauge();
+
+        if(CONFIGPANEL.stallwarning && SimVar.GetSimVarValue("STALL WARNING", "bool") == "1") {
+            if(!this.stallwarner.classList.contains("active")) {
+                this.stallwarner.setAttribute("class", "active")
+            }
+        } else {
+            this.stallwarner.setAttribute("class","");
+        }
         
         let mastermc = SimVar.GetSimVarValue("L:BEZEL_CAL","percent")
         if(this.v80_mcvalue != mastermc) {
@@ -241,12 +250,14 @@ class lxn extends NavSystemTouch {
                 this.vars.wp_arr_msl.value = B21_SOARING_ENGINE.current_wp().arrival_height_msl_m / 0.3048;
                 this.vars.wp_ete.value = B21_SOARING_ENGINE.current_wp().ete_s / 60;
                 this.vars.wp_alt.value = B21_SOARING_ENGINE.current_wp().alt_m / 0.3048;
-                this.vars.wp_arr_agl.value = (B21_SOARING_ENGINE.current_wp().arrival_height_msl_m - B21_SOARING_ENGINE.current_wp().alt_m) / 0.3048;
+                this.vars.wp_arr_agl.value = (B21_SOARING_ENGINE.current_wp().arrival_height_msl_m - B21_SOARING_ENGINE.current_wp().alt_m - B21_SOARING_ENGINE.current_wp().min_alt_m) / 0.3048;
                 this.vars.task_arr_msl.value = B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m / 0.3048;
                 this.vars.task_arr_agl.value = (B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - B21_SOARING_ENGINE.task.finish_wp().alt_m ) / 0.3048;
                 this.vars.task_spd.value = B21_SOARING_ENGINE.task.avg_task_speed_kts();
             }
 
+            NAVPANEL.update()
+            CONFIGPANEL.update();
             this.updateKineticAssistant();
         }
 
@@ -258,10 +269,7 @@ class lxn extends NavSystemTouch {
             this.vars.localtime.value = SimVar.GetSimVarValue("E:LOCAL TIME","seconds");
 
             this.updateLiftdots();
-            
-            NAVPANEL.update()
-            CONFIGPANEL.update();
-            
+  
         }
 
         if(this.lift_dots_timer_prev == null) {
@@ -374,35 +382,36 @@ class lxn extends NavSystemTouch {
 
          if(this.prev_knobs_var[3] != this.KNOBS_VAR[3]) {
             this.prev_knobs_var = this.KNOBS_VAR;
-            if(navmap.map_rotation == 1) {
-                navmap.map_rotation = EMapRotationMode.NorthUp;
+            if(NAVMAP.map_rotation == 1) {
+                NAVMAP.map_rotation = EMapRotationMode.NorthUp;
                 document.querySelector("#battery_required").setAttribute("class","map_northup");
             } else {
-                navmap.map_rotation = EMapRotationMode.TrackUp;
+                NAVMAP.map_rotation = EMapRotationMode.TrackUp;
                 document.querySelector("#battery_required").setAttribute("class","map_trackup");
             }
-            navmap.set_map_rotation(navmap.map_rotation);
+            
+            NAVMAP.set_map_rotation(NAVMAP.map_rotation);
          }
     	           
          this.COMCODE = SimVar.GetSimVarValue("COM ACTIVE FREQUENCY:1","MHz").toString().split(".");
 
          if(parseInt(this.prevcomcode[0]) < parseInt(this.COMCODE[0])) {
-            this.prevcomcode = this.COMCODE;
+            this.prevcomcode[0] = this.COMCODE[0];
             UI.pageRight();
          }
 
          if(parseInt(this.prevcomcode[0]) > parseInt(this.COMCODE[0])) {
-            this.prevcomcode = this.COMCODE;
+            this.prevcomcode[0] = this.COMCODE[0];
             UI.pageLeft();
          }
 
          if(parseInt(this.prevcomcode[1]) < parseInt(this.COMCODE[1])) {
-            this.prevcomcode = this.COMCODE;
+            this.prevcomcode[1] = this.COMCODE[1];
             UI.pageUp();
          }
 
          if(parseInt(this.prevcomcode[1]) > parseInt(this.COMCODE[1])) {
-            this.prevcomcode = this.COMCODE;
+            this.prevcomcode[1] = this.COMCODE[1];
             UI.pageDown();
          }
 	
@@ -825,7 +834,7 @@ class lxn extends NavSystemTouch {
         taskheader.querySelector(".task-state .task-totaldistance .unit").innerHTML = this.units.dist.pref;
 	    taskheader.querySelector(".task-state .task-distanceleft .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.remaining_distance_m(),"m","dist");;
         taskheader.querySelector(".task-state .task-distanceleft .unit").innerHTML = this.units.dist.pref;        
-        taskheader.querySelector(".task-state .task-arrivalheight .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - B21_SOARING_ENGINE.task.finish_wp().alt_m,"m","alt"); 
+        taskheader.querySelector(".task-state .task-arrivalheight .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - B21_SOARING_ENGINE.task.finish_wp().alt_m - (B21_SOARING_ENGINE.task.finish_wp().min_alt_m != null? B21_SOARING_ENGINE.task.finish_wp().min_alt_m : 0),"m","alt"); 
         taskheader.querySelector(".task-state .task-arrivalheight .unit").innerHTML = this.units.alt.pref;
 
         if(B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - B21_SOARING_ENGINE.task.finish_wp().alt_m > 0) {
@@ -874,10 +883,10 @@ class lxn extends NavSystemTouch {
                 wp_el.querySelector(".wind .unit").innerHTML = this.units.windspeed.pref;
                 wp_el.querySelector(".arr_msl .number").innerHTML = this.displayValue(wp.arrival_height_msl_m, "m", "alt");
                 wp_el.querySelector(".arr_msl .unit").innerHTML = this.units.alt.pref;
-		        wp_el.querySelector(".arr_agl .number").innerHTML = this.displayValue(wp.arrival_height_msl_m - wp.alt_m, "m", "alt");
+		        wp_el.querySelector(".arr_agl .number").innerHTML = this.displayValue(wp.arrival_height_msl_m - wp.alt_m - (wp.min_alt_m != null? wp.min_alt_m : 0), "m", "alt");
                 wp_el.querySelector(".arr_agl .unit").innerHTML = this.units.alt.pref;    
 
-		        if( wp.arrival_height_msl_m - wp.alt_m < 0 ) { 
+		        if( wp.arrival_height_msl_m - wp.alt_m - (wp.min_alt_m != null? wp.min_alt_m : 0) < 0 ) { 
                     wp_el.querySelector(".arr_agl").classList.add("alert") 
                 } else { 
                     wp_el.querySelector(".arr_agl").classList.remove("alert")

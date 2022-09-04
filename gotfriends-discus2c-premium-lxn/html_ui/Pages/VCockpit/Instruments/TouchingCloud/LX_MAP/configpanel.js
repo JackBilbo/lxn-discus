@@ -190,6 +190,10 @@ class configpanel {
         if (val == "on") {  SimVar.SetSimVarValue("L:NAV_TOGGLE","number",1); } else { SimVar.SetSimVarValue("L:NAV_TOGGLE","number",0); }
     }
 
+    toggleStallwarning(val) {
+        if (val == "on") {  this.stallwarning = true } else {  this.stallwarning = false }
+    }
+
 
     savePersistentData() {
         let toggledata = {}
