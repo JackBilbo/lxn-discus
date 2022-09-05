@@ -162,6 +162,8 @@ class lxn extends NavSystemTouch {
         B21_SOARING_ENGINE.register_callback(this, this.engine_event_callback);
 
         this.stallwarner = document.querySelector("#stallwarner");
+        this.gearposition = SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool");
+
         this._isConnected = true;
 	}
 	
@@ -217,14 +219,6 @@ class lxn extends NavSystemTouch {
         
         this.jbb_update_hawk();
         this.update_speedgauge();
-
-        if(CONFIGPANEL.stallwarning && SimVar.GetSimVarValue("STALL WARNING", "bool") == "1") {
-            if(!this.stallwarner.classList.contains("active")) {
-                this.stallwarner.setAttribute("class", "active")
-            }
-        } else {
-            this.stallwarner.setAttribute("class","");
-        }
         
         let mastermc = SimVar.GetSimVarValue("L:BEZEL_CAL","percent")
         if(this.v80_mcvalue != mastermc) {
@@ -232,6 +226,10 @@ class lxn extends NavSystemTouch {
             this.v80_mcvalue = mastermc;
         }
 
+        if(SimVar.GetSimVarValue("L:MAP_ZOOM","number") != this.lastmapzoom) {
+            this.lastmapzoom = SimVar.GetSimVarValue("L:MAP_ZOOM","number");
+            console.log(this.lastmapzoom);
+        }
         
         if(this.TIME_S - this.TIMER_05 > 0.5) {
             /* Stuff happening twice per second  */
@@ -414,6 +412,34 @@ class lxn extends NavSystemTouch {
             this.prevcomcode[1] = this.COMCODE[1];
             UI.pageDown();
          }
+
+         /* Warnings and alerts */
+
+        if(CONFIGPANEL.stallwarning && SimVar.GetSimVarValue("STALL WARNING", "bool") == "1") {
+            if(!this.stallwarner.classList.contains("active")) {
+                this.stallwarner.setAttribute("class", "active")
+            }
+        } else {
+            this.stallwarner.setAttribute("class","");
+        }
+
+        if(this.gearposition != SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool")) {
+            if(SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool") == true && this.vars.ballast.value > 5) {
+                this.popalert("Gear Down. Check Ballast","");
+            }
+            this.gearposition = SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool")
+        }
+
+        
+        if(SimVar.GetSimVarValue("A:SPOILERS HANDLE POSITION","percent over 100") > 0.1 && this.gearposition != true && this.vars.alt_gnd.value < 800) {
+            
+            if(!this.gearwarnsilenced) {
+                this.popalert("CHECK GEAR","");
+                this.gearwarnsilenced = true; 
+            }
+            let instrument = this;
+            window.setTimeout(function() { instrument.gearwarnsilenced = false }, 10000);
+        }
 	
     }
 
@@ -607,7 +633,7 @@ class lxn extends NavSystemTouch {
         let speedbandoffset = -210;
 
         this.querySelector(".speedband").setAttribute("class", (units ? "speedband kts" : "speedband kmh"));
-        this.querySelector(".currentspeed span").innerHTML = (units? IAS/1.852 : IAS).toFixed(0);
+        this.querySelector(".currentspeed span").innerHTML = this.displayValue(this.vars.ias.value, "kts", "speed");
 
         if(IAS > 60 && IAS < 350) {
             document.querySelector(".speedladder.kmh").style.transform = "translate(0," + (speedbandoffset + (IAS - 60) * 10) +  "px)";

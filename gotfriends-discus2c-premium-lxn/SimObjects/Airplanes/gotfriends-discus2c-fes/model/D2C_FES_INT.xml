@@ -604,19 +604,19 @@
 			<UseTemplate Name="ASOBO_GT_Knob_Finite_Code">
 				<WRAP>False</WRAP>
 				<PART_ID>INT_LX_KNOB_SMALL1</PART_ID>
-				<ANIM_CODE>(L:MAP_ZOOM) 100 *</ANIM_CODE>
+				<ANIM_CODE>(L:NAV_BRIGHTNESS) 100 *</ANIM_CODE>
 				<ANIM_LENGTH>100</ANIM_LENGTH>
 				<ANIM_NAME>Brightness_Knob</ANIM_NAME>
 				<WWISE_EVENT>as21_transponder_code_knob</WWISE_EVENT>
 				<ANTICLOCKWISE_CODE>
-					(L:MAP_ZOOM) 0.1 - 0.1 max (&gt;L:MAP_ZOOM)
+					(L:NAV_BRIGHTNESS) 0.1 - 0.1 max (&gt;L:NAV_BRIGHTNESS)
 				</ANTICLOCKWISE_CODE>
 				<CLOCKWISE_CODE>
-					(L:MAP_ZOOM) 0.1 + 1 min (&gt;L:MAP_ZOOM)
+					(L:NAV_BRIGHTNESS) 0.1 + 1 min (&gt;L:NAV_BRIGHTNESS)
 				</CLOCKWISE_CODE>
 				<ANIMCURSOR_DIR>1.0</ANIMCURSOR_DIR>
 				<ANIMCURSOR_MIN>0.1</ANIMCURSOR_MIN>
-				<TOOLTIPID>Display Brightness %((L:MAP_ZOOM) 100 *)%!2.0f!%&percnt;</TOOLTIPID>
+				<TOOLTIPID>Display Brightness %((L:NAV_BRIGHTNESS) 100 *)%!2.0f!%&percnt;</TOOLTIPID>
 				<COUNT>10</COUNT>
 			</UseTemplate>
 		</Component>
