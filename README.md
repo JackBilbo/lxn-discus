@@ -13,6 +13,7 @@ Replacement mod for the GotFriends Discus' Nav computer
 - New displayable variable: average task speed  
 - Visual Stall warning: red flashing screen
 - Waypoint arrival height calculation accounts for min height.
+- Alert-Messages: Gear down with Ballast / Spoilers without gear extended below 600ft agl
 
 
 <h2>Installation:</h2>
