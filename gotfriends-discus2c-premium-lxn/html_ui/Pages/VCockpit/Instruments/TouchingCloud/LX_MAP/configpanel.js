@@ -128,7 +128,7 @@ class configpanel {
         this.instrument.vars.ballast.value = parseFloat(SimVar.GetSimVarValue("PAYLOAD STATION WEIGHT:2", "lbs") + SimVar.GetSimVarValue("PAYLOAD STATION WEIGHT:3", "lbs") + SimVar.GetSimVarValue("PAYLOAD STATION WEIGHT:4", "lbs"));
         this.instrument.vars.ballast_pct.value = this.instrument.vars.ballast.value / this.maxballast.total * 100;
         
-        if(UI.pageposX == 4) {
+        if(UI.pagepos_x == 4) {
             this.updateBallastDisplay();
             this.brightnessrange.setValue(SimVar.GetSimVarValue("L:NAV_BRIGHTNESS", "number"));
             this.glareshiledrange.setValue(SimVar.GetSimVarValue("A:LIGHT POTENTIOMETER:5", "number"));
