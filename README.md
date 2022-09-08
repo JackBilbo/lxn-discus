@@ -1,7 +1,7 @@
 # lxn-discus
 Replacement mod for the GotFriends Discus' Nav computer
 
-<h2>New in the upcoming version</h2>
+<h2>New Features:</h2>
 
 - new and changed Keybindings (identical to bindings in the AS33 to make binding life easier): 
   - Next/previous waypoint: transponder(1000) inc/dec
@@ -10,9 +10,13 @@ Replacement mod for the GotFriends Discus' Nav computer
   - Page switch left/right: COM1-Frequency whole inc/dec
   - Page switch up/down: COM1-Frequency farcture inc/dec
   
-- New displayable variable: average task speed  
-- Visual Stall warning: red flashing screen
-- Waypoint arrival height calculation accounts for min height.
+- New displayable variables: 
+  - average task speed
+  - Angle of Attack
+  - "Waypoint Delta Min". Shows estimated arrival height above minimum height is available, if no min height is set, arrival above waypoint height is shown.
+  
+- Visual stall warning: red flashing screen
+- Waypoint arrival height calculation on task page accounts for min height.
 - Alert-Messages: Gear down with Ballast / Spoilers without gear extended below 600ft agl
 
 
@@ -47,7 +51,10 @@ The Config-Page gives you access to various settings:
 - Ballast: A light version of ballast loading system that can even be used in flight - which would be shameless cheating of course!
 - Aircraft Settings: Options that are originally controlled by knobs and buttons around the display. Moved here to free up the buttons for future use.
 - Units: allows you to select the units of measurement to use for various categories or generally "metric" or "imperial" system. Only "metric" or "imperial" settings have an effect on other instruments in the cockpit. Detailled settings only work inside the nav computer.
-- Interface Options: Settings for the Nav Interface. "Readability Mode" can be activated here to get some bigger readouts (and less data fields) and the liftdot-trail on the map can be deactivated
+- Interface Options: Settings for the Nav Interface: 
+  - "Readability Mode" can be activated here to get some bigger readouts (and less data fields) 
+  - toggle liftdot-trail on the map
+  - Visual stall warning. If activated, the screen will flash red when the aircraft is close to a stall.
 - Bugs: An experimental feature to control arrival height calculations. In real life gliders dead insects on the wing's leading edge will deteriorate glide perfomance. Therefore a "bug factor" can be used in arrival height calculations. While you won't kill any simulated insects on your simulated wings, you can still use this factor to account for inaccuracies in the flight model or inefficiencies of the pilot. If you find you are constantly arriving lower than the predicted altitude try flying with a lower "bugs" value. This value is not persistent between sessions, because we all know, that you are cleaning your wings after each flight. Values can range from 0 to 100, default is 100 - completely clean, shiny wings. To point that out again: this setting does NOT affect your gliders performance in any way. ONLY the calculated arrival height.
 
 All config settings apart from bugs and ballast are persistent between sessions. Just make sure to click "close" after making any changes.
