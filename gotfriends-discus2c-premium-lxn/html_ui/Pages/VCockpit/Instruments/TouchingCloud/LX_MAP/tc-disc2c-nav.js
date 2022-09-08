@@ -14,7 +14,6 @@ class lxn extends NavSystemTouch {
 
         this.jbb_mccready = 0;
         this.jbb_mccready_ms = 0;
-        this.jbb_avg_wind_direction = 0;
         this.jbb_avg_wind_speed = 0;   
         
         this.jbb_lift_dot_delay = 3;
@@ -32,6 +31,7 @@ class lxn extends NavSystemTouch {
             stf: { value: 0, label: "STF", longlabel: "Speed to fly", category: "speed", baseunit: "kts" },
             sink_stf: { value: 0, label: "Sink at STF", longlabel: "Sink at Speed to fly", category: "verticalspeed", baseunit: "kts" },
             current_netto: { value: 0, label: "NETTO", longlabel: "Smoothed Netto", category: "verticalspeed", baseunit: "kts"},
+            aoa: { value: 0, label: "AoA", longlabel: "Angle of Attack", category: "direction", baseunit: "deg"},
             wind_direction: { value: 0, label: "Wind", longlabel: "Wind Direction", category: "direction", baseunit: "deg" },
             wind_spd: { value: 0, label: "Wind", longlabel: "Windspeed", category: "windspeed", baseunit: "kts" },
             wind_vertical: { value: 0, label: "Wind Vert.", longlabel: "Vertical Windspeed", category: "windspeed", baseunit: "kts" },
@@ -55,7 +55,8 @@ class lxn extends NavSystemTouch {
             wp_alt: { value: 0, label: "WP ALT", longlabel: "Waypoint Altitude", category: "alt", baseunit: "ft" },
             wp_bearing: { value: 0, label: "WP BRG", longlabel: "Waypoint Bearing", category: "direction", baseunit: "deg" },
             wp_dist: { value: 0, label: "WP DIST", longlabel: "Waypoint Distance", category: "dist", baseunit: "nm" },
-            wp_arr_agl: { value: 0, label: "WP ARR (WP)", longlabel: "Waypoint Arrival (WP) incl. min-height", category: "alt", baseunit: "ft" },
+            wp_arr_agl: { value: 0, label: "WP ARR (AGL)", longlabel: "Waypoint Arrival AGL (WP-Height)", category: "alt", baseunit: "ft" },
+            wp_arr_wpmin: { value: 0, label: "WP &#916; MIN", longlabel: "Waypoint Arrival (WP) incl. min-height", category: "alt", baseunit: "ft" },
             wp_arr_msl: { value: 0, label: "WP ARR (MSL)", longlabel: "Waypoint Arrival (MSL)", category: "alt", baseunit: "ft" },
             wp_ete: { value: 0, label: "WP ETE", longlabel: "Waypoint Time Enroute", category: "time", baseunit: "min" },
             task_arr_agl: { value: 0, label: "TSK FIN (AGL)", longlabel: "Task Finish Altitude (AGL)", category: "alt", baseunit: "ft" },
@@ -194,7 +195,8 @@ class lxn extends NavSystemTouch {
         this.vars.wind_direction.value = parseFloat(SimVar.GetSimVarValue("A:AMBIENT WIND DIRECTION", "degrees"));
         this.vars.wind_vertical.value = SimVar.GetSimVarValue("A:AMBIENT WIND Y", "knots");
         this.vars.current_netto.value = (this.vars.current_netto.value * 0.9) + (SimVar.GetSimVarValue("L:NETTO", "knots") * 0.1);
-
+        this.vars.aoa.value = SimVar.GetSimVarValue("INCIDENCE ALPHA", "radians") * (180/Math.PI);
+        
         /* Set Vars for B21 Functions */
 
         this.TIME_S = SimVar.GetSimVarValue("E:SIMULATION TIME","seconds");
@@ -205,6 +207,7 @@ class lxn extends NavSystemTouch {
         this.TOTAL_WEIGHT_KG = SimVar.GetSimVarValue("A:TOTAL WEIGHT", "kilograms");
         this.PLANE_POSITION = this.get_position(); // returns a MSFS LatLong()
         this.WIND_DIRECTION_DEG = SimVar.GetSimVarValue("A:AMBIENT WIND DIRECTION", "degrees");
+        this.SLEW = SimVar.GetSimVarValue("A:IS SLEW ACTIVE", "bool");
         // Get wind speed with gust filtering
         if (this.WIND_SPEED_MS==null) {
             this.WIND_SPEED_MS = SimVar.GetSimVarValue("A:AMBIENT WIND VELOCITY", "meters per second");
@@ -248,9 +251,10 @@ class lxn extends NavSystemTouch {
                 this.vars.wp_arr_msl.value = B21_SOARING_ENGINE.current_wp().arrival_height_msl_m / 0.3048;
                 this.vars.wp_ete.value = B21_SOARING_ENGINE.current_wp().ete_s / 60;
                 this.vars.wp_alt.value = B21_SOARING_ENGINE.current_wp().alt_m / 0.3048;
-                this.vars.wp_arr_agl.value = (B21_SOARING_ENGINE.current_wp().arrival_height_msl_m - B21_SOARING_ENGINE.current_wp().alt_m - B21_SOARING_ENGINE.current_wp().min_alt_m) / 0.3048;
+                this.vars.wp_arr_agl.value = (B21_SOARING_ENGINE.current_wp().arrival_height_msl_m - B21_SOARING_ENGINE.current_wp().alt_m) / 0.3048;
+                this.vars.wp_arr_wpmin.value = (B21_SOARING_ENGINE.current_wp().arrival_height_msl_m - (B21_SOARING_ENGINE.current_wp().min_alt_m != null ? B21_SOARING_ENGINE.current_wp().min_alt_m : B21_SOARING_ENGINE.current_wp().alt_m)) / 0.3048;
                 this.vars.task_arr_msl.value = B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m / 0.3048;
-                this.vars.task_arr_agl.value = (B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - B21_SOARING_ENGINE.task.finish_wp().alt_m ) / 0.3048;
+                this.vars.task_arr_agl.value = (B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - (B21_SOARING_ENGINE.task.finish_wp().min_alt_m != null ? B21_SOARING_ENGINE.task.finish_wp().min_alt_m : B21_SOARING_ENGINE.task.finish_wp().alt_m)) / 0.3048;
                 this.vars.task_spd.value = B21_SOARING_ENGINE.task.avg_task_speed_kts();
             }
 
@@ -652,11 +656,8 @@ class lxn extends NavSystemTouch {
 
     jbb_update_hawk() {
         let current_wind_direction = this.vars.wind_direction.value;
-        if (this.jbb_avg_wind_direction == 0) {
-            this.jbb_avg_wind_direction = current_wind_direction;
-        } else {
-            this.jbb_avg_wind_direction = ((0.99 * this.jbb_avg_wind_direction) + (0.01 * current_wind_direction));
-        }
+        
+        this.jbb_avg_wind_direction = this.jbb_avg_wind_direction != null ? ((0.99 * this.jbb_avg_wind_direction) + (0.01 * current_wind_direction)) : current_wind_direction;
 
         let averageindicator = this.jbb_avg_wind_direction;
 
@@ -860,10 +861,10 @@ class lxn extends NavSystemTouch {
         taskheader.querySelector(".task-state .task-totaldistance .unit").innerHTML = this.units.dist.pref;
 	    taskheader.querySelector(".task-state .task-distanceleft .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.remaining_distance_m(),"m","dist");;
         taskheader.querySelector(".task-state .task-distanceleft .unit").innerHTML = this.units.dist.pref;        
-        taskheader.querySelector(".task-state .task-arrivalheight .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - B21_SOARING_ENGINE.task.finish_wp().alt_m - (B21_SOARING_ENGINE.task.finish_wp().min_alt_m != null? B21_SOARING_ENGINE.task.finish_wp().min_alt_m : 0),"m","alt"); 
+        taskheader.querySelector(".task-state .task-arrivalheight .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - (B21_SOARING_ENGINE.task.finish_wp().min_alt_m != null? B21_SOARING_ENGINE.task.finish_wp().min_alt_m : B21_SOARING_ENGINE.task.finish_wp().alt_m),"m","alt"); 
         taskheader.querySelector(".task-state .task-arrivalheight .unit").innerHTML = this.units.alt.pref;
 
-        if(B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - B21_SOARING_ENGINE.task.finish_wp().alt_m > 0) {
+        if(B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m -  (B21_SOARING_ENGINE.task.finish_wp().min_alt_m != null? B21_SOARING_ENGINE.task.finish_wp().min_alt_m : B21_SOARING_ENGINE.task.finish_wp().alt_m) > 0) {
             taskheader.querySelector(".task-state .task-arrivalheight").classList.add("finishalt_ok");
         } else {
             taskheader.querySelector(".task-state .task-arrivalheight").classList.remove("finishalt_ok");
@@ -909,10 +910,10 @@ class lxn extends NavSystemTouch {
                 wp_el.querySelector(".wind .unit").innerHTML = this.units.windspeed.pref;
                 wp_el.querySelector(".arr_msl .number").innerHTML = this.displayValue(wp.arrival_height_msl_m, "m", "alt");
                 wp_el.querySelector(".arr_msl .unit").innerHTML = this.units.alt.pref;
-		        wp_el.querySelector(".arr_agl .number").innerHTML = this.displayValue(wp.arrival_height_msl_m - wp.alt_m - (wp.min_alt_m != null? wp.min_alt_m : 0), "m", "alt");
+		        wp_el.querySelector(".arr_agl .number").innerHTML = this.displayValue(wp.arrival_height_msl_m - (wp.min_alt_m != null? wp.min_alt_m : wp.alt_m), "m", "alt");
                 wp_el.querySelector(".arr_agl .unit").innerHTML = this.units.alt.pref;    
 
-		        if( wp.arrival_height_msl_m - wp.alt_m - (wp.min_alt_m != null? wp.min_alt_m : 0) < 0 ) { 
+		        if( wp.arrival_height_msl_m - (wp.min_alt_m != null? wp.min_alt_m : wp.alt_m) < 0 ) { 
                     wp_el.querySelector(".arr_agl").classList.add("alert") 
                 } else { 
                     wp_el.querySelector(".arr_agl").classList.remove("alert")
