@@ -19,8 +19,6 @@ class lxn extends NavSystemTouch {
         this.jbb_lift_dot_delay = 3;
         this.lift_dots = [];
         this.lift_dots_max = 40;
-        this.showLiftdots = true;
-
        	
         this.vars = {            
             ias: { value: 10, label: "IAS", longlabel: "Indicated Airspeed", category: "speed", baseunit: "kts" },
@@ -207,7 +205,6 @@ class lxn extends NavSystemTouch {
         this.TOTAL_WEIGHT_KG = SimVar.GetSimVarValue("A:TOTAL WEIGHT", "kilograms");
         this.PLANE_POSITION = this.get_position(); // returns a MSFS LatLong()
         this.WIND_DIRECTION_DEG = SimVar.GetSimVarValue("A:AMBIENT WIND DIRECTION", "degrees");
-        this.SLEW = SimVar.GetSimVarValue("A:IS SLEW ACTIVE", "bool");
         // Get wind speed with gust filtering
         if (this.WIND_SPEED_MS==null) {
             this.WIND_SPEED_MS = SimVar.GetSimVarValue("A:AMBIENT WIND VELOCITY", "meters per second");
@@ -217,9 +214,7 @@ class lxn extends NavSystemTouch {
         B21_SOARING_ENGINE.MACCREADY_MS = this.vars.mccready.value * 0.51444;
         B21_SOARING_ENGINE.STF_SPEED_0_MS = this.vars.stf.value * 0.5144;
         B21_SOARING_ENGINE.STF_SINK_0_MS = this.vars.sink_stf.value * 0.5144;
-
-        NAVMAP.load_map();
-        
+       
         this.jbb_update_hawk();
         this.update_speedgauge();
         
@@ -258,6 +253,7 @@ class lxn extends NavSystemTouch {
                 this.vars.task_spd.value = B21_SOARING_ENGINE.task.avg_task_speed_kts();
             }
 
+            NAVMAP.load_map();
             NAVPANEL.update()
             CONFIGPANEL.update();
             this.updateKineticAssistant();
@@ -698,42 +694,40 @@ class lxn extends NavSystemTouch {
         let svg_el = document.getElementById("lift_dots");
 
         let color = this.vars.current_netto.value > 0 ? "#14852c" : "#cc0000";
-        let radius = Math.max(3, Math.min(Math.abs(this.vars.current_netto.value) * 6, 15));
-        var newdot = NAVMAP.svg_circle(position, radius, 1, color);
-        newdot.setAttribute("fill", color);
+        let radius = Math.max(10, Math.min(Math.abs(this.vars.current_netto.value) * 20, 75));
     
-        this.lift_dots.unshift({
-            latlng: position,
-            radius: radius,
-            el: newdot
-        });
+        let newdot = L.circle([position.lat, position.long], radius, {
+            color: color,
+            stroke: 0,
+            fillColor: color,
+            fillOpacity: 1
+        }).addTo(TOPOMAP);
 
-        svg_el.prepend(newdot);
+        this.lift_dots.unshift( newdot );
+
+
     }
 
     updateLiftdots() {
-        let svg_el = document.getElementById("lift_dots");
 
         for(let i = 0; i < this.lift_dots.length; i++) {
-            let dot = this.lift_dots[i];
-            let xy = NAVMAP.LL_to_XY(dot.latlng);
-            dot.el.setAttribute("cx", "" + xy.x);
-            dot.el.setAttribute("cy", "" + xy.y);
-            dot.el.setAttribute("r", dot.radius);
-            dot.el.setAttribute("opacity", (40-i)/40);
+            this.lift_dots[i].setStyle({
+                fillOpacity: (40-i)/40
+            })
 
             if(i > this.lift_dots_max) {
-                svg_el.removeChild(dot.el);
+                TOPOMAP.removeLayer(this.lift_dots[i]);
                 this.lift_dots.length = this.lift_dots_max;
             }
-            if(!this.showLiftdots) { svg_el.removeChild(dot.el); }
+
+            if(!this.showLiftdots) { TOPOMAP.removeLayer(this.lift_dots[i]); }
         }
 
         // Dot Trail deactivated, clear Dot-Array
         if(!this.showLiftdots) { this.lift_dots = []; }
     }
 
-    
+       
 
     initKineticAssistant() {
         let instrument = this;
@@ -764,69 +758,6 @@ class lxn extends NavSystemTouch {
 	}
 
     
-
-
-// ***********************************************************************
-    // ********** Sim time - stops on pause when airborn        **************
-    // **  Writes   this.SIM_TIME_S       --  absolute time (s) that pauses
-    // ***********************************************************************
-
-    init_sim_time() {
-        this.SIM_TIME_S = this.TIME_S;
-        this.SIM_TIME_PAUSED = false;
-        this.SIM_TIME_NEGATIVE = false;
-        this.SIM_TIME_SLEWED = false;
-        this.SIM_TIME_ENGINE = false;
-        this.SIM_TIME_ALERT = false;
-        this.SIM_TIME_LOCAL_OFFSET = this.TIME_S - this.LOCAL_TIME_S; // So local time is SIM_TIME - SIM_TIME_LOCAL_OFFSET
-        this.sim_time_delay_s = 0;
-        this.sim_time_prev_time_s = this.TIME_S;
-        this.sim_time_prev_update_s = (new Date())/1000;
-    }
-
-    update_sim_time() {
-        this.ex="K1";
-        if (this.SIM_TIME_S==null) {
-            this.init_sim_time();
-            return;
-        }
-
-        let update_s = (new Date())/1000;
-
-        this.ex="K2";
-        // Detect SLEWED, TIME_NEGATIVE
-        if (this.task_active() &&
-            this.task_started() &&
-            ! this.task_finished()) {
-            this.ex="K21";
-            if (this.SLEW_MODE) {
-                this.SIM_TIME_SLEWED = true;
-            }
-            // Detect time adjust backwards
-            this.ex="K22";
-            if (this.TIME_S < this.sim_time_prev_time_s) {
-                this.SIM_TIME_NEGATIVE = true;
-            }
-            this.ex="K23";
-            if (this.ENGINE_RUNNING) {
-                this.SIM_TIME_ENGINE = true;
-            }
-            this.ex="K24";
-            let delay_s = update_s - this.sim_time_prev_update_s;
-            if (delay_s > 5) { // Paused for more than 5 seconds
-                this.ex="K241";
-                this.SIM_TIME_PAUSED = true;
-                this.sim_time_delay_s += delay_s;
-            }
-        }
-
-        this.ex="K4";
-        this.sim_time_prev_time_s = this.TIME_S;
-        this.SIM_TIME_S = this.TIME_S - this.sim_time_delay_s;
-        this.sim_time_prev_update_s = update_s;
-        this.ex="K9";
-    }
-
     update_task_page() {
         if(!this.taskpage_built) { this.build_taskpage(); return; }
 	

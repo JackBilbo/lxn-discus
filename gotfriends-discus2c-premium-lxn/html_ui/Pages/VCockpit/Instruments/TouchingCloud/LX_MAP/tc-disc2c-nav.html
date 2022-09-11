@@ -2,40 +2,15 @@
 <link rel="stylesheet" href="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/bignumbers.css" />
 <link rel="stylesheet" href="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/task-page.css" />
 <link rel="stylesheet" href="/Pages/VCockpit/Instruments/TouchingCloud/ATTITUDE_INDICATOR/tc-disc2c-attitude-indicator.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+      integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+      crossorigin=""/>
 
 <script type="text/html" id="lxn">
     <div id="Mainframe" class="map_northup">
 		<div id="battery_required">
-
-			<div id="Map" width="1000" height="1000"> <!-- Map is 1000px x 1000px -->
-				<map-instrument
-					id="MapInstrument"
-					bing-id="AS430"
-					bing-ref="sea"
-					bing-mode="plane"
-					/* show-bing-map="true" */
-					show-overlay="false"
-					show-airways="false"
-					show-airspaces="true"
-					show-airports="true"
-					show-flightplan="false"
-					show-traffic="true"
-					show-airplane="true"
-					show-cities="true"
-					show-roads="true"
-					show-vors="false"
-					show-ndbs="false"
-					show-intersections="false"
-					config-path="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/" >
-				</map-instrument>
-				<div id="lx_9050_map_overlay">
-					<svg id="lx_9050_task" width="1000" height="1000"></svg>
-				</div>
-				<div id="liftdotcontainer">
-					<svg id="lift_dots" width="1000" height="1000"></svg>
-				</div>
-			</div>
-
+			<div class="loader"><div class="bar"></div></div>
+			<div id="Map" width="1000" height="1000"></div>
 
 			<div class="speedgauge">
 				<div class="speedband">
@@ -474,6 +449,7 @@
 												<div class="handle"></div>
 											</div>
 										</div>
+										<input type="button" id="mapreset" value="Reset Map">
 									</div>
 									<div class="configpanel_buttons">
 										<a href="#" class="configpanel_close">CLOSE & SAVE</a>
@@ -620,7 +596,9 @@
 <script type="text/html" import-script="/Pages/VCockpit/Instruments/Shared/FlightElements/NearestWaypoint.js"></script>
 <script type="text/html" import-script="/Pages/VCockpit/Instruments/Shared/FlightElements/Waypoint.js"></script>
 
-<script type="text/html" import-script="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navmap.js"></script>
+<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+
+<script type="text/html" import-script="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navmap_topomap.js"></script>
 <script type="text/html" import-script="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/interface.js"></script>
 <script type="text/html" import-script="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navpanel.js"></script>
 <script type="text/html" import-script="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/configpanel.js"></script>

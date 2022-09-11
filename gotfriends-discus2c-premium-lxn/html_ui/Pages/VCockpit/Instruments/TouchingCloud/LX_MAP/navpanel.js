@@ -2,8 +2,9 @@ class navpanel {
     constructor(instrument) {
         this.instrument = instrument;
         this.instrumentIdentifier = "lxn";
-        this.oldairportlist;
         this.manualselectedairport = "";
+
+        this.airporticons = {}
     }
 
     init() {
@@ -22,8 +23,6 @@ class navpanel {
                 el.classList.add("selected");
                 NAVPANEL.manualselectedairport = icao;
             }
-
-            NAVPANEL.getSelectedAirport();
         })
 
         this.navinit = true;
@@ -33,12 +32,6 @@ class navpanel {
         if(!this.navinit) {  return; }
         this.airportlister.Update(20,200);
 
-        if(this.airportlister.loadState == 6 &&  this.oldairportlist != this.airportlister.airports) {
-            this.oldairportlist = this.airportlister.airports;
-            this.buildAirportList();
-            
-        }
-        
         this.getSelectedAirport();
         this.updateSelectedAirport();
 
@@ -49,6 +42,7 @@ class navpanel {
 
     getSelectedAirport() {
         if(this.airportlister.airportslength == 0) { return false; }
+        let currentapt = this.selectedAirport.icao;
 
         if(this.manualselectedairport != "") {
             this.selectedAirport.icao = this.manualselectedairport;
@@ -56,13 +50,9 @@ class navpanel {
             this.selectedAirport.icao = this.airportlister.airports[0].icao;
         }
       
-        this.selectedAirport.UpdateInfos(null, false);
-        // return this.selectedAirport;
-    }
-
-    setselectedAirport(apt) {
-        this.selectedAirport.icao = apt.icao
-        this.selectedAirport.UpdateInfos(null, false);
+        if(this.selectedAirport.icao != currentapt) {
+            this.selectedAirport.UpdateInfos(null, false);
+        }
     }
 
     updateSelectedAirport() {
@@ -133,13 +123,18 @@ class navpanel {
             item.setAttribute("data-airport", this.airportlister.airports[i].icao);
             item.innerHTML  = '<span class="apt_icao">' + this.airportlister.airports[i].ident + '</span>';
             item.innerHTML += '<span class="apt_name">' + this.airportlister.airports[i].name + '</span>';
-            item.innerHTML += '<span class="apt_direction"><span style="transform: rotate(' + (this.airportlister.airports[i].bearing - this.instrument.vars.hdg.value) + 'deg)">&#8593;</span></span>';
+            item.innerHTML += '<span class="apt_direction"><span style="transform: rotate(' + (this.airportlister.airports[i].bearing - this.instrument.vars.hdg.value ) + 'deg)">&#8593;</span></span>';
             item.innerHTML += '<span class="apt_dist">' + this.instrument.displayValue(this.airportlister.airports[i].distance, "nm", "dist") + '</span>';
             
             if(this.airportlister.airports[i].icao == this.manualselectedairport) {
                 item.setAttribute("class","selected");
             }
 
+            if(this.airporticons[this.airportlister.airports[i].ident] == null) {
+                let icon = this.airportlister.airports[i].airportClass == 1 ? NAVMAP.bigairportIcon : NAVMAP.smallairportIcon; 
+                this.airporticons[this.airportlister.airports[i].ident] = L.marker([this.airportlister.airports[i].coordinates.lat, this.airportlister.airports[i].coordinates.long], {icon: icon}).addTo(TOPOMAP);
+            }
+            
             aptlist.appendChild(item);
         }
 
