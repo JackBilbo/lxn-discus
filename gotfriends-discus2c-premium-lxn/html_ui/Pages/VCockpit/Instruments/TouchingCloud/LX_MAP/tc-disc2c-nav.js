@@ -1,4 +1,4 @@
-let NAVMAP, NAVPANEL, CONFIGPANEL, UI;
+let NAVMAP, NAVPANEL, CONFIGPANEL, UI, TOPOMAP;
 
 class lxn extends NavSystemTouch {
 
@@ -218,6 +218,7 @@ class lxn extends NavSystemTouch {
         this.jbb_update_hawk();
         this.update_speedgauge();
         
+        
         let mastermc = SimVar.GetSimVarValue("L:BEZEL_CAL","percent")
         if(this.v80_mcvalue != mastermc) {
             this.vars.mccready.value = mastermc / 10;
@@ -380,14 +381,13 @@ class lxn extends NavSystemTouch {
 
          if(this.prev_knobs_var[3] != this.KNOBS_VAR[3]) {
             this.prev_knobs_var = this.KNOBS_VAR;
-            if(NAVMAP.map_rotation == 1) {
-                NAVMAP.map_rotation = EMapRotationMode.NorthUp;
+            if(NAVMAP.map_rotation == "trackup") {
+                NAVMAP.map_rotation = "northup";
                 document.querySelector("#battery_required").setAttribute("class","map_northup");
             } else {
-                NAVMAP.map_rotation = EMapRotationMode.TrackUp;
+                NAVMAP.map_rotation = "trackup";
                 document.querySelector("#battery_required").setAttribute("class","map_trackup");
             }
-            
             NAVMAP.set_map_rotation(NAVMAP.map_rotation);
          }
     	           
@@ -657,7 +657,7 @@ class lxn extends NavSystemTouch {
 
         let averageindicator = this.jbb_avg_wind_direction;
 
-        if(NAVMAP.map_rotation == 1) {
+        if(NAVMAP.map_rotation == "trackup") {
             current_wind_direction = current_wind_direction - this.vars.hdg.value;
             averageindicator = averageindicator - this.vars.hdg.value;
         }
@@ -937,6 +937,7 @@ class lxn extends NavSystemTouch {
         switch (event_name) {
             case "TASK_WP_CHANGE":
                 // this.update_task_page(); // { wp }
+                NAVMAP.updateTaskline();
                 break;
 
             case "TASK_WP_COMPLETED":
