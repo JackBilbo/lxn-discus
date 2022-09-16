@@ -308,7 +308,7 @@ class lxn extends NavSystemTouch {
 
         /* now update all visible datacells with their selected values */
         let datacells = document.querySelectorAll(".current .datacell");
-
+        
         for(var i = this.tick; i < datacells.length; i = i + 2) {
             let cell = datacells[i];
             let currentconfigstr = cell.getAttribute("data-userconfig") != "" ? cell.getAttribute("data-userconfig") : cell.getAttribute("data-default");
@@ -348,9 +348,10 @@ class lxn extends NavSystemTouch {
                 }
             }
         }
+    
         
-        let livefields = document.querySelectorAll(".current .livedata, .pageheader .livedata")
         /* same for any "livedata"- fields, that might be present in a currently selected panel */
+        let livefields = document.querySelectorAll(".current .livedata, .pageheader .livedata");
         for(var i = this.tick; i < livefields.length; i = i + 2) {
             let field = livefields[i];
             let requestedvalue = field.getAttribute("data-value");
