@@ -3,21 +3,10 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <h2>New Features:</h2>
 
-- new and changed Keybindings (identical to bindings in the AS33 to make binding life easier): 
-  - Next/previous waypoint: transponder(1000) inc/dec
-  - Map Zoom +/-: transponder(10) inc/dec
-  - Map toggle NorthUp/TrackUp: transponder(1) inc/dec 
-  - Page switch left/right: COM1-Frequency whole inc/dec
-  - Page switch up/down: COM1-Frequency farcture inc/dec
-  
-- New displayable variables: 
-  - average task speed
-  - Angle of Attack
-  - "Waypoint Delta Min". Shows estimated arrival height above minimum height is available, if no min height is set, arrival above waypoint height is shown.
-  
-- Visual stall warning: red flashing screen
-- Waypoint arrival height calculation on task page accounts for min height.
-- Alert-Messages: Gear down with Ballast / Spoilers without gear extended below 600ft agl
+- Topographic Map
+- Various performance optimizations
+
+- new variable: UTC time
 
 
 <h2>Installation:</h2>
