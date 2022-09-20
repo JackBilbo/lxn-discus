@@ -40,6 +40,7 @@ class lxn extends NavSystemTouch {
             ballast: { value: 348, label: "Ballast", longlabel: "Current Ballast",category:"weight", baseunit: "lbs"},
             ballast_pct: { value: 50, label: "Ballast %", longlabel: "Current Ballast Percent",category:"percent", baseunit: "%"},
             localtime: { value: 0, label: "Local", longlabel: "Local Time", category: "time_of_day", baseunit: "s"},
+            utctime: { value: 0, label: "UTC", longlabel: "UTC Time", category: "time_of_day", baseunit: "s"},
             tasktime: { value: 0, label: "Task Time", longlabel: "Task Time", category: "time_of_day", baseunit: "s"},
             sel_apt_icao: { value: "XXXX", label: "APT ICAO", longlabel: "Selected Airport ICAO", category: "plaintext", baseunit: "none" },
             sel_apt_name: { value: "NAME", label: "APT NAME", longlabel: "Selected Airport Name", category: "plaintext", baseunit: "none" },
@@ -189,12 +190,13 @@ class lxn extends NavSystemTouch {
         
         if(this.tick == 0) {
             this.vars.ias.value = SimVar.GetSimVarValue("A:AIRSPEED INDICATED", "knots");
-            this.vars.tas.value = SimVar.GetSimVarValue("A:AIRSPEED TRUE", "knots");
             this.vars.hdg.value = SimVar.GetSimVarValue("A:PLANE HEADING DEGREES TRUE","degrees");
-            this.vars.trk.value = SimVar.GetSimVarValue("GPS GROUND TRUE TRACK","degrees");
-            this.vars.gndspd.value = SimVar.GetSimVarValue("A:GPS GROUND SPEED","knots");
-            this.vars.alt.value = SimVar.GetSimVarValue("A:PLANE ALTITUDE", "feet");
-            this.vars.alt_gnd.value = SimVar.GetSimVarValue("A:PLANE ALT ABOVE GROUND", "feet");
+            if(this.vars.tas.isUsed) {this.vars.tas.value = SimVar.GetSimVarValue("A:AIRSPEED TRUE", "knots");}
+            if(this.vars.trk.isUsed) {this.vars.trk.value = SimVar.GetSimVarValue("GPS GROUND TRUE TRACK","degrees");}
+            if(this.vars.gndspd.isUsed) {this.vars.gndspd.value = SimVar.GetSimVarValue("A:GPS GROUND SPEED","knots");}
+            if(this.vars.alt.isUsed) {this.vars.alt.value = SimVar.GetSimVarValue("A:INDICATED ALTITUDE", "feet");}
+            // this.vars.alt_gnd.value = SimVar.GetSimVarValue("A:PLANE ALT ABOVE GROUND", "feet");
+            if(this.vars.alt_gnd.isUsed) {this.vars.alt_gnd.value = this.vars.alt.value - SimVar.GetSimVarValue("GROUND ALTITUDE", "feet");}
 
             this.AIRSPEED_MS = this.vars.ias.value * 0.51444;
             this.AIRSPEED_TRUE_MS = this.vars.tas.value * 0.51444;
@@ -208,8 +210,8 @@ class lxn extends NavSystemTouch {
             this.vars.wind_spd.value = parseFloat(SimVar.GetSimVarValue("A:AMBIENT WIND VELOCITY", "knots"));
             this.vars.wind_direction.value = parseFloat(SimVar.GetSimVarValue("A:AMBIENT WIND DIRECTION", "degrees"));
             this.vars.wind_vertical.value = SimVar.GetSimVarValue("A:AMBIENT WIND Y", "knots");
-            this.vars.current_netto.value = (this.vars.current_netto.value * 0.9) + (SimVar.GetSimVarValue("L:NETTO", "knots") * 0.1);
-            this.vars.aoa.value = SimVar.GetSimVarValue("INCIDENCE ALPHA", "radians") * (180/Math.PI);
+            if(this.vars.current_netto.isUsed) {this.vars.current_netto.value = (this.vars.current_netto.value * 0.9) + (SimVar.GetSimVarValue("L:NETTO", "knots") * 0.1);}
+            if(this.vars.aoa.isUsed) {this.vars.aoa.value = SimVar.GetSimVarValue("INCIDENCE ALPHA", "radians") * (180/Math.PI);}
 
             this.ON_GROUND = SimVar.GetSimVarValue("SIM ON GROUND", "bool") ? true : false;
             this.TOTAL_WEIGHT_KG = SimVar.GetSimVarValue("A:TOTAL WEIGHT", "kilograms");
@@ -228,9 +230,7 @@ class lxn extends NavSystemTouch {
             this.jbb_update_hawk();
             
         }
-               
-        /* Set Vars for B21 Functions */
-        
+       
         
         
         if(this.TIME_S - this.TIMER_05 > 0.5) {
@@ -250,17 +250,17 @@ class lxn extends NavSystemTouch {
                 
                 this.update_task_page();   
 
-                this.vars.wp_name.value = B21_SOARING_ENGINE.current_wp().name;
-                this.vars.wp_dist.value = B21_SOARING_ENGINE.current_wp().distance_m / 1852; // convert to baseunit
-                this.vars.wp_bearing.value = B21_SOARING_ENGINE.current_wp().bearing_deg;
-                this.vars.wp_arr_msl.value = B21_SOARING_ENGINE.current_wp().arrival_height_msl_m / 0.3048;
-                this.vars.wp_ete.value = B21_SOARING_ENGINE.current_wp().ete_s / 60;
-                this.vars.wp_alt.value = B21_SOARING_ENGINE.current_wp().alt_m / 0.3048;
-                this.vars.wp_arr_agl.value = (B21_SOARING_ENGINE.current_wp().arrival_height_msl_m - B21_SOARING_ENGINE.current_wp().alt_m) / 0.3048;
-                this.vars.wp_arr_wpmin.value = (B21_SOARING_ENGINE.current_wp().arrival_height_msl_m - (B21_SOARING_ENGINE.current_wp().min_alt_m != null ? B21_SOARING_ENGINE.current_wp().min_alt_m : B21_SOARING_ENGINE.current_wp().alt_m)) / 0.3048;
-                this.vars.task_arr_msl.value = B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m / 0.3048;
-                this.vars.task_arr_agl.value = (B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - (B21_SOARING_ENGINE.task.finish_wp().min_alt_m != null ? B21_SOARING_ENGINE.task.finish_wp().min_alt_m : B21_SOARING_ENGINE.task.finish_wp().alt_m)) / 0.3048;
-                this.vars.task_spd.value = B21_SOARING_ENGINE.task.avg_task_speed_kts();
+                if(this.vars.wp_name.isUsed) {this.vars.wp_name.value = B21_SOARING_ENGINE.current_wp().name;}
+                if(this.vars.wp_dist.isUsed) {this.vars.wp_dist.value = B21_SOARING_ENGINE.current_wp().distance_m / 1852;} // convert to baseunit
+                if(this.vars.wp_bearing.isUsed) {this.vars.wp_bearing.value = B21_SOARING_ENGINE.current_wp().bearing_deg;}
+                if(this.vars.wp_arr_msl.isUsed) {this.vars.wp_arr_msl.value = B21_SOARING_ENGINE.current_wp().arrival_height_msl_m / 0.3048;}
+                if(this.vars.wp_ete.isUsed) {this.vars.wp_ete.value = B21_SOARING_ENGINE.current_wp().ete_s / 60;}
+                if(this.vars.wp_alt.isUsed) {this.vars.wp_alt.value = B21_SOARING_ENGINE.current_wp().alt_m / 0.3048;}
+                if(this.vars.wp_arr_agl.isUsed) {this.vars.wp_arr_agl.value = (B21_SOARING_ENGINE.current_wp().arrival_height_msl_m - B21_SOARING_ENGINE.current_wp().alt_m) / 0.3048;}
+                if(this.vars.wp_arr_wpmin.isUsed) {this.vars.wp_arr_wpmin.value = (B21_SOARING_ENGINE.current_wp().arrival_height_msl_m - (B21_SOARING_ENGINE.current_wp().min_alt_m != null ? B21_SOARING_ENGINE.current_wp().min_alt_m : B21_SOARING_ENGINE.current_wp().alt_m)) / 0.3048;}
+                if(this.vars.task_arr_msl.isUsed) {this.vars.task_arr_msl.value = B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m / 0.3048;}
+                if(this.vars.task_arr_agl.isUsed) {this.vars.task_arr_agl.value = (B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - (B21_SOARING_ENGINE.task.finish_wp().min_alt_m != null ? B21_SOARING_ENGINE.task.finish_wp().min_alt_m : B21_SOARING_ENGINE.task.finish_wp().alt_m)) / 0.3048;}
+                if(this.vars.task_spd.isUsed) {this.vars.task_spd.value = B21_SOARING_ENGINE.task.avg_task_speed_kts();}
             }
 
             NAVMAP.load_map();
@@ -272,8 +272,9 @@ class lxn extends NavSystemTouch {
             /* Stuff happening every second ********************************************************* */
             this.TIMER_1 = this.TIME_S;
 
-            this.vars.oat.value = parseFloat(SimVar.GetSimVarValue("A:AMBIENT TEMPERATURE", "fahrenheit"));
-            this.vars.localtime.value = SimVar.GetSimVarValue("E:LOCAL TIME","seconds");
+            if(this.vars.oat.isUsed) {this.vars.oat.value = parseFloat(SimVar.GetSimVarValue("A:AMBIENT TEMPERATURE", "fahrenheit"));}
+            if(this.vars.localtime.isUsed) {this.vars.localtime.value = SimVar.GetSimVarValue("E:LOCAL TIME","seconds");}
+            if(this.vars.utctime.isUsed) {this.vars.utctime.value = SimVar.GetSimVarValue("E:ZULU TIME","seconds");}
 
             NAVPANEL.update();
             this.updateLiftdots();
@@ -322,7 +323,8 @@ class lxn extends NavSystemTouch {
                     let displaynumber; 
                     if(LXNAV.vars[currentconfig.value].category != "plaintext") {
                         displaynumber = LXNAV.displayValue(LXNAV.vars[currentconfig.value].value, LXNAV.vars[currentconfig.value].baseunit, LXNAV.vars[currentconfig.value].category, forceunit);
-                    } 
+                    }
+                    LXNAV.vars[currentconfig.value].isUsed = true; 
                     
                     cell.style.backgroundColor = displaynumber > 0 ? currentconfig.back + "BB" : currentconfig.backneg + "BB";
                     cell.style.color = currentconfig.text;
@@ -368,7 +370,8 @@ class lxn extends NavSystemTouch {
             else {
                 
                 field.innerHTML = LXNAV.vars[requestedvalue].value;
-            }   
+            }  
+            LXNAV.vars[requestedvalue].isUsed = true; 
         }
 
         this.tick = this.tick == 0 ? 1 : 0;

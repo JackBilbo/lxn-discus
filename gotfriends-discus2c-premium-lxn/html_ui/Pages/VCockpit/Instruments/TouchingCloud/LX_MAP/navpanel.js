@@ -117,6 +117,7 @@ class navpanel {
     buildAirportList() {
         let aptlist = document.querySelector("#nearestairports");
         aptlist.innerHTML = "";
+        let airporticons =  [];
         
         for(let i=0;i<this.airportlister.airports.length;i++) {
             let item = document.createElement("li");
@@ -130,14 +131,29 @@ class navpanel {
                 item.setAttribute("class","selected");
             }
 
-            if(this.airporticons[this.airportlister.airports[i].ident] == null) {
+            if(typeof(TOPOMAP.addLayer) == "function") {
                 let icon = this.airportlister.airports[i].airportClass == 1 ? NAVMAP.bigairportIcon : NAVMAP.smallairportIcon; 
-                this.airporticons[this.airportlister.airports[i].ident] = L.marker([this.airportlister.airports[i].coordinates.lat, this.airportlister.airports[i].coordinates.long], {icon: icon}).addTo(TOPOMAP);
+
+                airporticons.push({
+                    "type": "Feature",
+                    "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                        this.airportlister.airports[i].coordinates.long,
+                        this.airportlister.airports[i].coordinates.lat
+                      ]
+                    },
+                    "properties": {
+                      "myicon": icon
+                    }
+                  })
             }
             
             aptlist.appendChild(item);
         }
 
+        NAVMAP.paintAirports(airporticons);
+        
         this.listisbulidt = true;
     }
 
