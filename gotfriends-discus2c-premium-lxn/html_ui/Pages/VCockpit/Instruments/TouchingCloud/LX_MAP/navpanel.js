@@ -11,6 +11,8 @@ class navpanel {
         this.airportlister = new NearestAirportList(this);
         this.selectedAirport = new AirportInfo(this.instrument);
 
+        this.airportlister.Update(20,200);
+
         document.querySelector("#nearestairports").addEventListener("click",function(e) {
             let el = e.target.parentNode;
             let icao = el.getAttribute("data-airport");
@@ -30,14 +32,21 @@ class navpanel {
 
     update() {
         if(!this.navinit) {  return; }
+
         this.airportlister.Update(20,200);
+        
+        if(this.airportlister.loadState != 6) {
+            this.listerisloading = true;
+        }
+        
+        if(this.listerisloading && this.airportlister.loadState == 6) {
+            // Airportlister finished updating
+            this.buildAirportList();
+            this.listerisloading = false;
+        }
 
         this.getSelectedAirport();
         this.updateSelectedAirport();
-
-        if(UI.pagepos_x == 0 && UI.pagepos_y == 2) {
-            this.buildAirportList();
-        }
     }
 
     getSelectedAirport() {
