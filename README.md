@@ -7,6 +7,7 @@ Replacement mod for the GotFriends Discus' Nav computer
 - Various performance optimizations
 
 - new variable: UTC time
+- a touch of realism: Altitude is now barometric altitude, so make sure to set correct QNH (or hit "b" ;-))
 
 
 <h2>Installation:</h2>
