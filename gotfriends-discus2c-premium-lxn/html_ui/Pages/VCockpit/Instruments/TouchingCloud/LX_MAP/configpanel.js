@@ -85,8 +85,9 @@ class configpanel {
         this.glareshiledrange = new rangeinput(document.querySelector("#glareshieldslider"), function(val) { SimVar.SetSimVarValue("A:LIGHT POTENTIOMETER:5", "number", val); });
         this.rangesliders.push(this.glareshiledrange);
 
-        let isFES = SimVar.GetSimVarValue("L:IsFES","bool");
-        if(isFES == "1") {
+        let isFES = SimVar.GetSimVarValue("A:Empty weight","number") > 300;
+        
+        if(isFES) {
             this.maxballast = {
                 left: 110,
                 right: 110,
