@@ -176,7 +176,7 @@ class configpanel {
     }
 
     toggleDatafieldSize(val) {
-        if (val == "on") {  document.querySelector("#panelframe").classList.add("bigdatafields") } else { document.querySelector("#panelframe").classList.remove("bigdatafields") }
+        if (val == "on") {  document.querySelector("#battery_required").classList.add("bigdatafields") } else { document.querySelector("#battery_required").classList.remove("bigdatafields") }
     }
 
     toggleLiftdots(val) {
@@ -206,6 +206,16 @@ class configpanel {
         } else {  
             this.displayHawk = false; 
             document.querySelector("#hawk").classList.remove("active") 
+        }
+    }
+
+    toggleCoursePointer(val) {
+        if (val == "on") {  
+            this.displayCoursePointer = true; 
+            document.querySelector("#coursepointer").classList.add("active") 
+        } else {  
+            this.displayCoursePointer = false; 
+            document.querySelector("#coursepointer").classList.remove("active") 
         }
     }
 
