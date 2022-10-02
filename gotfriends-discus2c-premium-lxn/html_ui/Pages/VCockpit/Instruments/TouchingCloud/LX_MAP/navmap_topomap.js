@@ -47,12 +47,12 @@ class navmap {
     load_map() {
 
         // Map will be initialised on the 10th update cycle from aircraft load
-        if (this.load_map_called == null || this.load_map_called < 250) {
+        if (this.load_map_called == null || this.load_map_called < 500) {
             this.load_map_called = this.load_map_called == null ? 1 : this.load_map_called + 1;
 
-            document.querySelector(".loader .bar").style.width = (this.load_map_called * 0.4) + "%";
+            document.querySelector(".loader .bar").style.width = (this.load_map_called * 0.2) + "%";
 
-            if (this.load_map_called == 250) { // this is experimental code to delay the
+            if (this.load_map_called == 500) { // this is experimental code to delay the
                 // Map elements
 
                 this.smallairportIcon = L.icon({
