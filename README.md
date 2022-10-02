@@ -16,7 +16,7 @@ Replacement mod for the GotFriends Discus' Nav computer
 - map switch trackup/northup is now persistent between flights.
 
 - Bugfixes: 
-  - Gorund track working again as intended 
+  - Ground track working again as intended 
   - UTC time is now displaying real world time as intended
   - FES-Version is correctly identified and displayes correct ballast values on ballast page
   - font sizes for time displays adjusted to work correctly in "improved readability" mode
