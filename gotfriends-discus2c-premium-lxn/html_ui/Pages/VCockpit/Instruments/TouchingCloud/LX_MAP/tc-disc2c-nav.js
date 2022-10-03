@@ -1067,7 +1067,7 @@ class lxn extends NavSystemTouch {
 
         taskheader.querySelector(".task-state .task-totaldistance .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.distance_m(),"m","dist");
         taskheader.querySelector(".task-state .task-totaldistance .unit").innerHTML = this.units.dist.pref;
-	    taskheader.querySelector(".task-state .task-distanceleft .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.remaining_distance_m(),"m","dist");
+	    taskheader.querySelector(".task-state .task-distanceleft .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.remaining_distance_m(),"m","dist");;
         taskheader.querySelector(".task-state .task-distanceleft .unit").innerHTML = this.units.dist.pref;        
         taskheader.querySelector(".task-state .task-arrivalheight .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - (B21_SOARING_ENGINE.task.finish_wp().min_alt_m != null? B21_SOARING_ENGINE.task.finish_wp().min_alt_m : B21_SOARING_ENGINE.task.finish_wp().alt_m),"m","alt"); 
         taskheader.querySelector(".task-state .task-arrivalheight .unit").innerHTML = this.units.alt.pref;
