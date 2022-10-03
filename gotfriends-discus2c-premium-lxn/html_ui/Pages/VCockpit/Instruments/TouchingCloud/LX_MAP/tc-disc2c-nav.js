@@ -1,4 +1,5 @@
 let LXN, NAVMAP, NAVPANEL, CONFIGPANEL, UI, TOPOMAP;
+let NAVMAP, NAVPANEL, CONFIGPANEL, UI, TOPOMAP, SN, SOARNET;
 
 class lxn extends NavSystemTouch {
 
@@ -65,16 +66,7 @@ class lxn extends NavSystemTouch {
             wp_ete: { value: 0, label: "WP ETE", longlabel: "Waypoint Time Enroute", category: "time", baseunit: "min" },
             task_arr_agl: { value: 0, label: "TSK FIN (AGL)", longlabel: "Task Finish Altitude (AGL)", category: "alt", baseunit: "ft" },
             task_arr_msl: { value: 0, label: "TSK FIN (MSL)", longlabel: "Task Finish Altitude (MSL)", category: "alt", baseunit: "ft" },
-            task_spd: { value: 0, label: "TSK SPD", longlabel: "Task Speed", category: "speed", baseunit: "kts"},
-            current_gr: { value: 0, label: "GR", longlabel: "Glide Ratio", category: "plaintext", baseunit: "none"},
-            stf_gr: { value: 0, label: "STF GR", longlabel: "Glide Ratio at STF", category: "plaintext", baseunit: "none"},
-            polar_sink: { value: 0, label: "Polar Sink", longlabel: "Polar Sink at current speed", category: "verticalspeed", baseunit: "kts" },
-            total_energy: { value: 0, label: "TE", longlabel: "Total Energy", category: "verticalspeed", baseunit: "kts" },
-            calc_netto: { value: 0, label: "NET", longlabel: "Calculated Netto", category: "verticalspeed", baseunit: "kts" },
-            log_time:{ value: 0, label: "LOG TIME", longlabel: "Log Time", category: "time_of_day", baseunit: "hms24" },
-            log_climb: { value: 0, label: "LOG CLB", longlabel: "Log Accumulated Climb", category: "alt", baseunit: "m"},
-            log_avg: { value: 0, label: "LOG AVG", longlabel: "Log Average TGroundspeed", category: "speed", baseunit: "kmh"},
-            log_dist: { value: 0, label: "LOG DIST", longlabel: "Log Distance", category: "dist", baseunit: "km" },
+            task_spd: { value: 0, label: "TSK SPD", longlabel: "Task Speed", category: "speed", baseunit: "kts"}
         }
         
         this.units = {
@@ -162,7 +154,7 @@ class lxn extends NavSystemTouch {
         CONFIGPANEL = new configpanel(this); CONFIGPANEL.initSystemSettings();
         UI = new ui(this); UI.init();
 
-        this.jbb_refwt = SimVar.GetSimVarValue("A:Empty weight","number") > 300 ? 921 : 765;
+        this.jbb_refwt = SimVar.GetSimVarValue("A:Empty weight","number") > 300 ? 944 : 812;
 
         this.init_speedgauge();
         this.jbb_init_calc_polar();
@@ -296,11 +288,8 @@ class lxn extends NavSystemTouch {
             NAVPANEL.update();
             CONFIGPANEL.update();
             this.updateKineticAssistant();
-            this.calc_gr();
 
-            this.vars.polar_sink.value = this.jbb_getPolarSink_kts(this.vars.ias.value);
-            this.vars.total_energy.value = this.jbb_getTotalEnergy() / 0.51444;
-            this.vars.calc_netto.value = this.vars.total_energy.value - this.vars.polar_sink.value;
+            SN.update();
         }
 
         if(this.TIME_S - this.TIMER_1 > 1) {

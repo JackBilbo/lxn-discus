@@ -454,6 +454,17 @@ class navmap {
 
     }
 
+    paintMultiplayers(userid, data) {
+        
+        if(this.mpMarker[userid] == null) {
+            console.log("Painting Map: " + data);
+            this.mpMarker[userid] = L.marker([data.lat, data.long], { icon: this.mpglidericon }).addTo(TOPOMAP);
+        } else {
+            this.mpMarker[userid].setLatLng([data.lat, data.long])
+            this.mpMarker[userid].getElement().querySelector("svg").style.transform = "rotate(" + (data.hdg + 45) + "deg)";
+        }
+    }
+
     initMap() {
         let lat = parseFloat(SimVar.GetSimVarValue("A:PLANE LATITUDE", "degrees latitude"));
         let long = parseFloat(SimVar.GetSimVarValue("A:PLANE LONGITUDE", "degrees longitude"));
@@ -473,7 +484,6 @@ class navmap {
                         tap: false,
                         touchZoom: false
         }).addTo(TOPOMAP);
-
         if(this.hasAipLayer) {
             this.addAipLayer()
         }
