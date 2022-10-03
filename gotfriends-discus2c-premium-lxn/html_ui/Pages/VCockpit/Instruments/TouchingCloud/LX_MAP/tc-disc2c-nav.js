@@ -1,4 +1,5 @@
 let LXN, NAVMAP, NAVPANEL, CONFIGPANEL, UI, TOPOMAP;
+let NAVMAP, NAVPANEL, CONFIGPANEL, UI, TOPOMAP, SN, SOARNET;
 
 class lxn extends NavSystemTouch {
 
@@ -166,7 +167,7 @@ class lxn extends NavSystemTouch {
         CONFIGPANEL = new configpanel(this); CONFIGPANEL.initSystemSettings();
         UI = new ui(this); UI.init();
 
-        this.jbb_refwt = SimVar.GetSimVarValue("A:Empty weight","number") > 300 ? 921 : 765;
+        this.jbb_refwt = SimVar.GetSimVarValue("A:Empty weight","number") > 300 ? 944 : 812;
 
         this.init_speedgauge();
         this.jbb_init_calc_polar();
@@ -342,9 +343,7 @@ class lxn extends NavSystemTouch {
             this.vars.total_energy.value = this.jbb_getTotalEnergy() / 0.51444;
             this.vars.calc_netto.value = this.vars.total_energy.value + Math.abs(this.vars.polar_sink.value);
 
-            this.vars.polar_sink.value = this.jbb_getPolarSink_kts(this.vars.ias.value);
-            this.vars.total_energy.value = this.jbb_getTotalEnergy() / 0.51444;
-            this.vars.calc_netto.value = this.vars.total_energy.value - this.vars.polar_sink.value;
+            SN.update();
         }
 
         if(this.TIME_S - this.TIMER_1 > 1) {
