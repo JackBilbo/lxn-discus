@@ -1,33 +1,10 @@
 # lxn-discus
 Replacement mod for the GotFriends Discus' Nav computer
 
-<h2>New Features:</h2>
+<h2>Experimental:</h2>
 
-Mod adapted for Discus Version 2.0.6
-
-CHANGED KEYBINDS: some users experienced problems with binding to com frequencies. Changeing pages left/right and up/down are now bound to autopilot altitude and vertical speed settings:
-
-- Page left/right:    INCREASE/DECREASE AUTOPILOT REFERENCE ALTITUDE
-- Page up/down:       INCREASE/DECREASE AUTOPILOT REFERENCE VS
-
-Please adjust your keybinds
-
-Fixed a bug where conditional background colors in data fields failed for altitude values >10k 
-
-Lots of text corrections. Thanks to Jonx!
-
-Map loading should be stable now. No more silly loading bar.
-
-New feature: automatic log. If activated in interface settings the log will autostart once you reach 100m AGL. You can display log distance, time, altitude climbed and average ground speed. For people like me, who like to fly around without flightplan and still like to see some statistics :-)
-
-Some new info selectable for data fields: total energy, netto, glide ratios.
-
-For more in depth info about setting up glider flights, planning and using this mod for navigation check out David Aldrich's excellent video:
-
-https://www.youtube.com/watch?v=Ftn-_smpZ0c&t=1537s
-
-(the multiplayer function mentioned in the video is an experimental feature, that is not included in this release)
-
+This branch contains a new, highly experimental multiplayer-feature: on the page "multiplayer" enter any username and hit "Save" to connect to a session. Currently all connections are made to a "test" session.
+  
 
 <h2>Installation:</h2>
 
