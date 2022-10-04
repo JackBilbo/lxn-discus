@@ -1,12 +1,9 @@
 # lxn-discus
 Replacement mod for the GotFriends Discus' Nav computer
 
-<h2>New Features:</h2>
+<h2>Experimental:</h2>
 
-- Compatible with Discus 2.0.5 as well as earlier versions
-
-- Bugfix: 
-  - Vertical speed ans wind can now be displayed as feet per second
+This branch contains a new, highly experimental multiplayer-feature: on the page "multiplayer" enter any username and hit "Save" to connect to a session. Currently all connections are made to a "test" session.
   
 
 <h2>Installation:</h2>
