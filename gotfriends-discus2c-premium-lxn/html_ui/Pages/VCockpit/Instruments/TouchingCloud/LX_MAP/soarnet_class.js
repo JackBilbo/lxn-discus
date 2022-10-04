@@ -107,7 +107,7 @@ class soarnet {
 }
 
 SOARNET.displayUserList = function(){
-    let list = document.querySelector("#userlist");
+    let list = document.querySelector("#userlist tbody");
     let userList = [];
     let finisherlist = [];
     let now = Math.floor(Date.now() / 1000);
@@ -125,7 +125,7 @@ SOARNET.displayUserList = function(){
                 NAVMAP.paintMultiplayers(user, SOARNET.eventusers[user]);
             }
         } else {
-            SOARNET.deleteEventUser("test", user);
+            
         }      
     }
 

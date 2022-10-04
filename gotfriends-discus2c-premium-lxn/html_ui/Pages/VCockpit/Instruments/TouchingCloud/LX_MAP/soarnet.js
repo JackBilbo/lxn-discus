@@ -28,7 +28,7 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e102) { throw _e102; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e103) { didErr = true; err = _e103; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e103) { throw _e103; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e104) { didErr = true; err = _e104; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -986,15 +986,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
   var q, W;
   var U = new WeakMap(),
-      B = new WeakMap(),
       j = new WeakMap(),
+      B = new WeakMap(),
       H = new WeakMap(),
       z = new WeakMap();
   var V = {
     get: function get(e, t, n) {
       if (e instanceof IDBTransaction) {
-        if ("done" === t) return B.get(e);
-        if ("objectStoreNames" === t) return e.objectStoreNames || j.get(e);
+        if ("done" === t) return j.get(e);
+        if ("objectStoreNames" === t) return e.objectStoreNames || B.get(e);
         if ("store" === t) return n.objectStoreNames[1] ? void 0 : n.objectStore(n.objectStoreNames[0]);
       }
 
@@ -1030,9 +1030,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
       var i = (_t10 = t).call.apply(_t10, [K(this), e].concat(n));
 
-      return j.set(i, e.sort ? e.sort() : [e]), Y(i);
+      return B.set(i, e.sort ? e.sort() : [e]), Y(i);
     } : (e instanceof IDBTransaction && function (e) {
-      if (B.has(e)) return;
+      if (j.has(e)) return;
       var t = new Promise(function (t, n) {
         var i = function i() {
           e.removeEventListener("complete", s), e.removeEventListener("error", r), e.removeEventListener("abort", r);
@@ -1046,7 +1046,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
         e.addEventListener("complete", s), e.addEventListener("error", r), e.addEventListener("abort", r);
       });
-      B.set(e, t);
+      j.set(e, t);
     }(e), n = e, (q || (q = [IDBDatabase, IDBObjectStore, IDBIndex, IDBCursor, IDBTransaction])).some(function (e) {
       return n instanceof e;
     }) ? new Proxy(e, V) : e);
@@ -1347,7 +1347,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
   function _fe() {
     _fe = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11(e, t) {
-      var n, _n69, _i65, _t59;
+      var n, _n72, _i65, _t61;
 
       return _regeneratorRuntime().wrap(function _callee11$(_context11) {
         while (1) {
@@ -1358,13 +1358,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
               return _e();
 
             case 3:
-              _n69 = _context11.sent.transaction(de, "readwrite");
-              _i65 = _n69.objectStore(de);
+              _n72 = _context11.sent.transaction(de, "readwrite");
+              _i65 = _n72.objectStore(de);
               _context11.next = 7;
               return _i65.put(t, ge(e));
 
             case 7:
-              return _context11.abrupt("return", _n69.done);
+              return _context11.abrupt("return", _n72.done);
 
             case 10:
               _context11.prev = 10;
@@ -1373,7 +1373,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
                 _t61 = le.create("idb-set", {
                   originalErrorMessage: null === (n = _context11.t0) || void 0 === n ? void 0 : n.message
                 });
-                ie.warn(_t59.message);
+                ie.warn(_t61.message);
               }
 
             case 13:
@@ -1990,12 +1990,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       Ue = function Ue(e) {
     return "number" == typeof e && (e != e || e === Number.POSITIVE_INFINITY || e === Number.NEGATIVE_INFINITY);
   },
-      Be = "[MIN_NAME]",
-      je = "[MAX_NAME]",
+      je = "[MIN_NAME]",
+      Be = "[MAX_NAME]",
       He = function He(e, t) {
     if (e === t) return 0;
-    if (e === Be || t === je) return -1;
-    if (t === Be || e === je) return 1;
+    if (e === je || t === Be) return -1;
+    if (t === je || e === Be) return 1;
     {
       var _n14 = Je(e),
           _i13 = Je(t);
@@ -3323,6 +3323,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   }
 
   function At(e, t) {
+    var n = Nt(e, 0),
+        i = Nt(t, 0);
+
+    for (var _e33 = 0; _e33 < n.length && _e33 < i.length; _e33++) {
+      var _t20 = He(n[_e33], i[_e33]);
+
+      if (0 !== _t20) return _t20;
+    }
+
+    return n.length === i.length ? 0 : n.length < i.length ? -1 : 1;
+  }
+
+  function Ot(e, t) {
     if (Tt(e) !== Tt(t)) return !1;
 
     for (var _n26 = e.pieceNum_, _i17 = t.pieceNum_; _n26 <= e.pieces_.length; _n26++, _i17++) {
@@ -3332,7 +3345,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return !0;
   }
 
-  function Ot(e, t) {
+  function Mt(e, t) {
     var n = e.pieceNum_,
         i = t.pieceNum_;
     if (Tt(e) > Tt(t)) return !1;
@@ -3345,36 +3358,36 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return !0;
   }
 
-  var Mt = /*#__PURE__*/_createClass(function Mt(e, t) {
-    _classCallCheck(this, Mt);
+  var Lt = /*#__PURE__*/_createClass(function Lt(e, t) {
+    _classCallCheck(this, Lt);
 
     this.errorPrefix_ = t, this.parts_ = Nt(e, 0), this.byteLength_ = Math.max(1, this.parts_.length);
 
-    for (var _e33 = 0; _e33 < this.parts_.length; _e33++) {
-      this.byteLength_ += T(this.parts_[_e33]);
+    for (var _e34 = 0; _e34 < this.parts_.length; _e34++) {
+      this.byteLength_ += T(this.parts_[_e34]);
     }
 
-    Lt(this);
+    Ft(this);
   });
 
-  function Lt(e) {
+  function Ft(e) {
     if (e.byteLength_ > 768) throw new Error(e.errorPrefix_ + "has a key path longer than 768 bytes (" + e.byteLength_ + ").");
-    if (e.parts_.length > 32) throw new Error(e.errorPrefix_ + "path specified exceeds the maximum depth that can be written (32) or object contains a cycle " + Ft(e));
+    if (e.parts_.length > 32) throw new Error(e.errorPrefix_ + "path specified exceeds the maximum depth that can be written (32) or object contains a cycle " + qt(e));
   }
 
-  function Ft(e) {
+  function qt(e) {
     return 0 === e.parts_.length ? "" : "in property '" + e.parts_.join(".") + "'";
   }
 
-  var qt = /*#__PURE__*/function (_Ct2) {
-    _inherits(qt, _Ct2);
+  var Wt = /*#__PURE__*/function (_Ct2) {
+    _inherits(Wt, _Ct2);
 
-    var _super3 = _createSuper(qt);
+    var _super3 = _createSuper(Wt);
 
-    function qt() {
+    function Wt() {
       var _this24;
 
-      _classCallCheck(this, qt);
+      _classCallCheck(this, Wt);
 
       var e, t;
       _this24 = _super3.call(this, ["visible"]), "undefined" != typeof document && void 0 !== document.addEventListener && (void 0 !== document.hidden ? (t = "visibilitychange", e = "hidden") : void 0 !== document.mozHidden ? (t = "mozvisibilitychange", e = "mozHidden") : void 0 !== document.msHidden ? (t = "msvisibilitychange", e = "msHidden") : void 0 !== document.webkitHidden && (t = "webkitvisibilitychange", e = "webkitHidden")), _this24.visible_ = !0, t && document.addEventListener(t, function () {
@@ -3384,7 +3397,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       return _this24;
     }
 
-    _createClass(qt, [{
+    _createClass(Wt, [{
       key: "getInitialEvent",
       value: function getInitialEvent(t) {
         return e("visible" === t, "Unknown event type: " + t), [this.visible_];
@@ -3392,31 +3405,31 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }], [{
       key: "getInstance",
       value: function getInstance() {
-        return new qt();
+        return new Wt();
       }
     }]);
 
-    return qt;
+    return Wt;
   }(Ct);
 
-  var Wt = 1e3;
+  var Ut = 1e3;
 
-  var Ut = /*#__PURE__*/function (_vt) {
-    _inherits(Ut, _vt);
+  var jt = /*#__PURE__*/function (_vt) {
+    _inherits(jt, _vt);
 
-    var _super4 = _createSuper(Ut);
+    var _super4 = _createSuper(jt);
 
-    function Ut(e, t, n, i, s, r, o, a) {
+    function jt(e, t, n, i, s, r, o, a) {
       var _this25;
 
-      _classCallCheck(this, Ut);
+      _classCallCheck(this, jt);
 
-      if (_this25 = _super4.call(this), _this25.repoInfo_ = e, _this25.applicationId_ = t, _this25.onDataUpdate_ = n, _this25.onConnectStatus_ = i, _this25.onServerInfoUpdate_ = s, _this25.authTokenProvider_ = r, _this25.appCheckTokenProvider_ = o, _this25.authOverride_ = a, _this25.id = Ut.nextPersistentConnectionId_++, _this25.log_ = Le("p:" + _this25.id + ":"), _this25.interruptReasons_ = {}, _this25.listens = new Map(), _this25.outstandingPuts_ = [], _this25.outstandingGets_ = [], _this25.outstandingPutCount_ = 0, _this25.outstandingGetCount_ = 0, _this25.onDisconnectRequestQueue_ = [], _this25.connected_ = !1, _this25.reconnectDelay_ = Wt, _this25.maxReconnectDelay_ = 3e5, _this25.securityDebugCallback_ = null, _this25.lastSessionId = null, _this25.establishConnectionTimer_ = null, _this25.visible_ = !1, _this25.requestCBHash_ = {}, _this25.requestNumber_ = 0, _this25.realtime_ = null, _this25.authToken_ = null, _this25.appCheckToken_ = null, _this25.forceTokenRefresh_ = !1, _this25.invalidAuthTokenCount_ = 0, _this25.invalidAppCheckTokenCount_ = 0, _this25.firstConnection_ = !0, _this25.lastConnectionAttemptTime_ = null, _this25.lastConnectionEstablishedTime_ = null, a) throw new Error("Auth override specified in options, but not supported on non Node.js platforms");
-      qt.getInstance().on("visible", _this25.onVisible_, _assertThisInitialized(_this25)), -1 === e.host.indexOf("fblocal") && wt.getInstance().on("online", _this25.onOnline_, _assertThisInitialized(_this25));
+      if (_this25 = _super4.call(this), _this25.repoInfo_ = e, _this25.applicationId_ = t, _this25.onDataUpdate_ = n, _this25.onConnectStatus_ = i, _this25.onServerInfoUpdate_ = s, _this25.authTokenProvider_ = r, _this25.appCheckTokenProvider_ = o, _this25.authOverride_ = a, _this25.id = jt.nextPersistentConnectionId_++, _this25.log_ = Le("p:" + _this25.id + ":"), _this25.interruptReasons_ = {}, _this25.listens = new Map(), _this25.outstandingPuts_ = [], _this25.outstandingGets_ = [], _this25.outstandingPutCount_ = 0, _this25.outstandingGetCount_ = 0, _this25.onDisconnectRequestQueue_ = [], _this25.connected_ = !1, _this25.reconnectDelay_ = Ut, _this25.maxReconnectDelay_ = 3e5, _this25.securityDebugCallback_ = null, _this25.lastSessionId = null, _this25.establishConnectionTimer_ = null, _this25.visible_ = !1, _this25.requestCBHash_ = {}, _this25.requestNumber_ = 0, _this25.realtime_ = null, _this25.authToken_ = null, _this25.appCheckToken_ = null, _this25.forceTokenRefresh_ = !1, _this25.invalidAuthTokenCount_ = 0, _this25.invalidAppCheckTokenCount_ = 0, _this25.firstConnection_ = !0, _this25.lastConnectionAttemptTime_ = null, _this25.lastConnectionEstablishedTime_ = null, a) throw new Error("Auth override specified in options, but not supported on non Node.js platforms");
+      Wt.getInstance().on("visible", _this25.onVisible_, _assertThisInitialized(_this25)), -1 === e.host.indexOf("fblocal") && wt.getInstance().on("online", _this25.onOnline_, _assertThisInitialized(_this25));
       return _possibleConstructorReturn(_this25);
     }
 
-    _createClass(Ut, [{
+    _createClass(jt, [{
       key: "sendRequest",
       value: function sendRequest(t, n, i) {
         var s = ++this.requestNumber_,
@@ -3490,7 +3503,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         e.tag && (s.q = t._queryObject, s.t = e.tag), s.h = e.hashFn(), this.sendRequest("q", s, function (s) {
           var r = s.d,
               o = s.s;
-          Ut.warnOnListenWarnings_(r, t), (_this27.listens.get(n) && _this27.listens.get(n).get(i)) === e && (_this27.log_("listen response", s), "ok" !== o && _this27.removeListen_(n, i), e.onComplete && e.onComplete(o, r));
+          jt.warnOnListenWarnings_(r, t), (_this27.listens.get(n) && _this27.listens.get(n).get(i)) === e && (_this27.log_("listen response", s), "ok" !== o && _this27.removeListen_(n, i), e.onComplete && e.onComplete(o, r));
         });
       }
     }, {
@@ -3517,18 +3530,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var _this28 = this;
 
         if (this.connected_ && this.authToken_) {
-          var _e34 = this.authToken_,
+          var _e35 = this.authToken_,
               t = function (e) {
             var t = g(e).claims;
             return !!t && "object" == _typeof(t) && t.hasOwnProperty("iat");
-          }(_e34) ? "auth" : "gauth",
+          }(_e35) ? "auth" : "gauth",
               _n27 = {
-            cred: _e34
+            cred: _e35
           };
           null === this.authOverride_ ? _n27.noauth = !0 : "object" == _typeof(this.authOverride_) && (_n27.authvar = this.authOverride_), this.sendRequest(t, _n27, function (t) {
             var n = t.s,
                 i = t.d || "error";
-            _this28.authToken_ === _e34 && ("ok" === n ? _this28.invalidAuthTokenCount_ = 0 : _this28.onAuthRevoked_(n, i));
+            _this28.authToken_ === _e35 && ("ok" === n ? _this28.invalidAuthTokenCount_ = 0 : _this28.onAuthRevoked_(n, i));
           });
         }
       }
@@ -3654,9 +3667,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           };
           this.log_("reportStats", t), this.sendRequest("s", t, function (e) {
             if ("ok" !== e.s) {
-              var _t20 = e.d;
+              var _t21 = e.d;
 
-              _this31.log_("reportStats", "Error sending stats: " + _t20);
+              _this31.log_("reportStats", "Error sending stats: " + _t21);
             }
           });
         }
@@ -3701,22 +3714,22 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "onVisible_",
       value: function onVisible_(e) {
-        e && !this.visible_ && this.reconnectDelay_ === this.maxReconnectDelay_ && (this.log_("Window became visible.  Reducing delay."), this.reconnectDelay_ = Wt, this.realtime_ || this.scheduleConnect_(0)), this.visible_ = e;
+        e && !this.visible_ && this.reconnectDelay_ === this.maxReconnectDelay_ && (this.log_("Window became visible.  Reducing delay."), this.reconnectDelay_ = Ut, this.realtime_ || this.scheduleConnect_(0)), this.visible_ = e;
       }
     }, {
       key: "onOnline_",
       value: function onOnline_(e) {
-        e ? (this.log_("Browser went online."), this.reconnectDelay_ = Wt, this.realtime_ || this.scheduleConnect_(0)) : (this.log_("Browser went offline.  Killing connection."), this.realtime_ && this.realtime_.close());
+        e ? (this.log_("Browser went online."), this.reconnectDelay_ = Ut, this.realtime_ || this.scheduleConnect_(0)) : (this.log_("Browser went offline.  Killing connection."), this.realtime_ && this.realtime_.close());
       }
     }, {
       key: "onRealtimeDisconnect_",
       value: function onRealtimeDisconnect_() {
         if (this.log_("data client disconnected"), this.connected_ = !1, this.realtime_ = null, this.cancelSentTransactions_(), this.requestCBHash_ = {}, this.shouldReconnect_()) {
-          this.visible_ ? this.lastConnectionEstablishedTime_ && (new Date().getTime() - this.lastConnectionEstablishedTime_ > 3e4 && (this.reconnectDelay_ = Wt), this.lastConnectionEstablishedTime_ = null) : (this.log_("Window isn't visible.  Delaying reconnect."), this.reconnectDelay_ = this.maxReconnectDelay_, this.lastConnectionAttemptTime_ = new Date().getTime());
+          this.visible_ ? this.lastConnectionEstablishedTime_ && (new Date().getTime() - this.lastConnectionEstablishedTime_ > 3e4 && (this.reconnectDelay_ = Ut), this.lastConnectionEstablishedTime_ = null) : (this.log_("Window isn't visible.  Delaying reconnect."), this.reconnectDelay_ = this.maxReconnectDelay_, this.lastConnectionAttemptTime_ = new Date().getTime());
 
-          var _e35 = new Date().getTime() - this.lastConnectionAttemptTime_;
+          var _e36 = new Date().getTime() - this.lastConnectionAttemptTime_;
 
-          var t = Math.max(0, this.reconnectDelay_ - _e35);
+          var t = Math.max(0, this.reconnectDelay_ - _e36);
           t = Math.random() * t, this.log_("Trying to reconnect in " + t + "ms"), this.scheduleConnect_(t), this.reconnectDelay_ = Math.min(this.maxReconnectDelay_, 1.3 * this.reconnectDelay_);
         }
 
@@ -3740,7 +3753,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
                   }
 
                   this.log_("Making a connection attempt"), this.lastConnectionAttemptTime_ = new Date().getTime(), this.lastConnectionEstablishedTime_ = null;
-                  t = this.onDataMessage_.bind(this), _n29 = this.onReady_.bind(this), _i18 = this.onRealtimeDisconnect_.bind(this), _s11 = this.id + ":" + Ut.nextConnectionId_++, _r10 = this.lastSessionId;
+                  t = this.onDataMessage_.bind(this), _n29 = this.onReady_.bind(this), _i18 = this.onRealtimeDisconnect_.bind(this), _s11 = this.id + ":" + jt.nextConnectionId_++, _r10 = this.lastSessionId;
                   _o5 = !1, _a3 = null;
                   _l3 = function _l3() {
                     _a3 ? _a3.close() : (_o5 = !0, _i18());
@@ -3795,7 +3808,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "resume",
       value: function resume(e) {
-        Me("Resuming connection for reason: " + e), delete this.interruptReasons_[e], v(this.interruptReasons_) && (this.reconnectDelay_ = Wt, this.realtime_ || this.scheduleConnect_(0));
+        Me("Resuming connection for reason: " + e), delete this.interruptReasons_[e], v(this.interruptReasons_) && (this.reconnectDelay_ = Ut, this.realtime_ || this.scheduleConnect_(0));
       }
     }, {
       key: "handleTimestamp_",
@@ -3808,9 +3821,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "cancelSentTransactions_",
       value: function cancelSentTransactions_() {
-        for (var _e37 = 0; _e37 < this.outstandingPuts_.length; _e37++) {
-          var t = this.outstandingPuts_[_e37];
-          t && "h" in t.request && t.queued && (t.onComplete && t.onComplete("disconnect"), delete this.outstandingPuts_[_e37], this.outstandingPutCount_--);
+        for (var _e38 = 0; _e38 < this.outstandingPuts_.length; _e38++) {
+          var t = this.outstandingPuts_[_e38];
+          t && "h" in t.request && t.queued && (t.onComplete && t.onComplete("disconnect"), delete this.outstandingPuts_[_e38], this.outstandingPutCount_--);
         }
 
         0 === this.outstandingPutCount_ && (this.outstandingPuts_ = []);
@@ -3832,9 +3845,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var i;
 
         if (this.listens.has(n)) {
-          var _e38 = this.listens.get(n);
+          var _e39 = this.listens.get(n);
 
-          i = _e38.get(t), _e38["delete"](t), 0 === _e38.size && this.listens["delete"](n);
+          i = _e39.get(t), _e39["delete"](t), 0 === _e39.size && this.listens["delete"](n);
         } else i = void 0;
 
         return i;
@@ -3864,9 +3877,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
         try {
           for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
-            var _e42 = _step7.value;
+            var _e43 = _step7.value;
 
-            var _iterator8 = _createForOfIteratorHelper(_e42.values()),
+            var _iterator8 = _createForOfIteratorHelper(_e43.values()),
                 _step8;
 
             try {
@@ -3886,18 +3899,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           _iterator7.f();
         }
 
-        for (var _e39 = 0; _e39 < this.outstandingPuts_.length; _e39++) {
-          this.outstandingPuts_[_e39] && this.sendPut_(_e39);
+        for (var _e40 = 0; _e40 < this.outstandingPuts_.length; _e40++) {
+          this.outstandingPuts_[_e40] && this.sendPut_(_e40);
         }
 
         for (; this.onDisconnectRequestQueue_.length;) {
-          var _e40 = this.onDisconnectRequestQueue_.shift();
+          var _e41 = this.onDisconnectRequestQueue_.shift();
 
-          this.sendOnDisconnect_(_e40.action, _e40.pathString, _e40.data, _e40.onComplete);
+          this.sendOnDisconnect_(_e41.action, _e41.pathString, _e41.data, _e41.onComplete);
         }
 
-        for (var _e41 = 0; _e41 < this.outstandingGets_.length; _e41++) {
-          this.outstandingGets_[_e41] && this.sendGet_(_e41);
+        for (var _e42 = 0; _e42 < this.outstandingGets_.length; _e42++) {
+          this.outstandingGets_[_e42] && this.sendGet_(_e42);
         }
       }
     }, {
@@ -3920,19 +3933,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           var _n30 = y(e, "w");
 
           if (Array.isArray(_n30) && ~_n30.indexOf("no_index")) {
-            var _e43 = '".indexOn": "' + t._queryParams.getIndex().toString() + '"',
+            var _e44 = '".indexOn": "' + t._queryParams.getIndex().toString() + '"',
                 _n31 = t._path.toString();
 
-            We("Using an unspecified index. Your data will be downloaded and filtered on the client. Consider adding ".concat(_e43, " at ").concat(_n31, " to your security rules for better performance."));
+            We("Using an unspecified index. Your data will be downloaded and filtered on the client. Consider adding ".concat(_e44, " at ").concat(_n31, " to your security rules for better performance."));
           }
         }
       }
     }]);
 
-    return Ut;
+    return jt;
   }(vt);
 
-  Ut.nextPersistentConnectionId_ = 0, Ut.nextConnectionId_ = 0;
+  jt.nextPersistentConnectionId_ = 0, jt.nextConnectionId_ = 0;
 
   var Bt = /*#__PURE__*/function () {
     function Bt(e, t) {
@@ -3951,12 +3964,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return Bt;
   }();
 
-  var jt = /*#__PURE__*/function () {
-    function jt() {
-      _classCallCheck(this, jt);
+  var Ht = /*#__PURE__*/function () {
+    function Ht() {
+      _classCallCheck(this, Ht);
     }
 
-    _createClass(jt, [{
+    _createClass(Ht, [{
       key: "getCompare",
       value: function getCompare() {
         return this.compare.bind(this);
@@ -3964,8 +3977,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "indexedValueChanged",
       value: function indexedValueChanged(e, t) {
-        var n = new Bt(Be, e),
-            i = new Bt(Be, t);
+        var n = new Bt(je, e),
+            i = new Bt(je, t);
         return 0 !== this.compare(n, i);
       }
     }, {
@@ -3975,23 +3988,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return jt;
+    return Ht;
   }();
 
-  var Ht;
+  var zt;
 
-  var zt = /*#__PURE__*/function (_jt) {
-    _inherits(zt, _jt);
+  var Vt = /*#__PURE__*/function (_Ht) {
+    _inherits(Vt, _Ht);
 
-    var _super5 = _createSuper(zt);
+    var _super5 = _createSuper(Vt);
 
-    function zt() {
-      _classCallCheck(this, zt);
+    function Vt() {
+      _classCallCheck(this, Vt);
 
       return _super5.apply(this, arguments);
     }
 
-    _createClass(zt, [{
+    _createClass(Vt, [{
       key: "compare",
       value: function compare(e, t) {
         return He(e.name, t.name);
@@ -4014,12 +4027,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "maxPost",
       value: function maxPost() {
-        return new Bt(je, Ht);
+        return new Bt(Be, zt);
       }
     }, {
       key: "makePost",
       value: function makePost(t, n) {
-        return e("string" == typeof t, "KeyIndex indexValue must always be a string."), new Bt(t, Ht);
+        return e("string" == typeof t, "KeyIndex indexValue must always be a string."), new Bt(t, zt);
       }
     }, {
       key: "toString",
@@ -4029,23 +4042,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }], [{
       key: "__EMPTY_NODE",
       get: function get() {
-        return Ht;
+        return zt;
       },
       set: function set(e) {
-        Ht = e;
+        zt = e;
       }
     }]);
 
-    return zt;
-  }(jt);
+    return Vt;
+  }(Ht);
 
-  var Vt = new zt();
+  var $t = new Vt();
 
-  var $t = /*#__PURE__*/function () {
-    function $t(e, t, n, i) {
+  var Yt = /*#__PURE__*/function () {
+    function Yt(e, t, n, i) {
       var s = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
 
-      _classCallCheck(this, $t);
+      _classCallCheck(this, Yt);
 
       this.isReverse_ = i, this.resultGenerator_ = s, this.nodeStack_ = [];
       var r = 1;
@@ -4062,7 +4075,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }
 
-    _createClass($t, [{
+    _createClass(Yt, [{
       key: "getNext",
       value: function getNext() {
         if (0 === this.nodeStack_.length) return null;
@@ -4095,20 +4108,20 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return $t;
+    return Yt;
   }();
 
-  var Yt = /*#__PURE__*/function () {
-    function Yt(e, t, n, i, s) {
-      _classCallCheck(this, Yt);
+  var Kt = /*#__PURE__*/function () {
+    function Kt(e, t, n, i, s) {
+      _classCallCheck(this, Kt);
 
-      this.key = e, this.value = t, this.color = null != n ? n : Yt.RED, this.left = null != i ? i : Kt.EMPTY_NODE, this.right = null != s ? s : Kt.EMPTY_NODE;
+      this.key = e, this.value = t, this.color = null != n ? n : Kt.RED, this.left = null != i ? i : Gt.EMPTY_NODE, this.right = null != s ? s : Gt.EMPTY_NODE;
     }
 
-    _createClass(Yt, [{
+    _createClass(Kt, [{
       key: "copy",
       value: function copy(e, t, n, i, s) {
-        return new Yt(null != e ? e : this.key, null != t ? t : this.value, null != n ? n : this.color, null != i ? i : this.left, null != s ? s : this.right);
+        return new Kt(null != e ? e : this.key, null != t ? t : this.value, null != n ? n : this.color, null != i ? i : this.left, null != s ? s : this.right);
       }
     }, {
       key: "count",
@@ -4155,7 +4168,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "removeMin_",
       value: function removeMin_() {
-        if (this.left.isEmpty()) return Kt.EMPTY_NODE;
+        if (this.left.isEmpty()) return Gt.EMPTY_NODE;
         var e = this;
         return e.left.isRed_() || e.left.left.isRed_() || (e = e.moveRedLeft_()), e = e.copy(null, null, null, e.left.removeMin_(), null), e.fixUp_();
       }
@@ -4165,7 +4178,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var n, i;
         if (n = this, t(e, n.key) < 0) n.left.isEmpty() || n.left.isRed_() || n.left.left.isRed_() || (n = n.moveRedLeft_()), n = n.copy(null, null, null, n.left.remove(e, t), null);else {
           if (n.left.isRed_() && (n = n.rotateRight_()), n.right.isEmpty() || n.right.isRed_() || n.right.left.isRed_() || (n = n.moveRedRight_()), 0 === t(e, n.key)) {
-            if (n.right.isEmpty()) return Kt.EMPTY_NODE;
+            if (n.right.isEmpty()) return Gt.EMPTY_NODE;
             i = n.right.min_(), n = n.copy(i.key, i.value, null, null, n.right.removeMin_());
           }
 
@@ -4199,13 +4212,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "rotateLeft_",
       value: function rotateLeft_() {
-        var e = this.copy(null, null, Yt.RED, null, this.right.left);
+        var e = this.copy(null, null, Kt.RED, null, this.right.left);
         return this.right.copy(null, null, this.color, e, null);
       }
     }, {
       key: "rotateRight_",
       value: function rotateRight_() {
-        var e = this.copy(null, null, Yt.RED, this.left.right, null);
+        var e = this.copy(null, null, Kt.RED, this.left.right, null);
         return this.left.copy(null, null, this.color, null, e);
       }
     }, {
@@ -4232,29 +4245,29 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return Yt;
+    return Kt;
   }();
 
-  Yt.RED = !0, Yt.BLACK = !1;
+  Kt.RED = !0, Kt.BLACK = !1;
 
-  var Kt = /*#__PURE__*/function () {
-    function Kt(e) {
-      var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Kt.EMPTY_NODE;
+  var Gt = /*#__PURE__*/function () {
+    function Gt(e) {
+      var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Gt.EMPTY_NODE;
 
-      _classCallCheck(this, Kt);
+      _classCallCheck(this, Gt);
 
       this.comparator_ = e, this.root_ = t;
     }
 
-    _createClass(Kt, [{
+    _createClass(Gt, [{
       key: "insert",
       value: function insert(e, t) {
-        return new Kt(this.comparator_, this.root_.insert(e, t, this.comparator_).copy(null, null, Yt.BLACK, null, null));
+        return new Gt(this.comparator_, this.root_.insert(e, t, this.comparator_).copy(null, null, Kt.BLACK, null, null));
       }
     }, {
       key: "remove",
       value: function remove(e) {
-        return new Kt(this.comparator_, this.root_.remove(e, this.comparator_).copy(null, null, Yt.BLACK, null, null));
+        return new Gt(this.comparator_, this.root_.remove(e, this.comparator_).copy(null, null, Kt.BLACK, null, null));
       }
     }, {
       key: "get",
@@ -4325,38 +4338,38 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "getIterator",
       value: function getIterator(e) {
-        return new $t(this.root_, null, this.comparator_, !1, e);
+        return new Yt(this.root_, null, this.comparator_, !1, e);
       }
     }, {
       key: "getIteratorFrom",
       value: function getIteratorFrom(e, t) {
-        return new $t(this.root_, e, this.comparator_, !1, t);
+        return new Yt(this.root_, e, this.comparator_, !1, t);
       }
     }, {
       key: "getReverseIteratorFrom",
       value: function getReverseIteratorFrom(e, t) {
-        return new $t(this.root_, e, this.comparator_, !0, t);
+        return new Yt(this.root_, e, this.comparator_, !0, t);
       }
     }, {
       key: "getReverseIterator",
       value: function getReverseIterator(e) {
-        return new $t(this.root_, null, this.comparator_, !0, e);
+        return new Yt(this.root_, null, this.comparator_, !0, e);
       }
     }]);
 
-    return Kt;
+    return Gt;
   }();
 
-  function Gt(e, t) {
+  function Qt(e, t) {
     return He(e.name, t.name);
   }
 
-  function Qt(e, t) {
+  function Jt(e, t) {
     return He(e, t);
   }
 
-  var Jt;
-  Kt.EMPTY_NODE = new ( /*#__PURE__*/function () {
+  var Xt;
+  Gt.EMPTY_NODE = new ( /*#__PURE__*/function () {
     function _class() {
       _classCallCheck(this, _class);
     }
@@ -4369,7 +4382,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "insert",
       value: function insert(e, t, n) {
-        return new Yt(e, t, null);
+        return new Kt(e, t, null);
       }
     }, {
       key: "remove",
@@ -4421,31 +4434,31 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return _class;
   }())();
 
-  var Xt = function Xt(e) {
+  var Zt = function Zt(e) {
     return "number" == typeof e ? "number:" + Ge(e) : "string:" + e;
   },
-      Zt = function Zt(t) {
+      en = function en(t) {
     if (t.isLeafNode()) {
       var _n32 = t.val();
 
       e("string" == typeof _n32 || "number" == typeof _n32 || "object" == _typeof(_n32) && m(_n32, ".sv"), "Priority must be a string or number.");
-    } else e(t === Jt || t.isEmpty(), "priority of unexpected type.");
+    } else e(t === Xt || t.isEmpty(), "priority of unexpected type.");
 
-    e(t === Jt || t.getPriority().isEmpty(), "Priority nodes can't have a priority of their own.");
+    e(t === Xt || t.getPriority().isEmpty(), "Priority nodes can't have a priority of their own.");
   };
 
-  var en, tn, nn;
+  var tn, nn, sn;
 
-  var sn = /*#__PURE__*/function () {
-    function sn(t) {
-      var n = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : sn.__childrenNodeConstructor.EMPTY_NODE;
+  var rn = /*#__PURE__*/function () {
+    function rn(t) {
+      var n = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : rn.__childrenNodeConstructor.EMPTY_NODE;
 
-      _classCallCheck(this, sn);
+      _classCallCheck(this, rn);
 
-      this.value_ = t, this.priorityNode_ = n, this.lazyHash_ = null, e(void 0 !== this.value_ && null !== this.value_, "LeafNode shouldn't be created with null/undefined value."), Zt(this.priorityNode_);
+      this.value_ = t, this.priorityNode_ = n, this.lazyHash_ = null, e(void 0 !== this.value_ && null !== this.value_, "LeafNode shouldn't be created with null/undefined value."), en(this.priorityNode_);
     }
 
-    _createClass(sn, [{
+    _createClass(rn, [{
       key: "isLeafNode",
       value: function isLeafNode() {
         return !0;
@@ -4458,17 +4471,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "updatePriority",
       value: function updatePriority(e) {
-        return new sn(this.value_, e);
+        return new rn(this.value_, e);
       }
     }, {
       key: "getImmediateChild",
       value: function getImmediateChild(e) {
-        return ".priority" === e ? this.priorityNode_ : sn.__childrenNodeConstructor.EMPTY_NODE;
+        return ".priority" === e ? this.priorityNode_ : rn.__childrenNodeConstructor.EMPTY_NODE;
       }
     }, {
       key: "getChild",
       value: function getChild(e) {
-        return xt(e) ? this : ".priority" === Et(e) ? this.priorityNode_ : sn.__childrenNodeConstructor.EMPTY_NODE;
+        return xt(e) ? this : ".priority" === Et(e) ? this.priorityNode_ : rn.__childrenNodeConstructor.EMPTY_NODE;
       }
     }, {
       key: "hasChild",
@@ -4483,13 +4496,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "updateImmediateChild",
       value: function updateImmediateChild(e, t) {
-        return ".priority" === e ? this.updatePriority(t) : t.isEmpty() && ".priority" !== e ? this : sn.__childrenNodeConstructor.EMPTY_NODE.updateImmediateChild(e, t).updatePriority(this.priorityNode_);
+        return ".priority" === e ? this.updatePriority(t) : t.isEmpty() && ".priority" !== e ? this : rn.__childrenNodeConstructor.EMPTY_NODE.updateImmediateChild(e, t).updatePriority(this.priorityNode_);
       }
     }, {
       key: "updateChild",
       value: function updateChild(t, n) {
         var i = Et(t);
-        return null === i ? n : n.isEmpty() && ".priority" !== i ? this : (e(".priority" !== i || 1 === Tt(t), ".priority must be the last token in a path"), this.updateImmediateChild(i, sn.__childrenNodeConstructor.EMPTY_NODE.updateChild(St(t), n)));
+        return null === i ? n : n.isEmpty() && ".priority" !== i ? this : (e(".priority" !== i || 1 === Tt(t), ".priority must be the last token in a path"), this.updateImmediateChild(i, rn.__childrenNodeConstructor.EMPTY_NODE.updateChild(St(t), n)));
       }
     }, {
       key: "isEmpty",
@@ -4518,12 +4531,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       key: "hash",
       value: function hash() {
         if (null === this.lazyHash_) {
-          var _e44 = "";
-          this.priorityNode_.isEmpty() || (_e44 += "priority:" + Xt(this.priorityNode_.val()) + ":");
+          var _e45 = "";
+          this.priorityNode_.isEmpty() || (_e45 += "priority:" + Zt(this.priorityNode_.val()) + ":");
 
-          var _t21 = _typeof(this.value_);
+          var _t22 = _typeof(this.value_);
 
-          _e44 += _t21 + ":", _e44 += "number" === _t21 ? Ge(this.value_) : this.value_, this.lazyHash_ = xe(_e44);
+          _e45 += _t22 + ":", _e45 += "number" === _t22 ? Ge(this.value_) : this.value_, this.lazyHash_ = xe(_e45);
         }
 
         return this.lazyHash_;
@@ -4536,15 +4549,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "compareTo",
       value: function compareTo(t) {
-        return t === sn.__childrenNodeConstructor.EMPTY_NODE ? 1 : t instanceof sn.__childrenNodeConstructor ? -1 : (e(t.isLeafNode(), "Unknown node type"), this.compareToLeafNode_(t));
+        return t === rn.__childrenNodeConstructor.EMPTY_NODE ? 1 : t instanceof rn.__childrenNodeConstructor ? -1 : (e(t.isLeafNode(), "Unknown node type"), this.compareToLeafNode_(t));
       }
     }, {
       key: "compareToLeafNode_",
       value: function compareToLeafNode_(t) {
         var n = _typeof(t.value_),
             i = _typeof(this.value_),
-            s = sn.VALUE_TYPE_ORDER.indexOf(n),
-            r = sn.VALUE_TYPE_ORDER.indexOf(i);
+            s = rn.VALUE_TYPE_ORDER.indexOf(n),
+            r = rn.VALUE_TYPE_ORDER.indexOf(i);
 
         return e(s >= 0, "Unknown leaf type: " + n), e(r >= 0, "Unknown leaf type: " + i), s === r ? "object" === i ? 0 : this.value_ < t.value_ ? -1 : this.value_ === t.value_ ? 0 : 1 : r - s;
       }
@@ -4564,8 +4577,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         if (e === this) return !0;
 
         if (e.isLeafNode()) {
-          var _t22 = e;
-          return this.value_ === _t22.value_ && this.priorityNode_.equals(_t22.priorityNode_);
+          var _t23 = e;
+          return this.value_ === _t23.value_ && this.priorityNode_.equals(_t23.priorityNode_);
         }
 
         return !1;
@@ -4573,19 +4586,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }], [{
       key: "__childrenNodeConstructor",
       get: function get() {
-        return en;
+        return tn;
       },
       set: function set(e) {
-        en = e;
+        tn = e;
       }
     }]);
 
-    return sn;
+    return rn;
   }();
 
-  sn.VALUE_TYPE_ORDER = ["object", "boolean", "number", "string"];
-  var rn = new ( /*#__PURE__*/function (_jt2) {
-    _inherits(_class2, _jt2);
+  rn.VALUE_TYPE_ORDER = ["object", "boolean", "number", "string"];
+  var on = new ( /*#__PURE__*/function (_Ht2) {
+    _inherits(_class2, _Ht2);
 
     var _super6 = _createSuper(_class2);
 
@@ -4621,13 +4634,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "maxPost",
       value: function maxPost() {
-        return new Bt(je, new sn("[PRIORITY-POST]", nn));
+        return new Bt(Be, new rn("[PRIORITY-POST]", sn));
       }
     }, {
       key: "makePost",
       value: function makePost(e, t) {
-        var n = tn(e);
-        return new Bt(t, new sn("[PRIORITY-POST]", n));
+        var n = nn(e);
+        return new Bt(t, new rn("[PRIORITY-POST]", n));
       }
     }, {
       key: "toString",
@@ -4637,15 +4650,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }]);
 
     return _class2;
-  }(jt))(),
-      on = Math.log(2);
+  }(Ht))(),
+      an = Math.log(2);
 
   var hn = /*#__PURE__*/function () {
     function hn(e) {
       _classCallCheck(this, hn);
 
       var t;
-      this.count = (t = e + 1, parseInt(Math.log(t) / on, 10)), this.current_ = this.count - 1;
+      this.count = (t = e + 1, parseInt(Math.log(t) / an, 10)), this.current_ = this.count - 1;
       var n = (i = this.count, parseInt(Array(i + 1).join("1"), 2));
       var i;
       this.bits_ = e + 1 & n;
@@ -4662,14 +4675,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return hn;
   }();
 
-  var hn = function hn(e, t, n, i) {
+  var ln = function ln(e, t, n, i) {
     e.sort(t);
 
     var s = function s(t, i) {
       var r = i - t;
       var o, a;
       if (0 === r) return null;
-      if (1 === r) return o = e[t], a = n ? n(o) : o, new Yt(a, o.node, Yt.BLACK, null, null);
+      if (1 === r) return o = e[t], a = n ? n(o) : o, new Kt(a, o.node, Kt.BLACK, null, null);
       {
         var _l5 = parseInt(r / 2, 10) + t,
             _h3 = s(t, _l5),
@@ -4696,35 +4709,35 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         i ? (i.left = e, i = e) : (r = e, i = e);
       };
 
-      for (var _e45 = 0; _e45 < t.count; ++_e45) {
+      for (var _e46 = 0; _e46 < t.count; ++_e46) {
         var _n33 = t.nextBitIsOne(),
-            _i19 = Math.pow(2, t.count - (_e45 + 1));
+            _i19 = Math.pow(2, t.count - (_e46 + 1));
 
-        _n33 ? a(_i19, Yt.BLACK) : (a(_i19, Yt.BLACK), a(_i19, Yt.RED));
+        _n33 ? a(_i19, Kt.BLACK) : (a(_i19, Kt.BLACK), a(_i19, Kt.RED));
       }
 
       return r;
     }(new hn(e.length));
 
-    return new Kt(i || t, r);
+    return new Gt(i || t, r);
   };
 
-  var ln;
-  var cn = {};
+  var cn;
+  var un = {};
 
-  var un = /*#__PURE__*/function () {
-    function un(e, t) {
-      _classCallCheck(this, un);
+  var dn = /*#__PURE__*/function () {
+    function dn(e, t) {
+      _classCallCheck(this, dn);
 
       this.indexes_ = e, this.indexSet_ = t;
     }
 
-    _createClass(un, [{
+    _createClass(dn, [{
       key: "get",
       value: function get(e) {
         var t = y(this.indexes_, e);
         if (!t) throw new Error("No index defined for " + e);
-        return t instanceof Kt ? t : null;
+        return t instanceof Gt ? t : null;
       }
     }, {
       key: "hasIndex",
@@ -4734,7 +4747,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "addIndex",
       value: function addIndex(t, n) {
-        e(t !== Vt, "KeyIndex always exists and isn't meant to be added to the IndexMap.");
+        e(t !== $t, "KeyIndex always exists and isn't meant to be added to the IndexMap.");
         var i = [];
         var s = !1;
         var r = n.getIterator(Bt.Wrap);
@@ -4760,69 +4773,69 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var i = C(this.indexes_, function (i, s) {
           var r = y(_this34.indexSet_, s);
 
-          if (e(r, "Missing index implementation for " + s), i === cn) {
+          if (e(r, "Missing index implementation for " + s), i === un) {
             if (r.isDefinedOn(t.node)) {
-              var _e46 = [],
+              var _e47 = [],
                   _i20 = n.getIterator(Bt.Wrap);
 
               var _s12 = _i20.getNext();
 
               for (; _s12;) {
-                _s12.name !== t.name && _e46.push(_s12), _s12 = _i20.getNext();
+                _s12.name !== t.name && _e47.push(_s12), _s12 = _i20.getNext();
               }
 
               return _e47.push(t), ln(_e47, r.getCompare());
             }
 
-            return cn;
+            return un;
           }
 
           {
-            var _e47 = n.get(t.name);
+            var _e48 = n.get(t.name);
 
             var _s13 = i;
-            return _e47 && (_s13 = _s13.remove(new Bt(t.name, _e47))), _s13.insert(t, t.node);
+            return _e48 && (_s13 = _s13.remove(new Bt(t.name, _e48))), _s13.insert(t, t.node);
           }
         });
-        return new un(i, this.indexSet_);
+        return new dn(i, this.indexSet_);
       }
     }, {
       key: "removeFromIndexes",
       value: function removeFromIndexes(e, t) {
         var n = C(this.indexes_, function (n) {
-          if (n === cn) return n;
+          if (n === un) return n;
           {
             var _i21 = t.get(e.name);
 
             return _i21 ? n.remove(new Bt(e.name, _i21)) : n;
           }
         });
-        return new un(n, this.indexSet_);
+        return new dn(n, this.indexSet_);
       }
     }], [{
       key: "Default",
       get: function get() {
-        return e(cn && rn, "ChildrenNode.ts has not been loaded"), ln = ln || new un({
-          ".priority": cn
+        return e(un && on, "ChildrenNode.ts has not been loaded"), cn = cn || new dn({
+          ".priority": un
         }, {
-          ".priority": rn
-        }), ln;
+          ".priority": on
+        }), cn;
       }
     }]);
 
-    return un;
+    return dn;
   }();
 
-  var dn;
+  var pn;
 
-  var pn = /*#__PURE__*/function () {
-    function pn(t, n, i) {
-      _classCallCheck(this, pn);
+  var _n = /*#__PURE__*/function () {
+    function _n(t, n, i) {
+      _classCallCheck(this, _n);
 
-      this.children_ = t, this.priorityNode_ = n, this.indexMap_ = i, this.lazyHash_ = null, this.priorityNode_ && Zt(this.priorityNode_), this.children_.isEmpty() && e(!this.priorityNode_ || this.priorityNode_.isEmpty(), "An empty node cannot have a priority");
+      this.children_ = t, this.priorityNode_ = n, this.indexMap_ = i, this.lazyHash_ = null, this.priorityNode_ && en(this.priorityNode_), this.children_.isEmpty() && e(!this.priorityNode_ || this.priorityNode_.isEmpty(), "An empty node cannot have a priority");
     }
 
-    _createClass(pn, [{
+    _createClass(_n, [{
       key: "isLeafNode",
       value: function isLeafNode() {
         return !1;
@@ -4830,21 +4843,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "getPriority",
       value: function getPriority() {
-        return this.priorityNode_ || dn;
+        return this.priorityNode_ || pn;
       }
     }, {
       key: "updatePriority",
       value: function updatePriority(e) {
-        return this.children_.isEmpty() ? this : new pn(this.children_, e, this.indexMap_);
+        return this.children_.isEmpty() ? this : new _n(this.children_, e, this.indexMap_);
       }
     }, {
       key: "getImmediateChild",
       value: function getImmediateChild(e) {
         if (".priority" === e) return this.getPriority();
         {
-          var _t23 = this.children_.get(e);
+          var _t24 = this.children_.get(e);
 
-          return null === _t23 ? dn : _t23;
+          return null === _t24 ? pn : _t24;
         }
       }
     }, {
@@ -4863,15 +4876,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       value: function updateImmediateChild(t, n) {
         if (e(n, "We should always be passing snapshot nodes"), ".priority" === t) return this.updatePriority(n);
         {
-          var _e48 = new Bt(t, n);
+          var _e49 = new Bt(t, n);
 
           var _i22, _s14;
 
-          n.isEmpty() ? (_i22 = this.children_.remove(t), _s14 = this.indexMap_.removeFromIndexes(_e48, this.children_)) : (_i22 = this.children_.insert(t, n), _s14 = this.indexMap_.addToIndexes(_e48, this.children_));
+          n.isEmpty() ? (_i22 = this.children_.remove(t), _s14 = this.indexMap_.removeFromIndexes(_e49, this.children_)) : (_i22 = this.children_.insert(t, n), _s14 = this.indexMap_.addToIndexes(_e49, this.children_));
 
-          var _r11 = _i22.isEmpty() ? dn : this.priorityNode_;
+          var _r11 = _i22.isEmpty() ? pn : this.priorityNode_;
 
-          return new pn(_i22, _r11, _s14);
+          return new _n(_i22, _r11, _s14);
         }
       }
     }, {
@@ -4906,16 +4919,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
             i = 0,
             s = !0;
 
-        if (this.forEachChild(rn, function (r, o) {
-          t[r] = o.val(e), n++, s && pn.INTEGER_REGEXP_.test(r) ? i = Math.max(i, Number(r)) : s = !1;
+        if (this.forEachChild(on, function (r, o) {
+          t[r] = o.val(e), n++, s && _n.INTEGER_REGEXP_.test(r) ? i = Math.max(i, Number(r)) : s = !1;
         }), !e && s && i < 2 * n) {
-          var _e49 = [];
+          var _e50 = [];
 
           for (var _n34 in t) {
-            _e49[_n34] = t[_n34];
+            _e50[_n34] = t[_n34];
           }
 
-          return _e49;
+          return _e50;
         }
 
         return e && !this.getPriority().isEmpty() && (t[".priority"] = this.getPriority().val()), t;
@@ -4924,11 +4937,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       key: "hash",
       value: function hash() {
         if (null === this.lazyHash_) {
-          var _e50 = "";
-          this.getPriority().isEmpty() || (_e50 += "priority:" + Xt(this.getPriority().val()) + ":"), this.forEachChild(rn, function (t, n) {
+          var _e51 = "";
+          this.getPriority().isEmpty() || (_e51 += "priority:" + Zt(this.getPriority().val()) + ":"), this.forEachChild(on, function (t, n) {
             var i = n.hash();
-            "" !== i && (_e50 += ":" + t + ":" + i);
-          }), this.lazyHash_ = "" === _e50 ? "" : xe(_e50);
+            "" !== i && (_e51 += ":" + t + ":" + i);
+          }), this.lazyHash_ = "" === _e51 ? "" : xe(_e51);
         }
 
         return this.lazyHash_;
@@ -4952,9 +4965,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var t = this.resolveIndex_(e);
 
         if (t) {
-          var _e51 = t.minKey();
+          var _e52 = t.minKey();
 
-          return _e51 && _e51.name;
+          return _e52 && _e52.name;
         }
 
         return this.children_.minKey();
@@ -4971,9 +4984,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var t = this.resolveIndex_(e);
 
         if (t) {
-          var _e52 = t.maxKey();
+          var _e53 = t.maxKey();
 
-          return _e52 && _e52.name;
+          return _e53 && _e53.name;
         }
 
         return this.children_.maxKey();
@@ -5043,22 +5056,22 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "compareTo",
       value: function compareTo(e) {
-        return this.isEmpty() ? e.isEmpty() ? 0 : -1 : e.isLeafNode() || e.isEmpty() ? 1 : e === _n ? -1 : 0;
+        return this.isEmpty() ? e.isEmpty() ? 0 : -1 : e.isLeafNode() || e.isEmpty() ? 1 : e === fn ? -1 : 0;
       }
     }, {
       key: "withIndex",
       value: function withIndex(e) {
-        if (e === Vt || this.indexMap_.hasIndex(e)) return this;
+        if (e === $t || this.indexMap_.hasIndex(e)) return this;
         {
-          var _t24 = this.indexMap_.addIndex(e, this.children_);
+          var _t25 = this.indexMap_.addIndex(e, this.children_);
 
-          return new pn(this.children_, this.priorityNode_, _t24);
+          return new _n(this.children_, this.priorityNode_, _t25);
         }
       }
     }, {
       key: "isIndexed",
       value: function isIndexed(e) {
-        return e === Vt || this.indexMap_.hasIndex(e);
+        return e === $t || this.indexMap_.hasIndex(e);
       }
     }, {
       key: "equals",
@@ -5066,19 +5079,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         if (e === this) return !0;
         if (e.isLeafNode()) return !1;
         {
-          var _t25 = e;
+          var _t26 = e;
 
-          if (this.getPriority().equals(_t25.getPriority())) {
-            if (this.children_.count() === _t25.children_.count()) {
-              var _e53 = this.getIterator(rn),
-                  _n38 = _t25.getIterator(rn);
+          if (this.getPriority().equals(_t26.getPriority())) {
+            if (this.children_.count() === _t26.children_.count()) {
+              var _e54 = this.getIterator(on),
+                  _n38 = _t26.getIterator(on);
 
-              var _i25 = _e53.getNext(),
+              var _i25 = _e54.getNext(),
                   _s16 = _n38.getNext();
 
               for (; _i25 && _s16;) {
                 if (_i25.name !== _s16.name || !_i25.node.equals(_s16.node)) return !1;
-                _i25 = _e53.getNext(), _s16 = _n38.getNext();
+                _i25 = _e54.getNext(), _s16 = _n38.getNext();
               }
 
               return null === _i25 && null === _s16;
@@ -5093,29 +5106,28 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "resolveIndex_",
       value: function resolveIndex_(e) {
-        return e === Vt ? null : this.indexMap_.get(e.toString());
+        return e === $t ? null : this.indexMap_.get(e.toString());
       }
     }], [{
       key: "EMPTY_NODE",
       get: function get() {
-        return dn || (dn = new pn(new Kt(Qt), null, un.Default));
+        return pn || (pn = new _n(new Gt(Jt), null, dn.Default));
       }
     }]);
 
-    return pn;
+    return _n;
   }();
 
-  pn.INTEGER_REGEXP_ = /^(0|[1-9]\d*)$/;
-
-  var _n = new ( /*#__PURE__*/function (_pn) {
-    _inherits(_class3, _pn);
+  _n.INTEGER_REGEXP_ = /^(0|[1-9]\d*)$/;
+  var fn = new ( /*#__PURE__*/function (_n39) {
+    _inherits(_class3, _n39);
 
     var _super7 = _createSuper(_class3);
 
     function _class3() {
       _classCallCheck(this, _class3);
 
-      return _super7.call(this, new Kt(Qt), pn.EMPTY_NODE, un.Default);
+      return _super7.call(this, new Gt(Jt), _n.EMPTY_NODE, dn.Default);
     }
 
     _createClass(_class3, [{
@@ -5136,7 +5148,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "getImmediateChild",
       value: function getImmediateChild(e) {
-        return pn.EMPTY_NODE;
+        return _n.EMPTY_NODE;
       }
     }, {
       key: "isEmpty",
@@ -5146,81 +5158,81 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }]);
 
     return _class3;
-  }(pn))();
+  }(_n))();
 
-  function fn(t) {
+  function gn(t) {
     var n = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-    if (null === t) return pn.EMPTY_NODE;
-    if ("object" == _typeof(t) && ".priority" in t && (n = t[".priority"]), e(null === n || "string" == typeof n || "number" == typeof n || "object" == _typeof(n) && ".sv" in n, "Invalid priority type found: " + _typeof(n)), "object" == _typeof(t) && ".value" in t && null !== t[".value"] && (t = t[".value"]), "object" != _typeof(t) || ".sv" in t) return new sn(t, fn(n));
+    if (null === t) return _n.EMPTY_NODE;
+    if ("object" == _typeof(t) && ".priority" in t && (n = t[".priority"]), e(null === n || "string" == typeof n || "number" == typeof n || "object" == _typeof(n) && ".sv" in n, "Invalid priority type found: " + _typeof(n)), "object" == _typeof(t) && ".value" in t && null !== t[".value"] && (t = t[".value"]), "object" != _typeof(t) || ".sv" in t) return new rn(t, gn(n));
 
     if (t instanceof Array) {
-      var _e54 = pn.EMPTY_NODE;
+      var _e55 = _n.EMPTY_NODE;
       return Ke(t, function (n, i) {
         if (m(t, n) && "." !== n.substring(0, 1)) {
-          var _t26 = fn(i);
+          var _t27 = gn(i);
 
-          !_t26.isLeafNode() && _t26.isEmpty() || (_e54 = _e54.updateImmediateChild(n, _t26));
+          !_t27.isLeafNode() && _t27.isEmpty() || (_e55 = _e55.updateImmediateChild(n, _t27));
         }
-      }), _e54.updatePriority(fn(n));
+      }), _e55.updatePriority(gn(n));
     }
 
     {
-      var _e55 = [];
+      var _e56 = [];
 
       var _i26 = !1;
 
       if (Ke(t, function (t, n) {
         if ("." !== t.substring(0, 1)) {
-          var _s18 = fn(n);
+          var _s18 = gn(n);
 
-          _s18.isEmpty() || (_i26 = _i26 || !_s18.getPriority().isEmpty(), _e55.push(new Bt(t, _s18)));
+          _s18.isEmpty() || (_i26 = _i26 || !_s18.getPriority().isEmpty(), _e56.push(new Bt(t, _s18)));
         }
-      }), 0 === _e55.length) return pn.EMPTY_NODE;
+      }), 0 === _e56.length) return _n.EMPTY_NODE;
 
       var _s17 = ln(_e56, Qt, function (e) {
         return e.name;
-      }, Qt);
+      }, Jt);
 
       if (_i26) {
         var _t28 = ln(_e56, on.getCompare());
 
-        return new pn(_s17, fn(n), new un({
-          ".priority": _t27
+        return new _n(_s17, gn(n), new dn({
+          ".priority": _t28
         }, {
-          ".priority": rn
+          ".priority": on
         }));
       }
 
-      return new pn(_s17, fn(n), un.Default);
+      return new _n(_s17, gn(n), dn.Default);
     }
   }
 
   Object.defineProperties(Bt, {
     MIN: {
-      value: new Bt(Be, pn.EMPTY_NODE)
+      value: new Bt(je, _n.EMPTY_NODE)
     },
     MAX: {
-      value: new Bt(je, _n)
+      value: new Bt(Be, fn)
     }
-  }), zt.__EMPTY_NODE = pn.EMPTY_NODE, sn.__childrenNodeConstructor = pn, Jt = _n, nn = _n, function (e) {
-    tn = e;
-  }(fn);
+  }), Vt.__EMPTY_NODE = _n.EMPTY_NODE, rn.__childrenNodeConstructor = _n, Xt = fn, sn = fn, function (e) {
+    nn = e;
+  }(gn);
 
-  var gn = /*#__PURE__*/function (_jt3) {
-    _inherits(gn, _jt3);
+  var mn = /*#__PURE__*/function (_Ht3) {
+    _inherits(mn, _Ht3);
 
-    var _super8 = _createSuper(gn);
+    var _super8 = _createSuper(mn);
 
-    function gn(t) {
+    function mn(t) {
       var _this35;
 
-      _classCallCheck(this, gn);
+      _classCallCheck(this, mn);
 
       _this35 = _super8.call(this), _this35.indexPath_ = t, e(!xt(t) && ".priority" !== Et(t), "Can't create PathIndex with empty path or .priority key");
       return _this35;
     }
 
-    _createClass(gn, [{
+    _createClass(mn, [{
       key: "extractChild",
       value: function extractChild(e) {
         return e.getChild(this.indexPath_);
@@ -5241,15 +5253,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "makePost",
       value: function makePost(e, t) {
-        var n = fn(e),
-            i = pn.EMPTY_NODE.updateChild(this.indexPath_, n);
+        var n = gn(e),
+            i = _n.EMPTY_NODE.updateChild(this.indexPath_, n);
+
         return new Bt(t, i);
       }
     }, {
       key: "maxPost",
       value: function maxPost() {
-        var e = pn.EMPTY_NODE.updateChild(this.indexPath_, _n);
-        return new Bt(je, e);
+        var e = _n.EMPTY_NODE.updateChild(this.indexPath_, fn);
+
+        return new Bt(Be, e);
       }
     }, {
       key: "toString",
@@ -5258,11 +5272,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return gn;
-  }(jt);
+    return mn;
+  }(Ht);
 
-  var mn = new ( /*#__PURE__*/function (_jt4) {
-    _inherits(_class4, _jt4);
+  var yn = new ( /*#__PURE__*/function (_Ht4) {
+    _inherits(_class4, _Ht4);
 
     var _super9 = _createSuper(_class4);
 
@@ -5301,7 +5315,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "makePost",
       value: function makePost(e, t) {
-        var n = fn(e);
+        var n = gn(e);
         return new Bt(t, n);
       }
     }, {
@@ -5312,9 +5326,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }]);
 
     return _class4;
-  }(jt))(),
-      yn = "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz",
-      vn = function () {
+  }(Ht))(),
+      vn = "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz",
+      Cn = function () {
     var t = 0;
     var n = [];
     return function (i) {
@@ -5324,7 +5338,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       var o = new Array(8);
 
       for (r = 7; r >= 0; r--) {
-        o[r] = yn.charAt(i % 64), i = Math.floor(i / 64);
+        o[r] = vn.charAt(i % 64), i = Math.floor(i / 64);
       }
 
       e(0 === i, "Cannot push at time == 0");
@@ -5341,21 +5355,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
 
       for (r = 0; r < 12; r++) {
-        a += yn.charAt(n[r]);
+        a += vn.charAt(n[r]);
       }
 
       return e(20 === a.length, "nextPushId: Length should be 20."), a;
     };
   }();
 
-  function Cn(e) {
+  function wn(e) {
     return {
       type: "value",
       snapshotNode: e
     };
   }
 
-  function wn(e, t) {
+  function bn(e, t) {
     return {
       type: "child_added",
       snapshotNode: t,
@@ -5363,7 +5377,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     };
   }
 
-  function bn(e, t) {
+  function In(e, t) {
     return {
       type: "child_removed",
       snapshotNode: t,
@@ -5371,7 +5385,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     };
   }
 
-  function In(e, t, n) {
+  function En(e, t, n) {
     return {
       type: "child_changed",
       snapshotNode: t,
@@ -5380,37 +5394,37 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     };
   }
 
-  var En = /*#__PURE__*/function () {
-    function En(e) {
-      _classCallCheck(this, En);
+  var Tn = /*#__PURE__*/function () {
+    function Tn(e) {
+      _classCallCheck(this, Tn);
 
       this.index_ = e;
     }
 
-    _createClass(En, [{
+    _createClass(Tn, [{
       key: "updateChild",
       value: function updateChild(t, n, i, s, r, o) {
         e(t.isIndexed(this.index_), "A node must be indexed if only a child is updated");
         var a = t.getImmediateChild(n);
-        return a.getChild(s).equals(i.getChild(s)) && a.isEmpty() === i.isEmpty() ? t : (null != o && (i.isEmpty() ? t.hasChild(n) ? o.trackChildChange(bn(n, a)) : e(t.isLeafNode(), "A child remove without an old child only makes sense on a leaf node") : a.isEmpty() ? o.trackChildChange(wn(n, i)) : o.trackChildChange(In(n, i, a))), t.isLeafNode() && i.isEmpty() ? t : t.updateImmediateChild(n, i).withIndex(this.index_));
+        return a.getChild(s).equals(i.getChild(s)) && a.isEmpty() === i.isEmpty() ? t : (null != o && (i.isEmpty() ? t.hasChild(n) ? o.trackChildChange(In(n, a)) : e(t.isLeafNode(), "A child remove without an old child only makes sense on a leaf node") : a.isEmpty() ? o.trackChildChange(bn(n, i)) : o.trackChildChange(En(n, i, a))), t.isLeafNode() && i.isEmpty() ? t : t.updateImmediateChild(n, i).withIndex(this.index_));
       }
     }, {
       key: "updateFullNode",
       value: function updateFullNode(e, t, n) {
-        return null != n && (e.isLeafNode() || e.forEachChild(rn, function (e, i) {
-          t.hasChild(e) || n.trackChildChange(bn(e, i));
-        }), t.isLeafNode() || t.forEachChild(rn, function (t, i) {
+        return null != n && (e.isLeafNode() || e.forEachChild(on, function (e, i) {
+          t.hasChild(e) || n.trackChildChange(In(e, i));
+        }), t.isLeafNode() || t.forEachChild(on, function (t, i) {
           if (e.hasChild(t)) {
             var _s19 = e.getImmediateChild(t);
 
-            _s19.equals(i) || n.trackChildChange(In(t, i, _s19));
-          } else n.trackChildChange(wn(t, i));
+            _s19.equals(i) || n.trackChildChange(En(t, i, _s19));
+          } else n.trackChildChange(bn(t, i));
         })), t.withIndex(this.index_);
       }
     }, {
       key: "updatePriority",
       value: function updatePriority(e, t) {
-        return e.isEmpty() ? pn.EMPTY_NODE : e.updatePriority(t);
+        return e.isEmpty() ? _n.EMPTY_NODE : e.updatePriority(t);
       }
     }, {
       key: "filtersNodes",
@@ -5429,17 +5443,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return En;
+    return Tn;
   }();
 
-  var Tn = /*#__PURE__*/function () {
-    function Tn(e) {
-      _classCallCheck(this, Tn);
+  var Sn = /*#__PURE__*/function () {
+    function Sn(e) {
+      _classCallCheck(this, Sn);
 
-      this.indexedFilter_ = new En(e.getIndex()), this.index_ = e.getIndex(), this.startPost_ = Tn.getStartPost_(e), this.endPost_ = Tn.getEndPost_(e);
+      this.indexedFilter_ = new Tn(e.getIndex()), this.index_ = e.getIndex(), this.startPost_ = Sn.getStartPost_(e), this.endPost_ = Sn.getEndPost_(e);
     }
 
-    _createClass(Tn, [{
+    _createClass(Sn, [{
       key: "getStartPost",
       value: function getStartPost() {
         return this.startPost_;
@@ -5457,17 +5471,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "updateChild",
       value: function updateChild(e, t, n, i, s, r) {
-        return this.matches(new Bt(t, n)) || (n = pn.EMPTY_NODE), this.indexedFilter_.updateChild(e, t, n, i, s, r);
+        return this.matches(new Bt(t, n)) || (n = _n.EMPTY_NODE), this.indexedFilter_.updateChild(e, t, n, i, s, r);
       }
     }, {
       key: "updateFullNode",
       value: function updateFullNode(e, t, n) {
-        t.isLeafNode() && (t = pn.EMPTY_NODE);
+        t.isLeafNode() && (t = _n.EMPTY_NODE);
         var i = t.withIndex(this.index_);
-        i = i.updatePriority(pn.EMPTY_NODE);
+        i = i.updatePriority(_n.EMPTY_NODE);
         var s = this;
-        return t.forEachChild(rn, function (e, t) {
-          s.matches(new Bt(e, t)) || (i = i.updateImmediateChild(e, pn.EMPTY_NODE));
+        return t.forEachChild(on, function (e, t) {
+          s.matches(new Bt(e, t)) || (i = i.updateImmediateChild(e, _n.EMPTY_NODE));
         }), this.indexedFilter_.updateFullNode(e, i, n);
       }
     }, {
@@ -5494,9 +5508,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       key: "getStartPost_",
       value: function getStartPost_(e) {
         if (e.hasStart()) {
-          var _t28 = e.getIndexStartName();
+          var _t29 = e.getIndexStartName();
 
-          return e.getIndex().makePost(e.getIndexStartValue(), _t28);
+          return e.getIndex().makePost(e.getIndexStartValue(), _t29);
         }
 
         return e.getIndex().minPost();
@@ -5505,68 +5519,68 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       key: "getEndPost_",
       value: function getEndPost_(e) {
         if (e.hasEnd()) {
-          var _t29 = e.getIndexEndName();
+          var _t30 = e.getIndexEndName();
 
-          return e.getIndex().makePost(e.getIndexEndValue(), _t29);
+          return e.getIndex().makePost(e.getIndexEndValue(), _t30);
         }
 
         return e.getIndex().maxPost();
       }
     }]);
 
-    return Tn;
+    return Sn;
   }();
 
-  var Sn = /*#__PURE__*/function () {
-    function Sn(e) {
-      _classCallCheck(this, Sn);
+  var kn = /*#__PURE__*/function () {
+    function kn(e) {
+      _classCallCheck(this, kn);
 
-      this.rangedFilter_ = new Tn(e), this.index_ = e.getIndex(), this.limit_ = e.getLimit(), this.reverse_ = !e.isViewFromLeft();
+      this.rangedFilter_ = new Sn(e), this.index_ = e.getIndex(), this.limit_ = e.getLimit(), this.reverse_ = !e.isViewFromLeft();
     }
 
-    _createClass(Sn, [{
+    _createClass(kn, [{
       key: "updateChild",
       value: function updateChild(e, t, n, i, s, r) {
-        return this.rangedFilter_.matches(new Bt(t, n)) || (n = pn.EMPTY_NODE), e.getImmediateChild(t).equals(n) ? e : e.numChildren() < this.limit_ ? this.rangedFilter_.getIndexedFilter().updateChild(e, t, n, i, s, r) : this.fullLimitUpdateChild_(e, t, n, s, r);
+        return this.rangedFilter_.matches(new Bt(t, n)) || (n = _n.EMPTY_NODE), e.getImmediateChild(t).equals(n) ? e : e.numChildren() < this.limit_ ? this.rangedFilter_.getIndexedFilter().updateChild(e, t, n, i, s, r) : this.fullLimitUpdateChild_(e, t, n, s, r);
       }
     }, {
       key: "updateFullNode",
       value: function updateFullNode(e, t, n) {
         var i;
-        if (t.isLeafNode() || t.isEmpty()) i = pn.EMPTY_NODE.withIndex(this.index_);else if (2 * this.limit_ < t.numChildren() && t.isIndexed(this.index_)) {
-          var _e56;
+        if (t.isLeafNode() || t.isEmpty()) i = _n.EMPTY_NODE.withIndex(this.index_);else if (2 * this.limit_ < t.numChildren() && t.isIndexed(this.index_)) {
+          var _e57;
 
-          i = pn.EMPTY_NODE.withIndex(this.index_), _e56 = this.reverse_ ? t.getReverseIteratorFrom(this.rangedFilter_.getEndPost(), this.index_) : t.getIteratorFrom(this.rangedFilter_.getStartPost(), this.index_);
-          var _n39 = 0;
+          i = _n.EMPTY_NODE.withIndex(this.index_), _e57 = this.reverse_ ? t.getReverseIteratorFrom(this.rangedFilter_.getEndPost(), this.index_) : t.getIteratorFrom(this.rangedFilter_.getStartPost(), this.index_);
+          var _n40 = 0;
 
-          for (; _e56.hasNext() && _n39 < this.limit_;) {
-            var _t30 = _e56.getNext();
+          for (; _e57.hasNext() && _n40 < this.limit_;) {
+            var _t31 = _e57.getNext();
 
             var _s20 = void 0;
 
-            if (_s20 = this.reverse_ ? this.index_.compare(this.rangedFilter_.getStartPost(), _t30) <= 0 : this.index_.compare(_t30, this.rangedFilter_.getEndPost()) <= 0, !_s20) break;
-            i = i.updateImmediateChild(_t30.name, _t30.node), _n39++;
+            if (_s20 = this.reverse_ ? this.index_.compare(this.rangedFilter_.getStartPost(), _t31) <= 0 : this.index_.compare(_t31, this.rangedFilter_.getEndPost()) <= 0, !_s20) break;
+            i = i.updateImmediateChild(_t31.name, _t31.node), _n40++;
           }
         } else {
-          var _e57, _n40, _s21, _r12;
+          var _e58, _n41, _s21, _r12;
 
-          if (i = t.withIndex(this.index_), i = i.updatePriority(pn.EMPTY_NODE), this.reverse_) {
-            _r12 = i.getReverseIterator(this.index_), _e57 = this.rangedFilter_.getEndPost(), _n40 = this.rangedFilter_.getStartPost();
+          if (i = t.withIndex(this.index_), i = i.updatePriority(_n.EMPTY_NODE), this.reverse_) {
+            _r12 = i.getReverseIterator(this.index_), _e58 = this.rangedFilter_.getEndPost(), _n41 = this.rangedFilter_.getStartPost();
 
-            var _t31 = this.index_.getCompare();
+            var _t32 = this.index_.getCompare();
 
             _s21 = function _s21(e, n) {
-              return _t31(n, e);
+              return _t32(n, e);
             };
-          } else _r12 = i.getIterator(this.index_), _e57 = this.rangedFilter_.getStartPost(), _n40 = this.rangedFilter_.getEndPost(), _s21 = this.index_.getCompare();
+          } else _r12 = i.getIterator(this.index_), _e58 = this.rangedFilter_.getStartPost(), _n41 = this.rangedFilter_.getEndPost(), _s21 = this.index_.getCompare();
 
           var _o6 = 0,
               _a4 = !1;
 
           for (; _r12.hasNext();) {
-            var _t32 = _r12.getNext();
+            var _t33 = _r12.getNext();
 
-            !_a4 && _s21(_e57, _t32) <= 0 && (_a4 = !0), _a4 && _o6 < this.limit_ && _s21(_t32, _n40) <= 0 ? _o6++ : i = i.updateImmediateChild(_t32.name, pn.EMPTY_NODE);
+            !_a4 && _s21(_e58, _t33) <= 0 && (_a4 = !0), _a4 && _o6 < this.limit_ && _s21(_t33, _n41) <= 0 ? _o6++ : i = i.updateImmediateChild(_t33.name, _n.EMPTY_NODE);
           }
         }
         return this.rangedFilter_.getIndexedFilter().updateFullNode(e, i, n);
@@ -5597,10 +5611,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var o;
 
         if (this.reverse_) {
-          var _e58 = this.index_.getCompare();
+          var _e59 = this.index_.getCompare();
 
           o = function o(t, n) {
-            return _e58(n, t);
+            return _e59(n, t);
           };
         } else o = this.index_.getCompare();
 
@@ -5611,23 +5625,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
             c = this.rangedFilter_.matches(l);
 
         if (a.hasChild(n)) {
-          var _e59 = a.getImmediateChild(n);
+          var _e60 = a.getImmediateChild(n);
 
           var _t34 = s.getChildAfterChild(this.index_, l, this.reverse_);
 
-          for (; null != _t33 && (_t33.name === n || a.hasChild(_t33.name));) {
-            _t33 = s.getChildAfterChild(this.index_, _t33, this.reverse_);
+          for (; null != _t34 && (_t34.name === n || a.hasChild(_t34.name));) {
+            _t34 = s.getChildAfterChild(this.index_, _t34, this.reverse_);
           }
 
           var _u2 = null == _t34 ? 1 : o(_t34, h);
 
-          if (c && !i.isEmpty() && _u2 >= 0) return null != r && r.trackChildChange(In(n, i, _e59)), a.updateImmediateChild(n, i);
+          if (c && !i.isEmpty() && _u2 >= 0) return null != r && r.trackChildChange(En(n, i, _e60)), a.updateImmediateChild(n, i);
           {
-            null != r && r.trackChildChange(bn(n, _e59));
+            null != r && r.trackChildChange(In(n, _e60));
 
-            var _i27 = a.updateImmediateChild(n, pn.EMPTY_NODE);
+            var _i27 = a.updateImmediateChild(n, _n.EMPTY_NODE);
 
-            return null != _t33 && this.rangedFilter_.matches(_t33) ? (null != r && r.trackChildChange(wn(_t33.name, _t33.node)), _i27.updateImmediateChild(_t33.name, _t33.node)) : _i27;
+            return null != _t34 && this.rangedFilter_.matches(_t34) ? (null != r && r.trackChildChange(bn(_t34.name, _t34.node)), _i27.updateImmediateChild(_t34.name, _t34.node)) : _i27;
           }
         }
 
@@ -5635,17 +5649,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return Sn;
+    return kn;
   }();
 
-  var kn = /*#__PURE__*/function () {
-    function kn() {
-      _classCallCheck(this, kn);
+  var Nn = /*#__PURE__*/function () {
+    function Nn() {
+      _classCallCheck(this, Nn);
 
-      this.limitSet_ = !1, this.startSet_ = !1, this.startNameSet_ = !1, this.startAfterSet_ = !1, this.endSet_ = !1, this.endNameSet_ = !1, this.endBeforeSet_ = !1, this.limit_ = 0, this.viewFrom_ = "", this.indexStartValue_ = null, this.indexStartName_ = "", this.indexEndValue_ = null, this.indexEndName_ = "", this.index_ = rn;
+      this.limitSet_ = !1, this.startSet_ = !1, this.startNameSet_ = !1, this.startAfterSet_ = !1, this.endSet_ = !1, this.endNameSet_ = !1, this.endBeforeSet_ = !1, this.limit_ = 0, this.viewFrom_ = "", this.indexStartValue_ = null, this.indexStartName_ = "", this.indexEndValue_ = null, this.indexEndName_ = "", this.index_ = on;
     }
 
-    _createClass(kn, [{
+    _createClass(Nn, [{
       key: "hasStart",
       value: function hasStart() {
         return this.startSet_;
@@ -5673,7 +5687,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "getIndexStartName",
       value: function getIndexStartName() {
-        return e(this.startSet_, "Only valid if start has been set"), this.startNameSet_ ? this.indexStartName_ : Be;
+        return e(this.startSet_, "Only valid if start has been set"), this.startNameSet_ ? this.indexStartName_ : je;
       }
     }, {
       key: "hasEnd",
@@ -5688,7 +5702,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "getIndexEndName",
       value: function getIndexEndName() {
-        return e(this.endSet_, "Only valid if end has been set"), this.endNameSet_ ? this.indexEndName_ : je;
+        return e(this.endSet_, "Only valid if end has been set"), this.endNameSet_ ? this.indexEndName_ : Be;
       }
     }, {
       key: "hasLimit",
@@ -5718,53 +5732,53 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "isDefault",
       value: function isDefault() {
-        return this.loadsAllData() && this.index_ === rn;
+        return this.loadsAllData() && this.index_ === on;
       }
     }, {
       key: "copy",
       value: function copy() {
-        var e = new kn();
+        var e = new Nn();
         return e.limitSet_ = this.limitSet_, e.limit_ = this.limit_, e.startSet_ = this.startSet_, e.indexStartValue_ = this.indexStartValue_, e.startNameSet_ = this.startNameSet_, e.indexStartName_ = this.indexStartName_, e.endSet_ = this.endSet_, e.indexEndValue_ = this.indexEndValue_, e.endNameSet_ = this.endNameSet_, e.indexEndName_ = this.indexEndName_, e.index_ = this.index_, e.viewFrom_ = this.viewFrom_, e;
       }
     }]);
 
-    return kn;
+    return Nn;
   }();
 
-  function Nn(t) {
+  function Pn(t) {
     var n = {};
     if (t.isDefault()) return n;
     var i;
-    return t.index_ === rn ? i = "$priority" : t.index_ === mn ? i = "$value" : t.index_ === Vt ? i = "$key" : (e(t.index_ instanceof gn, "Unrecognized index type!"), i = t.index_.toString()), n.orderBy = f(i), t.startSet_ && (n.startAt = f(t.indexStartValue_), t.startNameSet_ && (n.startAt += "," + f(t.indexStartName_))), t.endSet_ && (n.endAt = f(t.indexEndValue_), t.endNameSet_ && (n.endAt += "," + f(t.indexEndName_))), t.limitSet_ && (t.isViewFromLeft() ? n.limitToFirst = t.limit_ : n.limitToLast = t.limit_), n;
+    return t.index_ === on ? i = "$priority" : t.index_ === yn ? i = "$value" : t.index_ === $t ? i = "$key" : (e(t.index_ instanceof mn, "Unrecognized index type!"), i = t.index_.toString()), n.orderBy = f(i), t.startSet_ && (n.startAt = f(t.indexStartValue_), t.startNameSet_ && (n.startAt += "," + f(t.indexStartName_))), t.endSet_ && (n.endAt = f(t.indexEndValue_), t.endNameSet_ && (n.endAt += "," + f(t.indexEndName_))), t.limitSet_ && (t.isViewFromLeft() ? n.limitToFirst = t.limit_ : n.limitToLast = t.limit_), n;
   }
 
-  function Pn(e) {
+  function Rn(e) {
     var t = {};
 
     if (e.startSet_ && (t.sp = e.indexStartValue_, e.startNameSet_ && (t.sn = e.indexStartName_)), e.endSet_ && (t.ep = e.indexEndValue_, e.endNameSet_ && (t.en = e.indexEndName_)), e.limitSet_) {
       t.l = e.limit_;
-      var _n41 = e.viewFrom_;
-      "" === _n41 && (_n41 = e.isViewFromLeft() ? "l" : "r"), t.vf = _n41;
+      var _n42 = e.viewFrom_;
+      "" === _n42 && (_n42 = e.isViewFromLeft() ? "l" : "r"), t.vf = _n42;
     }
 
-    return e.index_ !== rn && (t.i = e.index_.toString()), t;
+    return e.index_ !== on && (t.i = e.index_.toString()), t;
   }
 
-  var Rn = /*#__PURE__*/function (_vt2) {
-    _inherits(Rn, _vt2);
+  var xn = /*#__PURE__*/function (_vt2) {
+    _inherits(xn, _vt2);
 
-    var _super10 = _createSuper(Rn);
+    var _super10 = _createSuper(xn);
 
-    function Rn(e, t, n, i) {
+    function xn(e, t, n, i) {
       var _this36;
 
-      _classCallCheck(this, Rn);
+      _classCallCheck(this, xn);
 
       _this36 = _super10.call(this), _this36.repoInfo_ = e, _this36.onDataUpdate_ = t, _this36.authTokenProvider_ = n, _this36.appCheckTokenProvider_ = i, _this36.log_ = Le("p:rest:"), _this36.listens_ = {};
       return _this36;
     }
 
-    _createClass(Rn, [{
+    _createClass(xn, [{
       key: "reportStats",
       value: function reportStats(e) {
         throw new Error("Method not implemented.");
@@ -5777,24 +5791,24 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var s = e._path.toString();
 
         this.log_("Listen called for " + s + " " + e._queryIdentifier);
-        var r = Rn.getListenId_(e, n),
+        var r = xn.getListenId_(e, n),
             o = {};
         this.listens_[r] = o;
-        var a = Nn(e._queryParams);
+        var a = Pn(e._queryParams);
         this.restRequest_(s + ".json", a, function (e, t) {
           var a = t;
 
           if (404 === e && (a = null, e = null), null === e && _this37.onDataUpdate_(s, a, !1, n), y(_this37.listens_, r) === o) {
-            var _t34;
+            var _t35;
 
-            _t34 = e ? 401 === e ? "permission_denied" : "rest_error:" + e : "ok", i(_t34, null);
+            _t35 = e ? 401 === e ? "permission_denied" : "rest_error:" + e : "ok", i(_t35, null);
           }
         });
       }
     }, {
       key: "unlisten",
       value: function unlisten(e, t) {
-        var n = Rn.getListenId_(e, t);
+        var n = xn.getListenId_(e, t);
         delete this.listens_[n];
       }
     }, {
@@ -5802,7 +5816,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       value: function get(e) {
         var _this38 = this;
 
-        var t = Nn(e._queryParams),
+        var t = Pn(e._queryParams),
             n = e._path.toString(),
             i = new h();
 
@@ -5855,16 +5869,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
             if (n && 4 === o.readyState) {
               _this39.log_("REST Response for " + r + " received. status:", o.status, "response:", o.responseText);
 
-              var _e60 = null;
+              var _e61 = null;
 
               if (o.status >= 200 && o.status < 300) {
                 try {
-                  _e60 = _(o.responseText);
+                  _e61 = _(o.responseText);
                 } catch (e) {
                   We("Failed to parse JSON response for " + r + ": " + o.responseText);
                 }
 
-                n(null, _e60);
+                n(null, _e61);
               } else 401 !== o.status && 404 !== o.status && We("Got unsuccessful REST response for " + r + " Status: " + o.status), n(o.status);
 
               n = null;
@@ -5879,17 +5893,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return Rn;
+    return xn;
   }(vt);
 
-  var xn = /*#__PURE__*/function () {
-    function xn() {
-      _classCallCheck(this, xn);
+  var Dn = /*#__PURE__*/function () {
+    function Dn() {
+      _classCallCheck(this, Dn);
 
-      this.rootNode_ = pn.EMPTY_NODE;
+      this.rootNode_ = _n.EMPTY_NODE;
     }
 
-    _createClass(xn, [{
+    _createClass(Dn, [{
       key: "getNode",
       value: function getNode(e) {
         return this.rootNode_.getChild(e);
@@ -5901,42 +5915,64 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return xn;
+    return Dn;
   }();
 
-  function Dn() {
+  function An() {
     return {
       value: null,
       children: new Map()
     };
   }
 
-  function An(e, t, n) {
+  function On(e, t, n) {
     if (xt(t)) e.value = n, e.children.clear();else if (null !== e.value) e.value = e.value.updateChild(t, n);else {
       var _i29 = Et(t);
 
-      e.children.has(_i29) || e.children.set(_i29, Dn()), An(e.children.get(_i29), t = St(t), n);
+      e.children.has(_i29) || e.children.set(_i29, An()), On(e.children.get(_i29), t = St(t), n);
     }
   }
 
-  function On(e, t, n) {
+  function Mn(e, t) {
+    if (xt(t)) return e.value = null, e.children.clear(), !0;
+
+    if (null !== e.value) {
+      if (e.value.isLeafNode()) return !1;
+      {
+        var _n43 = e.value;
+        return e.value = null, _n43.forEachChild(on, function (t, n) {
+          On(e, new bt(t), n);
+        }), Mn(e, t);
+      }
+    }
+
+    if (e.children.size > 0) {
+      var _n44 = Et(t);
+
+      return t = St(t), e.children.has(_n44) && Mn(e.children.get(_n44), t) && e.children["delete"](_n44), 0 === e.children.size;
+    }
+
+    return !0;
+  }
+
+  function Ln(e, t, n) {
     null !== e.value ? n(t, e.value) : function (e, t) {
       e.children.forEach(function (e, n) {
         t(n, e);
       });
     }(e, function (e, i) {
-      On(i, new bt(t.toString() + "/" + e), n);
+      Ln(i, new bt(t.toString() + "/" + e), n);
     });
   }
 
-  var Mn = /*#__PURE__*/function () {
-    function Mn(e) {
-      _classCallCheck(this, Mn);
+  var Fn = /*#__PURE__*/function () {
+    function Fn(e) {
+      _classCallCheck(this, Fn);
 
       this.collection_ = e, this.last_ = null;
     }
 
-    _createClass(Mn, [{
+    _createClass(Fn, [{
       key: "get",
       value: function get() {
         var e = this.collection_.get(),
@@ -5947,19 +5983,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return Mn;
+    return Fn;
   }();
 
-  var Ln = /*#__PURE__*/function () {
-    function Ln(e, t) {
-      _classCallCheck(this, Ln);
+  var qn = /*#__PURE__*/function () {
+    function qn(e, t) {
+      _classCallCheck(this, qn);
 
-      this.server_ = t, this.statsToReport_ = {}, this.statsListener_ = new Mn(e);
+      this.server_ = t, this.statsToReport_ = {}, this.statsListener_ = new Fn(e);
       var n = 1e4 + 2e4 * Math.random();
       Ze(this.reportStats_.bind(this), Math.floor(n));
     }
 
-    _createClass(Ln, [{
+    _createClass(qn, [{
       key: "reportStats_",
       value: function reportStats_() {
         var _this40 = this;
@@ -5973,12 +6009,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return Ln;
+    return qn;
   }();
 
-  var Fn;
+  var Wn;
 
-  function qn(e) {
+  function Un(e) {
     return {
       fromUser: !1,
       fromServer: !0,
@@ -5989,13 +6025,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
   !function (e) {
     e[e.OVERWRITE = 0] = "OVERWRITE", e[e.MERGE = 1] = "MERGE", e[e.ACK_USER_WRITE = 2] = "ACK_USER_WRITE", e[e.LISTEN_COMPLETE = 3] = "LISTEN_COMPLETE";
-  }(Fn || (Fn = {}));
+  }(Wn || (Wn = {}));
 
-  var Wn = /*#__PURE__*/function () {
-    function Wn(e, t, n) {
-      _classCallCheck(this, Wn);
+  var jn = /*#__PURE__*/function () {
+    function jn(e, t, n) {
+      _classCallCheck(this, jn);
 
-      this.path = e, this.affectedTree = t, this.revert = n, this.type = Fn.ACK_USER_WRITE, this.source = {
+      this.path = e, this.affectedTree = t, this.revert = n, this.type = Wn.ACK_USER_WRITE, this.source = {
         fromUser: !0,
         fromServer: !1,
         queryId: null,
@@ -6003,76 +6039,76 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       };
     }
 
-    _createClass(Wn, [{
+    _createClass(jn, [{
       key: "operationForChild",
       value: function operationForChild(t) {
         if (xt(this.path)) {
           if (null != this.affectedTree.value) return e(this.affectedTree.children.isEmpty(), "affectedTree should not have overlapping affected paths."), this;
           {
-            var _e61 = this.affectedTree.subtree(new bt(t));
+            var _e62 = this.affectedTree.subtree(new bt(t));
 
-            return new Wn(It(), _e61, this.revert);
+            return new jn(It(), _e62, this.revert);
           }
         }
 
-        return e(Et(this.path) === t, "operationForChild called for unrelated child."), new Wn(St(this.path), this.affectedTree, this.revert);
+        return e(Et(this.path) === t, "operationForChild called for unrelated child."), new jn(St(this.path), this.affectedTree, this.revert);
       }
     }]);
 
-    return Wn;
-  }();
-
-  var Un = /*#__PURE__*/function () {
-    function Un(e, t) {
-      _classCallCheck(this, Un);
-
-      this.source = e, this.path = t, this.type = Fn.LISTEN_COMPLETE;
-    }
-
-    _createClass(Un, [{
-      key: "operationForChild",
-      value: function operationForChild(e) {
-        return xt(this.path) ? new Un(this.source, It()) : new Un(this.source, St(this.path));
-      }
-    }]);
-
-    return Un;
+    return jn;
   }();
 
   var Bn = /*#__PURE__*/function () {
-    function Bn(e, t, n) {
+    function Bn(e, t) {
       _classCallCheck(this, Bn);
 
-      this.source = e, this.path = t, this.snap = n, this.type = Fn.OVERWRITE;
+      this.source = e, this.path = t, this.type = Wn.LISTEN_COMPLETE;
     }
 
     _createClass(Bn, [{
       key: "operationForChild",
       value: function operationForChild(e) {
-        return xt(this.path) ? new Bn(this.source, It(), this.snap.getImmediateChild(e)) : new Bn(this.source, St(this.path), this.snap);
+        return xt(this.path) ? new Bn(this.source, It()) : new Bn(this.source, St(this.path));
       }
     }]);
 
     return Bn;
   }();
 
-  var jn = /*#__PURE__*/function () {
-    function jn(e, t, n) {
-      _classCallCheck(this, jn);
+  var Hn = /*#__PURE__*/function () {
+    function Hn(e, t, n) {
+      _classCallCheck(this, Hn);
 
-      this.source = e, this.path = t, this.children = n, this.type = Fn.MERGE;
+      this.source = e, this.path = t, this.snap = n, this.type = Wn.OVERWRITE;
     }
 
-    _createClass(jn, [{
+    _createClass(Hn, [{
+      key: "operationForChild",
+      value: function operationForChild(e) {
+        return xt(this.path) ? new Hn(this.source, It(), this.snap.getImmediateChild(e)) : new Hn(this.source, St(this.path), this.snap);
+      }
+    }]);
+
+    return Hn;
+  }();
+
+  var zn = /*#__PURE__*/function () {
+    function zn(e, t, n) {
+      _classCallCheck(this, zn);
+
+      this.source = e, this.path = t, this.children = n, this.type = Wn.MERGE;
+    }
+
+    _createClass(zn, [{
       key: "operationForChild",
       value: function operationForChild(t) {
         if (xt(this.path)) {
-          var _e62 = this.children.subtree(new bt(t));
+          var _e63 = this.children.subtree(new bt(t));
 
-          return _e62.isEmpty() ? null : _e62.value ? new Bn(this.source, It(), _e62.value) : new jn(this.source, It(), _e62);
+          return _e63.isEmpty() ? null : _e63.value ? new Hn(this.source, It(), _e63.value) : new zn(this.source, It(), _e63);
         }
 
-        return e(Et(this.path) === t, "Can't get a merge for a child not on the path of the operation"), new jn(this.source, St(this.path), this.children);
+        return e(Et(this.path) === t, "Can't get a merge for a child not on the path of the operation"), new zn(this.source, St(this.path), this.children);
       }
     }, {
       key: "toString",
@@ -6081,17 +6117,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return jn;
+    return zn;
   }();
 
-  var Hn = /*#__PURE__*/function () {
-    function Hn(e, t, n) {
-      _classCallCheck(this, Hn);
+  var Vn = /*#__PURE__*/function () {
+    function Vn(e, t, n) {
+      _classCallCheck(this, Vn);
 
       this.node_ = e, this.fullyInitialized_ = t, this.filtered_ = n;
     }
 
-    _createClass(Hn, [{
+    _createClass(Vn, [{
       key: "isFullyInitialized",
       value: function isFullyInitialized() {
         return this.fullyInitialized_;
@@ -6120,16 +6156,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return Hn;
+    return Vn;
   }();
 
-  var zn = /*#__PURE__*/_createClass(function zn(e) {
-    _classCallCheck(this, zn);
+  var $n = /*#__PURE__*/_createClass(function $n(e) {
+    _classCallCheck(this, $n);
 
     this.query_ = e, this.index_ = this.query_._queryParams.getIndex();
   });
 
-  function Vn(e, n, i, s, r, o) {
+  function Yn(e, n, i, s, r, o) {
     var a = s.filter(function (e) {
       return e.type === i;
     });
@@ -6151,43 +6187,43 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     });
   }
 
-  function $n(e, t) {
+  function Kn(e, t) {
     return {
       eventCache: e,
       serverCache: t
     };
   }
 
-  function Yn(e, t, n, i) {
-    return $n(new Hn(t, n, i), e.serverCache);
+  function Gn(e, t, n, i) {
+    return Kn(new Vn(t, n, i), e.serverCache);
   }
 
-  function Kn(e, t, n, i) {
-    return $n(e.eventCache, new Hn(t, n, i));
+  function Qn(e, t, n, i) {
+    return Kn(e.eventCache, new Vn(t, n, i));
   }
 
-  function Gn(e) {
+  function Jn(e) {
     return e.eventCache.isFullyInitialized() ? e.eventCache.getNode() : null;
   }
 
-  function Qn(e) {
+  function Xn(e) {
     return e.serverCache.isFullyInitialized() ? e.serverCache.getNode() : null;
   }
 
-  var Jn;
+  var Zn;
 
-  var Xn = /*#__PURE__*/function () {
-    function Xn(e) {
+  var ei = /*#__PURE__*/function () {
+    function ei(e) {
       var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {
-        return Jn || (Jn = new Kt(ze)), Jn;
+        return Zn || (Zn = new Gt(ze)), Zn;
       }();
 
-      _classCallCheck(this, Xn);
+      _classCallCheck(this, ei);
 
       this.value = e, this.children = t;
     }
 
-    _createClass(Xn, [{
+    _createClass(ei, [{
       key: "isEmpty",
       value: function isEmpty() {
         return null === this.value && this.children.isEmpty();
@@ -6201,14 +6237,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         };
         if (xt(e)) return null;
         {
-          var _n42 = Et(e),
-              _i30 = this.children.get(_n42);
+          var _n45 = Et(e),
+              _i30 = this.children.get(_n45);
 
           if (null !== _i30) {
             var _s22 = _i30.findRootMostMatchingPathAndValue(St(e), t);
 
             return null != _s22 ? {
-              path: Rt(new bt(_n42), _s22.path),
+              path: Rt(new bt(_n45), _s22.path),
               value: _s22.value
             } : null;
           }
@@ -6228,38 +6264,38 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       value: function subtree(e) {
         if (xt(e)) return this;
         {
-          var _t35 = Et(e),
-              _n43 = this.children.get(_t35);
+          var _t36 = Et(e),
+              _n46 = this.children.get(_t36);
 
-          return null !== _n43 ? _n43.subtree(St(e)) : new Xn(null);
+          return null !== _n46 ? _n46.subtree(St(e)) : new ei(null);
         }
       }
     }, {
       key: "set",
       value: function set(e, t) {
-        if (xt(e)) return new Xn(t, this.children);
+        if (xt(e)) return new ei(t, this.children);
         {
-          var _n44 = Et(e),
-              _i31 = (this.children.get(_n44) || new Xn(null)).set(St(e), t),
-              _s23 = this.children.insert(_n44, _i31);
+          var _n47 = Et(e),
+              _i31 = (this.children.get(_n47) || new ei(null)).set(St(e), t),
+              _s23 = this.children.insert(_n47, _i31);
 
-          return new Xn(this.value, _s23);
+          return new ei(this.value, _s23);
         }
       }
     }, {
       key: "remove",
       value: function remove(e) {
-        if (xt(e)) return this.children.isEmpty() ? new Xn(null) : new Xn(null, this.children);
+        if (xt(e)) return this.children.isEmpty() ? new ei(null) : new ei(null, this.children);
         {
-          var _t36 = Et(e),
-              _n45 = this.children.get(_t36);
+          var _t37 = Et(e),
+              _n48 = this.children.get(_t37);
 
-          if (_n45) {
-            var _i32 = _n45.remove(St(e));
+          if (_n48) {
+            var _i32 = _n48.remove(St(e));
 
             var _s24;
 
-            return _s24 = _i32.isEmpty() ? this.children.remove(_t36) : this.children.insert(_t36, _i32), null === this.value && _s24.isEmpty() ? new Xn(null) : new Xn(this.value, _s24);
+            return _s24 = _i32.isEmpty() ? this.children.remove(_t37) : this.children.insert(_t37, _i32), null === this.value && _s24.isEmpty() ? new ei(null) : new ei(this.value, _s24);
           }
 
           return this;
@@ -6270,10 +6306,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       value: function get(e) {
         if (xt(e)) return this.value;
         {
-          var _t37 = Et(e),
-              _n46 = this.children.get(_t37);
+          var _t38 = Et(e),
+              _n49 = this.children.get(_t38);
 
-          return _n46 ? _n46.get(St(e)) : null;
+          return _n49 ? _n49.get(St(e)) : null;
         }
       }
     }, {
@@ -6281,12 +6317,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       value: function setTree(e, t) {
         if (xt(e)) return t;
         {
-          var _n47 = Et(e),
-              _i33 = (this.children.get(_n47) || new Xn(null)).setTree(St(e), t);
+          var _n50 = Et(e),
+              _i33 = (this.children.get(_n50) || new ei(null)).setTree(St(e), t);
 
           var _s25;
 
-          return _s25 = _i33.isEmpty() ? this.children.remove(_n47) : this.children.insert(_n47, _i33), new Xn(this.value, _s25);
+          return _s25 = _i33.isEmpty() ? this.children.remove(_n50) : this.children.insert(_n50, _i33), new ei(this.value, _s25);
         }
       }
     }, {
@@ -6335,7 +6371,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           var _i35 = Et(e),
               _s27 = this.children.get(_i35);
 
-          return _s27 ? _s27.foreachOnPath_(St(e), Rt(t, _i35), n) : new Xn(null);
+          return _s27 ? _s27.foreachOnPath_(St(e), Rt(t, _i35), n) : new ei(null);
         }
       }
     }, {
@@ -6360,35 +6396,35 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }], [{
       key: "fromObject",
       value: function fromObject(e) {
-        var t = new Xn(null);
+        var t = new ei(null);
         return Ke(e, function (e, n) {
           t = t.set(new bt(e), n);
         }), t;
       }
     }]);
 
-    return Xn;
+    return ei;
   }();
 
-  var Zn = /*#__PURE__*/function () {
-    function Zn(e) {
-      _classCallCheck(this, Zn);
+  var ti = /*#__PURE__*/function () {
+    function ti(e) {
+      _classCallCheck(this, ti);
 
       this.writeTree_ = e;
     }
 
-    _createClass(Zn, null, [{
+    _createClass(ti, null, [{
       key: "empty",
       value: function empty() {
-        return new Zn(new Xn(null));
+        return new ti(new ei(null));
       }
     }]);
 
-    return Zn;
+    return ti;
   }();
 
-  function ei(e, t, n) {
-    if (xt(t)) return new Zn(new Xn(n));
+  function ni(e, t, n) {
+    if (xt(t)) return new ti(new ei(n));
     {
       var _i36 = e.writeTree_.findRootMostValueAndPath(t);
 
@@ -6398,47 +6434,47 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
         var _o7 = Dt(_s28, t);
 
-        return _r13 = _r13.updateChild(_o7, n), new Zn(e.writeTree_.set(_s28, _r13));
+        return _r13 = _r13.updateChild(_o7, n), new ti(e.writeTree_.set(_s28, _r13));
       }
 
       {
-        var _i37 = new Xn(n),
+        var _i37 = new ei(n),
             _s29 = e.writeTree_.setTree(t, _i37);
 
-        return new Zn(_s29);
+        return new ti(_s29);
       }
     }
   }
 
-  function ti(e, t, n) {
+  function ii(e, t, n) {
     var i = e;
     return Ke(n, function (e, n) {
-      i = ei(i, Rt(t, e), n);
+      i = ni(i, Rt(t, e), n);
     }), i;
   }
 
-  function ni(e, t) {
-    if (xt(t)) return Zn.empty();
+  function si(e, t) {
+    if (xt(t)) return ti.empty();
     {
-      var _n48 = e.writeTree_.setTree(t, new Xn(null));
+      var _n51 = e.writeTree_.setTree(t, new ei(null));
 
-      return new Zn(_n48);
+      return new ti(_n51);
     }
   }
 
-  function ii(e, t) {
-    return null != si(e, t);
+  function ri(e, t) {
+    return null != oi(e, t);
   }
 
-  function si(e, t) {
+  function oi(e, t) {
     var n = e.writeTree_.findRootMostValueAndPath(t);
     return null != n ? e.writeTree_.get(n.path).getChild(Dt(n.path, t)) : null;
   }
 
-  function ri(e) {
+  function ai(e) {
     var t = [],
         n = e.writeTree_.value;
-    return null != n ? n.isLeafNode() || n.forEachChild(rn, function (e, n) {
+    return null != n ? n.isLeafNode() || n.forEachChild(on, function (e, n) {
       t.push(new Bt(e, n));
     }) : e.writeTree_.children.inorderTraversal(function (e, n) {
       null != n.value && t.push(new Bt(e, n.value));
@@ -6448,9 +6484,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   function hi(e, t) {
     if (xt(t)) return e;
     {
-      var _n49 = si(e, t);
+      var _n52 = oi(e, t);
 
-      return new Zn(null != _n49 ? new Xn(_n49) : e.writeTree_.subtree(t));
+      return new ti(null != _n52 ? new ei(_n52) : e.writeTree_.subtree(t));
     }
   }
 
@@ -6458,58 +6494,58 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return e.writeTree_.isEmpty();
   }
 
-  function hi(e, t) {
-    return li(It(), e.writeTree_, t);
+  function ci(e, t) {
+    return ui(It(), e.writeTree_, t);
   }
 
-  function li(t, n, i) {
+  function ui(t, n, i) {
     if (null != n.value) return i.updateChild(t, n.value);
     {
       var _s30 = null;
       return n.children.inorderTraversal(function (n, r) {
-        ".priority" === n ? (e(null !== r.value, "Priority writes must always be leaf nodes"), _s30 = r.value) : i = li(Rt(t, n), r, i);
+        ".priority" === n ? (e(null !== r.value, "Priority writes must always be leaf nodes"), _s30 = r.value) : i = ui(Rt(t, n), r, i);
       }), i.getChild(t).isEmpty() || null === _s30 || (i = i.updateChild(Rt(t, ".priority"), _s30)), i;
     }
   }
 
-  function ci(e, t) {
-    return wi(t, e);
+  function di(e, t) {
+    return Ii(t, e);
   }
 
-  function ui(e, t) {
-    if (e.snap) return Ot(e.path, t);
+  function pi(e, t) {
+    if (e.snap) return Mt(e.path, t);
 
-    for (var _n50 in e.children) {
-      if (e.children.hasOwnProperty(_n50) && Ot(Rt(e.path, _n50), t)) return !0;
+    for (var _n53 in e.children) {
+      if (e.children.hasOwnProperty(_n53) && Mt(Rt(e.path, _n53), t)) return !0;
     }
 
     return !1;
   }
 
-  function di(e) {
+  function _i(e) {
     return e.visible;
   }
 
-  function pi(e, n, i) {
-    var s = Zn.empty();
+  function fi(e, n, i) {
+    var s = ti.empty();
 
     for (var _r14 = 0; _r14 < e.length; ++_r14) {
       var _o8 = e[_r14];
 
       if (n(_o8)) {
-        var _e63 = _o8.path;
+        var _e64 = _o8.path;
 
-        var _n51 = void 0;
+        var _n54 = void 0;
 
-        if (_o8.snap) Ot(i, _e63) ? (_n51 = Dt(i, _e63), s = ei(s, _n51, _o8.snap)) : Ot(_e63, i) && (_n51 = Dt(_e63, i), s = ei(s, It(), _o8.snap.getChild(_n51)));else {
+        if (_o8.snap) Mt(i, _e64) ? (_n54 = Dt(i, _e64), s = ni(s, _n54, _o8.snap)) : Mt(_e64, i) && (_n54 = Dt(_e64, i), s = ni(s, It(), _o8.snap.getChild(_n54)));else {
           if (!_o8.children) throw t("WriteRecord should have .snap or .children");
-          if (Ot(i, _e63)) _n51 = Dt(i, _e63), s = ti(s, _n51, _o8.children);else if (Ot(_e63, i)) if (_n51 = Dt(_e63, i), xt(_n51)) s = ti(s, It(), _o8.children);else {
-            var _e64 = y(_o8.children, Et(_n51));
+          if (Mt(i, _e64)) _n54 = Dt(i, _e64), s = ii(s, _n54, _o8.children);else if (Mt(_e64, i)) if (_n54 = Dt(_e64, i), xt(_n54)) s = ii(s, It(), _o8.children);else {
+            var _e65 = y(_o8.children, Et(_n54));
 
-            if (_e64) {
-              var _t38 = _e64.getChild(St(_n51));
+            if (_e65) {
+              var _t39 = _e65.getChild(St(_n54));
 
-              s = ei(s, It(), _t38);
+              s = ni(s, It(), _t39);
             }
           }
         }
@@ -6519,25 +6555,25 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return s;
   }
 
-  function _i(e, t, n, i, s) {
+  function gi(e, t, n, i, s) {
     if (i || s) {
       var _r15 = hi(e.visibleWrites, t);
 
       if (!s && li(_r15)) return n;
 
-      if (s || null != n || ii(_r15, It())) {
+      if (s || null != n || ri(_r15, It())) {
         var _r16 = function _r16(e) {
-          return (e.visible || s) && (!i || !~i.indexOf(e.writeId)) && (Ot(e.path, t) || Ot(t, e.path));
+          return (e.visible || s) && (!i || !~i.indexOf(e.writeId)) && (Mt(e.path, t) || Mt(t, e.path));
         };
 
-        return hi(pi(e.allWrites, _r16, t), n || pn.EMPTY_NODE);
+        return ci(fi(e.allWrites, _r16, t), n || _n.EMPTY_NODE);
       }
 
       return null;
     }
 
     {
-      var _i38 = si(e.visibleWrites, t);
+      var _i38 = oi(e.visibleWrites, t);
 
       if (null != _i38) return _i38;
       {
@@ -6548,15 +6584,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }
   }
 
-  function fi(e, t, n, i) {
-    return _i(e.writeTree, e.treePath, t, n, i);
+  function mi(e, t, n, i) {
+    return gi(e.writeTree, e.treePath, t, n, i);
   }
 
-  function gi(e, t) {
+  function yi(e, t) {
     return function (e, t, n) {
-      var i = pn.EMPTY_NODE;
-      var s = si(e.visibleWrites, t);
-      if (s) return s.isLeafNode() || s.forEachChild(rn, function (e, t) {
+      var i = _n.EMPTY_NODE;
+      var s = oi(e.visibleWrites, t);
+      if (s) return s.isLeafNode() || s.forEachChild(on, function (e, t) {
         i = i.updateImmediateChild(e, t);
       }), i;
 
@@ -6566,7 +6602,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         return n.forEachChild(on, function (e, t) {
           var n = ci(hi(_s31, new bt(e)), t);
           i = i.updateImmediateChild(e, n);
-        }), ri(_s31).forEach(function (e) {
+        }), ai(_s31).forEach(function (e) {
           i = i.updateImmediateChild(e.name, e.node);
         }), i;
       }
@@ -6577,11 +6613,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }(e.writeTree, e.treePath, t);
   }
 
-  function mi(t, n, i, s) {
+  function vi(t, n, i, s) {
     return function (t, n, i, s, r) {
       e(s || r, "Either existingEventSnap or existingServerSnap must exist");
       var o = Rt(n, i);
-      if (ii(t.visibleWrites, o)) return null;
+      if (ri(t.visibleWrites, o)) return null;
       {
         var _e66 = hi(t.visibleWrites, o);
 
@@ -6590,13 +6626,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }(t.writeTree, t.treePath, n, i, s);
   }
 
-  function yi(e, t) {
+  function Ci(e, t) {
     return function (e, t) {
-      return si(e.visibleWrites, t);
+      return oi(e.visibleWrites, t);
     }(e.writeTree, Rt(e.treePath, t));
   }
 
-  function vi(e, t, n) {
+  function wi(e, t, n) {
     return function (e, t, n, i) {
       var s = Rt(t, n),
           r = oi(e.visibleWrites, s);
@@ -6604,25 +6640,25 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }(e.writeTree, e.treePath, t, n);
   }
 
-  function Ci(e, t) {
-    return wi(Rt(e.treePath, t), e.writeTree);
+  function bi(e, t) {
+    return Ii(Rt(e.treePath, t), e.writeTree);
   }
 
-  function wi(e, t) {
+  function Ii(e, t) {
     return {
       treePath: e,
       writeTree: t
     };
   }
 
-  var bi = /*#__PURE__*/function () {
-    function bi() {
-      _classCallCheck(this, bi);
+  var Ei = /*#__PURE__*/function () {
+    function Ei() {
+      _classCallCheck(this, Ei);
 
       this.changeMap = new Map();
     }
 
-    _createClass(bi, [{
+    _createClass(Ei, [{
       key: "trackChildChange",
       value: function trackChildChange(n) {
         var i = n.type,
@@ -6631,10 +6667,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var r = this.changeMap.get(s);
 
         if (r) {
-          var _e66 = r.type;
-          if ("child_added" === i && "child_removed" === _e66) this.changeMap.set(s, In(s, n.snapshotNode, r.snapshotNode));else if ("child_removed" === i && "child_added" === _e66) this.changeMap["delete"](s);else if ("child_removed" === i && "child_changed" === _e66) this.changeMap.set(s, bn(s, r.oldSnap));else if ("child_changed" === i && "child_added" === _e66) this.changeMap.set(s, wn(s, n.snapshotNode));else {
-            if ("child_changed" !== i || "child_changed" !== _e66) throw t("Illegal combination of changes: " + n + " occurred after " + r);
-            this.changeMap.set(s, In(s, n.snapshotNode, r.oldSnap));
+          var _e67 = r.type;
+          if ("child_added" === i && "child_removed" === _e67) this.changeMap.set(s, En(s, n.snapshotNode, r.snapshotNode));else if ("child_removed" === i && "child_added" === _e67) this.changeMap["delete"](s);else if ("child_removed" === i && "child_changed" === _e67) this.changeMap.set(s, In(s, r.oldSnap));else if ("child_changed" === i && "child_added" === _e67) this.changeMap.set(s, bn(s, n.snapshotNode));else {
+            if ("child_changed" !== i || "child_changed" !== _e67) throw t("Illegal combination of changes: " + n + " occurred after " + r);
+            this.changeMap.set(s, En(s, n.snapshotNode, r.oldSnap));
           }
         } else this.changeMap.set(s, n);
       }
@@ -6645,10 +6681,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return bi;
+    return Ei;
   }();
 
-  var Ii = new ( /*#__PURE__*/function () {
+  var Ti = new ( /*#__PURE__*/function () {
     function _class5() {
       _classCallCheck(this, _class5);
     }
@@ -6668,30 +6704,30 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return _class5;
   }())();
 
-  var Ei = /*#__PURE__*/function () {
-    function Ei(e, t) {
+  var Si = /*#__PURE__*/function () {
+    function Si(e, t) {
       var n = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
-      _classCallCheck(this, Ei);
+      _classCallCheck(this, Si);
 
       this.writes_ = e, this.viewCache_ = t, this.optCompleteServerCache_ = n;
     }
 
-    _createClass(Ei, [{
+    _createClass(Si, [{
       key: "getCompleteChild",
       value: function getCompleteChild(e) {
         var t = this.viewCache_.eventCache;
         if (t.isCompleteForChild(e)) return t.getNode().getImmediateChild(e);
         {
-          var _t39 = null != this.optCompleteServerCache_ ? new Hn(this.optCompleteServerCache_, !0, !1) : this.viewCache_.serverCache;
+          var _t40 = null != this.optCompleteServerCache_ ? new Vn(this.optCompleteServerCache_, !0, !1) : this.viewCache_.serverCache;
 
-          return vi(this.writes_, e, _t39);
+          return wi(this.writes_, e, _t40);
         }
       }
     }, {
       key: "getChildAfterChild",
       value: function getChildAfterChild(e, t, n) {
-        var i = null != this.optCompleteServerCache_ ? this.optCompleteServerCache_ : Qn(this.viewCache_),
+        var i = null != this.optCompleteServerCache_ ? this.optCompleteServerCache_ : Xn(this.viewCache_),
             s = function (e, t, n, i, s, r) {
           return function (e, t, n, i, s, r, o) {
             var a;
@@ -6703,9 +6739,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
             }
             if (a = a.withIndex(o), a.isEmpty() || a.isLeafNode()) return [];
             {
-              var _e67 = [],
-                  _t40 = o.getCompare(),
-                  _n52 = r ? a.getReverseIteratorFrom(i, o) : a.getIteratorFrom(i, o);
+              var _e68 = [],
+                  _t41 = o.getCompare(),
+                  _n55 = r ? a.getReverseIteratorFrom(i, o) : a.getIteratorFrom(i, o);
 
               var _h6 = _n55.getNext();
 
@@ -6713,7 +6749,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
                 0 !== _t41(_h6, i) && _e68.push(_h6), _h6 = _n55.getNext();
               }
 
-              return _e67;
+              return _e68;
             }
           }(e.writeTree, e.treePath, t, n, i, s, r);
         }(this.writes_, i, t, 1, n, e);
@@ -6722,23 +6758,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return Ei;
+    return Si;
   }();
 
-  function Ti(t, n, i, s, r, o) {
+  function ki(t, n, i, s, r, o) {
     var a = n.eventCache;
-    if (null != yi(s, i)) return n;
+    if (null != Ci(s, i)) return n;
     {
       var _l7, _h4;
 
       if (xt(i)) {
         if (e(n.serverCache.isFullyInitialized(), "If change path is empty, we must have complete server data"), n.serverCache.isFiltered()) {
-          var _e68 = Qn(n),
-              _i40 = gi(s, _e68 instanceof pn ? _e68 : pn.EMPTY_NODE);
+          var _e69 = Xn(n),
+              _i40 = yi(s, _e69 instanceof _n ? _e69 : _n.EMPTY_NODE);
 
           _l7 = t.filter.updateFullNode(n.eventCache.getNode(), _i40, o);
         } else {
-          var _e69 = fi(s, Qn(n));
+          var _e70 = mi(s, Xn(n));
 
           _h7 = t.filter.updateFullNode(n.eventCache.getNode(), _e70, o);
         }
@@ -6756,7 +6792,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
           _l7 = null != _o9 ? t.filter.updatePriority(_r17, _o9) : a.getNode();
         } else {
-          var _e70 = St(i);
+          var _e71 = St(i);
 
           var _u3;
 
@@ -6765,8 +6801,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
             var _t42 = vi(s, i, a.getNode(), _l4);
 
-            _u3 = null != _t41 ? a.getNode().getImmediateChild(_c4).updateChild(_e70, _t41) : a.getNode().getImmediateChild(_c4);
-          } else _u3 = vi(s, _c4, n.serverCache);
+            _u3 = null != _t42 ? a.getNode().getImmediateChild(_c4).updateChild(_e71, _t42) : a.getNode().getImmediateChild(_c4);
+          } else _u3 = wi(s, _c4, n.serverCache);
 
           _h7 = null != _u3 ? t.filter.updateChild(a.getNode(), _c4, _u3, _e71, r, o) : a.getNode();
         }
@@ -6784,7 +6820,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
       l = c.updateFullNode(h.getNode(), _e72, null);
     } else {
-      var _e72 = Et(n);
+      var _e73 = Et(n);
 
       if (!l.isCompleteForPath(n) && Tt(n) > 1) return t;
 
@@ -6797,7 +6833,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return ki(e, u, n, s, new Si(s, u, r), a);
   }
 
-  function ki(e, t, n, i, s, r, o) {
+  function Pi(e, t, n, i, s, r, o) {
     var a = t.eventCache;
     var h, l;
     var c = new Si(s, t, r);
@@ -6811,9 +6847,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var _u4;
 
         if (xt(_r19)) _u4 = i;else {
-          var _e73 = c.getCompleteChild(_s33);
+          var _e74 = c.getCompleteChild(_s33);
 
-          _u4 = null != _e73 ? ".priority" === kt(_r19) && _e73.getChild(Pt(_r19)).isEmpty() ? _e73 : _e73.updateChild(_r19, i) : pn.EMPTY_NODE;
+          _u4 = null != _e74 ? ".priority" === kt(_r19) && _e74.getChild(Pt(_r19)).isEmpty() ? _e74 : _e74.updateChild(_r19, i) : _n.EMPTY_NODE;
         }
         h = _l5.equals(_u4) ? t : Gn(t, e.filter.updateChild(a.getNode(), _s33, _u4, _r19, c, o), a.isFullyInitialized(), e.filter.filtersNodes());
       }
@@ -6821,17 +6857,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return l;
   }
 
-  function Ni(e, t) {
+  function Ri(e, t) {
     return e.eventCache.isCompleteForChild(t);
   }
 
-  function Pi(e, t, n) {
+  function xi(e, t, n) {
     return n.foreach(function (e, n) {
       t = t.updateChild(e, n);
     }), t;
   }
 
-  function Ri(e, t, n, i, s, r, o, a) {
+  function Di(e, t, n, i, s, r, o, a) {
     if (t.serverCache.getNode().isEmpty() && !t.serverCache.isFullyInitialized()) return t;
     var h,
         l = t;
@@ -6854,14 +6890,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }), h;
   }
 
-  var xi = /*#__PURE__*/function () {
-    function xi(e, t) {
-      _classCallCheck(this, xi);
+  var Ai = /*#__PURE__*/function () {
+    function Ai(e, t) {
+      _classCallCheck(this, Ai);
 
       this.query_ = e, this.eventRegistrations_ = [];
       var n = this.query_._queryParams,
-          i = new En(n.getIndex()),
-          s = (r = n).loadsAllData() ? new En(r.getIndex()) : r.hasLimit() ? new Sn(r) : new Tn(r);
+          i = new Tn(n.getIndex()),
+          s = (r = n).loadsAllData() ? new Tn(r.getIndex()) : r.hasLimit() ? new kn(r) : new Sn(r);
       var r;
 
       this.processor_ = function (e) {
@@ -6879,26 +6915,26 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       this.viewCache_ = Kn(u, c), this.eventGenerator_ = new $n(this.query_);
     }
 
-    _createClass(xi, [{
+    _createClass(Ai, [{
       key: "query",
       get: function get() {
         return this.query_;
       }
     }]);
 
-    return xi;
+    return Ai;
   }();
 
-  function Di(e, t) {
-    var n = Qn(e.viewCache_);
+  function Oi(e, t) {
+    var n = Xn(e.viewCache_);
     return n && (e.query._queryParams.loadsAllData() || !xt(t) && !n.getImmediateChild(Et(t)).isEmpty()) ? n.getChild(t) : null;
   }
 
-  function Ai(e) {
+  function Mi(e) {
     return 0 === e.eventRegistrations_.length;
   }
 
-  function Oi(t, n, i) {
+  function Li(t, n, i) {
     var s = [];
 
     if (i) {
@@ -6911,37 +6947,34 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }
 
     if (n) {
-      var _e74 = [];
+      var _e75 = [];
 
       for (var _i41 = 0; _i41 < t.eventRegistrations_.length; ++_i41) {
         var _s34 = t.eventRegistrations_[_i41];
 
         if (_s34.matches(n)) {
           if (n.hasAnyCallback()) {
-            _e74 = _e74.concat(t.eventRegistrations_.slice(_i41 + 1));
+            _e75 = _e75.concat(t.eventRegistrations_.slice(_i41 + 1));
             break;
           }
-        } else _e74.push(_s34);
+        } else _e75.push(_s34);
       }
 
-      t.eventRegistrations_ = _e74;
+      t.eventRegistrations_ = _e75;
     } else t.eventRegistrations_ = [];
 
     return s;
   }
 
-  function Mi(n, i, s, r) {
-    i.type === Fn.MERGE && null !== i.source.queryId && (e(Qn(n.viewCache_), "We should always have a full cache before handling merges"), e(Gn(n.viewCache_), "Missing event cache, even though we have a server cache"));
+  function Fi(n, i, s, r) {
+    i.type === Wn.MERGE && null !== i.source.queryId && (e(Xn(n.viewCache_), "We should always have a full cache before handling merges"), e(Jn(n.viewCache_), "Missing event cache, even though we have a server cache"));
 
     var o = n.viewCache_,
         a = function (n, i, s, r, o) {
       var a = new Ei();
       var h, l;
 
-      if (s.type === Fn.OVERWRITE) {
-        var _t42 = s;
-        _t42.source.fromUser ? h = ki(n, i, _t42.path, _t42.snap, r, o, a) : (e(_t42.source.fromServer, "Unknown source."), l = _t42.source.tagged || i.serverCache.isFiltered() && !xt(_t42.path), h = Si(n, i, _t42.path, _t42.snap, r, o, l, a));
-      } else if (s.type === Fn.MERGE) {
+      if (s.type === Wn.OVERWRITE) {
         var _t43 = s;
         _t43.source.fromUser ? h = Pi(n, i, _t43.path, _t43.snap, r, o, a) : (e(_t43.source.fromServer, "Unknown source."), l = _t43.source.tagged || i.serverCache.isFiltered() && !xt(_t43.path), h = Ni(n, i, _t43.path, _t43.snap, r, o, l, a));
       } else if (s.type === Wn.MERGE) {
@@ -6960,7 +6993,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var _t45 = s;
         h = _t45.revert ? function (t, n, i, s, r, o) {
           var a;
-          if (null != yi(s, i)) return n;
+          if (null != Ci(s, i)) return n;
           {
             var _h10 = new Si(s, n, r),
                 _l6 = n.eventCache.getNode();
@@ -6970,24 +7003,24 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
             if (xt(i) || ".priority" === Et(i)) {
               var _i42;
 
-              if (n.serverCache.isFullyInitialized()) _i42 = fi(s, Qn(n));else {
-                var _t45 = n.serverCache.getNode();
+              if (n.serverCache.isFullyInitialized()) _i42 = mi(s, Xn(n));else {
+                var _t46 = n.serverCache.getNode();
 
-                e(_t45 instanceof pn, "serverChildren would be complete if leaf node"), _i42 = gi(s, _t45);
+                e(_t46 instanceof _n, "serverChildren would be complete if leaf node"), _i42 = yi(s, _t46);
               }
               _c5 = t.filter.updateFullNode(_h6, _i42, o);
             } else {
-              var _e75 = Et(i);
+              var _e76 = Et(i);
 
-              var _r21 = vi(s, _e75, n.serverCache);
+              var _r21 = wi(s, _e76, n.serverCache);
 
               null == _r21 && n.serverCache.isCompleteForChild(_e76) && (_r21 = _l6.getImmediateChild(_e76)), _c5 = null != _r21 ? t.filter.updateChild(_l6, _e76, _r21, St(i), _h10, o) : n.eventCache.getNode().hasChild(_e76) ? t.filter.updateChild(_l6, _e76, _n.EMPTY_NODE, St(i), _h10, o) : _l6, _c5.isEmpty() && n.serverCache.isFullyInitialized() && (a = mi(s, Xn(n)), a.isLeafNode() && (_c5 = t.filter.updateFullNode(_c5, a, o)));
             }
 
-            return a = n.serverCache.isFullyInitialized() || null != yi(s, It()), Yn(n, _c5, a, t.filter.filtersNodes());
+            return a = n.serverCache.isFullyInitialized() || null != Ci(s, It()), Gn(n, _c5, a, t.filter.filtersNodes());
           }
-        }(n, i, _t44.path, r, o, a) : function (e, t, n, i, s, r, o) {
-          if (null != yi(s, n)) return t;
+        }(n, i, _t45.path, r, o, a) : function (e, t, n, i, s, r, o) {
+          if (null != Ci(s, n)) return t;
           var a = t.serverCache.isFiltered(),
               l = t.serverCache;
 
@@ -6995,11 +7028,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
             if (xt(n) && h.isFullyInitialized() || h.isCompleteForPath(n)) return Ni(e, t, n, h.getNode().getChild(n), s, r, a, o);
 
             if (xt(n)) {
-              var _i43 = new Xn(null);
+              var _i43 = new ei(null);
 
               return h.getNode().forEachChild($t, function (e, t) {
                 _i43 = _i43.set(new bt(e), t);
-              }), Ri(e, t, n, _i43, s, r, a, o);
+              }), Di(e, t, n, _i43, s, r, a, o);
             }
 
             return t;
@@ -7013,13 +7046,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
               h.isCompleteForPath(i) && (_l7 = _l7.set(e, h.getNode().getChild(i)));
             }), Di(e, t, n, _l7, s, r, a, o);
           }
-        }(n, i, _t44.path, _t44.affectedTree, r, o, a);
+        }(n, i, _t45.path, _t45.affectedTree, r, o, a);
       } else {
-        if (s.type !== Fn.LISTEN_COMPLETE) throw t("Unknown operation type: " + s.type);
+        if (s.type !== Wn.LISTEN_COMPLETE) throw t("Unknown operation type: " + s.type);
 
         l = function (e, t, n, i, s) {
           var r = t.serverCache;
-          return Ti(e, Kn(t, r.getNode(), r.isFullyInitialized() || xt(n), r.isFiltered()), n, i, Ii, s);
+          return ki(e, Qn(t, r.getNode(), r.isFullyInitialized() || xt(n), r.isFiltered()), n, i, Ti, s);
         }(n, i, s.path, r, a);
       }
 
@@ -7029,9 +7062,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
         if (i.isFullyInitialized()) {
           var _s35 = i.getNode().isLeafNode() || i.getNode().isEmpty(),
-              _r22 = Gn(e);
+              _r22 = Jn(e);
 
-          (n.length > 0 || !e.eventCache.isFullyInitialized() || _s35 && !i.getNode().equals(_r22) || !i.getNode().getPriority().equals(_r22.getPriority())) && n.push(Cn(Gn(t)));
+          (n.length > 0 || !e.eventCache.isFullyInitialized() || _s35 && !i.getNode().equals(_r22) || !i.getNode().getPriority().equals(_r22.getPriority())) && n.push(wn(Jn(t)));
         }
       }(i, l, c), {
         viewCache: l,
@@ -7043,7 +7076,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return h = n.processor_, l = a.viewCache, e(l.eventCache.getNode().isIndexed(h.filter.getIndex()), "Event snap not indexed"), e(l.serverCache.getNode().isIndexed(h.filter.getIndex()), "Server snap not indexed"), e(a.viewCache.serverCache.isFullyInitialized() || !o.serverCache.isFullyInitialized(), "Once a server snap is complete, it should never go back"), n.viewCache_ = a.viewCache, qi(n, a.changes, a.viewCache.eventCache.getNode(), null);
   }
 
-  function Li(e, t, n, i) {
+  function qi(e, t, n, i) {
     var s = i ? [i] : e.eventRegistrations_;
     return function (e, t, n, i) {
       var s = [],
@@ -7055,29 +7088,29 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           snapshotNode: t.snapshotNode,
           childName: n
         }));
-      }), Vn(e, s, "child_removed", t, i, n), Vn(e, s, "child_added", t, i, n), Vn(e, s, "child_moved", r, i, n), Vn(e, s, "child_changed", t, i, n), Vn(e, s, "value", t, i, n), s;
+      }), Yn(e, s, "child_removed", t, i, n), Yn(e, s, "child_added", t, i, n), Yn(e, s, "child_moved", r, i, n), Yn(e, s, "child_changed", t, i, n), Yn(e, s, "value", t, i, n), s;
     }(e.eventGenerator_, t, n, s);
   }
 
-  var Fi, qi;
+  var Wi, Ui;
 
-  var Wi = /*#__PURE__*/_createClass(function Wi() {
-    _classCallCheck(this, Wi);
+  var ji = /*#__PURE__*/_createClass(function ji() {
+    _classCallCheck(this, ji);
 
     this.views = new Map();
   });
 
-  function Ui(t, n, i, s) {
+  function Bi(t, n, i, s) {
     var r = n.source.queryId;
 
     if (null !== r) {
       var _o10 = t.views.get(r);
 
-      return e(null != _o10, "SyncTree gave us an op for an invalid query."), Mi(_o10, n, i, s);
+      return e(null != _o10, "SyncTree gave us an op for an invalid query."), Fi(_o10, n, i, s);
     }
 
     {
-      var _e76 = [];
+      var _e77 = [];
 
       var _iterator9 = _createForOfIteratorHelper(t.views.values()),
           _step9;
@@ -7085,7 +7118,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       try {
         for (_iterator9.s(); !(_step9 = _iterator9.n()).done;) {
           var _r23 = _step9.value;
-          _e76 = _e76.concat(Mi(_r23, n, i, s));
+          _e77 = _e77.concat(Fi(_r23, n, i, s));
         }
       } catch (err) {
         _iterator9.e(err);
@@ -7093,24 +7126,24 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         _iterator9.f();
       }
 
-      return _e76;
+      return _e77;
     }
   }
 
-  function Bi(e, t, n, i, s, r) {
+  function Hi(e, t, n, i, s, r) {
     var o = function (e, t, n, i, s) {
       var r = t._queryIdentifier,
           o = e.views.get(r);
 
       if (!o) {
-        var _e77 = fi(n, s ? i : null),
+        var _e78 = mi(n, s ? i : null),
             _r24 = !1;
 
-        _e77 ? _r24 = !0 : i instanceof pn ? (_e77 = gi(n, i), _r24 = !1) : (_e77 = pn.EMPTY_NODE, _r24 = !1);
+        _e78 ? _r24 = !0 : i instanceof _n ? (_e78 = yi(n, i), _r24 = !1) : (_e78 = _n.EMPTY_NODE, _r24 = !1);
 
-        var _o11 = $n(new Hn(_e77, _r24, !1), new Hn(i, s, !1));
+        var _o11 = Kn(new Vn(_e78, _r24, !1), new Vn(i, s, !1));
 
-        return new xi(t, _o11);
+        return new Ai(t, _o11);
       }
 
       return o;
@@ -7121,13 +7154,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }(o, n), function (e, t) {
       var n = e.viewCache_.eventCache,
           i = [];
-      return n.getNode().isLeafNode() || n.getNode().forEachChild(rn, function (e, t) {
-        i.push(wn(e, t));
-      }), n.isFullyInitialized() && i.push(Cn(n.getNode())), Li(e, i, n.getNode(), t);
+      return n.getNode().isLeafNode() || n.getNode().forEachChild(on, function (e, t) {
+        i.push(bn(e, t));
+      }), n.isFullyInitialized() && i.push(wn(n.getNode())), qi(e, i, n.getNode(), t);
     }(o, n);
   }
 
-  function ji(e) {
+  function zi(e) {
     var t = [];
 
     var _iterator10 = _createForOfIteratorHelper(e.views.values()),
@@ -7135,8 +7168,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
     try {
       for (_iterator10.s(); !(_step10 = _iterator10.n()).done;) {
-        var _n53 = _step10.value;
-        _n53.query._queryParams.loadsAllData() || t.push(_n53);
+        var _n56 = _step10.value;
+        _n56.query._queryParams.loadsAllData() || t.push(_n56);
       }
     } catch (err) {
       _iterator10.e(err);
@@ -7147,7 +7180,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return t;
   }
 
-  function Hi(e, t) {
+  function Vi(e, t) {
     var n = null;
 
     var _iterator11 = _createForOfIteratorHelper(e.views.values()),
@@ -7156,7 +7189,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     try {
       for (_iterator11.s(); !(_step11 = _iterator11.n()).done;) {
         var _i44 = _step11.value;
-        n = n || Di(_i44, t);
+        n = n || Oi(_i44, t);
       }
     } catch (err) {
       _iterator11.e(err);
@@ -7167,30 +7200,30 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return n;
   }
 
-  function zi(e, t) {
-    if (t._queryParams.loadsAllData()) return Yi(e);
+  function $i(e, t) {
+    if (t._queryParams.loadsAllData()) return Gi(e);
     {
-      var _n54 = t._queryIdentifier;
-      return e.views.get(_n54);
+      var _n57 = t._queryIdentifier;
+      return e.views.get(_n57);
     }
   }
 
-  function Vi(e, t) {
-    return null != zi(e, t);
+  function Yi(e, t) {
+    return null != $i(e, t);
   }
 
-  function $i(e) {
-    return null != Yi(e);
+  function Ki(e) {
+    return null != Gi(e);
   }
 
-  function Yi(e) {
+  function Gi(e) {
     var _iterator12 = _createForOfIteratorHelper(e.views.values()),
         _step12;
 
     try {
       for (_iterator12.s(); !(_step12 = _iterator12.n()).done;) {
-        var _t46 = _step12.value;
-        if (_t46.query._queryParams.loadsAllData()) return _t46;
+        var _t47 = _step12.value;
+        if (_t47.query._queryParams.loadsAllData()) return _t47;
       }
     } catch (err) {
       _iterator12.e(err);
@@ -7201,27 +7234,27 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return null;
   }
 
-  var Ki = 1;
+  var Qi = 1;
 
-  var Gi = /*#__PURE__*/_createClass(function Gi(e) {
-    _classCallCheck(this, Gi);
+  var Ji = /*#__PURE__*/_createClass(function Ji(e) {
+    _classCallCheck(this, Ji);
 
-    this.listenProvider_ = e, this.syncPointTree_ = new Xn(null), this.pendingWriteTree_ = {
-      visibleWrites: Zn.empty(),
+    this.listenProvider_ = e, this.syncPointTree_ = new ei(null), this.pendingWriteTree_ = {
+      visibleWrites: ti.empty(),
       allWrites: [],
       lastWriteId: -1
     }, this.tagToQueryMap = new Map(), this.queryToTagMap = new Map();
   });
 
-  function Qi(t, n, i, s, r) {
+  function Xi(t, n, i, s, r) {
     return function (t, n, i, s, r) {
       e(s > t.lastWriteId, "Stacking an older write on top of newer ones"), void 0 === r && (r = !0), t.allWrites.push({
         path: n,
         snap: i,
         writeId: s,
         visible: r
-      }), r && (t.visibleWrites = ei(t.visibleWrites, n, i)), t.lastWriteId = s;
-    }(t.pendingWriteTree_, n, i, s, r), r ? ns(t, new Bn({
+      }), r && (t.visibleWrites = ni(t.visibleWrites, n, i)), t.lastWriteId = s;
+    }(t.pendingWriteTree_, n, i, s, r), r ? ss(t, new Hn({
       fromUser: !0,
       fromServer: !1,
       queryId: null,
@@ -7229,12 +7262,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, n, i)) : [];
   }
 
-  function Ji(t, n) {
+  function Zi(t, n) {
     var i = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : !1;
 
     var s = function (e, t) {
-      for (var _n55 = 0; _n55 < e.allWrites.length; _n55++) {
-        var _i45 = e.allWrites[_n55];
+      for (var _n58 = 0; _n58 < e.allWrites.length; _n58++) {
+        var _i45 = e.allWrites[_n58];
         if (_i45.writeId === t) return _i45;
       }
 
@@ -7253,28 +7286,28 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           a = t.allWrites.length - 1;
 
       for (; r && a >= 0;) {
-        var _e78 = t.allWrites[a];
-        _e78.visible && (a >= i && ui(_e78, s.path) ? r = !1 : Ot(s.path, _e78.path) && (o = !0)), a--;
+        var _e79 = t.allWrites[a];
+        _e79.visible && (a >= i && pi(_e79, s.path) ? r = !1 : Mt(s.path, _e79.path) && (o = !0)), a--;
       }
 
       return !!r && (o ? (function (e) {
-        e.visibleWrites = pi(e.allWrites, di, It()), e.allWrites.length > 0 ? e.lastWriteId = e.allWrites[e.allWrites.length - 1].writeId : e.lastWriteId = -1;
-      }(t), !0) : (s.snap ? t.visibleWrites = ni(t.visibleWrites, s.path) : Ke(s.children, function (e) {
-        t.visibleWrites = ni(t.visibleWrites, Rt(s.path, e));
+        e.visibleWrites = fi(e.allWrites, _i, It()), e.allWrites.length > 0 ? e.lastWriteId = e.allWrites[e.allWrites.length - 1].writeId : e.lastWriteId = -1;
+      }(t), !0) : (s.snap ? t.visibleWrites = si(t.visibleWrites, s.path) : Ke(s.children, function (e) {
+        t.visibleWrites = si(t.visibleWrites, Rt(s.path, e));
       }), !0));
     }(t.pendingWriteTree_, n)) {
-      var _e79 = new Xn(null);
+      var _e80 = new ei(null);
 
-      return null != s.snap ? _e79 = _e79.set(It(), !0) : Ke(s.children, function (t) {
-        _e79 = _e79.set(new bt(t), !0);
-      }), ns(t, new Wn(s.path, _e79, i));
+      return null != s.snap ? _e80 = _e80.set(It(), !0) : Ke(s.children, function (t) {
+        _e80 = _e80.set(new bt(t), !0);
+      }), ss(t, new jn(s.path, _e80, i));
     }
 
     return [];
   }
 
-  function Xi(e, t, n) {
-    return ns(e, new Bn({
+  function es(e, t, n) {
+    return ss(e, new Hn({
       fromUser: !1,
       fromServer: !0,
       queryId: null,
@@ -7282,7 +7315,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, t, n));
   }
 
-  function Zi(t, n, i, s) {
+  function ts(t, n, i, s) {
     var r = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : !1;
     var o = n._path,
         a = t.syncPointTree_.get(o);
@@ -7302,10 +7335,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           try {
             for (_iterator13.s(); !(_step13 = _iterator13.n()).done;) {
               var _step13$value = _slicedToArray(_step13.value, 2),
-                  _e80 = _step13$value[0],
-                  _n56 = _step13$value[1];
+                  _e81 = _step13$value[0],
+                  _n59 = _step13$value[1];
 
-              a = a.concat(Oi(_n56, i, s)), Ai(_n56) && (t.views["delete"](_e80), _n56.query._queryParams.loadsAllData() || o.push(_n56.query));
+              a = a.concat(Li(_n59, i, s)), Mi(_n59) && (t.views["delete"](_e81), _n59.query._queryParams.loadsAllData() || o.push(_n59.query));
             }
           } catch (err) {
             _iterator13.e(err);
@@ -7313,9 +7346,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
             _iterator13.f();
           }
         } else {
-          var _e81 = t.views.get(r);
+          var _e82 = t.views.get(r);
 
-          _e81 && (a = a.concat(Oi(_e81, i, s)), Ai(_e81) && (t.views["delete"](r), _e81.query._queryParams.loadsAllData() || o.push(_e81.query)));
+          _e82 && (a = a.concat(Li(_e82, i, s)), Mi(_e82) && (t.views["delete"](r), _e82.query._queryParams.loadsAllData() || o.push(_e82.query)));
         }
 
         return h && !Ki(t) && o.push(new (e(Wi, "Reference.ts has not been loaded"), Wi)(n._repo, n._path)), {
@@ -7332,38 +7365,38 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           return e._queryParams.loadsAllData();
         }),
             _i46 = t.syncPointTree_.findOnPath(o, function (e, t) {
-          return $i(t);
+          return Ki(t);
         });
 
-        if (_e82 && !_i46) {
-          var _e83 = t.syncPointTree_.subtree(o);
+        if (_e83 && !_i46) {
+          var _e84 = t.syncPointTree_.subtree(o);
 
-          if (!_e83.isEmpty()) {
-            var _n57 = function (e) {
+          if (!_e84.isEmpty()) {
+            var _n60 = function (e) {
               return e.fold(function (e, t, n) {
-                if (t && $i(t)) return [Yi(t)];
+                if (t && Ki(t)) return [Gi(t)];
                 {
-                  var _e84 = [];
-                  return t && (_e84 = ji(t)), Ke(n, function (t, n) {
-                    _e84 = _e84.concat(n);
-                  }), _e84;
+                  var _e85 = [];
+                  return t && (_e85 = zi(t)), Ke(n, function (t, n) {
+                    _e85 = _e85.concat(n);
+                  }), _e85;
                 }
               });
-            }(_e83);
+            }(_e84);
 
-            for (var _e85 = 0; _e85 < _n57.length; ++_e85) {
-              var _i47 = _n57[_e85],
+            for (var _e86 = 0; _e86 < _n60.length; ++_e86) {
+              var _i47 = _n60[_e86],
                   _s36 = _i47.query,
-                  _r25 = rs(t, _i47);
+                  _r25 = as(t, _i47);
 
               t.listenProvider_.startListening(ps(_s36), hs(t, _s36), _r25.hashFn, _r25.onComplete);
             }
           }
         }
 
-        if (!_i46 && _c6.length > 0 && !s) if (_e82) {
-          var _e86 = null;
-          t.listenProvider_.stopListening(us(n), _e86);
+        if (!_i46 && _c6.length > 0 && !s) if (_e83) {
+          var _e87 = null;
+          t.listenProvider_.stopListening(ps(n), _e87);
         } else _c6.forEach(function (e) {
           var n = t.queryToTagMap.get(ls(e));
           t.listenProvider_.stopListening(ps(e), n);
@@ -7371,14 +7404,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
 
       !function (e, t) {
-        for (var _n58 = 0; _n58 < t.length; ++_n58) {
-          var _i48 = t[_n58];
+        for (var _n61 = 0; _n61 < t.length; ++_n61) {
+          var _i48 = t[_n61];
 
           if (!_i48._queryParams.loadsAllData()) {
             var _t48 = ls(_i48),
                 _n62 = e.queryToTagMap.get(_t48);
 
-            e.queryToTagMap["delete"](_t47), e.tagToQueryMap["delete"](_n59);
+            e.queryToTagMap["delete"](_t48), e.tagToQueryMap["delete"](_n62);
           }
         }
       }(t, _c6);
@@ -7387,14 +7420,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return l;
   }
 
-  function es(t, n, i) {
+  function ns(t, n, i) {
     var s = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : !1;
     var r = n._path;
     var o = null,
         a = !1;
     t.syncPointTree_.foreachOnPath(r, function (e, t) {
       var n = Dt(e, r);
-      o = o || Hi(t, n), a = a || $i(t);
+      o = o || Vi(t, n), a = a || Ki(t);
     });
     var h,
         l = t.syncPointTree_.get(r);
@@ -7409,7 +7442,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
       e(!t.queryToTagMap.has(_i49), "View does not exist, but we have a tag");
 
-      var _s37 = Ki++;
+      var _s37 = Qi++;
 
       t.queryToTagMap.set(_i49, _s37), t.tagToQueryMap.set(_s37, _i49);
     }
@@ -7429,12 +7462,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           var _e88 = h.fold(function (e, t, n) {
             if (!xt(e) && t && Ki(t)) return [Gi(t).query];
             {
-              var _e88 = [];
-              return t && (_e88 = _e88.concat(ji(t).map(function (e) {
+              var _e89 = [];
+              return t && (_e89 = _e89.concat(zi(t).map(function (e) {
                 return e.query;
               }))), Ke(n, function (t, n) {
-                _e88 = _e88.concat(n);
-              }), _e88;
+                _e89 = _e89.concat(n);
+              }), _e89;
             }
           });
 
@@ -7450,25 +7483,25 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return u;
   }
 
-  function ts(e, t, n) {
+  function is(e, t, n) {
     var i = e.pendingWriteTree_,
         s = e.syncPointTree_.findOnPath(t, function (e, n) {
-      var i = Hi(n, Dt(e, t));
+      var i = Vi(n, Dt(e, t));
       if (i) return i;
     });
-    return _i(i, t, s, n, !0);
+    return gi(i, t, s, n, !0);
   }
 
-  function ns(e, t) {
-    return is(t, e.syncPointTree_, null, ci(e.pendingWriteTree_, It()));
+  function ss(e, t) {
+    return rs(t, e.syncPointTree_, null, di(e.pendingWriteTree_, It()));
   }
 
-  function is(e, t, n, i) {
-    if (xt(e.path)) return ss(e, t, n, i);
+  function rs(e, t, n, i) {
+    if (xt(e.path)) return os(e, t, n, i);
     {
       var _s38 = t.get(It());
 
-      null == n && null != _s38 && (n = Hi(_s38, It()));
+      null == n && null != _s38 && (n = Vi(_s38, It()));
       var _r26 = [];
 
       var _o12 = Et(e.path),
@@ -7482,13 +7515,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         _r26 = _r26.concat(rs(_a5, _h11, _e90, _t49));
       }
 
-      return _s38 && (_r26 = _r26.concat(Ui(_s38, e, i, n))), _r26;
+      return _s38 && (_r26 = _r26.concat(Bi(_s38, e, i, n))), _r26;
     }
   }
 
-  function ss(e, t, n, i) {
+  function os(e, t, n, i) {
     var s = t.get(It());
-    null == n && null != s && (n = Hi(s, It()));
+    null == n && null != s && (n = Vi(s, It()));
     var r = [];
     return t.children.inorderTraversal(function (t, s) {
       var o = n ? n.getImmediateChild(t) : null,
@@ -7498,33 +7531,33 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }), s && (r = r.concat(Bi(s, e, i, n))), r;
   }
 
-  function rs(e, t) {
+  function as(e, t) {
     var n = t.query,
         i = hs(e, n);
     return {
       hashFn: function hashFn() {
         var e = function (e) {
           return e.viewCache_.serverCache.getNode();
-        }(t) || pn.EMPTY_NODE;
+        }(t) || _n.EMPTY_NODE;
 
         return e.hash();
       },
       onComplete: function onComplete(t) {
         if ("ok" === t) return i ? function (e, t, n) {
-          var i = hs(e, n);
+          var i = cs(e, n);
 
           if (i) {
-            var _n61 = ls(i),
-                _s39 = _n61.path,
-                _r27 = _n61.queryId,
+            var _n64 = us(i),
+                _s39 = _n64.path,
+                _r27 = _n64.queryId,
                 _o13 = Dt(_s39, t);
 
-            return cs(e, _s39, new Un(qn(_r27), _o13));
+            return ds(e, _s39, new Bn(Un(_r27), _o13));
           }
 
           return [];
         }(e, n._path, i) : function (e, t) {
-          return ns(e, new Un({
+          return ss(e, new Bn({
             fromUser: !1,
             fromServer: !0,
             queryId: null,
@@ -7539,7 +7572,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
             return i.code = e.toUpperCase(), i;
           }(t, n);
 
-          return Zi(e, n, null, _i52);
+          return ts(e, n, null, _i52);
         }
       }
     };
@@ -7554,11 +7587,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return e._path.toString() + "$" + e._queryIdentifier;
   }
 
-  function hs(e, t) {
+  function cs(e, t) {
     return e.tagToQueryMap.get(t);
   }
 
-  function ls(t) {
+  function us(t) {
     var n = t.indexOf("$");
     return e(-1 !== n && n < t.length - 1, "Bad queryKey."), {
       queryId: t.substr(n + 1),
@@ -7566,27 +7599,27 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     };
   }
 
-  function cs(t, n, i) {
+  function ds(t, n, i) {
     var s = t.syncPointTree_.get(n);
-    return e(s, "Missing sync point for query tag that we're tracking"), Ui(s, i, ci(t.pendingWriteTree_, n), null);
+    return e(s, "Missing sync point for query tag that we're tracking"), Bi(s, i, di(t.pendingWriteTree_, n), null);
   }
 
-  function us(t) {
-    return t._queryParams.loadsAllData() && !t._queryParams.isDefault() ? new (e(qi, "Reference.ts has not been loaded"), qi)(t._repo, t._path) : t;
+  function ps(t) {
+    return t._queryParams.loadsAllData() && !t._queryParams.isDefault() ? new (e(Ui, "Reference.ts has not been loaded"), Ui)(t._repo, t._path) : t;
   }
 
-  var ds = /*#__PURE__*/function () {
-    function ds(e) {
-      _classCallCheck(this, ds);
+  var _s = /*#__PURE__*/function () {
+    function _s(e) {
+      _classCallCheck(this, _s);
 
       this.node_ = e;
     }
 
-    _createClass(ds, [{
+    _createClass(_s, [{
       key: "getImmediateChild",
       value: function getImmediateChild(e) {
         var t = this.node_.getImmediateChild(e);
-        return new ds(t);
+        return new _s(t);
       }
     }, {
       key: "node",
@@ -7595,40 +7628,40 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return ds;
+    return _s;
   }();
 
-  var ps = /*#__PURE__*/function () {
-    function ps(e, t) {
-      _classCallCheck(this, ps);
+  var fs = /*#__PURE__*/function () {
+    function fs(e, t) {
+      _classCallCheck(this, fs);
 
       this.syncTree_ = e, this.path_ = t;
     }
 
-    _createClass(ps, [{
+    _createClass(fs, [{
       key: "getImmediateChild",
       value: function getImmediateChild(e) {
         var t = Rt(this.path_, e);
-        return new ps(this.syncTree_, t);
+        return new fs(this.syncTree_, t);
       }
     }, {
       key: "node",
       value: function node() {
-        return ts(this.syncTree_, this.path_);
+        return is(this.syncTree_, this.path_);
       }
     }]);
 
-    return ps;
+    return fs;
   }();
 
-  var _s = function _s(t, n, i) {
-    return t && "object" == _typeof(t) ? (e(".sv" in t, "Unexpected leaf node or priority contents"), "string" == typeof t[".sv"] ? fs(t[".sv"], n, i) : "object" == _typeof(t[".sv"]) ? gs(t[".sv"], n) : void e(!1, "Unexpected server value: " + JSON.stringify(t, null, 2))) : t;
+  var gs = function gs(t, n, i) {
+    return t && "object" == _typeof(t) ? (e(".sv" in t, "Unexpected leaf node or priority contents"), "string" == typeof t[".sv"] ? ms(t[".sv"], n, i) : "object" == _typeof(t[".sv"]) ? ys(t[".sv"], n) : void e(!1, "Unexpected server value: " + JSON.stringify(t, null, 2))) : t;
   },
-      fs = function fs(t, n, i) {
+      ms = function ms(t, n, i) {
     if ("timestamp" === t) return i.timestamp;
     e(!1, "Unexpected server value: " + t);
   },
-      gs = function gs(t, n, i) {
+      ys = function ys(t, n, i) {
     t.hasOwnProperty("increment") || e(!1, "Unexpected server value: " + JSON.stringify(t, null, 2));
     var s = t.increment;
     "number" != typeof s && e(!1, "Unexpected increment value: " + s);
@@ -7637,33 +7670,32 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     var o = r.getValue();
     return "number" != typeof o ? s : o + s;
   },
-      ms = function ms(e, t, n) {
-    return ys(e, new ds(t), n);
+      vs = function vs(e, t, n) {
+    return Cs(e, new _s(t), n);
   };
 
-  function ys(e, t, n) {
+  function Cs(e, t, n) {
     var i = e.getPriority().val(),
-        s = _s(i, t.getImmediateChild(".priority"), n);
-
+        s = gs(i, t.getImmediateChild(".priority"), n);
     var r;
 
     if (e.isLeafNode()) {
       var _i53 = e,
-          _r28 = _s(_i53.getValue(), t, n);
+          _r28 = gs(_i53.getValue(), t, n);
 
-      return _r28 !== _i53.getValue() || s !== _i53.getPriority().val() ? new sn(_r28, fn(s)) : e;
+      return _r28 !== _i53.getValue() || s !== _i53.getPriority().val() ? new rn(_r28, gn(s)) : e;
     }
 
     {
       var _i54 = e;
-      return r = _i54, s !== _i54.getPriority().val() && (r = r.updatePriority(new sn(s))), _i54.forEachChild(rn, function (e, i) {
-        var s = ys(i, t.getImmediateChild(e), n);
+      return r = _i54, s !== _i54.getPriority().val() && (r = r.updatePriority(new rn(s))), _i54.forEachChild(on, function (e, i) {
+        var s = Cs(i, t.getImmediateChild(e), n);
         s !== i && (r = r.updateImmediateChild(e, s));
       }), r;
     }
   }
 
-  var vs = /*#__PURE__*/_createClass(function vs() {
+  var ws = /*#__PURE__*/_createClass(function ws() {
     var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
     var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     var n = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
@@ -7671,122 +7703,125 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       childCount: 0
     };
 
-    _classCallCheck(this, vs);
+    _classCallCheck(this, ws);
 
     this.name = e, this.parent = t, this.node = n;
   });
 
-  function Cs(e, t) {
+  function bs(e, t) {
     var n = t instanceof bt ? t : new bt(t),
         i = e,
         s = Et(n);
 
     for (; null !== s;) {
-      var _e90 = y(i.node.children, s) || {
+      var _e91 = y(i.node.children, s) || {
         children: {},
         childCount: 0
       };
 
-      i = new vs(s, i, _e90), n = St(n), s = Et(n);
+      i = new ws(s, i, _e91), n = St(n), s = Et(n);
     }
 
     return i;
   }
 
-  function ws(e) {
+  function Is(e) {
     return e.node.value;
   }
 
-  function bs(e, t) {
-    e.node.value = t, ks(e);
+  function Es(e, t) {
+    e.node.value = t, Ps(e);
   }
 
-  function Is(e) {
+  function Ts(e) {
     return e.node.childCount > 0;
   }
 
-  function Es(e, t) {
+  function Ss(e, t) {
     Ke(e.node.children, function (n, i) {
-      t(new vs(n, e, i));
+      t(new ws(n, e, i));
     });
   }
 
-  function Ts(e, t, n, i) {
-    n && !i && t(e), Es(e, function (e) {
-      Ts(e, t, !0, i);
+  function ks(e, t, n, i) {
+    n && !i && t(e), Ss(e, function (e) {
+      ks(e, t, !0, i);
     }), n && i && t(e);
   }
 
-  function Ss(e) {
-    return new bt(null === e.parent ? e.name : Ss(e.parent) + "/" + e.name);
+  function Ns(e) {
+    return new bt(null === e.parent ? e.name : Ns(e.parent) + "/" + e.name);
   }
 
-  function ks(e) {
+  function Ps(e) {
     null !== e.parent && function (e, t, n) {
       var i = function (e) {
-        return void 0 === ws(e) && !Is(e);
+        return void 0 === Is(e) && !Ts(e);
       }(n),
           s = m(e.node.children, t);
 
-      i && s ? (delete e.node.children[t], e.node.childCount--, ks(e)) : i || s || (e.node.children[t] = n.node, e.node.childCount++, ks(e));
+      i && s ? (delete e.node.children[t], e.node.childCount--, Ps(e)) : i || s || (e.node.children[t] = n.node, e.node.childCount++, Ps(e));
     }(e.parent, e.name, e);
   }
 
-  var Ns = /[\[\].#$\/\u0000-\u001F\u007F]/,
-      Ps = /[\[\].#$\u0000-\u001F\u007F]/,
-      Rs = 10485760,
-      xs = function xs(e) {
-    return "string" == typeof e && 0 !== e.length && !Ns.test(e);
+  var Rs = /[\[\].#$\/\u0000-\u001F\u007F]/,
+      xs = /[\[\].#$\u0000-\u001F\u007F]/,
+      Ds = 10485760,
+      As = function As(e) {
+    return "string" == typeof e && 0 !== e.length && !Rs.test(e);
   },
-      Ds = function Ds(e) {
-    return "string" == typeof e && 0 !== e.length && !Ps.test(e);
+      Os = function Os(e) {
+    return "string" == typeof e && 0 !== e.length && !xs.test(e);
   },
-      As = function As(e, t, n, i) {
-    i && void 0 === t || Os(E(e, "value"), t, n);
+      Ms = function Ms(e) {
+    return null === e || "string" == typeof e || "number" == typeof e && !Ue(e) || e && "object" == _typeof(e) && m(e, ".sv");
   },
-      Os = function Os(e, t, n) {
-    var i = n instanceof bt ? new Mt(n, e) : n;
-    if (void 0 === t) throw new Error(e + "contains undefined " + Ft(i));
-    if ("function" == typeof t) throw new Error(e + "contains a function " + Ft(i) + " with contents = " + t.toString());
-    if (Ue(t)) throw new Error(e + "contains " + t.toString() + " " + Ft(i));
-    if ("string" == typeof t && t.length > Rs / 3 && T(t) > Rs) throw new Error(e + "contains a string greater than 10485760 utf8 bytes " + Ft(i) + " ('" + t.substring(0, 50) + "...')");
+      Ls = function Ls(e, t, n, i) {
+    i && void 0 === t || Fs(E(e, "value"), t, n);
+  },
+      Fs = function Fs(e, t, n) {
+    var i = n instanceof bt ? new Lt(n, e) : n;
+    if (void 0 === t) throw new Error(e + "contains undefined " + qt(i));
+    if ("function" == typeof t) throw new Error(e + "contains a function " + qt(i) + " with contents = " + t.toString());
+    if (Ue(t)) throw new Error(e + "contains " + t.toString() + " " + qt(i));
+    if ("string" == typeof t && t.length > Ds / 3 && T(t) > Ds) throw new Error(e + "contains a string greater than 10485760 utf8 bytes " + qt(i) + " ('" + t.substring(0, 50) + "...')");
 
     if (t && "object" == _typeof(t)) {
-      var _n62 = !1,
+      var _n65 = !1,
           _s40 = !1;
 
       if (Ke(t, function (t, r) {
-        if (".value" === t) _n62 = !0;else if (".priority" !== t && ".sv" !== t && (_s40 = !0, !xs(t))) throw new Error(e + " contains an invalid key (" + t + ") " + Ft(i) + '.  Keys must be non-empty strings and can\'t contain ".", "#", "$", "/", "[", or "]"');
+        if (".value" === t) _n65 = !0;else if (".priority" !== t && ".sv" !== t && (_s40 = !0, !As(t))) throw new Error(e + " contains an invalid key (" + t + ") " + qt(i) + '.  Keys must be non-empty strings and can\'t contain ".", "#", "$", "/", "[", or "]"');
         !function (e, t) {
-          e.parts_.length > 0 && (e.byteLength_ += 1), e.parts_.push(t), e.byteLength_ += T(t), Lt(e);
-        }(i, t), Os(e, r, i), function (e) {
+          e.parts_.length > 0 && (e.byteLength_ += 1), e.parts_.push(t), e.byteLength_ += T(t), Ft(e);
+        }(i, t), Fs(e, r, i), function (e) {
           var t = e.parts_.pop();
           e.byteLength_ -= T(t), e.parts_.length > 0 && (e.byteLength_ -= 1);
         }(i);
-      }), _n62 && _s40) throw new Error(e + ' contains ".value" child ' + Ft(i) + " in addition to actual children.");
+      }), _n65 && _s40) throw new Error(e + ' contains ".value" child ' + qt(i) + " in addition to actual children.");
     }
   },
-      Ms = function Ms(e, t, n, i) {
-    if (!(i && void 0 === n || Ds(n))) throw new Error(E(e, t) + 'was an invalid path = "' + n + '". Paths must be non-empty strings and can\'t contain ".", "#", "$", "[", or "]"');
+      qs = function qs(e, t, n, i) {
+    if (!(i && void 0 === n || Os(n))) throw new Error(E(e, t) + 'was an invalid path = "' + n + '". Paths must be non-empty strings and can\'t contain ".", "#", "$", "[", or "]"');
   },
-      Ls = function Ls(e, t) {
+      Ws = function Ws(e, t) {
     if (".info" === Et(t)) throw new Error(e + " failed = Can't modify data under /.info/");
   };
 
-  var Fs = /*#__PURE__*/_createClass(function Fs() {
-    _classCallCheck(this, Fs);
+  var Us = /*#__PURE__*/_createClass(function Us() {
+    _classCallCheck(this, Us);
 
     this.eventLists_ = [], this.recursionDepth_ = 0;
   });
 
-  function qs(e, t) {
+  function js(e, t) {
     var n = null;
 
     for (var _i55 = 0; _i55 < t.length; _i55++) {
       var _s41 = t[_i55],
           _r29 = _s41.getPath();
 
-      null === n || At(_r29, n.path) || (e.eventLists_.push(n), n = null), null === n && (n = {
+      null === n || Ot(_r29, n.path) || (e.eventLists_.push(n), n = null), null === n && (n = {
         events: [],
         path: _r29
       }), n.events.push(_s41);
@@ -7795,66 +7830,66 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     n && e.eventLists_.push(n);
   }
 
-  function Ws(e, t, n) {
-    qs(e, n), Bs(e, function (e) {
-      return At(e, t);
+  function Bs(e, t, n) {
+    js(e, n), zs(e, function (e) {
+      return Ot(e, t);
     });
   }
 
-  function Us(e, t, n) {
-    qs(e, n), Bs(e, function (e) {
-      return Ot(e, t) || Ot(t, e);
+  function Hs(e, t, n) {
+    js(e, n), zs(e, function (e) {
+      return Mt(e, t) || Mt(t, e);
     });
   }
 
-  function Bs(e, t) {
+  function zs(e, t) {
     e.recursionDepth_++;
     var n = !0;
 
     for (var _i56 = 0; _i56 < e.eventLists_.length; _i56++) {
       var _s42 = e.eventLists_[_i56];
-      _s42 && (t(_s42.path) ? (js(e.eventLists_[_i56]), e.eventLists_[_i56] = null) : n = !1);
+      _s42 && (t(_s42.path) ? (Vs(e.eventLists_[_i56]), e.eventLists_[_i56] = null) : n = !1);
     }
 
     n && (e.eventLists_ = []), e.recursionDepth_--;
   }
 
-  function js(e) {
-    for (var _t49 = 0; _t49 < e.events.length; _t49++) {
-      var _n63 = e.events[_t49];
+  function Vs(e) {
+    for (var _t50 = 0; _t50 < e.events.length; _t50++) {
+      var _n66 = e.events[_t50];
 
-      if (null !== _n63) {
-        e.events[_t49] = null;
+      if (null !== _n66) {
+        e.events[_t50] = null;
 
-        var _i57 = _n63.getEventRunner();
+        var _i57 = _n66.getEventRunner();
 
-        Ae && Me("event: " + _n63.toString()), Xe(_i57);
+        Ae && Me("event: " + _n66.toString()), Xe(_i57);
       }
     }
   }
 
-  var Hs = /*#__PURE__*/function () {
-    function Hs(e, t, n, i) {
-      _classCallCheck(this, Hs);
+  var $s = /*#__PURE__*/function () {
+    function $s(e, t, n, i) {
+      _classCallCheck(this, $s);
 
-      this.repoInfo_ = e, this.forceRestClient_ = t, this.authTokenProvider_ = n, this.appCheckProvider_ = i, this.dataUpdateCount = 0, this.statsListener_ = null, this.eventQueue_ = new Fs(), this.nextWriteId_ = 1, this.interceptServerDataCallback_ = null, this.onDisconnect_ = Dn(), this.transactionQueueTree_ = new vs(), this.persistentConnection_ = null, this.key = this.repoInfo_.toURLString();
+      this.repoInfo_ = e, this.forceRestClient_ = t, this.authTokenProvider_ = n, this.appCheckProvider_ = i, this.dataUpdateCount = 0, this.statsListener_ = null, this.eventQueue_ = new Us(), this.nextWriteId_ = 1, this.interceptServerDataCallback_ = null, this.onDisconnect_ = An(), this.transactionQueueTree_ = new ws(), this.persistentConnection_ = null, this.key = this.repoInfo_.toURLString();
     }
 
-    _createClass(Hs, [{
+    _createClass($s, [{
       key: "toString",
       value: function toString() {
         return (this.repoInfo_.secure ? "https://" : "http://") + this.repoInfo_.host;
       }
     }]);
 
-    return Hs;
+    return $s;
   }();
 
-  function zs(e, t, n) {
-    if (e.stats_ = ut(e.repoInfo_), e.forceRestClient_ || ("object" == (typeof window === "undefined" ? "undefined" : _typeof(window)) && window.navigator && window.navigator.userAgent || "").search(/googlebot|google webmaster tools|bingbot|yahoo! slurp|baiduspider|yandexbot|duckduckbot/i) >= 0) e.server_ = new Rn(e.repoInfo_, function (t, n, i, s) {
-      Ys(e, t, n, i, s);
+  function Ys(e, t, n) {
+    if (e.stats_ = ut(e.repoInfo_), e.forceRestClient_ || ("object" == (typeof window === "undefined" ? "undefined" : _typeof(window)) && window.navigator && window.navigator.userAgent || "").search(/googlebot|google webmaster tools|bingbot|yahoo! slurp|baiduspider|yandexbot|duckduckbot/i) >= 0) e.server_ = new xn(e.repoInfo_, function (t, n, i, s) {
+      Qs(e, t, n, i, s);
     }, e.authTokenProvider_, e.appCheckProvider_), setTimeout(function () {
-      return Ks(e, !0);
+      return Js(e, !0);
     }, 0);else {
       if (null != n) {
         if ("object" != _typeof(n)) throw new Error("Only objects are supported for option databaseAuthVariableOverride");
@@ -7866,14 +7901,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         }
       }
 
-      e.persistentConnection_ = new Ut(e.repoInfo_, t, function (t, n, i, s) {
-        Ys(e, t, n, i, s);
+      e.persistentConnection_ = new jt(e.repoInfo_, t, function (t, n, i, s) {
+        Qs(e, t, n, i, s);
       }, function (t) {
-        Ks(e, t);
+        Js(e, t);
       }, function (t) {
         !function (e, t) {
           Ke(t, function (t, n) {
-            Gs(e, t, n);
+            Xs(e, t, n);
           });
         }(e, t);
       }, e.authTokenProvider_, e.appCheckProvider_, n), e.server_ = e.persistentConnection_;
@@ -7884,21 +7919,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       e.server_.refreshAppCheckToken(t.token);
     }), e.statsReporter_ = function (t, n) {
       var i = t.toString();
-      return ct[i] || (ct[i] = new Ln(e.stats_, e.server_)), ct[i];
-    }(e.repoInfo_), e.infoData_ = new xn(), e.infoSyncTree_ = new Gi({
+      return ct[i] || (ct[i] = new qn(e.stats_, e.server_)), ct[i];
+    }(e.repoInfo_), e.infoData_ = new Dn(), e.infoSyncTree_ = new Ji({
       startListening: function startListening(t, n, i, s) {
         var r = [];
         var o = e.infoData_.getNode(t._path);
-        return o.isEmpty() || (r = Xi(e.infoSyncTree_, t._path, o), setTimeout(function () {
+        return o.isEmpty() || (r = es(e.infoSyncTree_, t._path, o), setTimeout(function () {
           s("ok");
         }, 0)), r;
       },
       stopListening: function stopListening() {}
-    }), Gs(e, "connected", !1), e.serverSyncTree_ = new Gi({
+    }), Xs(e, "connected", !1), e.serverSyncTree_ = new Ji({
       startListening: function startListening(t, n, i, s) {
         return e.server_.listen(t, i, n, function (n, i) {
           var r = s(n, i);
-          Us(e.eventQueue_, t._path, r);
+          Hs(e.eventQueue_, t._path, r);
         }), [];
       },
       stopListening: function stopListening(t, n) {
@@ -7907,34 +7942,34 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     });
   }
 
-  function Vs(e) {
+  function Ks(e) {
     var t = e.infoData_.getNode(new bt(".info/serverTimeOffset")).val() || 0;
     return new Date().getTime() + t;
   }
 
-  function $s(e) {
+  function Gs(e) {
     return (t = (t = {
-      timestamp: Vs(e)
+      timestamp: Ks(e)
     }) || {}).timestamp = t.timestamp || new Date().getTime(), t;
     var t;
   }
 
-  function Ys(e, t, n, i, s) {
+  function Qs(e, t, n, i, s) {
     e.dataUpdateCount++;
     var r = new bt(t);
     n = e.interceptServerDataCallback_ ? e.interceptServerDataCallback_(t, n) : n;
     var o = [];
     if (s) {
       if (i) {
-        var _t50 = C(n, function (e) {
-          return fn(e);
+        var _t51 = C(n, function (e) {
+          return gn(e);
         });
 
         o = function (e, t, n, i) {
-          var s = hs(e, i);
+          var s = cs(e, i);
 
           if (s) {
-            var _i58 = ls(s),
+            var _i58 = us(s),
                 _r30 = _i58.path,
                 _o14 = _i58.queryId,
                 _a6 = Dt(_r30, t),
@@ -7944,122 +7979,100 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           }
 
           return [];
-        }(e.serverSyncTree_, r, _t50, s);
+        }(e.serverSyncTree_, r, _t51, s);
       } else {
-        var _t51 = fn(n);
+        var _t52 = gn(n);
 
         o = function (e, t, n, i) {
-          var s = hs(e, i);
+          var s = cs(e, i);
 
           if (null != s) {
-            var _i59 = ls(s),
+            var _i59 = us(s),
                 _r31 = _i59.path,
                 _o15 = _i59.queryId,
                 _a7 = Dt(_r31, t);
 
-            return cs(e, _r31, new Bn(qn(_o15), _a7, n));
+            return ds(e, _r31, new Hn(Un(_o15), _a7, n));
           }
 
           return [];
-        }(e.serverSyncTree_, r, _t51, s);
+        }(e.serverSyncTree_, r, _t52, s);
       }
     } else if (i) {
-      var _t52 = C(n, function (e) {
-        return fn(e);
+      var _t53 = C(n, function (e) {
+        return gn(e);
       });
 
       o = function (e, t, n) {
-        var i = Xn.fromObject(n);
-        return ns(e, new jn({
+        var i = ei.fromObject(n);
+        return ss(e, new zn({
           fromUser: !1,
           fromServer: !0,
           queryId: null,
           tagged: !1
         }, t, i));
-      }(e.serverSyncTree_, r, _t52);
+      }(e.serverSyncTree_, r, _t53);
     } else {
-      var _t53 = fn(n);
+      var _t54 = gn(n);
 
-      o = Xi(e.serverSyncTree_, r, _t53);
+      o = es(e.serverSyncTree_, r, _t54);
     }
     var a = r;
-    o.length > 0 && (a = nr(e, r)), Us(e.eventQueue_, a, o);
+    o.length > 0 && (a = ar(e, r)), Hs(e.eventQueue_, a, o);
   }
 
-  function Ks(e, t) {
-    Gs(e, "connected", t), !1 === t && function (e) {
-      Zs(e, "onDisconnectEvents");
-      var t = $s(e),
-          n = Dn();
-      On(e.onDisconnect_, It(), function (i, s) {
+  function Js(e, t) {
+    Xs(e, "connected", t), !1 === t && function (e) {
+      ir(e, "onDisconnectEvents");
+      var t = Gs(e),
+          n = An();
+      Ln(e.onDisconnect_, It(), function (i, s) {
         var r = function (e, t, n, i) {
-          return ys(t, new ps(n, e), i);
+          return Cs(t, new fs(n, e), i);
         }(i, s, e.serverSyncTree_, t);
 
-        An(n, i, r);
+        On(n, i, r);
       });
       var i = [];
-      On(n, It(), function (t, n) {
-        i = i.concat(Xi(e.serverSyncTree_, t, n));
-        var s = ar(e, t);
-        nr(e, s);
-      }), e.onDisconnect_ = Dn(), Us(e.eventQueue_, It(), i);
+      Ln(n, It(), function (t, n) {
+        i = i.concat(es(e.serverSyncTree_, t, n));
+        var s = dr(e, t);
+        ar(e, s);
+      }), e.onDisconnect_ = An(), Hs(e.eventQueue_, It(), i);
     }(e);
   }
 
-  function Gs(e, t, n) {
-    var i = new bt("/.info/" + t),
-        s = fn(n);
-    e.infoData_.updateSnapshot(i, s);
-    var r = Xi(e.infoSyncTree_, i, s);
-    Us(e.eventQueue_, i, r);
-  }
-
-  function Qs(e) {
-    return e.nextWriteId_++;
-  }
-
-  function Js(e, t, n, i, s) {
-    Zs(e, "set", {
-      path: t.toString(),
-      value: n,
-      priority: i
-    });
-    var r = $s(e),
-        o = fn(n, i),
-        a = ts(e.serverSyncTree_, t),
-        h = ms(o, a, r),
-        l = Qs(e),
-        c = Qi(e.serverSyncTree_, t, h, l, !0);
-    qs(e.eventQueue_, c), e.server_.put(t.toString(), o.val(!0), function (n, i) {
-      var r = "ok" === n;
-      r || We("set at " + t + " failed: " + n);
-      var o = Ji(e.serverSyncTree_, l, !r);
-      Us(e.eventQueue_, t, o), function (e, t, n, i) {
-        t && Xe(function () {
-          if ("ok" === n) t(null);else {
-            var _e91 = (n || "error").toUpperCase();
-
-            var _s43 = _e91;
-            i && (_s43 += ": " + i);
-
-            var _r32 = new Error(_s43);
-
-            _r32.code = _e91, t(_r32);
-          }
-        });
-      }(0, s, n, i);
-    });
-    var u = ar(e, t);
-    nr(e, u), Us(e.eventQueue_, u, []);
-  }
-
   function Xs(e, t, n) {
-    var i;
-    i = ".info" === Et(t._path) ? Zi(e.infoSyncTree_, t, n) : Zi(e.serverSyncTree_, t, n), Ws(e.eventQueue_, t._path, i);
+    var i = new bt("/.info/" + t),
+        s = gn(n);
+    e.infoData_.updateSnapshot(i, s);
+    var r = es(e.infoSyncTree_, i, s);
+    Hs(e.eventQueue_, i, r);
   }
 
   function Zs(e) {
+    return e.nextWriteId_++;
+  }
+
+  function er(e, t, n) {
+    e.server_.onDisconnectCancel(t.toString(), function (i, s) {
+      "ok" === i && Mn(e.onDisconnect_, t), sr(0, n, i, s);
+    });
+  }
+
+  function tr(e, t, n, i) {
+    var s = gn(n);
+    e.server_.onDisconnectPut(t.toString(), s.val(!0), function (n, r) {
+      "ok" === n && On(e.onDisconnect_, t, s), sr(0, i, n, r);
+    });
+  }
+
+  function nr(e, t, n) {
+    var i;
+    i = ".info" === Et(t._path) ? ts(e.infoSyncTree_, t, n) : ts(e.serverSyncTree_, t, n), Bs(e.eventQueue_, t._path, i);
+  }
+
+  function ir(e) {
     var n = "";
 
     for (var _len16 = arguments.length, t = new Array(_len16 > 1 ? _len16 - 1 : 0), _key16 = 1; _key16 < _len16; _key16++) {
@@ -8069,11 +8082,26 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     e.persistentConnection_ && (n = e.persistentConnection_.id + ":"), Me.apply(void 0, [n].concat(t));
   }
 
-  function er(e, t, n) {
-    return ts(e.serverSyncTree_, t, n) || pn.EMPTY_NODE;
+  function sr(e, t, n, i) {
+    t && Xe(function () {
+      if ("ok" === n) t(null);else {
+        var _e92 = (n || "error").toUpperCase();
+
+        var _s43 = _e92;
+        i && (_s43 += ": " + i);
+
+        var _r32 = new Error(_s43);
+
+        _r32.code = _e92, t(_r32);
+      }
+    });
   }
 
-  function tr(t) {
+  function rr(e, t, n) {
+    return is(e.serverSyncTree_, t, n) || _n.EMPTY_NODE;
+  }
+
+  function or(t) {
     var n = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : t.transactionQueueTree_;
 
     if (n || ur(t, n), Is(n)) {
@@ -8085,12 +8113,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var s = i.map(function (e) {
           return e.currentWriteId;
         }),
-            r = er(t, n, s);
+            r = rr(t, n, s);
         var o = r;
         var a = r.hash();
 
-        for (var _t54 = 0; _t54 < i.length; _t54++) {
-          var _s44 = i[_t54];
+        for (var _t55 = 0; _t55 < i.length; _t55++) {
+          var _s44 = i[_t55];
           e(0 === _s44.status, "tryToSendTransactionQueue_: items in queue should all be run."), _s44.status = 1, _s44.retryCount++;
 
           var _r33 = Dt(n, _s44.path);
@@ -8108,39 +8136,39 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           var s = [];
 
           if ("ok" === e) {
-            var _e92 = [];
+            var _e93 = [];
 
-            var _loop5 = function _loop5(_n64) {
-              i[_n64].status = 2, s = s.concat(Ji(t.serverSyncTree_, i[_n64].currentWriteId)), i[_n64].onComplete && _e92.push(function () {
-                return i[_n64].onComplete(null, !0, i[_n64].currentOutputSnapshotResolved);
-              }), i[_n64].unwatcher();
+            var _loop5 = function _loop5(_n67) {
+              i[_n67].status = 2, s = s.concat(Zi(t.serverSyncTree_, i[_n67].currentWriteId)), i[_n67].onComplete && _e93.push(function () {
+                return i[_n67].onComplete(null, !0, i[_n67].currentOutputSnapshotResolved);
+              }), i[_n67].unwatcher();
             };
 
-            for (var _n64 = 0; _n64 < i.length; _n64++) {
-              _loop5(_n64);
+            for (var _n67 = 0; _n67 < i.length; _n67++) {
+              _loop5(_n67);
             }
 
-            or(t, Cs(t.transactionQueueTree_, n)), tr(t, t.transactionQueueTree_), Us(t.eventQueue_, n, s);
+            ur(t, bs(t.transactionQueueTree_, n)), or(t, t.transactionQueueTree_), Hs(t.eventQueue_, n, s);
 
-            for (var _t55 = 0; _t55 < _e92.length; _t55++) {
-              Xe(_e92[_t55]);
+            for (var _t56 = 0; _t56 < _e93.length; _t56++) {
+              Xe(_e93[_t56]);
             }
           } else {
-            if ("datastale" === e) for (var _e93 = 0; _e93 < i.length; _e93++) {
-              3 === i[_e93].status ? i[_e93].status = 4 : i[_e93].status = 0;
+            if ("datastale" === e) for (var _e94 = 0; _e94 < i.length; _e94++) {
+              3 === i[_e94].status ? i[_e94].status = 4 : i[_e94].status = 0;
             } else {
               We("transaction at " + h.toString() + " failed: " + e);
 
-              for (var _t56 = 0; _t56 < i.length; _t56++) {
-                i[_t56].status = 4, i[_t56].abortReason = e;
+              for (var _t57 = 0; _t57 < i.length; _t57++) {
+                i[_t57].status = 4, i[_t57].abortReason = e;
               }
             }
-            nr(t, n);
+            ar(t, n);
           }
         }, a);
-      }(t, Ss(n), _i60);
-    } else Is(n) && Es(n, function (e) {
-      tr(t, e);
+      }(t, Ns(n), _i60);
+    } else Ts(n) && Ss(n, function (e) {
+      or(t, e);
     });
   }
 
@@ -8172,9 +8200,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           if (void 0 !== _i61) {
             Fs("transaction failed: Data returned ", _i61, l.path);
 
-            var _n65 = fn(_i61);
+            var _n68 = gn(_i61);
 
-            "object" == _typeof(_i61) && null != _i61 && m(_i61, ".priority") || (_n65 = _n65.updatePriority(_e95.getPriority()));
+            "object" == _typeof(_i61) && null != _i61 && m(_i61, ".priority") || (_n68 = _n68.updatePriority(_e96.getPriority()));
 
             var _s45 = l.currentWriteId,
                 _a8 = Gs(t),
@@ -8195,10 +8223,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
 
       var a;
-      or(t, t.transactionQueueTree_);
+      ur(t, t.transactionQueueTree_);
 
-      for (var _e94 = 0; _e94 < s.length; _e94++) {
-        Xe(s[_e94]);
+      for (var _e95 = 0; _e95 < s.length; _e95++) {
+        Xe(s[_e95]);
       }
 
       or(t, t.transactionQueueTree_);
@@ -8209,8 +8237,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     var n,
         i = e.transactionQueueTree_;
 
-    for (n = Et(t); null !== n && void 0 === ws(i);) {
-      i = Cs(i, n), n = Et(t = St(t));
+    for (n = Et(t); null !== n && void 0 === Is(i);) {
+      i = bs(i, n), n = Et(t = St(t));
     }
 
     return i;
@@ -8218,36 +8246,36 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
   function lr(e, t) {
     var n = [];
-    return rr(e, t, n), n.sort(function (e, t) {
+    return cr(e, t, n), n.sort(function (e, t) {
       return e.order - t.order;
     }), n;
   }
 
-  function rr(e, t, n) {
-    var i = ws(t);
-    if (i) for (var _e96 = 0; _e96 < i.length; _e96++) {
-      n.push(i[_e96]);
+  function cr(e, t, n) {
+    var i = Is(t);
+    if (i) for (var _e97 = 0; _e97 < i.length; _e97++) {
+      n.push(i[_e97]);
     }
-    Es(t, function (t) {
-      rr(e, t, n);
+    Ss(t, function (t) {
+      cr(e, t, n);
     });
   }
 
-  function or(e, t) {
-    var n = ws(t);
+  function ur(e, t) {
+    var n = Is(t);
 
     if (n) {
-      var _e97 = 0;
+      var _e98 = 0;
 
-      for (var _t57 = 0; _t57 < n.length; _t57++) {
-        2 !== n[_t57].status && (n[_e97] = n[_t57], _e97++);
+      for (var _t58 = 0; _t58 < n.length; _t58++) {
+        2 !== n[_t58].status && (n[_e98] = n[_t58], _e98++);
       }
 
-      n.length = _e97, bs(t, n.length > 0 ? n : void 0);
+      n.length = _e98, Es(t, n.length > 0 ? n : void 0);
     }
 
-    Es(t, function (t) {
-      or(e, t);
+    Ss(t, function (t) {
+      ur(e, t);
     });
   }
 
@@ -8262,14 +8290,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         i = i.parent;
       }
     }(i, function (t) {
-      hr(e, t);
-    }), hr(e, i), Ts(i, function (t) {
-      hr(e, t);
+      pr(e, t);
+    }), pr(e, i), ks(i, function (t) {
+      pr(e, t);
     }), n;
   }
 
-  function hr(t, n) {
-    var i = ws(n);
+  function pr(t, n) {
+    var i = Is(n);
 
     if (i) {
       var _s46 = [];
@@ -8277,20 +8305,20 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       var _r34 = [],
           _o16 = -1;
 
-      for (var _n66 = 0; _n66 < i.length; _n66++) {
-        3 === i[_n66].status || (1 === i[_n66].status ? (e(_o16 === _n66 - 1, "All SENT items should be at beginning of queue."), _o16 = _n66, i[_n66].status = 3, i[_n66].abortReason = "set") : (e(0 === i[_n66].status, "Unexpected transaction status in abort"), i[_n66].unwatcher(), _r34 = _r34.concat(Ji(t.serverSyncTree_, i[_n66].currentWriteId, !0)), i[_n66].onComplete && _s46.push(i[_n66].onComplete.bind(null, new Error("set"), !1, null))));
+      for (var _n69 = 0; _n69 < i.length; _n69++) {
+        3 === i[_n69].status || (1 === i[_n69].status ? (e(_o16 === _n69 - 1, "All SENT items should be at beginning of queue."), _o16 = _n69, i[_n69].status = 3, i[_n69].abortReason = "set") : (e(0 === i[_n69].status, "Unexpected transaction status in abort"), i[_n69].unwatcher(), _r34 = _r34.concat(Zi(t.serverSyncTree_, i[_n69].currentWriteId, !0)), i[_n69].onComplete && _s46.push(i[_n69].onComplete.bind(null, new Error("set"), !1, null))));
       }
 
-      -1 === _o16 ? bs(n, void 0) : i.length = _o16 + 1, Us(t.eventQueue_, Ss(n), _r34);
+      -1 === _o16 ? Es(n, void 0) : i.length = _o16 + 1, Hs(t.eventQueue_, Ns(n), _r34);
 
-      for (var _e98 = 0; _e98 < _s46.length; _e98++) {
-        Xe(_s46[_e98]);
+      for (var _e99 = 0; _e99 < _s46.length; _e99++) {
+        Xe(_s46[_e99]);
       }
     }
   }
 
-  var lr = function lr(e, t) {
-    var n = cr(e),
+  var _r = function _r(e, t) {
+    var n = fr(e),
         i = n.namespace;
     "firebase.com" === n.domain && qe(n.host + " is no longer supported. Please use <YOUR FIREBASE>.firebaseio.com instead"), i && "undefined" !== i || "localhost" === n.domain || qe("Cannot parse Firebase url. Please use https://<YOUR FIREBASE>.firebaseio.com"), n.secure || "undefined" != typeof window && window.location && window.location.protocol && -1 !== window.location.protocol.indexOf("https:") && We("Insecure Firebase access from a secure page. Please use https in calls to new Firebase().");
     var s = "ws" === n.scheme || "wss" === n.scheme;
@@ -8299,7 +8327,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       path: new bt(n.pathString)
     };
   },
-      cr = function cr(e) {
+      fr = function fr(e) {
     var t = "",
         n = "",
         i = "",
@@ -8324,9 +8352,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var t = "";
         var n = e.split("/");
 
-        for (var _e99 = 0; _e99 < n.length; _e99++) {
-          if (n[_e99].length > 0) {
-            var _i62 = n[_e99];
+        for (var _e100 = 0; _e100 < n.length; _e100++) {
+          if (n[_e100].length > 0) {
+            var _i62 = n[_e100];
 
             try {
               _i62 = decodeURIComponent(_i62.replace(/\+/g, " "));
@@ -8348,12 +8376,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
         try {
           for (_iterator14.s(); !(_step14 = _iterator14.n()).done;) {
-            var _n67 = _step14.value;
-            if (0 === _n67.length) continue;
+            var _n70 = _step14.value;
+            if (0 === _n70.length) continue;
 
-            var _i63 = _n67.split("=");
+            var _i63 = _n70.split("=");
 
-            2 === _i63.length ? t[decodeURIComponent(_i63[0])] = decodeURIComponent(_i63[1]) : We("Invalid query segment '".concat(_n67, "' in query '").concat(e, "'"));
+            2 === _i63.length ? t[decodeURIComponent(_i63[0])] = decodeURIComponent(_i63[1]) : We("Invalid query segment '".concat(_n70, "' in query '").concat(e, "'"));
           }
         } catch (err) {
           _iterator14.e(err);
@@ -8369,9 +8397,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       var _p = t.slice(0, _h9);
 
       if ("localhost" === _p.toLowerCase()) n = "localhost";else if (_p.split(".").length <= 2) n = _p;else {
-        var _e100 = t.indexOf(".");
+        var _e101 = t.indexOf(".");
 
-        i = t.substring(0, _e100).toLowerCase(), n = t.substring(_e100 + 1), r = i;
+        i = t.substring(0, _e101).toLowerCase(), n = t.substring(_e101 + 1), r = i;
       }
       "ns" in _d2 && (r = _d2.ns);
     }
@@ -8388,14 +8416,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     };
   };
 
-  var ur = /*#__PURE__*/function () {
-    function ur(e, t, n, i) {
-      _classCallCheck(this, ur);
+  var gr = /*#__PURE__*/function () {
+    function gr(e, t, n, i) {
+      _classCallCheck(this, gr);
 
       this.eventType = e, this.eventRegistration = t, this.snapshot = n, this.prevName = i;
     }
 
-    _createClass(ur, [{
+    _createClass(gr, [{
       key: "getPath",
       value: function getPath() {
         var e = this.snapshot.ref;
@@ -8418,17 +8446,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return ur;
+    return gr;
   }();
 
-  var dr = /*#__PURE__*/function () {
-    function dr(e, t, n) {
-      _classCallCheck(this, dr);
+  var mr = /*#__PURE__*/function () {
+    function mr(e, t, n) {
+      _classCallCheck(this, mr);
 
       this.eventRegistration = e, this.error = t, this.path = n;
     }
 
-    _createClass(dr, [{
+    _createClass(mr, [{
       key: "getPath",
       value: function getPath() {
         return this.path;
@@ -8450,17 +8478,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return dr;
+    return mr;
   }();
 
-  var pr = /*#__PURE__*/function () {
-    function pr(e, t) {
-      _classCallCheck(this, pr);
+  var yr = /*#__PURE__*/function () {
+    function yr(e, t) {
+      _classCallCheck(this, yr);
 
       this.snapshotCallback = e, this.cancelCallback = t;
     }
 
-    _createClass(pr, [{
+    _createClass(yr, [{
       key: "onValue",
       value: function onValue(e, t) {
         this.snapshotCallback.call(null, e, t);
@@ -8482,7 +8510,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return pr;
+    return yr;
   }();
 
   var vr = /*#__PURE__*/function () {
@@ -8586,7 +8614,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       this._repo = e, this._path = t, this._queryParams = n, this._orderByCalled = i;
     }
 
-    _createClass(_r, [{
+    _createClass(Cr, [{
       key: "key",
       get: function get() {
         return xt(this._path) ? null : kt(this._path);
@@ -8594,26 +8622,26 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "ref",
       get: function get() {
-        return new fr(this._repo, this._path);
+        return new wr(this._repo, this._path);
       }
     }, {
       key: "_queryIdentifier",
       get: function get() {
-        var e = Pn(this._queryParams),
+        var e = Rn(this._queryParams),
             t = $e(e);
         return "{}" === t ? "default" : t;
       }
     }, {
       key: "_queryObject",
       get: function get() {
-        return Pn(this._queryParams);
+        return Rn(this._queryParams);
       }
     }, {
       key: "isEqual",
       value: function isEqual(e) {
-        if (!((e = S(e)) instanceof _r)) return !1;
+        if (!((e = S(e)) instanceof Cr)) return !1;
         var t = this._repo === e._repo,
-            n = At(this._path, e._path),
+            n = Ot(this._path, e._path),
             i = this._queryIdentifier === e._queryIdentifier;
         return t && n && i;
       }
@@ -8628,8 +8656,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         return this._repo.toString() + function (e) {
           var t = "";
 
-          for (var _n68 = e.pieceNum_; _n68 < e.pieces_.length; _n68++) {
-            "" !== e.pieces_[_n68] && (t += "/" + encodeURIComponent(String(e.pieces_[_n68])));
+          for (var _n71 = e.pieceNum_; _n71 < e.pieces_.length; _n71++) {
+            "" !== e.pieces_[_n71] && (t += "/" + encodeURIComponent(String(e.pieces_[_n71])));
           }
 
           return t || "/";
@@ -8637,25 +8665,25 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return _r;
+    return Cr;
   }();
 
-  var fr = /*#__PURE__*/function (_r35) {
-    _inherits(fr, _r35);
+  var wr = /*#__PURE__*/function (_Cr) {
+    _inherits(wr, _Cr);
 
-    var _super11 = _createSuper(fr);
+    var _super11 = _createSuper(wr);
 
-    function fr(e, t) {
-      _classCallCheck(this, fr);
+    function wr(e, t) {
+      _classCallCheck(this, wr);
 
-      return _super11.call(this, e, t, new kn(), !1);
+      return _super11.call(this, e, t, new Nn(), !1);
     }
 
-    _createClass(fr, [{
+    _createClass(wr, [{
       key: "parent",
       get: function get() {
         var e = Pt(this._path);
-        return null === e ? null : new fr(this._repo, e);
+        return null === e ? null : new wr(this._repo, e);
       }
     }, {
       key: "root",
@@ -8670,17 +8698,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return fr;
-  }(_r);
+    return wr;
+  }(Cr);
 
-  var gr = /*#__PURE__*/function () {
-    function gr(e, t, n) {
-      _classCallCheck(this, gr);
+  var br = /*#__PURE__*/function () {
+    function br(e, t, n) {
+      _classCallCheck(this, br);
 
       this._node = e, this.ref = t, this._index = n;
     }
 
-    _createClass(gr, [{
+    _createClass(br, [{
       key: "priority",
       get: function get() {
         return this._node.getPriority().val();
@@ -8699,8 +8727,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       key: "child",
       value: function child(e) {
         var t = new bt(e),
-            n = yr(this.ref, e);
-        return new gr(this._node.getChild(t), n, rn);
+            n = Er(this.ref, e);
+        return new br(this._node.getChild(t), n, on);
       }
     }, {
       key: "exists",
@@ -8718,7 +8746,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var _this41 = this;
 
         return !this._node.isLeafNode() && !!this._node.forEachChild(this._index, function (t, n) {
-          return e(new gr(n, yr(_this41.ref, t), rn));
+          return e(new br(n, Er(_this41.ref, t), on));
         });
       }
     }, {
@@ -8744,16 +8772,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return gr;
+    return br;
   }();
 
-  function mr(e, t) {
-    return (e = S(e))._checkNotDeleted("ref"), void 0 !== t ? yr(e._root, t) : e._root;
+  function Ir(e, t) {
+    return (e = S(e))._checkNotDeleted("ref"), void 0 !== t ? Er(e._root, t) : e._root;
   }
 
-  function yr(e, t) {
+  function Er(e, t) {
     var n;
-    return null === Et((e = S(e))._path) ? ("child", "path", !1, (n = t) && (n = n.replace(/^\/*\.info(\/|$)/, "/")), Ms("child", "path", n, false)) : Ms("child", "path", t, !1), new fr(e._repo, Rt(e._path, t));
+    return null === Et((e = S(e))._path) ? ("child", "path", !1, (n = t) && (n = n.replace(/^\/*\.info(\/|$)/, "/")), qs("child", "path", n, false)) : qs("child", "path", t, !1), new wr(e._repo, Rt(e._path, t));
   }
 
   function Tr(e, t) {
@@ -8799,7 +8827,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       value: function createEvent(e, t) {
         var n = t._queryParams.getIndex();
 
-        return new ur("value", this, new gr(e.snapshotNode, new fr(t._repo, t._path), n));
+        return new gr("value", this, new br(e.snapshotNode, new wr(t._repo, t._path), n));
       }
     }, {
       key: "getEventRunner",
@@ -8815,7 +8843,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "createCancelEvent",
       value: function createCancelEvent(e, t) {
-        return this.callbackContext.hasCancelCallback ? new dr(this, e, t) : null;
+        return this.callbackContext.hasCancelCallback ? new mr(this, e, t) : null;
       }
     }, {
       key: "matches",
@@ -8848,17 +8876,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "createCancelEvent",
       value: function createCancelEvent(e, t) {
-        return this.callbackContext.hasCancelCallback ? new dr(this, e, t) : null;
+        return this.callbackContext.hasCancelCallback ? new mr(this, e, t) : null;
       }
     }, {
       key: "createEvent",
       value: function createEvent(t, n) {
         e(null != t.childName, "Child events should have a childName.");
 
-        var i = yr(new fr(n._repo, n._path), t.childName),
+        var i = Er(new wr(n._repo, n._path), t.childName),
             s = n._queryParams.getIndex();
 
-        return new ur(t.type, this, new gr(t.snapshotNode, i, s), t.prevName);
+        return new gr(t.type, this, new br(t.snapshotNode, i, s), t.prevName);
       }
     }, {
       key: "getEventRunner",
@@ -8891,9 +8919,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       var r;
 
       if ("object" == _typeof(i) && (r = void 0, s = i), "function" == typeof i && (r = i), s && s.onlyOnce) {
-        var _t58 = n,
+        var _t60 = n,
             _i64 = function _i64(n, i) {
-          Xs(e._repo, e, a), _t58(n, i);
+          nr(e._repo, e, a), _t60(n, i);
         };
 
         _i64.userCallback = n.userCallback, _i64.context = n.context, n = _i64;
@@ -8903,9 +8931,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           a = "value" === t ? new Sr(o) : new kr(t, o);
       return function (e, t, n) {
         var i;
-        i = ".info" === Et(t._path) ? es(e.infoSyncTree_, t, n) : es(e.serverSyncTree_, t, n), Ws(e.eventQueue_, t._path, i);
+        i = ".info" === Et(t._path) ? ns(e.infoSyncTree_, t, n) : ns(e.serverSyncTree_, t, n), Bs(e.eventQueue_, t._path, i);
       }(e._repo, e, a), function () {
-        return Xs(e._repo, e, a);
+        return nr(e._repo, e, a);
       };
     }(e, "value", t, n, i);
   }
@@ -8920,6 +8948,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   function Rr(e, t, n, i, s) {
     var r = i || e.options.databaseURL;
     void 0 === r && (e.options.projectId || qe("Can't determine Firebase Database URL. Be sure to include  a Project ID when calling firebase.initializeApp()."), Me("Using default host for project ", e.options.projectId), r = "".concat(e.options.projectId, "-default-rtdb.firebaseio.com"));
+
     var o,
         a,
         h = _r(r, s),
@@ -8929,8 +8958,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     var c = s && o ? new nt(nt.OWNER) : new tt(e.name, e.options, t);
     (function (e, t) {
       var n = t.path.toString();
-      if ("string" != typeof t.repoInfo.host || 0 === t.repoInfo.host.length || !xs(t.repoInfo.namespace) && "localhost" !== t.repoInfo.host.split(":")[0] || 0 !== n.length && !function (e) {
-        return e && (e = e.replace(/^\/*\.info(\/|$)/, "/")), Ds(e);
+      if ("string" != typeof t.repoInfo.host || 0 === t.repoInfo.host.length || !As(t.repoInfo.namespace) && "localhost" !== t.repoInfo.host.split(":")[0] || 0 !== n.length && !function (e) {
+        return e && (e = e.replace(/^\/*\.info(\/|$)/, "/")), Os(e);
       }(n)) throw new Error(E(e, "url") + 'must be a valid firebase URL and the path can\'t contain ".", "#", "$", "[", or "]".');
     })("Invalid Firebase Database URL", l), xt(l.path) || qe("Database URL must point to the root of a Firebase Database (not including a child path).");
 
@@ -8954,12 +8983,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     _createClass(xr, [{
       key: "_repo",
       get: function get() {
-        return this._instanceStarted || (zs(this._repoInternal, this.app.options.appId, this.app.options.databaseAuthVariableOverride), this._instanceStarted = !0), this._repoInternal;
+        return this._instanceStarted || (Ys(this._repoInternal, this.app.options.appId, this.app.options.databaseAuthVariableOverride), this._instanceStarted = !0), this._repoInternal;
       }
     }, {
       key: "_root",
       get: function get() {
-        return this._rootInternal || (this._rootInternal = new fr(this._repo, It())), this._rootInternal;
+        return this._rootInternal || (this._rootInternal = new wr(this._repo, It())), this._rootInternal;
       }
     }, {
       key: "_delete",
@@ -8985,7 +9014,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     this.sendRequest("q", {
       p: e
     }, t);
-  }, Ut.prototype.echo = function (e, t) {
+  }, jt.prototype.echo = function (e, t) {
     this.sendRequest("echo", {
       d: e
     }, t);
@@ -9041,8 +9070,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
     try {
       for (_iterator15.s(); !(_step15 = _iterator15.n()).done;) {
-        var _e101 = _step15.value;
-        r.addComponent(_e101);
+        var _e102 = _step15.value;
+        r.addComponent(_e102);
       }
     } catch (err) {
       _iterator15.e(err);
