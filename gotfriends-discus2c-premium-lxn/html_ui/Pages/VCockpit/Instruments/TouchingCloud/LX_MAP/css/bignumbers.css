@@ -69,10 +69,25 @@
 }
 
 #userlist {
-	margin: 0 0 0 4rem;
+	width: 100%;
 }
 
-#userlist li {
+#userlist th {
+	text-align: left;
+}
+
+#userlist td, #userlist th {
 	padding: 0.5rem 1rem;
 	border-bottom: 1px solid #666;
+}
+
+#userlist .alignright {
+	text-align: right;
+}
+
+#userlist .mpusername {
+	max-width: 7.5em;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
