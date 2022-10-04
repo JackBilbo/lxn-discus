@@ -457,11 +457,16 @@ class navmap {
     paintMultiplayers(userid, data) {
         
         if(this.mpMarker[userid] == null) {
-            console.log("Painting Map: " + data);
             this.mpMarker[userid] = L.marker([data.lat, data.long], { icon: this.mpglidericon }).addTo(TOPOMAP);
         } else {
             this.mpMarker[userid].setLatLng([data.lat, data.long])
             this.mpMarker[userid].getElement().querySelector("svg").style.transform = "rotate(" + (data.hdg + 45) + "deg)";
+        }
+
+        for (var marker in this.mpMarker) {
+            if(!SOARNET.eventusers[marker]) {
+                TOPOMAP.removeLayer(this.mpMarker[marker]);
+            }
         }
     }
 
