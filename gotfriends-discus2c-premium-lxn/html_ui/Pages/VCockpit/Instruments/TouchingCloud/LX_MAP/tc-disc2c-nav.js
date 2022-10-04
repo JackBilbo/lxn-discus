@@ -1,10 +1,11 @@
-let NAVMAP, NAVPANEL, CONFIGPANEL, UI, TOPOMAP, SN, SOARNET;
+let LXN, NAVMAP, NAVPANEL, CONFIGPANEL, UI, TOPOMAP, SN, SOARNET;
 
 class lxn extends NavSystemTouch {
 
     constructor() {
         super();
 
+        LXN = this;
         this.TIMER_05 = 0;
         this.TIMER_1 = 0;
 

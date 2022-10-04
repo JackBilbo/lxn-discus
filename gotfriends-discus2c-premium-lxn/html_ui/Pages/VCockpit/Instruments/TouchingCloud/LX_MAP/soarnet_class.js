@@ -25,20 +25,21 @@ class soarnet {
 
         if(this.isActive) {
             this.updateUserdata();
+            SOARNET.displayUserList();
         }
         
     }
 
     updateUserdata() {
-        this.userId = this.userId == null ? SOARNET.getUserId() : this.userId ;
+        SOARNET.userId = SOARNET.userId == "" ? SOARNET.getUserId() : SOARNET.userId ;
         SOARNET.writeUserData(
-            "test", this.userId, {
+            "test", SOARNET.userId, {
                 "username": this.mpUsername,
                 "lat":      parseFloat(SimVar.GetSimVarValue("A:PLANE LATITUDE", "degrees latitude")),
                 "long":     parseFloat(SimVar.GetSimVarValue("A:PLANE LONGITUDE", "degrees longitude")),
                 "hdg":      this.instrument.vars.hdg.value,
                 "alt":      this.instrument.vars.alt.value,
-                "dist":     (B21_SOARING_ENGINE.task.remaining_distance_m() / 1000).toFixed(2),
+                "dist":     B21_SOARING_ENGINE.task.remaining_distance_m(),
                 "time":     Math.floor(Date.now() / 1000)
             }
         )
@@ -47,20 +48,19 @@ class soarnet {
 }
 
 SOARNET.displayUserList = function(){
-    let list = document.querySelector("#userlist");
+    let list = document.querySelector("#userlist tbody");
     let userList = [];
     let now = Math.floor(Date.now() / 1000);
     list.innerHTML = "";
     
     for (user in SOARNET.eventusers) {
-        if(now - parseInt(SOARNET.eventusers[user].time) < 60) {
+        if(now - parseInt(SOARNET.eventusers[user].time) < 6000) {
             userList.push(SOARNET.eventusers[user]);
-
             if(typeof(TOPOMAP.addLayer) == "function" && user != this.userId) {
                 NAVMAP.paintMultiplayers(user, SOARNET.eventusers[user]);
             }
         } else {
-            SOARNET.deleteEventUser("test", user);
+            
         }      
     }
 
@@ -68,8 +68,8 @@ SOARNET.displayUserList = function(){
       return parseInt(a.dist) - parseInt(b.dist);
     })
 
-    userList.forEach((el) => {
-      list.innerHTML += "<li>" + el.username +  " (" + el.dist + " km)</li>";
+    userList.forEach((el, idx) => {
+      list.innerHTML += "<tr><td class='alignright'>" + (idx+1) + "</td><td class='mpusername'>" + el.username + "</td><td>" + LXN.displayValue(el.alt, "ft", "alt") + LXN.units.alt.pref + "</td><td class='alignright'>" + LXN.displayValue(el.dist, "m", "dist") + LXN.units.dist.pref + "</td></tr>";
     })
   }
 
