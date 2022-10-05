@@ -3,13 +3,13 @@
   "content_type": "AIRCRAFT",
   "title": "Discus-2c - LXN Replacement",
   "manufacturer": "Schempp-Hirth",
-  "creator": "GotFriends",
-  "package_version": "2.0.4",
+  "creator": "Jack Bilbo",
+  "package_version": "0.1",
   "minimum_game_version": "1.26.5",
   "release_notes": {
     "neutral": {
-      "LastUpdate": "VERSION 2.0.4 RELEASED JULY 28, 2022\\nDiscus-2c Version 2.0.4. Changelog:\n\nLivery Artist Request:\n- Added Additional Texture Layer: DISCUS2C_EXT_EM.PNG\n\nLX-Navigation Modifications by JackBilbo:\n- Added \"Speed-to-Fly\" Calculation\n- Fixed \"Estimated Arrival Height\" based on Polar Sink\n- Simplified Wind Indicator for Battery Readability\n- Added Unit of Measurement swap to Ballast Levels in Status Screen\n- Added Unit of Measurement \"Remember/Preservation\" Clickable to Status Screen\n- Improved Clickability to Navigation Screens\n- Added Hover and Active States to Navigation Screens\n- Added Swappable \"Estimated Arrival Height\" between Height Above Waypoint and MSL-Altitude\n- Smoothed Out \"Arrival-Height\" Display\n- Added Swappable \"Sim-Time-Clock\" between Local and Zulu-Time\n- Added Manual Task Timer: Click to Start, Stop, Reset, and Restart Timer\n- Fixed Wind Indicator Unit of Measurement Swap\n- Map Zoom Works with Transponder +/- Hotkeys\n- Added \"Task Timer\" with Auto-Start\nTimer starts and stops automatically when passing a waypoint named *Start and *Finish.\nWorks with tasks generated with B21's task planner: https://xp-soaring.github.io/tasks/b21_task_planner/\n\nGot Friends Glider Club Update by Flying Hedgehog:\n- Changed Off-Runway Spawn Points\n- Added Night Lighting to Runway\n- Increased Runway to 600 Feet\n- Modified Car Parking Area\n\nVisual Cables/Towplane Fixes by Touching Cloud:\n- Fixed Tension on Towplane Cable\n- Fixed Tension on Winch Cable\n\nXbox Series X|S SU-10 Preparation:\n- Added Visual Cables/Vehicles (Hopefully Works after SU-10 Update)\n- Added Multiplayer Towplane Connectivity (Hopefully Works after SU-10 Update)\n- Added FLARM Collision Tracking (Hopefully Works after SU-10 Update)\n\nFES Control Unit:\n- Temperature Hotfix for Ventilation Warning with Thermal Weather Presets\nLOGIC: If Temperature is over 60°C, FCU Assumes Weather Preset is Active\n\nDiscus-2c Standard and FES:\n- Improved Adverse Yaw\n- Netto Variomenter Calibrated & Improved\n- Digital Variometer Calibrated & Improved\n- Fixed Temperature Gauge Textures ",
-      "OlderHistory": "VERSION 2.0.0 RELEASED JUNE 20, 2022\\nInitial Release to FlightSim.to and the Official Marketplace (PC/XBOX)\\nVERSION 2.0.1 RELEASED JULY 1, 2022\\nInitial Release to the Official Marketplace.\\nVERSION 2.0.2 RELEASED JULY 4, 2022\\nVariometer and Variotone Modified.\\nVERSION 2.0.3 RELEASED JULY 5, 2022\\nVariometer Calibrated, New Variometer Code, Netto Polar Modified and Variotone Merged."
+      "LastUpdate": "VERSION 0.1",
+      "OlderHistory": ""
     }
   }
 }

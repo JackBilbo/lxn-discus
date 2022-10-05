@@ -18,6 +18,14 @@ class configpanel {
 
     initSystemSettings() {
         let instrument = this.instrument;
+
+        this.rangesliders = []
+
+        this.brightnessrange = new rangeinput(document.querySelector("#brightnesslider"), function(val) { SimVar.SetSimVarValue("L:NAV_BRIGHTNESS", "number", val); });
+        this.rangesliders.push(this.brightnessrange);
+        this.glareshiledrange = new rangeinput(document.querySelector("#glareshieldslider"), function(val) { SimVar.SetSimVarValue("K:LIGHT_POTENTIOMETER_5_SET", "number", val); });
+        this.rangesliders.push(this.glareshiledrange);
+
         document.querySelectorAll(".lxconfigbtn").forEach((el)=> {
             el.addEventListener("click", function(e) {
                 e.stopPropagation();
@@ -78,12 +86,6 @@ class configpanel {
             })
         })
 
-        this.rangesliders = []
-
-        this.brightnessrange = new rangeinput(document.querySelector("#brightnesslider"), function(val) { SimVar.SetSimVarValue("L:NAV_BRIGHTNESS", "number", val); });
-        this.rangesliders.push(this.brightnessrange);
-        this.glareshiledrange = new rangeinput(document.querySelector("#glareshieldslider"), function(val) { SimVar.SetSimVarValue("A:LIGHT POTENTIOMETER:5", "number", val); });
-        this.rangesliders.push(this.glareshiledrange);
 
         let isFES = SimVar.GetSimVarValue("A:Empty weight","number") > 300;
         
@@ -121,7 +123,8 @@ class configpanel {
         if(!this.systeminitReady) { this.initSystemSettings(); return; }
 
         let masterunits = SimVar.GetSimVarValue("L:UNITS_IMPERIAL","percent");
-        if(this.unitstore != masterunits) {
+        if(this.unitstore != masterunits && ( masterunits == 0 || masterunits == 100 )) {
+            console.log("SWITCHING UUUUNITS: " + SimVar.GetSimVarValue("L:UNITS_IMPERIAL","percent") );
             if(masterunits == 100) { this.setUnitPrefs("imperial") } else { this.setUnitPrefs("metric") }
             this.unitstore = masterunits;
         }
@@ -131,8 +134,10 @@ class configpanel {
         
         if(UI.pagepos_x == 4) {
             this.updateBallastDisplay();
-            this.brightnessrange.setValue(SimVar.GetSimVarValue("L:NAV_BRIGHTNESS", "number"));
-            this.glareshiledrange.setValue(SimVar.GetSimVarValue("A:LIGHT POTENTIOMETER:5", "number"));
+
+            this.rangesliders.forEach((el) => {
+                el.setValue(el.getValue());
+            })
         }
         
     }
@@ -168,7 +173,7 @@ class configpanel {
     }
 
     toggleCanopyTint(val) {
-        if(val == "on") { SimVar.SetSimVarValue("L:CANOPY_TOGGLE","bool",1); } else { SimVar.SetSimVarValue("L:CANOPY_TOGGLE","bool",0); }
+        if(val == "on") { SimVar.SetSimVarValue("L:CANOPY_TOGGLE","bool",0); } else { SimVar.SetSimVarValue("L:CANOPY_TOGGLE","bool",1); }
     }
 
     toggleCanopyCover(val) {
@@ -291,7 +296,6 @@ class configpanel {
                     if(this.instrument.units[unit].options[i] == this.instrument.units[unit].pref) { option.classList.add("selected"); }
                     option.innerHTML = this.instrument.units[unit].options[i];
                     option.addEventListener("click", (e) => { 
-                        console.log(e.target);
                         let unit = e.target.parentNode.getAttribute("data-unit");
                         CONFIGPANEL.instrument.units[unit].pref = e.target.getAttribute("data-value");
                         inputwrapper.querySelector(".selected").classList.remove("selected");

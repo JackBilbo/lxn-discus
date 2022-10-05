@@ -23,11 +23,12 @@ class navmap {
         this.WP_NON_TASK_COLOR = "#999999";
 
         this.map_zoom = 12;
-        this.map_maxzoom = 16;
-        this.map_minzoom = 8;
+        this.map_maxzoom = 17;
+        this.map_minzoom = 7;
         this.map_rotation = "northup";
         this.taskispainted = false;
         this.mapwaypoints = [];
+        SimVar.SetSimVarValue("L:LX_Knob_1","percent", (this.map_zoom - 7) / 10);
 
         this.maptimer = 0;
 
@@ -132,6 +133,8 @@ class navmap {
         this.update_map_center();
         this.draw_courseline();
 
+        this.map_zoom = SimVar.GetSimVarValue("L:LX_Knob_1","percent") * 10 + 7;
+
         if (B21_SOARING_ENGINE.task_active() && this.taskispainted == false) {
            this.draw_task();
         }
@@ -204,11 +207,13 @@ class navmap {
 
     zoom_in() {
         this.map_zoom = this.map_zoom < this.map_maxzoom ? this.map_zoom + 1 : this.map_maxzoom;
+        SimVar.SetSimVarValue("L:LX_Knob_1","percent", (this.map_zoom - 7) / 10);
     }
 
     // Zoom map out (i.e. zoom index += 1)
     zoom_out() {
         this.map_zoom = this.map_zoom > this.map_minzoom ? this.map_zoom - 1 : this.map_minzoom;
+        SimVar.SetSimVarValue("L:LX_Knob_1","percent", (this.map_zoom - 7) / 10);
     }
 
 

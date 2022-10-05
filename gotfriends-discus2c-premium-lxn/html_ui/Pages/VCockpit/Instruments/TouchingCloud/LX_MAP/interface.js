@@ -112,7 +112,6 @@ class ui {
             console.log("resetting all datafields");
             document.querySelectorAll(".datacells_top .datacell, .datacells_bottom .datacell").forEach((el)=>{
                 let cellid = el.getAttribute("id");
-                console.log(cellid);
                 el.setAttribute("data-userconfig","");
                 SetStoredData("discus_" + cellid, "");
             })
@@ -197,6 +196,9 @@ class ui {
     resetPages() {
         this.panelframe.style.transform = "translate(0,0)";
         this.panels[0].querySelector(".pageframe").style.transform = "translate(0px, 0px)";
+
+        SimVar.SetSimVarValue("L:LX_Knob_3","percent",0.5);
+        SimVar.SetSimVarValue("L:LX_Knob_4","percent",0.5);
     }
 
     pageRight() {
@@ -248,6 +250,9 @@ class ui {
             document.querySelector("#hawk").style.display = "none";
             document.querySelector(".speedgauge").style.display = "none";
         }
+
+        SimVar.SetSimVarValue("L:LX_Knob_3","percent",0.5);
+        SimVar.SetSimVarValue("L:LX_Knob_4","percent",0.5);
     }
 
     

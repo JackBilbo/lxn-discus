@@ -453,6 +453,22 @@ class lxn extends NavSystemTouch {
             UI.pageUp();
          }
 
+         if(SimVar.GetSimVarValue("L:LX_Knob_3","percent") > 0.5) {
+            UI.pageRight();
+         }
+
+         if(SimVar.GetSimVarValue("L:LX_Knob_3","percent") < 0.5) {
+            UI.pageLeft();
+         }
+
+         if(SimVar.GetSimVarValue("L:LX_Knob_4","percent") > 0.5) {
+            UI.pageUp();
+         }
+
+         if(SimVar.GetSimVarValue("L:LX_Knob_4","percent") < 0.5) {
+            UI.pageDown();
+         }
+
          /* Warnings and alerts */
 
         if(CONFIGPANEL.stallwarning && SimVar.GetSimVarValue("STALL WARNING", "bool") == "1") {
