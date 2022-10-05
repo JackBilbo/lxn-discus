@@ -3,23 +3,10 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <h2>New Features:</h2>
 
-- Course pointer arrow. Shows you which way to turn for waypoint/airport (can be activated on interface config page)
+- Compatible with Discus 2.0.5 as well as earlier versions
 
-- New page: Thermalling Helper (copied B21's code over from AS 33) as subpage under "WPT"
-
-- New displayable values from thermalling page:
-  - average climb in current/last thermal
-  - total altitude gain in current/last thermal
-  
-- Optional "Auto MacCready": MC-Value is adjusted after every thermal depending on the total average climb. Default is off, can be activated in "Interface" settings
-
-- map switch trackup/northup is now persistent between flights.
-
-- Bugfixes: 
-  - Ground track working again as intended 
-  - UTC time is now displaying real world time as intended
-  - FES-Version is correctly identified and displayes correct ballast values on ballast page
-  - font sizes for time displays adjusted to work correctly in "improved readability" mode
+- Bugfix: 
+  - Vertical speed ans wind can now be displayed as feet per second
   
 
 <h2>Installation:</h2>
