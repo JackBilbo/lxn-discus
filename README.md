@@ -97,22 +97,7 @@ The "true average climb" for the current thermal is also used to display a small
 
 „APT“ and „WPT“ feature a maximum of 16 data fields each, that can be configured in game. The „tools“ button in the upper right hand corner of the map toggles „configuration mode“. Data fields are then marked with a light blue outline. Click any data field to bring up a popup, where you can set background color, text color and Information to be displayed. A second background color can be selected to be displayed when the displayed value <= 0 (e.g. switch background to red when arrival height is negative)
 
-Data field configurations are persistent between simulator sessions. Click „reset all“ in the configuration popup to reset all data fields to default. Configurations are also persitent with different versions of this mod, so if you used another version or install an update, your settings will be save. There is however a slight chance, that a variable name gets mixed up, so if you experience any erratic behaviour with the datafields, try "reset all" and see if that helps.
-
-Data fields can be forced to use either metric or imperial units of measurement. Use with caution. If activated, the datafield will ignore the global unit selection. This feature gives you the option to e.g. display altitude in feet side by side with altitude in meters. If a datafield has been configured this way an "*" is shown next to the unit as a reminder. 
-
-In standard mode the data fields are rather small and can be hard to read especially in VR. As a solution an "improved readability" mode can be activated in the "interface options". That mode shows only six data fields per page but with much larger text. Also a few other interface elements are enlarged in this mode.
-
-
-<h2>TASK Page</h2>
-
-The task management system is Ian „B21“ Lewis’ Soaring Engine from the AS33. "TASK" Page shows the status of the loaded task on top ("not started", "running", "finished") and a list of all available waypoints. When you pass a waypoint it's marked "ok" and jumps to the bottom of the list, so that the current waypoint is always on top of the list. After all waypoints are passed correctly the page shows task time, distance and average speed in the header. 
-
-If you used the engine, slew mode or exceeded maximum speed (Vne = 152 kts True Airspeed) for more than 5 seconds, the header will turn red an include a notification.
-
-The whole task system is ideally used with Ian's "B21 Task Planner": https://xp-soaring.github.io/tasks/b21_task_planner/index.html. Plan your flight there, download the MSFS *.pln file and load that plan when setting up your flight in MSFS. The nav computer will automatically display your plan and use it for navigation.
-
-Detailled info on planning and flying glider tasks: https://www.youtube.com/watch?v=u7zJSu4jlPU
+Data field Configurations are persistent between simulator sessions. Click „reset all“ in the configuration popup to reset all data fields to default. Configurations are also persitent with different versions of this mod, so if you used an oder version or install an update, your settings will be save. There is however a slight chance, that a variable name gets mixed up, so if you experience any erratic behaviour with the datafields, try "reset all" and see if that helps.
 
 <h2>Kinetic Assist Launch Menu</h2>
 
