@@ -30,7 +30,11 @@ class soarnet {
     }
 
     updateUserdata() {
-        this.userId = this.userId == null ? SOARNET.getUserId() : this.userId ;
+        let taskstate = "not started";
+        if(B21_SOARING_ENGINE.task_started()) { taskstate = "started" }
+        if(B21_SOARING_ENGINE.task_finished()) { taskstate = "finished" }
+
+        SOARNET.userId = SOARNET.userId == "" ? SOARNET.getUserId() : SOARNET.userId ;
         SOARNET.writeUserData(
             "test", this.userId, {
                 "username": this.mpUsername,
@@ -38,7 +42,10 @@ class soarnet {
                 "long":     parseFloat(SimVar.GetSimVarValue("A:PLANE LONGITUDE", "degrees longitude")),
                 "hdg":      this.instrument.vars.hdg.value,
                 "alt":      this.instrument.vars.alt.value,
-                "dist":     (B21_SOARING_ENGINE.task.remaining_distance_m() / 1000).toFixed(2),
+                "dist":     B21_SOARING_ENGINE.task.distance_m() - B21_SOARING_ENGINE.task.remaining_distance_m(),
+                "avg":      B21_SOARING_ENGINE.task.avg_task_speed_kts(),
+                "tasktime": this.instrument.vars.tasktime.value,
+                "taskstate":taskstate,
                 "time":     Math.floor(Date.now() / 1000)
             }
         )
@@ -49,13 +56,18 @@ class soarnet {
 SOARNET.displayUserList = function(){
     let list = document.querySelector("#userlist");
     let userList = [];
+    let finisherlist = [];
     let now = Math.floor(Date.now() / 1000);
     list.innerHTML = "";
     
     for (user in SOARNET.eventusers) {
-        if(now - parseInt(SOARNET.eventusers[user].time) < 60) {
-            userList.push(SOARNET.eventusers[user]);
-
+        if(now - parseInt(SOARNET.eventusers[user].time) < 6000) {
+            if(SOARNET.eventusers[user].taskstate == "finished") {
+                finisherlist.push(SOARNET.eventusers[user]);
+            } else {
+                userList.push(SOARNET.eventusers[user]);
+            }
+            
             if(typeof(TOPOMAP.addLayer) == "function" && user != this.userId) {
                 NAVMAP.paintMultiplayers(user, SOARNET.eventusers[user]);
             }
@@ -64,12 +76,24 @@ SOARNET.displayUserList = function(){
         }      
     }
 
+    finisherlist.sort((a,b) => {
+        return parseInt(a.tasktime) - parseInt(b.tasktime);
+      })
+
     userList.sort((a,b) => {
-      return parseInt(a.dist) - parseInt(b.dist);
+      return parseInt(b.dist) - parseInt(a.dist);
+    })
+
+    let i = 1;
+
+    finisherlist.forEach((el) => {
+        list.innerHTML += "<tr><td class='alignright'>" + i + "</td><td class='mpusername'>" + el.username + "</td><td>" + LXN.displayValue(el.alt, "ft", "alt") + "</td><td class='alignright'>" + LXN.displayValue(el.avg, "kts", "speed") + "</td><td class='alignright'>" + LXN.displayValue(el.tasktime,"s","time_of_day") + "</td></tr>";
+        i++;
     })
 
     userList.forEach((el) => {
-      list.innerHTML += "<li>" + el.username +  " (" + el.dist + " km)</li>";
+      list.innerHTML += "<tr><td class='alignright'>" + (el.taskstate == "not started" ? "--" : i) + "</td><td class='mpusername'>" + el.username + "</td><td>" + LXN.displayValue(el.alt, "ft", "alt") + "</td><td class='alignright'>" + LXN.displayValue(el.avg, "kts", "speed") + "</td><td class='alignright'>" + (el.taskstate == "not started" ? "0" : LXN.displayValue(el.dist, "m", "dist")) + "</td></tr>";
+      i++;  
     })
   }
 
