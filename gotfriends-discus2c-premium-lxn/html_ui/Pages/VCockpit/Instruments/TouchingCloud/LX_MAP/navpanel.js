@@ -66,16 +66,15 @@ class navpanel {
 
     updateSelectedAirport() {
         
-        if(UI.pagepos_x != 0) { return; }  // don't update APT page, if not visible
-            
-            let aptlatlng = {lat: this.selectedAirport.coordinates.lat, long: this.selectedAirport.coordinates.long};
-            this.instrument.vars.sel_apt_icao.value = this.selectedAirport.ident;  
-            this.instrument.vars.sel_apt_name.value = this.selectedAirport.name;
-            this.instrument.vars.sel_apt_alt.value = this.selectedAirport.coordinates.alt / 0.3048 ;
-            this.instrument.vars.sel_apt_bearing.value = Geo.get_bearing_deg(this.instrument.PLANE_POSITION, aptlatlng);
-            this.instrument.vars.sel_apt_dist.value = Geo.get_distance_m(this.instrument.PLANE_POSITION, aptlatlng) / 1852;
-            this.instrument.vars.sel_apt_arr_agl.value = 0;
-              
+        let aptlatlng = {lat: this.selectedAirport.coordinates.lat, long: this.selectedAirport.coordinates.long};
+        this.instrument.vars.sel_apt_icao.value = this.selectedAirport.ident;  
+        this.instrument.vars.sel_apt_name.value = this.selectedAirport.name;
+        this.instrument.vars.sel_apt_alt.value = this.selectedAirport.coordinates.alt / 0.3048 ;
+        this.instrument.vars.sel_apt_bearing.value = Geo.get_bearing_deg(this.instrument.PLANE_POSITION, aptlatlng);
+        this.instrument.vars.sel_apt_dist.value = Geo.get_distance_m(this.instrument.PLANE_POSITION, aptlatlng) / 1852;
+        this.instrument.vars.sel_apt_arr_agl.value = 0;
+
+        if(UI.pagepos_x != 0) { return; }  // don't update APT page, if not visible         
             
 
             this.selectedAirport.runways.forEach(function(rwy) {

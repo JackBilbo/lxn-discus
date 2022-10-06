@@ -32,7 +32,7 @@ class ui {
     
         this.pages[this.pagepos_x][this.pagepos_y].classList.add("current");
     
-        /* Make pages swipable */
+        /* Make pages swipable
     
         let mousedownpos;
     
@@ -48,7 +48,7 @@ class ui {
                 else if(e.offsetY - mousedownpos.offsetY > 300) { this.pageUp() }
             } 
         })
-    
+        */
     
         /* Editable Datacells */
     
