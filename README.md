@@ -1,6 +1,19 @@
 # lxn-discus
 Replacement mod for the GotFriends Discus' Nav computer
 
+<h2>New Features:</h2>
+
+- Compatible with Discus 2.0.5
+
+- Hardware buttons in cockpit remapped:
+  - top left: map zoom
+  - bottom left: page right/left
+  - bottom right: page up/down
+
+No more "click and drag" for page switch
+
+various bug fixes
+  
 
 <h2>Installation:</h2>
 
@@ -11,12 +24,13 @@ You may experience conflicts with other existing mods, especially livery mods. S
 <h2>Basic Features:</h2>
 
 All Information is organized in „pages“ (horizontally) and „sub-pages“ (vertically). Pages can be changed by „turning“ the rotary buttons on the bottom of the screen: left turns pages left/right, right button switches up/down. Alternatively you can keybind „INCREASE/DECREASE COM1 (WHOLE)“ for horizontal and „INCREASE/DECREASE COM1 (FRACT)“ for vertical scrolling.
+All Information is organized in „pages“ (horizontally) and „sub-pages“ (vertically). Pages can be changed by „turning“ the rotary buttons on the bottom of the screen: left turns pages left/right, right button switches up/down. Alternatively you can keybind „INCREASE/DECREASE COM1 (WHOLE)“ for horizontal and „INCREASE/DECREASE COM1 (FRACT)“ for vertical scrolling.
 
 Currently there are five main pages: „APT“ for navigation to the selected Airport, „WPT“ for navigating a task/flightplan, „TASK“ for the current state of the task, "Kinetic Assitant" for launching through KA and „CONFIG“ for Unit switching, ballast management and some system settings. 
 
 „APT“ Page automatically selects the nearest Airport as target. On the first subpage there's a bit of info about that airport including runway orientation and dimensions. The second subpage features a list of close airports where you can click any airport to select it for navigation. Click the selected airport again to return to "closest airport navigation". On the map a yellow line will be drawn from your glider to the selected airport to show the direction to fly.
 
-"WPT" is similar, except the navigation target is the current waypoint of the loaded flightplan. Using the buttons in the headerbar waypoints can be selected. The map will also show a yellow course-line from your glider to the waypoint to indicate the direction to fly. As a subpage to "WPT" you find a "thermalling help" page, displaying wind, climb and average climb for the current/last therma (a "thermal" is detected, when circling for more than 25 seconds). The lower section displays a bar chart of all thermals in the last 40 minutes on the left and a graph of climb/sink values during the last five minutes in the right half.
+"WPT" is similar, except the navigation target is the current waypoint of the loaded flightplan. Using the buttons in the headerbar waypoints can be selected. The map will also show a yellow course-line from your glider to the waypoint to indicate the direction to fly. As a subpage to "WPT" you find a "thermalling help" page, displaying wind, climb and average climb for the current/last therma (a "thermal" is detected, when circling for more than 25 seconds). The lower section displays a bar chart of all thermals in the löast 40 minutes on the left and a graph of climb/sink values in the right half.
 
 „APT“ and „WPT“ feature a maximum of 16 data fields each, that can be configured in game. The „tools“ button in the upper right hand corner of the map toggles „configuration mode“. Data fields are then marked with a light blue outline. Click any data field to bring up a popup, where you can set background color, text color and Information to be displayed. A second background color can be selected to be displayed when the displayed value <= 0 (e.g. switch background to red when arrival height is negative)
 
@@ -26,7 +40,7 @@ Data fields can be forced to use either metric or imperial units of measurement.
 
 In standard mode the data fields are rather small and can be hard to read especially in VR. As a solution an "improved readability" mode can be activated in the "interface options". That mode shows only six data fields per page but with much larger text. Also a few other interface elements are enlarged in this mode.
 
-The task management system is Ian „B21“ Lewis’ Soaring Engine from the AS33. "TASK" Page shows the status of the loaded task on top ("not started", "running", "finished") and a list of all available waypoints. When you pass a waypoint it's marked "ok" and jumps to the bottom of the list, so that the current waypoint is always on top of the list. After all waypoints are passed correctly the page shows task time, distance and average speed in the header. If you used the engine, slew mode or exceeded maximum speed (Vne = 154 kts True Airspeed) for more than 5 seconds, the header will turn red an include a notification.
+The task management system is Ian „B21“ Lewis’ Soaring Engine from the AS33. Some features like calculating glide ratios could not be recreated, as they are dependent of other instruments in the AS33. Others are still on the to do list.
 
 The wind indicator in the center of the map is loosely based on the real world LX-„Hawk“ system displaying current (blue) and average (grey) wind-arrows and a green/red column indicator for the vertical wind component.
 
@@ -45,6 +59,7 @@ The Config-Page gives you access to various settings:
 
 All config settings apart from ballast are persistent between sessions. Just make sure to click "close" after making any changes.
 
+All config settings apart from bugs and ballast are persistent between sessions. Just make sure to click "close" after making any changes.
 
 <h2>Some more Details</h2>
 
@@ -87,6 +102,15 @@ Several functions can be operated by keybinds from joystick or throttle:
 - Map Zoom:           INCREASE/DECREASE TRANSPONDER (10)
 - Map Orientation:    INCREASE/DECREASE TRANSPONDER (1)
 
+<h2>Known Limitations:</h2>
+
+Changing pages and subpages with "click and drag" in flight requires a lot of mouse handling skills :-) I recommend keybinding. Way up on the roadmap is using the rotary buttons aroud the screen for navigation as it is in the real world device.
+
+The map can not be panned. To avoid collision with „click and drag“ page changing another „mode switch“ would be needed. Considering the current quality of the ingame map, I don’t think it’s worth the added complexity.
+
+„Thermalling help“ through the typical green and red dots is a very basic „quick and dirty“ implementation. So far it can not be toggled. As soon as you are in the air the dotted trail will show.
+
+If you don't use a flightplan, the waypoint page uses the starting waypoint as "Home". This waypoint currently has no altitude, screwing up the estimation of arrival height above ground level in thie constellation.
 
 <h2>Conflicts with other mods</h2>
 
