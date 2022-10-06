@@ -531,7 +531,7 @@ class lxn extends NavSystemTouch {
 			let seconds = Math.floor(time % 60);
 			let minutes = Math.floor((time / 60) % 60);
 			let hours = Math.floor(Math.min(time / 3600, 99));
-			result = ("0" + hours).substr(-2) + ":" + ("0" + minutes).substr(-2) + ":" + ("0" + seconds).substr(-2);
+			result = hours + ":" + ("0" + minutes).substr(-2) + ":" + ("0" + seconds).substr(-2);
 			
         }
 
