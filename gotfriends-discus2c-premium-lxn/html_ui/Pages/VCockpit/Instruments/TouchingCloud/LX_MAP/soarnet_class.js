@@ -124,9 +124,7 @@ SOARNET.displayUserList = function(){
             if(typeof(TOPOMAP.addLayer) == "function" && user != this.userId) {
                 NAVMAP.paintMultiplayers(user, SOARNET.eventusers[user]);
             }
-        } else {
-            
-        }      
+        }     
     }
 
     finisherlist.sort((a,b) => {
