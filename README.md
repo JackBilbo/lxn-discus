@@ -3,10 +3,16 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <h2>New Features:</h2>
 
-- Compatible with Discus 2.0.5 as well as earlier versions
+- Compatible with Discus 2.0.5
 
-- Bugfix: 
-  - Vertical speed ans wind can now be displayed as feet per second
+- Hardware buttons in cockpit remapped:
+  - top left: map zoom
+  - bottom left: page right/left
+  - bottom right: page up/down
+
+No more "click and drag" for page switch
+
+various bug fixes
   
 
 <h2>Installation:</h2>
@@ -19,19 +25,21 @@ You may experience conflicts wit other existing mods, especially livery mods. Se
 
 <h2>Basic Features:</h2>
 
-All Information is organized in „pages“ (horizontally) and „sub-pages“ (vertically). Pages can be changed by „click and drag“ with the mouse or - more comfortably - through keybinding „INCREASE/DECREASE COM1 (WHOLE)“ for horizontal and „INCREASE/DECREASE COM1 (FRACT)“ for vertical scrolling.
+All Information is organized in „pages“ (horizontally) and „sub-pages“ (vertically). Pages can be changed by „turning“ the rotary buttons on the bottom of the screen: left turns pages left/right, right button switches up/down. Alternatively you can keybind „INCREASE/DECREASE COM1 (WHOLE)“ for horizontal and „INCREASE/DECREASE COM1 (FRACT)“ for vertical scrolling.
 
 Currently there are five main pages: „APT“ for navigation to the selected Airport, „WPT“ for navigating a task/flightplan, „TASK“ for the current state of the task, "Kinetic Assitant" for launching through KA and „CONFIG“ for Unit switching, ballast management and some system settings. 
 
 „APT“ Page automatically selects the nearest Airport as target. On the first subpage there's a bit of info about that airport including runway orientation and dimensions. The second subpage features a list of close airports where you can click any airport to select it for navigation. Click the selected airport again to return to "closest airport navigation". On the map a yellow line will be drawn from your glider to the selected airport to show the direction to fly.
 
-"WPT" is similar, except the navigation target is the current waypoint of the loaded flightplan. Using the buttons in the headerbar waypoints can be selected. The map will also show a yellow course-line from your glider to the waypoint to indicate the direction to fly. As a subpage to "WPT" you find a "thermalling help" page, displaying wind, climb and average climb for the current/last therma (a "thermal" is detected, when circling for more than 25 seconds). The lower section displays a bar chart of all thermals in the löast 40 minutes on the left and a graph of climb/sink values in the right half.
+"WPT" is similar, except the navigation target is the current waypoint of the loaded flightplan. Using the buttons in the headerbar waypoints can be selected. The map will also show a yellow course-line from your glider to the waypoint to indicate the direction to fly. As a subpage to "WPT" you find the "thermalling help" page (originally buildt by B21 for the AS33), displaying wind, climb and average climb for the current/last therma (a "thermal" is detected, when circling for more than 25 seconds). The lower section displays a bar chart of all thermals in the last 40 minutes on the left and a graph of climb/sink values in the right half.
 
 „APT“ and „WPT“ feature a maximum of 16 data fields each, that can be configured in game. The „tools“ button in the upper right hand corner of the map toggles „configuration mode“. Data fields are then marked with a light blue outline. Click any data field to bring up a popup, where you can set background color, text color and Information to be displayed. A second background color can be selected to be displayed when the displayed value <= 0 (e.g. switch background to red when arrival height is negative)
 
-Data field Configurations are persistent between simulator sessions. Click „reset all“ in the configuration popup to reset all data fields to default. Configurations are also persitent with different versions of this mod, so if you used an oder version or install an update, your settings will be save. There is however a slight chance, that a variable name gets mixed up, so if you experience any erratic behaviour with the datafields, try "reset all" and see if that helps.
+Data field configurations are persistent between simulator sessions. Click „reset all“ in the configuration popup to reset all data fields to default. Configurations are also persitent with different versions of this mod, so if you used another version or install an update, your settings will be save. There is however a slight chance, that a variable name gets mixed up, so if you experience any erratic behaviour with the datafields, try "reset all" and see if that helps.
 
 Data fields can be forced to use either metric or imperial units of measurement. Use with caution. If activated, the datafield will ignore the global unit selection. This feaature gives you the option to e.g. display altitude in feet side by side with altitude in meters. If a datafield has been configured this way an "*" is shown next to the unit as a reminder. 
+
+In standard mode the data fields are rather small and can be hard to read especially in VR. As a solution an "improved readability" mode can be activated in the "interface options". That mode shows only six data fields per page but with much larger text. Also a few other interface elements are enlarged in this mode.
 
 The task management system is Ian „B21“ Lewis’ Soaring Engine from the AS33. Some features like calculating glide ratios could not be recreated, as they are dependent of other instruments in the AS33. Others are still on the to do list.
 
@@ -46,9 +54,11 @@ The Config-Page gives you access to various settings:
   - "Readability Mode" can be activated here to get some bigger readouts (and less data fields) 
   - toggle liftdot-trail on the map
   - Visual stall warning. If activated, the screen will flash red when the aircraft is close to a stall.
-- Bugs: An experimental feature to control arrival height calculations. In real life gliders dead insects on the wing's leading edge will deteriorate glide perfomance. Therefore a "bug factor" can be used in arrival height calculations. While you won't kill any simulated insects on your simulated wings, you can still use this factor to account for inaccuracies in the flight model or inefficiencies of the pilot. If you find you are constantly arriving lower than the predicted altitude try flying with a lower "bugs" value. This value is not persistent between sessions, because we all know, that you are cleaning your wings after each flight. Values can range from 0 to 100, default is 100 - completely clean, shiny wings. To point that out again: this setting does NOT affect your gliders performance in any way. ONLY the calculated arrival height.
+  - Wind Indicator hide or show
+  - Course Pointer Arrow - if on shows an arrow on top of the map indicating the direction you need to turn to fly towards you current nav target (waypoint or airport). As an indicator for larger deviations a small chevron is added to the arrow for every 30 degrees
+  - Auto MacCready: uses data from the thermalling help page to update you MacCready setting after every thermal. Adds half of the difference between MC setting and average climb in the last thermal to your setting. Example: you start with MC 0 and find average climb of 2m/s in your first thermal. After exiting the thermal AutoMC will set MC=1. Fly another thermal of 2m/s, the difference is 1, 0.5 added to a total of MC=1.5. You can always cahnge the setting manually with the to right rotary button regardless of AutoMC setting.
 
-All config settings apart from bugs and ballast are persistent between sessions. Just make sure to click "close" after making any changes.
+All config settings apart from ballast are persistent between sessions. Just make sure to click "close & save" after making any changes.
 
 <h2>Some more Details</h2>
 
@@ -67,8 +77,6 @@ The map view features a lot of information to help you optimize your flight:
   
 To make all this soaring task magic work, the flightplan needs to provide more information than usually present in MSFS generated flightplans. Easiest way to achieve that is to use B21's task planner to plan your flights: https://xp-soaring.github.io/tasks/b21_task_planner/index.html
 
-If you used an earlier version of this mod you might miss the buttons to set the MacCready value. This setting is now using the hardware button to the top right of the screen, that's also setting the MacCready pointer in the V80 Vario.
-
 Why use that MacCready setting? There's a lot more theory around that than can be covered here, but on thing important: calculation of estimated arrival height and time enroute is based on the suggested speed to fly (indicated as STF under the speed tape instrument), which is in turn influenced by MacCready setting and carried ballast. In short: the more ballast and the higher MacCready, the higher the calculated speed to fly. The more your actual speed deviates from the calculated speed to fly, the less accurate your arrival height estimations will be. You can also turn that around: on final glide you can turn the MacCready value up and see the estimated arrival height go down (due to more sink at higher speeds) until you get a safe altitude estimation. Now your computer tells you the maximum speed to fly, that still gets you to finish safely.
 
 
@@ -82,15 +90,6 @@ Waypoint next/prev: INCREASE/DECREASE TRANSPONDER (1000)
 Map Zoom:           INCREASE/DECREASE TRANSPONDER (10)
 Map Orientation:    INCREASE/DECREASE TRANSPONDER (1)
 
-<h2>Known Limitations:</h2>
-
-Changing pages and subpages with "click and drag" in flight requires a lot of mouse handling skills :-) I recommend keybinding. Way up on the roadmap is using the rotary buttons aroud the screen for navigation as it is in the real world device.
-
-The map can not be panned. To avoid collision with „click and drag“ page changing another „mode switch“ would be needed. Considering the current quality of the ingame map, I don’t think it’s worth the added complexity.
-
-„Thermalling help“ through the typical green and red dots is a very basic „quick and dirty“ implementation. So far it can not be toggled. As soon as you are in the air the dotted trail will show.
-
-If you don't use a flightplan, the waypoint page uses the starting waypoint as "Home". This waypoint currently has no altitude, screwing up the estimation of arrival height above ground level in thie constellation.
 
 <h2>Conflicts with other mods</h2>
 
