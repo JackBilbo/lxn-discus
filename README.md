@@ -17,7 +17,7 @@ various bug fixes
 
 <h2>Installation:</h2>
 
-Simply drop the included folder "gotfriends-discus2c-premium-lxn" into your community folder. If you use the freeware version you need to change the folder name to "gotfriends-discus2c-freeware-lxn", everything else will work fine in both versions. No need to change anything in your existing installation. To uninstall, delete the folder and you're "back to normal".
+Simply drop the included folder "gotfriends-discus2c-premium-lxn" into your community folder. In spite of being named "premium" the mod works with the freeware version as well. Make sure to copy the right folder. Directly unpacking into the community folder will give you one directory too much. To uninstall, delete the folder and you're "back to normal".
 
 <b>Important: </b>If the map fails to load on first load / longer load times, simply hit "escape" and restart the flight. This will fix the issue.
 
