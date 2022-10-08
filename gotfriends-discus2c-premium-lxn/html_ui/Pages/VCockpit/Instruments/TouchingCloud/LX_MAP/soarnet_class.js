@@ -10,6 +10,14 @@ class soarnet {
 
         document.getElementById("mpformsubmit").addEventListener("click", function(e) {
             e.preventDefault();
+            if(SOARNET.checkvalue != "isActive") { 
+                document.querySelector("#mp_info").innerHTML = "Sorry, system currently not available";
+                return false; 
+            }
+            if(document.getElementById("username").value == "") {
+                document.querySelector("#mp_info").innerHTML = "Please enter a username";
+                return false; 
+            }
             SN.mpUsername = document.getElementById("username").value;
             SN.isActive = true;
             console.log("Username entered");
@@ -26,11 +34,18 @@ class soarnet {
         if(this.isActive) {
             this.updateUserdata();
             SOARNET.displayUserList();
+
+            let time_to_start = parseInt((Date.now() - Date.parse(SOARNET.eventDetails.test.start)) / 1000);  
+            if (time_to_start < 0 && !B21_SOARING_ENGINE.task_started()) {
+                this.instrument.vars.tasktime.value = time_to_start;
+            }
+
         }
         
     }
 
     updateUserdata() {
+        document.querySelector("#mp_info").innerHTML = "";
         let taskstate = "not started";
         if(B21_SOARING_ENGINE.task_started()) { taskstate = "started" }
         if(B21_SOARING_ENGINE.task_finished()) { taskstate = "finished" }
@@ -66,6 +81,7 @@ SOARNET.displayUserList = function(){
             if(SOARNET.eventusers[user].taskstate == "finished") {
                 finisherlist.push(SOARNET.eventusers[user]);
             } else {
+                if (SOARNET.eventusers[user].taskstate == "not started") { SOARNET.eventusers[user].dist = -1; }
                 userList.push(SOARNET.eventusers[user]);
             }
             
@@ -80,7 +96,7 @@ SOARNET.displayUserList = function(){
       })
 
     userList.sort((a,b) => {
-      return parseInt(b.dist) - parseInt(a.dist);
+        return parseInt(b.dist) - parseInt(a.dist);
     })
 
     let i = 1;
@@ -91,7 +107,7 @@ SOARNET.displayUserList = function(){
     })
 
     userList.forEach((el) => {
-      list.innerHTML += "<tr><td class='alignright'>" + (el.taskstate == "not started" ? "--" : i) + "</td><td class='mpusername'>" + el.username + "</td><td>" + LXN.displayValue(el.alt, "ft", "alt") + "</td><td class='alignright'>" + LXN.displayValue(el.avg, "kts", "speed") + "</td><td class='alignright'>" + (el.taskstate == "not started" ? "0" : LXN.displayValue(el.dist, "m", "dist")) + "</td></tr>";
+      list.innerHTML += "<tr><td class='alignright'>" + (el.taskstate == "not started" ? "--" : i) + "</td><td class='mpusername'>" + el.username + "</td><td>" + LXN.displayValue(el.alt, "ft", "alt") + "</td><td class='alignright'>" + (el.taskstate == "not started" ? "-" : LXN.displayValue(el.avg, "kts", "speed")) + "</td><td class='alignright'>" + (el.taskstate == "not started" ? "0" : LXN.displayValue(el.dist, "m", "dist")) + "</td></tr>";
       i++;  
     })
   }

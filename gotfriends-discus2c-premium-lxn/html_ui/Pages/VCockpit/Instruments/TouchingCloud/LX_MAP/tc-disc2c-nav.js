@@ -527,11 +527,12 @@ class lxn extends NavSystemTouch {
 
         /* We'll propably see a huge amount of special formatting exceptions here for various unit types. "+" for AGL e.g. */
         if(category == "time_of_day") {
-            let time = val;
+            let prefix = val < 0 ? "-" : "";
+            let time = Math.abs(val);
 			let seconds = Math.floor(time % 60);
 			let minutes = Math.floor((time / 60) % 60);
 			let hours = Math.floor(Math.min(time / 3600, 99));
-			result = hours + ":" + ("0" + minutes).substr(-2) + ":" + ("0" + seconds).substr(-2);
+			result = prefix + hours + ":" + ("0" + minutes).substr(-2) + ":" + ("0" + seconds).substr(-2);
 			
         }
 
