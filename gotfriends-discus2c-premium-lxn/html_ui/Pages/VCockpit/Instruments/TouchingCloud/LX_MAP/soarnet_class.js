@@ -97,5 +97,5 @@ SOARNET.displayUserList = function(){
   }
 
 SOARNET.updateEventInfo = function() {
-    
+    return false;
 }
