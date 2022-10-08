@@ -1,46 +1,10 @@
 # lxn-discus
 Replacement mod for the GotFriends Discus' Nav computer
 
-<h2>Fixes and Features:</h2>
-
-<strong>Check for slew and engine use</strong>
-
-Using the engine or slew mode during a task will now be registered and invalidate the task. Using either before start or after finish line will have no consequences.
-
-<strong>Dynamic Overspeed Warning:</strong>
-
-The speedtape gauge  shows a dynamic estimation of Vne translated to indicated airspeed as "red zone". Additionally the background of the speed tape will gradually turn orange as your speed get's closer to Vne.
-
-
-<strong>Reworked Digital Variometer</strong>
-
-This mod contains a visual rework of the digital vario. If you don't like it and want to keep the original, head for the folder /SimObjects/Airplanes/gotfriends-discus2c(-fes)/panel/ and rename panel_original_vario.cfg into panel.cfg (delete or rename the existing file) and you are back to normal. Alternatively just open the panel.cfg in a text editor and place the comment marks for [VCockpit06] accordingly to load the vario you prefer.
-
-The rework contains a slightly enlarged scale and needles for better readability with five indicators:
-- orange: current climb/sink (TE or netto as selected by the bottom right knob)
-- turquoise: current vertical wind component (RL-inspiration: https://gliding.lxnav.com/news/hawk-wind-calculation/)
-- red square: 10s average climb/sink
-- small green T: total true average of the last thermal (as calculated by the thermal helper page in the LX computer)
-- blue triangle: MacCready setting
-
-The orange arc marks the range of values measured during the last ten seconds.
-
-Center of the instrument can display four different screens:
-
-- data fields for current and average climb plus a (VERY) tiny speedtape and STF-Marker
-- horizontal wind info (HAWK-style see above)
-- simple artificial horizon
-- slider to adjust "current" needle smoothing (calculating average values) between 0 and 5 seconds. Allows to change the sensitivity of the vario needle in gusty conditions. Higher values will make the vario less responsive when entering lift, but filter out rapid movement from rapidly changing wind speeds.
-
-Screens can be cycled using the top and bottom button on the right. Center button toggles between the default linear and a logarithmic scale. You can also cycle screens using alt/a alt/s on the keyboard (doesn't work in VR).
-
-Audio output of the vario is completely unchanged.
-
-
 
 <h2>Installation:</h2>
 
-Simply drop the included folder "gotfriends-discus2c-premium-lxn" into your community folder. No need to change anything in your existing installation. To uninstall, delete the folder and you're "back to normal".
+Simply drop the included folder "gotfriends-discus2c-premium-lxn" into your community folder. If you use the freeware version you need to change the folder name to "gotfriends-discus2c-freeware-lxn", everything else will work fine in both versions. No need to change anything in your existing installation. To uninstall, delete the folder and you're "back to normal". 
 
 You may experience conflicts with other existing mods, especially livery mods. See below for possible solutions.
 
@@ -134,8 +98,8 @@ If you have a basic understanding of what HTML, Javascript and CSS are, jump int
 
 The front end is intended to be easily extensible with new features. New pages and sub-pages can be added by simply copy/pasting the respective HTML-Structures.
 
-All variables that are displayed in the frontend are stored in the „this.vars“-object. This object contains the value itself as well as unit- and label-information and make the variable user-selectable in the in game configuration popup. To add a new readout to your panel all you have to do is add a line to the „this.vars“-object with your own variable name and label/unit information. When you start the next flight, you can simply assign your variable value to a data field of your choice and if the variable value is manipulated somewhere in the javascript, the cockpit readout will be updated automatically.
+All variables that are displayed in the frontend are stored in the „this.vars“-object in the file tc-dsic2c-nav.js. This object contains the value itself as well as unit- and label-information and makes the variable user-selectable in the in game configuration popup. To add a new readout to your panel all you have to do is add a line to the „this.vars“-object with your own variable name and label/unit information. When you start the next flight, you can simply assign your variable value to a data field of your choice and if the variable value is manipulated somewhere in the javascript, the cockpit readout will be updated automatically.
 
-If you need a variable displayed somewhere outside of the data fields, you can do so directly in the html using the attributes class=“livedata“ data-value=„VARIABLE“. See the total ballast readout in the "Ballast" configuration as an example.
+If you need a variable displayed somewhere outside of the data fields, you can do so directly in the html using the attributes class=“livedata“ data-value=„VARIABLE“.
 
 Units: All variables are kept in a „base unit“, which is (currently) „imperial“ units. When displayed in a data field or as „livedata“ in the html the value is converted to the user preferred unit. So if you like to display a distance you should store nautical miles in the variable and conversion will be automatic.
