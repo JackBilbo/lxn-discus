@@ -3,17 +3,7 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <h2>New Features:</h2>
 
-- Compatible with Discus 2.0.5
-
-- Hardware buttons in cockpit remapped:
-  - top left: map zoom
-  - bottom left: page right/left
-  - bottom right: page up/down
-
-No more "click and drag" for page switch
-
-various bug fixes
-  
+ 
 
 <h2>Installation:</h2>
 
