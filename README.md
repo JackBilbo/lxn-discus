@@ -69,11 +69,11 @@ Why use that MacCready setting? There's a lot more theory around that than can b
 
 Several functions can be operated by keybinds from joystick or throttle:
 
-Page left/right:    INCREASE/DECREASE COM1 (WHOLE)
-Page up/down:       INCREASE/DECREASE COM1 (FRACT)
-Waypoint next/prev: INCREASE/DECREASE TRANSPONDER (1000)
-Map Zoom:           INCREASE/DECREASE TRANSPONDER (10)
-Map Orientation:    INCREASE/DECREASE TRANSPONDER (1)
+- Page left/right:    INCREASE/DECREASE COM1 (WHOLE)
+- Page up/down:       INCREASE/DECREASE COM1 (FRACT)
+- Waypoint next/prev: INCREASE/DECREASE TRANSPONDER (1000)
+- Map Zoom:           INCREASE/DECREASE TRANSPONDER (10)
+- Map Orientation:    INCREASE/DECREASE TRANSPONDER (1)
 
 <h2>Known Limitations:</h2>
 
