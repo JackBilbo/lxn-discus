@@ -45,8 +45,13 @@
 
 .mp {
 	font-size: 3rem;
-	padding: 1em;
+	padding: 0.5em;
 	
+}
+
+#mp_info {
+	font-size: 3rem;
+	line-height: 1.6;
 }
 
 #mpform {
