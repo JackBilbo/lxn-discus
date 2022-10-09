@@ -23,7 +23,7 @@
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navmap_topomap.js",
       "size": 22282,
-      "date": 133095591522841370
+      "date": 133097076806050980
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navpanel.js",
@@ -33,22 +33,22 @@
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/soarnet.js",
       "size": 318281,
-      "date": 133095591522861373
+      "date": 133097076806071021
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/soarnet_class.js",
-      "size": 2640,
-      "date": 133095591522861373
+      "size": 4852,
+      "date": 133097801275989151
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.html",
-      "size": 43896,
-      "date": 133095591522871367
+      "size": 44639,
+      "date": 133097812049098352
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.js",
-      "size": 53827,
-      "date": 133095591522871367
+      "size": 53873,
+      "date": 133097156348887769
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_includes/geo.js",
@@ -82,8 +82,13 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/bignumbers.css",
-      "size": 1478,
-      "date": 133095591522841370
+      "size": 823,
+      "date": 133097808666391254
+    },
+    {
+      "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/soarnet.css",
+      "size": 1110,
+      "date": 133097812223807860
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/task-page.css",
@@ -93,7 +98,7 @@
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/tc-disc2c-nav.css",
       "size": 23110,
-      "date": 133095586679472359
+      "date": 133097076806040978
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/thermalling_display/thermalling_display.css",

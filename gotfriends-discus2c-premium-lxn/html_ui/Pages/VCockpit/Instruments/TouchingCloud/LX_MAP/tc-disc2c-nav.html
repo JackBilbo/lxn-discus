@@ -6,6 +6,7 @@
       integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
       crossorigin=""/>
 <link rel="stylesheet" href="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/thermalling_display/thermalling_display.css?a" />
+<link rel="stylesheet" href="/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/soarnet.css" />
 
 <script type="text/html" id="lxn">
     <div id="Mainframe" class="map_northup">
@@ -604,7 +605,7 @@
 					<div class="pageframe">
 						<div class="page">
 							
-							<div class="content mp">
+							<div class="content mp notConnected">
 								<form id="mpform">
 									<input type="text" id="username" placeholder="Username">
 									<button id="mpformsubmit">LOGIN</button>
@@ -618,7 +619,27 @@
 
 									</tbody>
 								</table>
+
+								<div class="configpanel_buttons">
+									<a href="#" id="disconnect" class="servicelink">Disconnect</a>
+								</div>
+
 								
+								<div id="events">
+									<p class="eventheader">Click to join or create an event</p>
+									<ul id="eventlist">
+										
+									</ul>
+									<a href="#" id="addEventLink">Add new flight</a>
+									<form id="addEvent" class="off">
+										<input type="text" name="eventtitle" id="eventtitle" placeholder="Flight title">
+										<div class="timeinput">
+											<label>Task start UTC:</label><input type="text" name="utchours" id="utchours">:<input type="text" name="utcmin" id="utcmin">
+										</div>
+										<input type="submit" value="Create Flight">
+									</form>
+
+								</div>
 							</div>
 						</div>
 					</div>
