@@ -47,8 +47,9 @@ class soarnet {
     updateUserdata() {
         document.querySelector("#mp_info").innerHTML = "";
         let taskstate = "not started";
-        if(B21_SOARING_ENGINE.task_started()) { taskstate = "started" }
-        if(B21_SOARING_ENGINE.task_finished()) { taskstate = "finished" }
+        let avg_speed = 0;
+        if(B21_SOARING_ENGINE.task_started()) { taskstate = "started"; avg_speed = B21_SOARING_ENGINE.task.avg_task_speed_kts(); }
+        if(B21_SOARING_ENGINE.task_finished()) { taskstate = "finished"; avg_speed = B21_SOARING_ENGINE.finish_speed_ms() / 0.51444; }
 
         SOARNET.userId = SOARNET.userId == "" ? SOARNET.getUserId() : SOARNET.userId ;
         SOARNET.writeUserData(
@@ -59,7 +60,7 @@ class soarnet {
                 "hdg":      this.instrument.vars.hdg.value,
                 "alt":      this.instrument.vars.alt.value,
                 "dist":     B21_SOARING_ENGINE.task.distance_m() - B21_SOARING_ENGINE.task.remaining_distance_m(),
-                "avg":      B21_SOARING_ENGINE.task.avg_task_speed_kts(),
+                "avg":      avg_speed,
                 "tasktime": this.instrument.vars.tasktime.value,
                 "taskstate":taskstate,
                 "time":     Math.floor(Date.now() / 1000)
