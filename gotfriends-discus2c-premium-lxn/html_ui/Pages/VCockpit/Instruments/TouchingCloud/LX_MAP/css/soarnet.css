@@ -1,0 +1,122 @@
+
+/* ---------- */
+
+.mp {
+	font-size: 3rem;
+	padding: 0.5em;
+	
+}
+
+.mp p {
+	font-size: 3rem;
+	line-height: 1.6;
+}
+
+#mpform {
+	display: flex;
+	position: relative;
+	margin-bottom: 2rem;
+}
+
+#mpform input, #mpform button, #addEvent input {
+	font-size: 3rem;
+	padding: 0.5rem 1rem;
+}
+
+#mpform #username {
+	width: 70%;
+}
+
+#mpform input[type='submit'] {
+	width: 25%;
+}
+
+#userlist {
+	width: 100%;
+}
+
+#userlist th {
+	text-align: left;
+}
+
+#userlist td, #userlist th {
+	padding: 0.5rem 1rem;
+	border-bottom: 1px solid #666;
+}
+
+#userlist .alignright {
+	text-align: right;
+}
+
+#userlist .mpusername {
+	max-width: 7.5em;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+#events {
+    background: #333;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0.5em;
+    display: none;
+}
+
+.eventheader {
+    margin: 1em 0 0.5em;
+}
+
+.notConnected #events {
+    display: block;
+}
+
+#eventlist li, #addEvent, #addEventLink {
+    display: block;
+    list-style: none;
+    padding: 0.5em;
+    background-color: #444;
+    border: 1px solid #888;
+    margin-bottom: 0.5em;
+    color: #fff;
+    text-decoration: none;
+}
+
+.timeinput {
+    display: flex;
+    flex-direction: row;
+    margin: 1em 0;
+}
+
+.timeinput input {
+    width: 2em;
+}
+
+#addEvent {
+    overflow: hidden;
+    max-height: 0;
+    padding: 0 0.5em;
+    border: 1px solid #333;
+    transition: all 0.3s;
+}
+
+#addEvent.on {
+    max-height: 600px;
+    padding: 0.5em;
+    border: 1px solid #888;
+}
+
+#eventlist li {
+    position: relative;
+}
+
+.eventClickhandler {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

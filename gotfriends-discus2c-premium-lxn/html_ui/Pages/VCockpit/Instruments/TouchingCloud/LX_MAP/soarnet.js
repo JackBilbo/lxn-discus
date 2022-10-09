@@ -123,14 +123,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
             _r2 = _t2 + 1 < e.length,
             _o = _r2 ? e[_t2 + 1] : 0,
             _a = _t2 + 2 < e.length,
-            _h = _a ? e[_t2 + 2] : 0,
-            _l = _s3 >> 2,
+            _l = _a ? e[_t2 + 2] : 0,
+            _h = _s3 >> 2,
             _c = (3 & _s3) << 4 | _o >> 4;
 
-        var _u = (15 & _o) << 2 | _h >> 6,
-            _d = 63 & _h;
+        var _u = (15 & _o) << 2 | _l >> 6,
+            _d = 63 & _l;
 
-        _a || (_d = 64, _r2 || (_u = 64)), i.push(n[_l], n[_c], n[_u], n[_d]);
+        _a || (_d = 64, _r2 || (_u = 64)), i.push(n[_h], n[_c], n[_u], n[_d]);
       }
 
       return i.join("");
@@ -182,9 +182,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
         if (++_t3, null == _s5 || null == _r6 || null == _o3 || null == _a2) throw Error();
 
-        var _h2 = _s5 << 2 | _r6 >> 4;
+        var _l2 = _s5 << 2 | _r6 >> 4;
 
-        if (i.push(_h2), 64 !== _o3) {
+        if (i.push(_l2), 64 !== _o3) {
           var _e3 = _r6 << 4 & 240 | _o3 >> 2;
 
           if (i.push(_e3), 64 !== _a2) {
@@ -225,10 +225,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   };
 
   function a(e) {
-    return h(void 0, e);
+    return l(void 0, e);
   }
 
-  function h(e, t) {
+  function l(e, t) {
     if (!(t instanceof Object)) return t;
 
     switch (t.constructor) {
@@ -248,24 +248,24 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }
 
     for (var _n2 in t) {
-      t.hasOwnProperty(_n2) && "__proto__" !== _n2 && (e[_n2] = h(e[_n2], t[_n2]));
+      t.hasOwnProperty(_n2) && "__proto__" !== _n2 && (e[_n2] = l(e[_n2], t[_n2]));
     }
 
     return e;
   }
 
-  var l = /*#__PURE__*/function () {
-    function l() {
+  var h = /*#__PURE__*/function () {
+    function h() {
       var _this = this;
 
-      _classCallCheck(this, l);
+      _classCallCheck(this, h);
 
       this.reject = function () {}, this.resolve = function () {}, this.promise = new Promise(function (e, t) {
         _this.resolve = e, _this.reject = t;
       });
     }
 
-    _createClass(l, [{
+    _createClass(h, [{
       key: "wrapCallback",
       value: function wrapCallback(e) {
         var _this2 = this;
@@ -276,7 +276,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return l;
+    return h;
   }();
 
   function c() {
@@ -451,18 +451,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
             r = this.chain_[0],
             o = this.chain_[1],
             a = this.chain_[2],
-            h = this.chain_[3],
-            l = this.chain_[4];
+            l = this.chain_[3],
+            h = this.chain_[4];
 
         for (var _e9 = 0; _e9 < 80; _e9++) {
-          _e9 < 40 ? _e9 < 20 ? (i = h ^ o & (a ^ h), s = 1518500249) : (i = o ^ a ^ h, s = 1859775393) : _e9 < 60 ? (i = o & a | h & (o | a), s = 2400959708) : (i = o ^ a ^ h, s = 3395469782);
+          _e9 < 40 ? _e9 < 20 ? (i = l ^ o & (a ^ l), s = 1518500249) : (i = o ^ a ^ l, s = 1859775393) : _e9 < 60 ? (i = o & a | l & (o | a), s = 2400959708) : (i = o ^ a ^ l, s = 3395469782);
 
-          var _t6 = (r << 5 | r >>> 27) + i + l + s + n[_e9] & 4294967295;
+          var _t6 = (r << 5 | r >>> 27) + i + h + s + n[_e9] & 4294967295;
 
-          l = h, h = a, a = 4294967295 & (o << 30 | o >>> 2), o = r, r = _t6;
+          h = l, l = a, a = 4294967295 & (o << 30 | o >>> 2), o = r, r = _t6;
         }
 
-        this.chain_[0] = this.chain_[0] + r & 4294967295, this.chain_[1] = this.chain_[1] + o & 4294967295, this.chain_[2] = this.chain_[2] + a & 4294967295, this.chain_[3] = this.chain_[3] + h & 4294967295, this.chain_[4] = this.chain_[4] + l & 4294967295;
+        this.chain_[0] = this.chain_[0] + r & 4294967295, this.chain_[1] = this.chain_[1] + o & 4294967295, this.chain_[2] = this.chain_[2] + a & 4294967295, this.chain_[3] = this.chain_[3] + l & 4294967295, this.chain_[4] = this.chain_[4] + h & 4294967295;
       }
     }, {
       key: "update",
@@ -590,7 +590,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var t = this.normalizeInstanceIdentifier(e);
 
         if (!this.instancesDeferred.has(t)) {
-          var _e11 = new l();
+          var _e11 = new h();
 
           if (this.instancesDeferred.set(t, _e11), this.isInitialized(t) || this.shouldAutoInitialize()) try {
             var _n6 = this.getOrInitializeService({
@@ -1192,7 +1192,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }
   }
 
-  function he(e) {
+  function le(e) {
     var t = e.name;
     if (oe.has(t)) return ie.debug("There were multiple attempts to register component ".concat(t, ".")), !1;
     oe.set(t, e);
@@ -1214,7 +1214,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return !0;
   }
 
-  var le = new d("app", "Firebase", {
+  var he = new d("app", "Firebase", {
     "no-app": "No Firebase App '{$appName}' has been created - call Firebase App.initializeApp()",
     "bad-app-name": "Illegal App name: '{$appName}",
     "duplicate-app": "Firebase App named '{$appName}' already exists with different options or config",
@@ -1277,7 +1277,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "checkDestroyed",
       value: function checkDestroyed() {
-        if (this.isDeleted) throw le.create("app-deleted", {
+        if (this.isDeleted) throw he.create("app-deleted", {
           appName: this._name
         });
       }
@@ -1298,7 +1298,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       return r && _e15.push("library name \"".concat(s, "\" contains illegal characters (whitespace or \"/\")")), r && o && _e15.push("and"), o && _e15.push("version name \"".concat(t, "\" contains illegal characters (whitespace or \"/\")")), void ie.warn(_e15.join(" "));
     }
 
-    he(new k("".concat(s, "-version"), function () {
+    le(new k("".concat(s, "-version"), function () {
       return {
         library: s,
         version: t
@@ -1335,7 +1335,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         0 === t && e.createObjectStore(de);
       }
     })["catch"](function (e) {
-      throw le.create("idb-open", {
+      throw he.create("idb-open", {
         originalErrorMessage: e.message
       });
     })), pe;
@@ -1370,7 +1370,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
               _context11.prev = 10;
               _context11.t0 = _context11["catch"](0);
               if (_context11.t0 instanceof u) ie.warn(_context11.t0.message);else {
-                _t61 = le.create("idb-set", {
+                _t61 = he.create("idb-set", {
                   originalErrorMessage: null === (n = _context11.t0) || void 0 === n ? void 0 : n.message
                 });
                 ie.warn(_t61.message);
@@ -1669,7 +1669,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
                               _context6.prev = 6;
                               _context6.t0 = _context6["catch"](0);
                               if (_context6.t0 instanceof u) ie.warn(_context6.t0.message);else {
-                                _n9 = le.create("idb-get", {
+                                _n9 = he.create("idb-get", {
                                   originalErrorMessage: null === (t = _context6.t0) || void 0 === t ? void 0 : t.message
                                 });
                                 ie.warn(_n9.message);
@@ -1820,9 +1820,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     })).length;
   }
 
-  he(new k("platform-logger", function (e) {
+  le(new k("platform-logger", function (e) {
     return new ee(e);
-  }, "PRIVATE")), he(new k("heartbeat", function (e) {
+  }, "PRIVATE")), le(new k("heartbeat", function (e) {
     return new me(e);
   }, "PRIVATE")), ue(te, ne, ""), ue(te, ne, "esm2017"), ue("fire-js", ""), ue("firebase", "9.10.0", "app");
   var we = "@firebase/database",
@@ -2060,16 +2060,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }
 
     a.push(n ? 1 : 0), a.reverse();
-    var h = a.join("");
-    var l = "";
+    var l = a.join("");
+    var h = "";
 
     for (o = 0; o < 64; o += 8) {
-      var _e17 = parseInt(h.substr(o, 8), 2).toString(16);
+      var _e17 = parseInt(l.substr(o, 8), 2).toString(16);
 
-      1 === _e17.length && (_e17 = "0" + _e17), l += _e17;
+      1 === _e17.length && (_e17 = "0" + _e17), h += _e17;
     }
 
-    return l.toLowerCase();
+    return h.toLowerCase();
   },
       Qe = new RegExp("^-?(0*)\\d{1,10}$"),
       Je = function Je(e) {
@@ -2285,14 +2285,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }), s + r.join("&");
   }
 
-  var ht = /*#__PURE__*/function () {
-    function ht() {
-      _classCallCheck(this, ht);
+  var lt = /*#__PURE__*/function () {
+    function lt() {
+      _classCallCheck(this, lt);
 
       this.counters_ = {};
     }
 
-    _createClass(ht, [{
+    _createClass(lt, [{
       key: "incrementCounter",
       value: function incrementCounter(e) {
         var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -2305,15 +2305,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return ht;
+    return lt;
   }();
 
-  var lt = {},
+  var ht = {},
       ct = {};
 
   function ut(e) {
     var t = e.toString();
-    return lt[t] || (lt[t] = new ht()), lt[t];
+    return ht[t] || (ht[t] = new lt()), ht[t];
   }
 
   var dt = /*#__PURE__*/function () {
@@ -2867,10 +2867,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   mt.globalTransportInitialized_ = !1;
 
   var yt = /*#__PURE__*/function () {
-    function yt(e, t, n, i, s, r, o, a, h, l) {
+    function yt(e, t, n, i, s, r, o, a, l, h) {
       _classCallCheck(this, yt);
 
-      this.id = e, this.repoInfo_ = t, this.applicationId_ = n, this.appCheckToken_ = i, this.authToken_ = s, this.onMessage_ = r, this.onReady_ = o, this.onDisconnect_ = a, this.onKill_ = h, this.lastSessionId = l, this.connectionCount = 0, this.pendingDataMessages = [], this.state_ = 0, this.log_ = Le("c:" + this.id + ":"), this.transportManager_ = new mt(t), this.log_("Connection created"), this.start_();
+      this.id = e, this.repoInfo_ = t, this.applicationId_ = n, this.appCheckToken_ = i, this.authToken_ = s, this.onMessage_ = r, this.onReady_ = o, this.onDisconnect_ = a, this.onKill_ = l, this.lastSessionId = h, this.connectionCount = 0, this.pendingDataMessages = [], this.state_ = 0, this.log_ = Le("c:" + this.id + ":"), this.transportManager_ = new mt(t), this.log_("Connection created"), this.start_();
     }
 
     _createClass(yt, [{
@@ -3444,7 +3444,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       key: "get",
       value: function get(e) {
         this.initConnection_();
-        var t = new l(),
+        var t = new h(),
             n = {
           action: "g",
           request: {
@@ -3741,7 +3741,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var _establishConnection_ = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
           var _this33 = this;
 
-          var t, _n29, _i18, _s11, _r10, _o5, _a3, _h3, _l2, _c2, _yield$Promise$all, _yield$Promise$all2, _e37, _h4;
+          var t, _n29, _i18, _s11, _r10, _o5, _a3, _l3, _h2, _c2, _yield$Promise$all, _yield$Promise$all2, _e37, _l4;
 
           return _regeneratorRuntime().wrap(function _callee10$(_context10) {
             while (1) {
@@ -3755,14 +3755,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
                   this.log_("Making a connection attempt"), this.lastConnectionAttemptTime_ = new Date().getTime(), this.lastConnectionEstablishedTime_ = null;
                   t = this.onDataMessage_.bind(this), _n29 = this.onReady_.bind(this), _i18 = this.onRealtimeDisconnect_.bind(this), _s11 = this.id + ":" + jt.nextConnectionId_++, _r10 = this.lastSessionId;
                   _o5 = !1, _a3 = null;
-                  _h3 = function _h3() {
+                  _l3 = function _l3() {
                     _a3 ? _a3.close() : (_o5 = !0, _i18());
-                  }, _l2 = function _l2(t) {
+                  }, _h2 = function _h2(t) {
                     e(_a3, "sendRequest call when we're not connected not allowed."), _a3.sendRequest(t);
                   };
                   this.realtime_ = {
-                    close: _h3,
-                    sendRequest: _l2
+                    close: _l3,
+                    sendRequest: _h2
                   };
                   _c2 = this.forceTokenRefresh_;
                   this.forceTokenRefresh_ = !1;
@@ -3774,8 +3774,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
                   _yield$Promise$all = _context10.sent;
                   _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 2);
                   _e37 = _yield$Promise$all2[0];
-                  _h4 = _yield$Promise$all2[1];
-                  _o5 ? Me("getToken() completed but was canceled") : (Me("getToken() completed. Creating connection."), this.authToken_ = _e37 && _e37.accessToken, this.appCheckToken_ = _h4 && _h4.token, _a3 = new yt(_s11, this.repoInfo_, this.applicationId_, this.appCheckToken_, this.authToken_, t, _n29, _i18, function (e) {
+                  _l4 = _yield$Promise$all2[1];
+                  _o5 ? Me("getToken() completed but was canceled") : (Me("getToken() completed. Creating connection."), this.authToken_ = _e37 && _e37.accessToken, this.appCheckToken_ = _l4 && _l4.token, _a3 = new yt(_s11, this.repoInfo_, this.applicationId_, this.appCheckToken_, this.authToken_, t, _n29, _i18, function (e) {
                     We(e + " (" + _this33.repoInfo_.toString() + ")"), _this33.interrupt("server_kill");
                   }, _r10));
                   _context10.next = 21;
@@ -3784,7 +3784,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
                 case 18:
                   _context10.prev = 18;
                   _context10.t0 = _context10["catch"](8);
-                  this.log_("Failed to get token: " + _context10.t0), _o5 || (this.repoInfo_.nodeAdmin && We(_context10.t0), _h3());
+                  this.log_("Failed to get token: " + _context10.t0), _o5 || (this.repoInfo_.nodeAdmin && We(_context10.t0), _l3());
 
                 case 21:
                 case "end":
@@ -4653,9 +4653,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   }(Ht))(),
       an = Math.log(2);
 
-  var hn = /*#__PURE__*/function () {
-    function hn(e) {
-      _classCallCheck(this, hn);
+  var ln = /*#__PURE__*/function () {
+    function ln(e) {
+      _classCallCheck(this, ln);
 
       var t;
       this.count = (t = e + 1, parseInt(Math.log(t) / an, 10)), this.current_ = this.count - 1;
@@ -4664,7 +4664,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       this.bits_ = e + 1 & n;
     }
 
-    _createClass(hn, [{
+    _createClass(ln, [{
       key: "nextBitIsOne",
       value: function nextBitIsOne() {
         var e = !(this.bits_ & 1 << this.current_);
@@ -4672,10 +4672,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return hn;
+    return ln;
   }();
 
-  var ln = function ln(e, t, n, i) {
+  var hn = function hn(e, t, n, i) {
     e.sort(t);
 
     var s = function s(t, i) {
@@ -4684,11 +4684,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       if (0 === r) return null;
       if (1 === r) return o = e[t], a = n ? n(o) : o, new Kt(a, o.node, Kt.BLACK, null, null);
       {
-        var _h5 = parseInt(r / 2, 10) + t,
-            _l3 = s(t, _h5),
-            _c3 = s(_h5 + 1, i);
+        var _l5 = parseInt(r / 2, 10) + t,
+            _h3 = s(t, _l5),
+            _c3 = s(_l5 + 1, i);
 
-        return o = e[_h5], a = n ? n(o) : o, new Kt(a, o.node, Kt.BLACK, _l3, _c3);
+        return o = e[_l5], a = n ? n(o) : o, new Kt(a, o.node, Kt.BLACK, _h3, _c3);
       }
     },
         r = function (t) {
@@ -4700,12 +4700,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var r = o - t,
             a = o;
         o -= t;
-        var l = s(r + 1, a),
+        var h = s(r + 1, a),
             c = e[r],
             u = n ? n(c) : c;
-        h(new Kt(u, c.node, i, null, l));
+        l(new Kt(u, c.node, i, null, h));
       },
-          h = function h(e) {
+          l = function l(e) {
         i ? (i.left = e, i = e) : (r = e, i = e);
       };
 
@@ -4717,7 +4717,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
 
       return r;
-    }(new hn(e.length));
+    }(new ln(e.length));
 
     return new Gt(i || t, r);
   };
@@ -4758,12 +4758,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           s = s || t.isDefinedOn(a.node), i.push(a), a = r.getNext();
         }
 
-        o = s ? ln(i, t.getCompare()) : un;
-        var h = t.toString(),
-            l = Object.assign({}, this.indexSet_);
-        l[h] = t;
+        o = s ? hn(i, t.getCompare()) : un;
+        var l = t.toString(),
+            h = Object.assign({}, this.indexSet_);
+        h[l] = t;
         var c = Object.assign({}, this.indexes_);
-        return c[h] = o, new dn(c, l);
+        return c[l] = o, new dn(c, h);
       }
     }, {
       key: "addToIndexes",
@@ -4784,7 +4784,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
                 _s12.name !== t.name && _e47.push(_s12), _s12 = _i20.getNext();
               }
 
-              return _e47.push(t), ln(_e47, r.getCompare());
+              return _e47.push(t), hn(_e47, r.getCompare());
             }
 
             return un;
@@ -5189,12 +5189,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         }
       }), 0 === _e56.length) return _n.EMPTY_NODE;
 
-      var _s17 = ln(_e56, Qt, function (e) {
+      var _s17 = hn(_e56, Qt, function (e) {
         return e.name;
       }, Jt);
 
       if (_i26) {
-        var _t28 = ln(_e56, on.getCompare());
+        var _t28 = hn(_e56, on.getCompare());
 
         return new _n(_s17, gn(n), new dn({
           ".priority": _t28
@@ -5620,20 +5620,20 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
         var a = t;
         e(a.numChildren() === this.limit_, "");
-        var h = new Bt(n, i),
-            l = this.reverse_ ? a.getFirstChild(this.index_) : a.getLastChild(this.index_),
-            c = this.rangedFilter_.matches(h);
+        var l = new Bt(n, i),
+            h = this.reverse_ ? a.getFirstChild(this.index_) : a.getLastChild(this.index_),
+            c = this.rangedFilter_.matches(l);
 
         if (a.hasChild(n)) {
           var _e60 = a.getImmediateChild(n);
 
-          var _t34 = s.getChildAfterChild(this.index_, l, this.reverse_);
+          var _t34 = s.getChildAfterChild(this.index_, h, this.reverse_);
 
           for (; null != _t34 && (_t34.name === n || a.hasChild(_t34.name));) {
             _t34 = s.getChildAfterChild(this.index_, _t34, this.reverse_);
           }
 
-          var _u2 = null == _t34 ? 1 : o(_t34, h);
+          var _u2 = null == _t34 ? 1 : o(_t34, l);
 
           if (c && !i.isEmpty() && _u2 >= 0) return null != r && r.trackChildChange(En(n, i, _e60)), a.updateImmediateChild(n, i);
           {
@@ -5645,7 +5645,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           }
         }
 
-        return i.isEmpty() ? t : c && o(l, h) >= 0 ? (null != r && (r.trackChildChange(In(l.name, l.node)), r.trackChildChange(bn(n, i))), a.updateImmediateChild(n, i).updateImmediateChild(l.name, _n.EMPTY_NODE)) : t;
+        return i.isEmpty() ? t : c && o(h, l) >= 0 ? (null != r && (r.trackChildChange(In(h.name, h.node)), r.trackChildChange(bn(n, i))), a.updateImmediateChild(n, i).updateImmediateChild(h.name, _n.EMPTY_NODE)) : t;
       }
     }]);
 
@@ -5818,7 +5818,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
         var t = Pn(e._queryParams),
             n = e._path.toString(),
-            i = new l();
+            i = new h();
 
         return this.restRequest_(n + ".json", t, function (e, t) {
           var s = t;
@@ -6481,7 +6481,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }), t;
   }
 
-  function hi(e, t) {
+  function li(e, t) {
     if (xt(t)) return e;
     {
       var _n52 = oi(e, t);
@@ -6490,7 +6490,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }
   }
 
-  function li(e) {
+  function hi(e) {
     return e.writeTree_.isEmpty();
   }
 
@@ -6557,9 +6557,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
   function gi(e, t, n, i, s) {
     if (i || s) {
-      var _r15 = hi(e.visibleWrites, t);
+      var _r15 = li(e.visibleWrites, t);
 
-      if (!s && li(_r15)) return n;
+      if (!s && hi(_r15)) return n;
 
       if (s || null != n || ri(_r15, It())) {
         var _r16 = function _r16(e) {
@@ -6577,9 +6577,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
       if (null != _i38) return _i38;
       {
-        var _i39 = hi(e.visibleWrites, t);
+        var _i39 = li(e.visibleWrites, t);
 
-        return li(_i39) ? n : null != n || ri(_i39, It()) ? ci(_i39, n || _n.EMPTY_NODE) : null;
+        return hi(_i39) ? n : null != n || ri(_i39, It()) ? ci(_i39, n || _n.EMPTY_NODE) : null;
       }
     }
   }
@@ -6597,17 +6597,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }), i;
 
       if (n) {
-        var _s31 = hi(e.visibleWrites, t);
+        var _s31 = li(e.visibleWrites, t);
 
         return n.forEachChild(on, function (e, t) {
-          var n = ci(hi(_s31, new bt(e)), t);
+          var n = ci(li(_s31, new bt(e)), t);
           i = i.updateImmediateChild(e, n);
         }), ai(_s31).forEach(function (e) {
           i = i.updateImmediateChild(e.name, e.node);
         }), i;
       }
 
-      return ai(hi(e.visibleWrites, t)).forEach(function (e) {
+      return ai(li(e.visibleWrites, t)).forEach(function (e) {
         i = i.updateImmediateChild(e.name, e.node);
       }), i;
     }(e.writeTree, e.treePath, t);
@@ -6619,9 +6619,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       var o = Rt(n, i);
       if (ri(t.visibleWrites, o)) return null;
       {
-        var _e66 = hi(t.visibleWrites, o);
+        var _e66 = li(t.visibleWrites, o);
 
-        return li(_e66) ? r.getChild(i) : ci(_e66, r.getChild(i));
+        return hi(_e66) ? r.getChild(i) : ci(_e66, r.getChild(i));
       }
     }(t.writeTree, t.treePath, n, i, s);
   }
@@ -6636,7 +6636,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return function (e, t, n, i) {
       var s = Rt(t, n),
           r = oi(e.visibleWrites, s);
-      return null != r ? r : i.isCompleteForChild(n) ? ci(hi(e.visibleWrites, s), i.getNode().getImmediateChild(n)) : null;
+      return null != r ? r : i.isCompleteForChild(n) ? ci(li(e.visibleWrites, s), i.getNode().getImmediateChild(n)) : null;
     }(e.writeTree, e.treePath, t, n);
   }
 
@@ -6731,11 +6731,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
             s = function (e, t, n, i, s, r) {
           return function (e, t, n, i, s, r, o) {
             var a;
-            var h = hi(e.visibleWrites, t),
-                l = oi(h, It());
-            if (null != l) a = l;else {
+            var l = li(e.visibleWrites, t),
+                h = oi(l, It());
+            if (null != h) a = h;else {
               if (null == n) return [];
-              a = ci(h, n);
+              a = ci(l, n);
             }
             if (a = a.withIndex(o), a.isEmpty() || a.isLeafNode()) return [];
             {
@@ -6743,10 +6743,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
                   _t41 = o.getCompare(),
                   _n55 = r ? a.getReverseIteratorFrom(i, o) : a.getIteratorFrom(i, o);
 
-              var _h6 = _n55.getNext();
+              var _l6 = _n55.getNext();
 
-              for (; _h6 && _e68.length < s;) {
-                0 !== _t41(_h6, i) && _e68.push(_h6), _h6 = _n55.getNext();
+              for (; _l6 && _e68.length < s;) {
+                0 !== _t41(_l6, i) && _e68.push(_l6), _l6 = _n55.getNext();
               }
 
               return _e68;
@@ -6765,18 +6765,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     var a = n.eventCache;
     if (null != Ci(s, i)) return n;
     {
-      var _h7, _l4;
+      var _l7, _h4;
 
       if (xt(i)) {
         if (e(n.serverCache.isFullyInitialized(), "If change path is empty, we must have complete server data"), n.serverCache.isFiltered()) {
           var _e69 = Xn(n),
               _i40 = yi(s, _e69 instanceof _n ? _e69 : _n.EMPTY_NODE);
 
-          _h7 = t.filter.updateFullNode(n.eventCache.getNode(), _i40, o);
+          _l7 = t.filter.updateFullNode(n.eventCache.getNode(), _i40, o);
         } else {
           var _e70 = mi(s, Xn(n));
 
-          _h7 = t.filter.updateFullNode(n.eventCache.getNode(), _e70, o);
+          _l7 = t.filter.updateFullNode(n.eventCache.getNode(), _e70, o);
         }
       } else {
         var _c4 = Et(i);
@@ -6786,63 +6786,63 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
           var _r17 = a.getNode();
 
-          _l4 = n.serverCache.getNode();
+          _h4 = n.serverCache.getNode();
 
-          var _o9 = vi(s, i, _r17, _l4);
+          var _o9 = vi(s, i, _r17, _h4);
 
-          _h7 = null != _o9 ? t.filter.updatePriority(_r17, _o9) : a.getNode();
+          _l7 = null != _o9 ? t.filter.updatePriority(_r17, _o9) : a.getNode();
         } else {
           var _e71 = St(i);
 
           var _u3;
 
           if (a.isCompleteForChild(_c4)) {
-            _l4 = n.serverCache.getNode();
+            _h4 = n.serverCache.getNode();
 
-            var _t42 = vi(s, i, a.getNode(), _l4);
+            var _t42 = vi(s, i, a.getNode(), _h4);
 
             _u3 = null != _t42 ? a.getNode().getImmediateChild(_c4).updateChild(_e71, _t42) : a.getNode().getImmediateChild(_c4);
           } else _u3 = wi(s, _c4, n.serverCache);
 
-          _h7 = null != _u3 ? t.filter.updateChild(a.getNode(), _c4, _u3, _e71, r, o) : a.getNode();
+          _l7 = null != _u3 ? t.filter.updateChild(a.getNode(), _c4, _u3, _e71, r, o) : a.getNode();
         }
       }
-      return Gn(n, _h7, a.isFullyInitialized() || xt(i), t.filter.filtersNodes());
+      return Gn(n, _l7, a.isFullyInitialized() || xt(i), t.filter.filtersNodes());
     }
   }
 
   function Ni(e, t, n, i, s, r, o, a) {
-    var h = t.serverCache;
-    var l;
+    var l = t.serverCache;
+    var h;
     var c = o ? e.filter : e.filter.getIndexedFilter();
-    if (xt(n)) l = c.updateFullNode(h.getNode(), i, null);else if (c.filtersNodes() && !h.isFiltered()) {
-      var _e72 = h.getNode().updateChild(n, i);
+    if (xt(n)) h = c.updateFullNode(l.getNode(), i, null);else if (c.filtersNodes() && !l.isFiltered()) {
+      var _e72 = l.getNode().updateChild(n, i);
 
-      l = c.updateFullNode(h.getNode(), _e72, null);
+      h = c.updateFullNode(l.getNode(), _e72, null);
     } else {
       var _e73 = Et(n);
 
-      if (!h.isCompleteForPath(n) && Tt(n) > 1) return t;
+      if (!l.isCompleteForPath(n) && Tt(n) > 1) return t;
 
       var _s32 = St(n),
-          _r18 = h.getNode().getImmediateChild(_e73).updateChild(_s32, i);
+          _r18 = l.getNode().getImmediateChild(_e73).updateChild(_s32, i);
 
-      l = ".priority" === _e73 ? c.updatePriority(h.getNode(), _r18) : c.updateChild(h.getNode(), _e73, _r18, _s32, Ti, null);
+      h = ".priority" === _e73 ? c.updatePriority(l.getNode(), _r18) : c.updateChild(l.getNode(), _e73, _r18, _s32, Ti, null);
     }
-    var u = Qn(t, l, h.isFullyInitialized() || xt(n), c.filtersNodes());
+    var u = Qn(t, h, l.isFullyInitialized() || xt(n), c.filtersNodes());
     return ki(e, u, n, s, new Si(s, u, r), a);
   }
 
   function Pi(e, t, n, i, s, r, o) {
     var a = t.eventCache;
-    var h, l;
+    var l, h;
     var c = new Si(s, t, r);
-    if (xt(n)) l = e.filter.updateFullNode(t.eventCache.getNode(), i, o), h = Gn(t, l, !0, e.filter.filtersNodes());else {
+    if (xt(n)) h = e.filter.updateFullNode(t.eventCache.getNode(), i, o), l = Gn(t, h, !0, e.filter.filtersNodes());else {
       var _s33 = Et(n);
 
-      if (".priority" === _s33) l = e.filter.updatePriority(t.eventCache.getNode(), i), h = Gn(t, l, a.isFullyInitialized(), a.isFiltered());else {
+      if (".priority" === _s33) h = e.filter.updatePriority(t.eventCache.getNode(), i), l = Gn(t, h, a.isFullyInitialized(), a.isFiltered());else {
         var _r19 = St(n),
-            _l5 = a.getNode().getImmediateChild(_s33);
+            _h5 = a.getNode().getImmediateChild(_s33);
 
         var _u4;
 
@@ -6851,10 +6851,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
           _u4 = null != _e74 ? ".priority" === kt(_r19) && _e74.getChild(Pt(_r19)).isEmpty() ? _e74 : _e74.updateChild(_r19, i) : _n.EMPTY_NODE;
         }
-        h = _l5.equals(_u4) ? t : Gn(t, e.filter.updateChild(a.getNode(), _s33, _u4, _r19, c, o), a.isFullyInitialized(), e.filter.filtersNodes());
+        l = _h5.equals(_u4) ? t : Gn(t, e.filter.updateChild(a.getNode(), _s33, _u4, _r19, c, o), a.isFullyInitialized(), e.filter.filtersNodes());
       }
     }
-    return h;
+    return l;
   }
 
   function Ri(e, t) {
@@ -6869,25 +6869,25 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
   function Di(e, t, n, i, s, r, o, a) {
     if (t.serverCache.getNode().isEmpty() && !t.serverCache.isFullyInitialized()) return t;
-    var h,
-        l = t;
-    h = xt(n) ? i : new ei(null).setTree(n, i);
+    var l,
+        h = t;
+    l = xt(n) ? i : new ei(null).setTree(n, i);
     var c = t.serverCache.getNode();
-    return h.children.inorderTraversal(function (n, i) {
+    return l.children.inorderTraversal(function (n, i) {
       if (c.hasChild(n)) {
-        var _h8 = xi(0, t.serverCache.getNode().getImmediateChild(n), i);
+        var _l8 = xi(0, t.serverCache.getNode().getImmediateChild(n), i);
 
-        l = Ni(e, l, new bt(n), _h8, s, r, o, a);
+        h = Ni(e, h, new bt(n), _l8, s, r, o, a);
       }
-    }), h.children.inorderTraversal(function (n, i) {
-      var h = !t.serverCache.isCompleteForChild(n) && null === i.value;
+    }), l.children.inorderTraversal(function (n, i) {
+      var l = !t.serverCache.isCompleteForChild(n) && null === i.value;
 
-      if (!c.hasChild(n) && !h) {
-        var _h9 = xi(0, t.serverCache.getNode().getImmediateChild(n), i);
+      if (!c.hasChild(n) && !l) {
+        var _l9 = xi(0, t.serverCache.getNode().getImmediateChild(n), i);
 
-        l = Ni(e, l, new bt(n), _h9, s, r, o, a);
+        h = Ni(e, h, new bt(n), _l9, s, r, o, a);
       }
-    }), l;
+    }), h;
   }
 
   var Ai = /*#__PURE__*/function () {
@@ -6908,10 +6908,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
       var o = t.serverCache,
           a = t.eventCache,
-          h = i.updateFullNode(_n.EMPTY_NODE, o.getNode(), null),
-          l = s.updateFullNode(_n.EMPTY_NODE, a.getNode(), null),
-          c = new Vn(h, o.isFullyInitialized(), i.filtersNodes()),
-          u = new Vn(l, a.isFullyInitialized(), s.filtersNodes());
+          l = i.updateFullNode(_n.EMPTY_NODE, o.getNode(), null),
+          h = s.updateFullNode(_n.EMPTY_NODE, a.getNode(), null),
+          c = new Vn(l, o.isFullyInitialized(), i.filtersNodes()),
+          u = new Vn(h, a.isFullyInitialized(), s.filtersNodes());
       this.viewCache_ = Kn(u, c), this.eventGenerator_ = new $n(this.query_);
     }
 
@@ -6972,31 +6972,31 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     var o = n.viewCache_,
         a = function (n, i, s, r, o) {
       var a = new Ei();
-      var h, l;
+      var l, h;
 
       if (s.type === Wn.OVERWRITE) {
         var _t43 = s;
-        _t43.source.fromUser ? h = Pi(n, i, _t43.path, _t43.snap, r, o, a) : (e(_t43.source.fromServer, "Unknown source."), l = _t43.source.tagged || i.serverCache.isFiltered() && !xt(_t43.path), h = Ni(n, i, _t43.path, _t43.snap, r, o, l, a));
+        _t43.source.fromUser ? l = Pi(n, i, _t43.path, _t43.snap, r, o, a) : (e(_t43.source.fromServer, "Unknown source."), h = _t43.source.tagged || i.serverCache.isFiltered() && !xt(_t43.path), l = Ni(n, i, _t43.path, _t43.snap, r, o, h, a));
       } else if (s.type === Wn.MERGE) {
         var _t44 = s;
-        _t44.source.fromUser ? h = function (e, t, n, i, s, r, o) {
+        _t44.source.fromUser ? l = function (e, t, n, i, s, r, o) {
           var a = t;
-          return i.foreach(function (i, h) {
-            var l = Rt(n, i);
-            Ri(t, Et(l)) && (a = Pi(e, a, l, h, s, r, o));
-          }), i.foreach(function (i, h) {
-            var l = Rt(n, i);
-            Ri(t, Et(l)) || (a = Pi(e, a, l, h, s, r, o));
+          return i.foreach(function (i, l) {
+            var h = Rt(n, i);
+            Ri(t, Et(h)) && (a = Pi(e, a, h, l, s, r, o));
+          }), i.foreach(function (i, l) {
+            var h = Rt(n, i);
+            Ri(t, Et(h)) || (a = Pi(e, a, h, l, s, r, o));
           }), a;
-        }(n, i, _t44.path, _t44.children, r, o, a) : (e(_t44.source.fromServer, "Unknown source."), l = _t44.source.tagged || i.serverCache.isFiltered(), h = Di(n, i, _t44.path, _t44.children, r, o, l, a));
+        }(n, i, _t44.path, _t44.children, r, o, a) : (e(_t44.source.fromServer, "Unknown source."), h = _t44.source.tagged || i.serverCache.isFiltered(), l = Di(n, i, _t44.path, _t44.children, r, o, h, a));
       } else if (s.type === Wn.ACK_USER_WRITE) {
         var _t45 = s;
-        h = _t45.revert ? function (t, n, i, s, r, o) {
+        l = _t45.revert ? function (t, n, i, s, r, o) {
           var a;
           if (null != Ci(s, i)) return n;
           {
-            var _h10 = new Si(s, n, r),
-                _l6 = n.eventCache.getNode();
+            var _l10 = new Si(s, n, r),
+                _h6 = n.eventCache.getNode();
 
             var _c5;
 
@@ -7008,13 +7008,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
                 e(_t46 instanceof _n, "serverChildren would be complete if leaf node"), _i42 = yi(s, _t46);
               }
-              _c5 = t.filter.updateFullNode(_l6, _i42, o);
+              _c5 = t.filter.updateFullNode(_h6, _i42, o);
             } else {
               var _e76 = Et(i);
 
               var _r21 = wi(s, _e76, n.serverCache);
 
-              null == _r21 && n.serverCache.isCompleteForChild(_e76) && (_r21 = _l6.getImmediateChild(_e76)), _c5 = null != _r21 ? t.filter.updateChild(_l6, _e76, _r21, St(i), _h10, o) : n.eventCache.getNode().hasChild(_e76) ? t.filter.updateChild(_l6, _e76, _n.EMPTY_NODE, St(i), _h10, o) : _l6, _c5.isEmpty() && n.serverCache.isFullyInitialized() && (a = mi(s, Xn(n)), a.isLeafNode() && (_c5 = t.filter.updateFullNode(_c5, a, o)));
+              null == _r21 && n.serverCache.isCompleteForChild(_e76) && (_r21 = _h6.getImmediateChild(_e76)), _c5 = null != _r21 ? t.filter.updateChild(_h6, _e76, _r21, St(i), _l10, o) : n.eventCache.getNode().hasChild(_e76) ? t.filter.updateChild(_h6, _e76, _n.EMPTY_NODE, St(i), _l10, o) : _h6, _c5.isEmpty() && n.serverCache.isFullyInitialized() && (a = mi(s, Xn(n)), a.isLeafNode() && (_c5 = t.filter.updateFullNode(_c5, a, o)));
             }
 
             return a = n.serverCache.isFullyInitialized() || null != Ci(s, It()), Gn(n, _c5, a, t.filter.filtersNodes());
@@ -7022,15 +7022,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         }(n, i, _t45.path, r, o, a) : function (e, t, n, i, s, r, o) {
           if (null != Ci(s, n)) return t;
           var a = t.serverCache.isFiltered(),
-              h = t.serverCache;
+              l = t.serverCache;
 
           if (null != i.value) {
-            if (xt(n) && h.isFullyInitialized() || h.isCompleteForPath(n)) return Ni(e, t, n, h.getNode().getChild(n), s, r, a, o);
+            if (xt(n) && l.isFullyInitialized() || l.isCompleteForPath(n)) return Ni(e, t, n, l.getNode().getChild(n), s, r, a, o);
 
             if (xt(n)) {
               var _i43 = new ei(null);
 
-              return h.getNode().forEachChild($t, function (e, t) {
+              return l.getNode().forEachChild($t, function (e, t) {
                 _i43 = _i43.set(new bt(e), t);
               }), Di(e, t, n, _i43, s, r, a, o);
             }
@@ -7039,18 +7039,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           }
 
           {
-            var _l7 = new ei(null);
+            var _h7 = new ei(null);
 
             return i.foreach(function (e, t) {
               var i = Rt(n, e);
-              h.isCompleteForPath(i) && (_l7 = _l7.set(e, h.getNode().getChild(i)));
-            }), Di(e, t, n, _l7, s, r, a, o);
+              l.isCompleteForPath(i) && (_h7 = _h7.set(e, l.getNode().getChild(i)));
+            }), Di(e, t, n, _h7, s, r, a, o);
           }
         }(n, i, _t45.path, _t45.affectedTree, r, o, a);
       } else {
         if (s.type !== Wn.LISTEN_COMPLETE) throw t("Unknown operation type: " + s.type);
 
-        h = function (e, t, n, i, s) {
+        l = function (e, t, n, i, s) {
           var r = t.serverCache;
           return ki(e, Qn(t, r.getNode(), r.isFullyInitialized() || xt(n), r.isFiltered()), n, i, Ti, s);
         }(n, i, s.path, r, a);
@@ -7066,14 +7066,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
           (n.length > 0 || !e.eventCache.isFullyInitialized() || _s35 && !i.getNode().equals(_r22) || !i.getNode().getPriority().equals(_r22.getPriority())) && n.push(wn(Jn(t)));
         }
-      }(i, h, c), {
-        viewCache: h,
+      }(i, l, c), {
+        viewCache: l,
         changes: c
       };
     }(n.processor_, o, i, s, r);
 
-    var h, l;
-    return h = n.processor_, l = a.viewCache, e(l.eventCache.getNode().isIndexed(h.filter.getIndex()), "Event snap not indexed"), e(l.serverCache.getNode().isIndexed(h.filter.getIndex()), "Server snap not indexed"), e(a.viewCache.serverCache.isFullyInitialized() || !o.serverCache.isFullyInitialized(), "Once a server snap is complete, it should never go back"), n.viewCache_ = a.viewCache, qi(n, a.changes, a.viewCache.eventCache.getNode(), null);
+    var l, h;
+    return l = n.processor_, h = a.viewCache, e(h.eventCache.getNode().isIndexed(l.filter.getIndex()), "Event snap not indexed"), e(h.serverCache.getNode().isIndexed(l.filter.getIndex()), "Server snap not indexed"), e(a.viewCache.serverCache.isFullyInitialized() || !o.serverCache.isFullyInitialized(), "Once a server snap is complete, it should never go back"), n.viewCache_ = a.viewCache, qi(n, a.changes, a.viewCache.eventCache.getNode(), null);
   }
 
   function qi(e, t, n, i) {
@@ -7319,14 +7319,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     var r = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : !1;
     var o = n._path,
         a = t.syncPointTree_.get(o);
-    var h = [];
+    var l = [];
 
     if (a && ("default" === n._queryIdentifier || Yi(a, n))) {
-      var _l8 = function (t, n, i, s) {
+      var _h8 = function (t, n, i, s) {
         var r = n._queryIdentifier,
             o = [];
         var a = [];
-        var h = Ki(t);
+        var l = Ki(t);
 
         if ("default" === r) {
           var _iterator13 = _createForOfIteratorHelper(t.views.entries()),
@@ -7351,16 +7351,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           _e82 && (a = a.concat(Li(_e82, i, s)), Mi(_e82) && (t.views["delete"](r), _e82.query._queryParams.loadsAllData() || o.push(_e82.query)));
         }
 
-        return h && !Ki(t) && o.push(new (e(Wi, "Reference.ts has not been loaded"), Wi)(n._repo, n._path)), {
+        return l && !Ki(t) && o.push(new (e(Wi, "Reference.ts has not been loaded"), Wi)(n._repo, n._path)), {
           removed: o,
           events: a
         };
       }(a, n, i, s);
 
       0 === a.views.size && (t.syncPointTree_ = t.syncPointTree_.remove(o));
-      var _c6 = _l8.removed;
+      var _c6 = _h8.removed;
 
-      if (h = _l8.events, !r) {
+      if (l = _h8.events, !r) {
         var _e83 = -1 !== _c6.findIndex(function (e) {
           return e._queryParams.loadsAllData();
         }),
@@ -7389,7 +7389,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
                   _s36 = _i47.query,
                   _r25 = as(t, _i47);
 
-              t.listenProvider_.startListening(ps(_s36), hs(t, _s36), _r25.hashFn, _r25.onComplete);
+              t.listenProvider_.startListening(ps(_s36), ls(t, _s36), _r25.hashFn, _r25.onComplete);
             }
           }
         }
@@ -7398,7 +7398,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           var _e87 = null;
           t.listenProvider_.stopListening(ps(n), _e87);
         } else _c6.forEach(function (e) {
-          var n = t.queryToTagMap.get(ls(e));
+          var n = t.queryToTagMap.get(hs(e));
           t.listenProvider_.stopListening(ps(e), n);
         });
       }
@@ -7408,7 +7408,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           var _i48 = t[_n61];
 
           if (!_i48._queryParams.loadsAllData()) {
-            var _t48 = ls(_i48),
+            var _t48 = hs(_i48),
                 _n62 = e.queryToTagMap.get(_t48);
 
             e.queryToTagMap["delete"](_t48), e.tagToQueryMap["delete"](_n62);
@@ -7417,7 +7417,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }(t, _c6);
     }
 
-    return h;
+    return l;
   }
 
   function ns(t, n, i) {
@@ -7429,16 +7429,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       var n = Dt(e, r);
       o = o || Vi(t, n), a = a || Ki(t);
     });
-    var h,
-        l = t.syncPointTree_.get(r);
-    l ? (a = a || Ki(l), o = o || Vi(l, It())) : (l = new ji(), t.syncPointTree_ = t.syncPointTree_.set(r, l)), null != o ? h = !0 : (h = !1, o = _n.EMPTY_NODE, t.syncPointTree_.subtree(r).foreachChild(function (e, t) {
+    var l,
+        h = t.syncPointTree_.get(r);
+    h ? (a = a || Ki(h), o = o || Vi(h, It())) : (h = new ji(), t.syncPointTree_ = t.syncPointTree_.set(r, h)), null != o ? l = !0 : (l = !1, o = _n.EMPTY_NODE, t.syncPointTree_.subtree(r).foreachChild(function (e, t) {
       var n = Vi(t, It());
       n && (o = o.updateImmediateChild(e, n));
     }));
-    var c = Yi(l, n);
+    var c = Yi(h, n);
 
     if (!c && !n._queryParams.loadsAllData()) {
-      var _i49 = ls(n);
+      var _i49 = hs(n);
 
       e(!t.queryToTagMap.has(_i49), "View does not exist, but we have a tag");
 
@@ -7447,19 +7447,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       t.queryToTagMap.set(_i49, _s37), t.tagToQueryMap.set(_s37, _i49);
     }
 
-    var u = Hi(l, n, i, di(t.pendingWriteTree_, r), o, h);
+    var u = Hi(h, n, i, di(t.pendingWriteTree_, r), o, l);
 
     if (!c && !a && !s) {
-      var _i50 = $i(l, n);
+      var _i50 = $i(h, n);
 
       u = u.concat(function (t, n, i) {
         var s = n._path,
-            r = hs(t, n),
+            r = ls(t, n),
             o = as(t, i),
             a = t.listenProvider_.startListening(ps(n), r, o.hashFn, o.onComplete),
-            h = t.syncPointTree_.subtree(s);
-        if (r) e(!Ki(h.value), "If we're adding a query, it shouldn't be shadowed");else {
-          var _e88 = h.fold(function (e, t, n) {
+            l = t.syncPointTree_.subtree(s);
+        if (r) e(!Ki(l.value), "If we're adding a query, it shouldn't be shadowed");else {
+          var _e88 = l.fold(function (e, t, n) {
             if (!xt(e) && t && Ki(t)) return [Gi(t).query];
             {
               var _e89 = [];
@@ -7473,7 +7473,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
           for (var _n63 = 0; _n63 < _e88.length; ++_n63) {
             var _i51 = _e88[_n63];
-            t.listenProvider_.stopListening(ps(_i51), hs(t, _i51));
+            t.listenProvider_.stopListening(ps(_i51), ls(t, _i51));
           }
         }
         return a;
@@ -7506,13 +7506,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
       var _o12 = Et(e.path),
           _a5 = e.operationForChild(_o12),
-          _h11 = t.children.get(_o12);
+          _l11 = t.children.get(_o12);
 
-      if (_h11 && _a5) {
+      if (_l11 && _a5) {
         var _e90 = n ? n.getImmediateChild(_o12) : null,
             _t49 = bi(i, _o12);
 
-        _r26 = _r26.concat(rs(_a5, _h11, _e90, _t49));
+        _r26 = _r26.concat(rs(_a5, _l11, _e90, _t49));
       }
 
       return _s38 && (_r26 = _r26.concat(Bi(_s38, e, i, n))), _r26;
@@ -7526,14 +7526,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return t.children.inorderTraversal(function (t, s) {
       var o = n ? n.getImmediateChild(t) : null,
           a = bi(i, t),
-          h = e.operationForChild(t);
-      h && (r = r.concat(os(h, s, o, a)));
+          l = e.operationForChild(t);
+      l && (r = r.concat(os(l, s, o, a)));
     }), s && (r = r.concat(Bi(s, e, i, n))), r;
   }
 
   function as(e, t) {
     var n = t.query,
-        i = hs(e, n);
+        i = ls(e, n);
     return {
       hashFn: function hashFn() {
         var e = function (e) {
@@ -7578,12 +7578,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     };
   }
 
-  function hs(e, t) {
-    var n = ls(t);
+  function ls(e, t) {
+    var n = hs(t);
     return e.queryToTagMap.get(n);
   }
 
-  function ls(e) {
+  function hs(e) {
     return e._path.toString() + "$" + e._queryIdentifier;
   }
 
@@ -7973,9 +7973,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
                 _r30 = _i58.path,
                 _o14 = _i58.queryId,
                 _a6 = Dt(_r30, t),
-                _h12 = ei.fromObject(n);
+                _l12 = ei.fromObject(n);
 
-            return ds(e, _r30, new zn(Un(_o14), _a6, _h12));
+            return ds(e, _r30, new zn(Un(_o14), _a6, _l12));
           }
 
           return [];
@@ -8105,7 +8105,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     var n = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : t.transactionQueueTree_;
 
     if (n || ur(t, n), Is(n)) {
-      var _i60 = lr(t, n);
+      var _i60 = hr(t, n);
 
       e(_i60.length > 0, "Sending zero length transaction queue"), _i60.every(function (e) {
         return 0 === e.status;
@@ -8126,11 +8126,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           o = o.updateChild(_r33, _s44.currentOutputSnapshotRaw);
         }
 
-        var h = o.val(!0),
-            l = n;
-        t.server_.put(l.toString(), h, function (e) {
+        var l = o.val(!0),
+            h = n;
+        t.server_.put(h.toString(), l, function (e) {
           ir(t, "transaction put response", {
-            path: l.toString(),
+            path: h.toString(),
             status: e
           });
           var s = [];
@@ -8157,7 +8157,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
             if ("datastale" === e) for (var _e94 = 0; _e94 < i.length; _e94++) {
               3 === i[_e94].status ? i[_e94].status = 4 : i[_e94].status = 0;
             } else {
-              We("transaction at " + l.toString() + " failed: " + e);
+              We("transaction at " + h.toString() + " failed: " + e);
 
               for (var _t57 = 0; _t57 < i.length; _t57++) {
                 i[_t57].status = 4, i[_t57].abortReason = e;
@@ -8173,7 +8173,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   }
 
   function ar(t, n) {
-    var i = hr(t, n),
+    var i = lr(t, n),
         s = Ns(i);
     return function (t, n, i) {
       if (0 === n.length) return;
@@ -8185,41 +8185,41 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         return e.currentWriteId;
       });
 
-      var _loop6 = function _loop6(_h13) {
-        var l = n[_h13],
-            c = Dt(i, l.path);
+      var _loop6 = function _loop6(_l13) {
+        var h = n[_l13],
+            c = Dt(i, h.path);
         var u = void 0,
             d = !1;
-        if (e(null !== c, "rerunTransactionsUnderNode_: relativePath should not be null."), 4 === l.status) d = !0, u = l.abortReason, r = r.concat(Zi(t.serverSyncTree_, l.currentWriteId, !0));else if (0 === l.status) if (l.retryCount >= 25) d = !0, u = "maxretry", r = r.concat(Zi(t.serverSyncTree_, l.currentWriteId, !0));else {
-          var _e96 = rr(t, l.path, o);
+        if (e(null !== c, "rerunTransactionsUnderNode_: relativePath should not be null."), 4 === h.status) d = !0, u = h.abortReason, r = r.concat(Zi(t.serverSyncTree_, h.currentWriteId, !0));else if (0 === h.status) if (h.retryCount >= 25) d = !0, u = "maxretry", r = r.concat(Zi(t.serverSyncTree_, h.currentWriteId, !0));else {
+          var _e96 = rr(t, h.path, o);
 
-          l.currentInputSnapshot = _e96;
+          h.currentInputSnapshot = _e96;
 
-          var _i61 = n[_h13].update(_e96.val());
+          var _i61 = n[_l13].update(_e96.val());
 
           if (void 0 !== _i61) {
-            Fs("transaction failed: Data returned ", _i61, l.path);
+            Fs("transaction failed: Data returned ", _i61, h.path);
 
             var _n68 = gn(_i61);
 
             "object" == _typeof(_i61) && null != _i61 && m(_i61, ".priority") || (_n68 = _n68.updatePriority(_e96.getPriority()));
 
-            var _s45 = l.currentWriteId,
+            var _s45 = h.currentWriteId,
                 _a8 = Gs(t),
-                _h14 = vs(_n68, _e96, _a8);
+                _l14 = vs(_n68, _e96, _a8);
 
-            l.currentOutputSnapshotRaw = _n68, l.currentOutputSnapshotResolved = _h14, l.currentWriteId = Zs(t), o.splice(o.indexOf(_s45), 1), r = r.concat(Xi(t.serverSyncTree_, l.path, _h14, l.currentWriteId, l.applyLocally)), r = r.concat(Zi(t.serverSyncTree_, _s45, !0));
-          } else d = !0, u = "nodata", r = r.concat(Zi(t.serverSyncTree_, l.currentWriteId, !0));
+            h.currentOutputSnapshotRaw = _n68, h.currentOutputSnapshotResolved = _l14, h.currentWriteId = Zs(t), o.splice(o.indexOf(_s45), 1), r = r.concat(Xi(t.serverSyncTree_, h.path, _l14, h.currentWriteId, h.applyLocally)), r = r.concat(Zi(t.serverSyncTree_, _s45, !0));
+          } else d = !0, u = "nodata", r = r.concat(Zi(t.serverSyncTree_, h.currentWriteId, !0));
         }
-        Hs(t.eventQueue_, i, r), r = [], d && (n[_h13].status = 2, a = n[_h13].unwatcher, setTimeout(a, Math.floor(0)), n[_h13].onComplete && ("nodata" === u ? s.push(function () {
-          return n[_h13].onComplete(null, !1, n[_h13].currentInputSnapshot);
+        Hs(t.eventQueue_, i, r), r = [], d && (n[_l13].status = 2, a = n[_l13].unwatcher, setTimeout(a, Math.floor(0)), n[_l13].onComplete && ("nodata" === u ? s.push(function () {
+          return n[_l13].onComplete(null, !1, n[_l13].currentInputSnapshot);
         }) : s.push(function () {
-          return n[_h13].onComplete(new Error(u), !1, null);
+          return n[_l13].onComplete(new Error(u), !1, null);
         })));
       };
 
-      for (var _h13 = 0; _h13 < n.length; _h13++) {
-        _loop6(_h13);
+      for (var _l13 = 0; _l13 < n.length; _l13++) {
+        _loop6(_l13);
       }
 
       var a;
@@ -8230,10 +8230,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
 
       or(t, t.transactionQueueTree_);
-    }(t, lr(t, i), s), s;
+    }(t, hr(t, i), s), s;
   }
 
-  function hr(e, t) {
+  function lr(e, t) {
     var n,
         i = e.transactionQueueTree_;
 
@@ -8244,7 +8244,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return i;
   }
 
-  function lr(e, t) {
+  function hr(e, t) {
     var n = [];
     return cr(e, t, n), n.sort(function (e, t) {
       return e.order - t.order;
@@ -8280,7 +8280,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   }
 
   function dr(e, t) {
-    var n = Ns(hr(e, t)),
+    var n = Ns(lr(e, t)),
         i = bs(e.transactionQueueTree_, t);
     return function (e, t, n) {
       var i = e.parent;
@@ -8335,12 +8335,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         r = "",
         o = !0,
         a = "https",
-        h = 443;
+        l = 443;
 
     if ("string" == typeof e) {
-      var _l9 = e.indexOf("//");
+      var _h9 = e.indexOf("//");
 
-      _l9 >= 0 && (a = e.substring(0, _l9 - 1), e = e.substring(_l9 + 2));
+      _h9 >= 0 && (a = e.substring(0, _h9 - 1), e = e.substring(_h9 + 2));
 
       var _c7 = e.indexOf("/");
 
@@ -8392,9 +8392,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         return t;
       }(e.substring(Math.min(e.length, _u5)));
 
-      _l9 = t.indexOf(":"), _l9 >= 0 ? (o = "https" === a || "wss" === a, h = parseInt(t.substring(_l9 + 1), 10)) : _l9 = t.length;
+      _h9 = t.indexOf(":"), _h9 >= 0 ? (o = "https" === a || "wss" === a, l = parseInt(t.substring(_h9 + 1), 10)) : _h9 = t.length;
 
-      var _p = t.slice(0, _l9);
+      var _p = t.slice(0, _h9);
 
       if ("localhost" === _p.toLowerCase()) n = "localhost";else if (_p.split(".").length <= 2) n = _p;else {
         var _e101 = t.indexOf(".");
@@ -8406,7 +8406,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
     return {
       host: t,
-      port: h,
+      port: l,
       domain: n,
       subdomain: i,
       secure: o,
@@ -8523,21 +8523,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     _createClass(vr, [{
       key: "cancel",
       value: function cancel() {
-        var e = new l();
+        var e = new h();
         return er(this._repo, this._path, e.wrapCallback(function () {})), e.promise;
       }
     }, {
       key: "remove",
       value: function remove() {
         Ws("OnDisconnect.remove", this._path);
-        var e = new l();
+        var e = new h();
         return tr(this._repo, this._path, null, e.wrapCallback(function () {})), e.promise;
       }
     }, {
       key: "set",
       value: function set(e) {
         Ws("OnDisconnect.set", this._path), Ls("OnDisconnect.set", e, this._path, !1);
-        var t = new l();
+        var t = new h();
         return tr(this._repo, this._path, e, t.wrapCallback(function () {})), t.promise;
       }
     }, {
@@ -8549,7 +8549,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
             if (!Ms(t)) throw new Error(E(e, "priority") + "must be a valid Firebase priority (a string, finite number, server value, or null).");
           }
         }("OnDisconnect.setWithPriority", t, !1);
-        var n = new l();
+        var n = new h();
         return function (e, t, n, i, s) {
           var r = gn(n, i);
           e.server_.onDisconnectPut(t.toString(), r.val(!0), function (n, i) {
@@ -8591,7 +8591,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
             }
           }(s, r);
         }("OnDisconnect.update", e, this._path, !1);
-        var t = new l();
+        var t = new h();
         return function (e, t, n, i) {
           if (v(n)) return Me("onDisconnect().update() called with empty data.  Don't do anything."), void sr(0, i, "ok", void 0);
           e.server_.onDisconnectMerge(t.toString(), n, function (s, r) {
@@ -8784,9 +8784,25 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return null === Et((e = S(e))._path) ? ("child", "path", !1, (n = t) && (n = n.replace(/^\/*\.info(\/|$)/, "/")), qs("child", "path", n, false)) : qs("child", "path", t, !1), new wr(e._repo, Rt(e._path, t));
   }
 
-  function Tr(e, t) {
+  function Tr(e) {
+    return e = S(e), new vr(e._repo, e._path);
+  }
+
+  function Sr(e, t) {
+    e = S(e), Ws("push", e._path), Ls("push", t, e._path, !0);
+    var n = Ks(e._repo),
+        i = Cn(n),
+        s = Er(e, i),
+        r = Er(e, i);
+    var o;
+    return o = null != t ? kr(r, t).then(function () {
+      return r;
+    }) : Promise.resolve(r), s.then = o.then.bind(o), s["catch"] = o.then.bind(o, void 0), s;
+  }
+
+  function kr(e, t) {
     e = S(e), Ws("set", e._path), Ls("set", t, e._path, !1);
-    var n = new l();
+    var n = new h();
     return function (e, t, n, i, s) {
       ir(e, "set", {
         path: t.toString(),
@@ -8796,13 +8812,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       var r = Gs(e),
           o = gn(n, i),
           a = is(e.serverSyncTree_, t),
-          h = vs(o, a, r),
-          l = Zs(e),
-          c = Xi(e.serverSyncTree_, t, h, l, !0);
+          l = vs(o, a, r),
+          h = Zs(e),
+          c = Xi(e.serverSyncTree_, t, l, h, !0);
       js(e.eventQueue_, c), e.server_.put(t.toString(), o.val(!0), function (n, i) {
         var r = "ok" === n;
         r || We("set at " + t + " failed: " + n);
-        var o = Zi(e.serverSyncTree_, l, !r);
+        var o = Zi(e.serverSyncTree_, h, !r);
         Hs(e.eventQueue_, t, o), sr(0, s, n, i);
       });
       var u = dr(e, t);
@@ -8810,14 +8826,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }(e._repo, e._path, t, null, n.wrapCallback(function () {})), n.promise;
   }
 
-  var Sr = /*#__PURE__*/function () {
-    function Sr(e) {
-      _classCallCheck(this, Sr);
+  var Nr = /*#__PURE__*/function () {
+    function Nr(e) {
+      _classCallCheck(this, Nr);
 
       this.callbackContext = e;
     }
 
-    _createClass(Sr, [{
+    _createClass(Nr, [{
       key: "respondsTo",
       value: function respondsTo(e) {
         return "value" === e;
@@ -8848,7 +8864,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "matches",
       value: function matches(e) {
-        return e instanceof Sr && (!e.callbackContext || !this.callbackContext || e.callbackContext.matches(this.callbackContext));
+        return e instanceof Nr && (!e.callbackContext || !this.callbackContext || e.callbackContext.matches(this.callbackContext));
       }
     }, {
       key: "hasAnyCallback",
@@ -8857,17 +8873,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return Sr;
+    return Nr;
   }();
 
-  var kr = /*#__PURE__*/function () {
-    function kr(e, t) {
-      _classCallCheck(this, kr);
+  var Pr = /*#__PURE__*/function () {
+    function Pr(e, t) {
+      _classCallCheck(this, Pr);
 
       this.eventType = e, this.callbackContext = t;
     }
 
-    _createClass(kr, [{
+    _createClass(Pr, [{
       key: "respondsTo",
       value: function respondsTo(e) {
         var t = "children_added" === e ? "child_added" : e;
@@ -8902,7 +8918,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "matches",
       value: function matches(e) {
-        return e instanceof kr && this.eventType === e.eventType && (!this.callbackContext || !e.callbackContext || this.callbackContext.matches(e.callbackContext));
+        return e instanceof Pr && this.eventType === e.eventType && (!this.callbackContext || !e.callbackContext || this.callbackContext.matches(e.callbackContext));
       }
     }, {
       key: "hasAnyCallback",
@@ -8911,10 +8927,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return kr;
+    return Pr;
   }();
 
-  function Nr(e, t, n, i) {
+  function Rr(e, t, n, i) {
     return function (e, t, n, i, s) {
       var r;
 
@@ -8928,7 +8944,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
 
       var o = new yr(n, r || void 0),
-          a = "value" === t ? new Sr(o) : new kr(t, o);
+          a = "value" === t ? new Nr(o) : new Pr(t, o);
       return function (e, t, n) {
         var i;
         i = ".info" === Et(t._path) ? ns(e.infoSyncTree_, t, n) : ns(e.serverSyncTree_, t, n), Bs(e.eventQueue_, t._path, i);
@@ -8943,44 +8959,44 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   }(wr), function (t) {
     e(!Ui, "__referenceConstructor has already been defined"), Ui = t;
   }(wr);
-  var Pr = {};
+  var xr = {};
 
-  function Rr(e, t, n, i, s) {
+  function Dr(e, t, n, i, s) {
     var r = i || e.options.databaseURL;
     void 0 === r && (e.options.projectId || qe("Can't determine Firebase Database URL. Be sure to include  a Project ID when calling firebase.initializeApp()."), Me("Using default host for project ", e.options.projectId), r = "".concat(e.options.projectId, "-default-rtdb.firebaseio.com"));
 
     var o,
         a,
-        h = _r(r, s),
-        l = h.repoInfo;
+        l = _r(r, s),
+        h = l.repoInfo;
 
-    "undefined" != typeof process && process.env && (a = process.env.FIREBASE_DATABASE_EMULATOR_HOST), a ? (o = !0, r = "http://".concat(a, "?ns=").concat(l.namespace), h = _r(r, s), l = h.repoInfo) : o = !h.repoInfo.secure;
+    "undefined" != typeof process && process.env && (a = process.env.FIREBASE_DATABASE_EMULATOR_HOST), a ? (o = !0, r = "http://".concat(a, "?ns=").concat(h.namespace), l = _r(r, s), h = l.repoInfo) : o = !l.repoInfo.secure;
     var c = s && o ? new nt(nt.OWNER) : new tt(e.name, e.options, t);
     (function (e, t) {
       var n = t.path.toString();
       if ("string" != typeof t.repoInfo.host || 0 === t.repoInfo.host.length || !As(t.repoInfo.namespace) && "localhost" !== t.repoInfo.host.split(":")[0] || 0 !== n.length && !function (e) {
         return e && (e = e.replace(/^\/*\.info(\/|$)/, "/")), Os(e);
       }(n)) throw new Error(E(e, "url") + 'must be a valid firebase URL and the path can\'t contain ".", "#", "$", "[", or "]".');
-    })("Invalid Firebase Database URL", h), xt(h.path) || qe("Database URL must point to the root of a Firebase Database (not including a child path).");
+    })("Invalid Firebase Database URL", l), xt(l.path) || qe("Database URL must point to the root of a Firebase Database (not including a child path).");
 
     var u = function (e, t, n, i) {
-      var s = Pr[t.name];
-      s || (s = {}, Pr[t.name] = s);
+      var s = xr[t.name];
+      s || (s = {}, xr[t.name] = s);
       var r = s[e.toURLString()];
       return r && qe("Database initialized multiple times. Please make sure the format of the database URL matches with each database() call."), r = new $s(e, false, n, i), s[e.toURLString()] = r, r;
-    }(l, e, c, new et(e.name, n));
+    }(h, e, c, new et(e.name, n));
 
-    return new xr(u, e);
+    return new Ar(u, e);
   }
 
-  var xr = /*#__PURE__*/function () {
-    function xr(e, t) {
-      _classCallCheck(this, xr);
+  var Ar = /*#__PURE__*/function () {
+    function Ar(e, t) {
+      _classCallCheck(this, Ar);
 
       this._repoInternal = e, this.app = t, this.type = "database", this._instanceStarted = !1;
     }
 
-    _createClass(xr, [{
+    _createClass(Ar, [{
       key: "_repo",
       get: function get() {
         return this._instanceStarted || (Ys(this._repoInternal, this.app.options.appId, this.app.options.databaseAuthVariableOverride), this._instanceStarted = !0), this._repoInternal;
@@ -8994,7 +9010,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       key: "_delete",
       value: function _delete() {
         return null !== this._rootInternal && (function (e, t) {
-          var n = Pr[t];
+          var n = xr[t];
           n && n[e.key] === e || qe("Database ".concat(t, "(").concat(e.repoInfo_, ") has already been deleted.")), function (e) {
             e.persistentConnection_ && e.persistentConnection_.interrupt("repo_interrupt");
           }(e), delete n[e.key];
@@ -9007,7 +9023,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }]);
 
-    return xr;
+    return Ar;
   }();
 
   jt.prototype.simpleListen = function (e, t) {
@@ -9018,16 +9034,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     this.sendRequest("echo", {
       d: e
     }, t);
-  }, Ie = "9.10.0", he(new k("database", function (e, _ref8) {
+  }, Ie = "9.10.0", le(new k("database", function (e, _ref8) {
     var t = _ref8.instanceIdentifier;
-    return Rr(e.getProvider("app").getImmediate(), e.getProvider("auth-internal"), e.getProvider("app-check-internal"), t);
+    return Dr(e.getProvider("app").getImmediate(), e.getProvider("auth-internal"), e.getProvider("app-check-internal"), t);
   }, "PUBLIC").setMultipleInstances(!0)), ue(we, be, void 0), ue(we, be, "esm2017");
 
-  var Dr = function () {
+  var Or = function () {
     var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {
       var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "[DEFAULT]";
       var t = re.get(e);
-      if (!t) throw le.create("no-app", {
+      if (!t) throw he.create("no-app", {
         appName: e
       });
       return t;
@@ -9051,14 +9067,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       automaticDataCollectionEnabled: !1
     }, t),
         i = n.name;
-    if ("string" != typeof i || !i) throw le.create("bad-app-name", {
+    if ("string" != typeof i || !i) throw he.create("bad-app-name", {
       appName: String(i)
     });
     var s = re.get(i);
 
     if (s) {
       if (w(e, s.options) && w(n, s.config)) return s;
-      throw le.create("duplicate-app", {
+      throw he.create("duplicate-app", {
         appName: i
       });
     }
@@ -9095,34 +9111,32 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     checkvalue: "",
     currentEvent: "test",
     eventDetails: "",
-    userId: ""
-  }, Nr(Ir(Dr, "check"), function (e) {
+    userId: "",
+    eventUserRef: null
+  }, Rr(Ir(Or, "check"), function (e) {
     SOARNET.checkvalue = e.val();
-  }), Nr(Ir(Dr, "events/" + SOARNET.currentEvent + "/users/"), function (e) {
-    SOARNET.eventusers = e.val();
-  }), Nr(Ir(Dr, "eventDetails/"), function (e) {
+  }), Rr(Ir(Or, "eventDetails/"), function (e) {
     SOARNET.eventDetails = e.val(), SOARNET.updateEventInfo();
   }), SOARNET.updateEvent = function (e, t) {
-    Tr(Ir(Dr, "eventDetails/" + e), t);
+    kr(Ir(Or, "eventDetails/" + e), t);
+  }, SOARNET.createEvent = function (e) {
+    var t = Sr(Ir(Or, "eventDetails/"));
+    return Tr(t).remove(), kr(t, e), t.key;
+  }, SOARNET.createListener = function (e) {
+    SOARNET.eventUserRef = Ir(Or, "events/" + e + "/users/"), Rr(SOARNET.eventUserRef, function (e) {
+      SOARNET.eventusers = e.val();
+    });
+  }, SOARNET.detachlistener = function () {
+    !function (e, t, n) {
+      var i = null;
+      nr(e._repo, e, i);
+    }(SOARNET.eventUserRef);
   }, SOARNET.writeUserData = function (e, t, n) {
-    Tr(Ir(Dr, "events/" + e + "/users/" + t), n);
-  }, SOARNET.getUserId = function () {
-    var e = function (e, t) {
-      e = S(e), Ws("push", e._path), Ls("push", t, e._path, !0);
-      var n = Ks(e._repo),
-          i = Cn(n),
-          s = Er(e, i),
-          r = Er(e, i);
-      var o;
-      return o = Promise.resolve(r), s.then = o.then.bind(o), s["catch"] = o.then.bind(o, void 0), s;
-    }(Ir(Dr, "events/test/users"));
-
-    return function (e) {
-      return e = S(e), new vr(e._repo, e._path);
-    }(e).remove(), e.key;
+    kr(Ir(Or, "events/" + e + "/users/" + t), n);
+  }, SOARNET.getUserId = function (e) {
+    var t = Sr(Ir(Or, "events/" + e + "/users"));
+    return Tr(t).remove(), t.key;
   }, SOARNET.deleteEventUser = function (e, t) {
-    !function (e) {
-      Ws("remove", e._path), Tr(e, null);
-    }(Ir(Dr, "events/" + e + "/users/" + t));
+    Ir(Or, "events/" + e + "/users/" + t).remove();
   };
 })();
