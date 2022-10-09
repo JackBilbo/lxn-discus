@@ -1,32 +1,86 @@
 class soarnet {
     constructor(instrument) {
         this.instrument = instrument; // Reference to main instrument
-        this.isActive = false
+        this.isActive = false;
+        this.currentEvent = "test";
     }
 
     init() {
         console.log(SOARNET.eventDetails);
 
-
         document.getElementById("mpformsubmit").addEventListener("click", function(e) {
             e.preventDefault();
+            if(SOARNET.checkvalue != "isActive") { 
+                document.querySelector("#mp_info").innerHTML = "Sorry, system currently not available";
+                return false; 
+            }
+            if(document.getElementById("username").value == "") {
+                document.querySelector("#mp_info").innerHTML = "Please enter a username";
+                return false; 
+            }
+            SOARNET.createListener(SN.currentEvent);
+            SOARNET.userId = SOARNET.userId == "" ? SOARNET.getUserId(SN.currentEvent) : SOARNET.userId ;
             SN.mpUsername = document.getElementById("username").value;
             SN.isActive = true;
-            console.log("Username entered");
         })
+
+        document.getElementById("addEventLink").addEventListener("click", function(e) {
+            e.preventDefault();
+            document.getElementById("addEvent").classList.toggle("on");
+        })
+
+        document.getElementById("addEvent").addEventListener("submit", function(e) {
+            e.preventDefault();
+            SN.currentEvent = SOARNET.createEvent({
+                "title": document.getElementById("eventtitle").value,
+                "start": (Date.now() + 3600000)
+            })
+            document.querySelector(".mp").classList.remove("notConnected");
+            document.getElementById("addEvent").classList.remove("on");
+        })
+
+        document.getElementById("disconnect").addEventListener("click",function(e) {
+            e.preventDefault();
+            console.log("deleting user " + SOARNET.userId + " from event " + SN.currentEvent);
+            SOARNET.writeUserData(SN.currentEvent, SOARNET.userId, null);
+            SOARNET.detachlistener();
+            SN.isActive = false;
+            document.querySelector(".mp").classList.add("notConnected");
+            document.querySelector("#userlist tbody").innerHTML = "";
+        })
+
+        document.getElementById("eventlist").addEventListener("click", function(e) {
+            e.preventDefault();
+            let el = e.target;
+            SN.currentEvent = el.getAttribute("data-id");
+            document.querySelector(".mp").classList.remove("notConnected");
+        })
+
+        SOARNET.updateEventInfo();
     }
 
     disconnectedCallback() {
-        SOARNET.deleteEventUser("test", this.userId);
+        SOARNET.deleteEventUser(this.currentEvent, this.userId);
     }
 
     update() {
         if(!B21_SOARING_ENGINE.task_active()) { return; }
 
         if(this.isActive) {
-            this.updateUserdata();
+             
+            if(!SOARNET.isSolo) {
+                this.updateUserdata();
+            } else {
+                document.querySelector("#mp_info").innerHTML = "Waiting for pilots to connect";
+            }
+
+            SOARNET.displayUserList();
+            
+            let time_to_start = parseInt((Date.now() - Date.parse(SOARNET.eventDetails[this.currentEvent].start)) / 1000);  
+            if (time_to_start < 0 && !B21_SOARING_ENGINE.task_started()) {
+                this.instrument.vars.tasktime.value = time_to_start;
+            }
         }
-        
     }
 
     updateUserdata() {
@@ -34,9 +88,8 @@ class soarnet {
         if(B21_SOARING_ENGINE.task_started()) { taskstate = "started" }
         if(B21_SOARING_ENGINE.task_finished()) { taskstate = "finished" }
 
-        SOARNET.userId = SOARNET.userId == "" ? SOARNET.getUserId() : SOARNET.userId ;
         SOARNET.writeUserData(
-            "test", this.userId, {
+            this.currentEvent, SOARNET.userId, {
                 "username": this.mpUsername,
                 "lat":      parseFloat(SimVar.GetSimVarValue("A:PLANE LATITUDE", "degrees latitude")),
                 "long":     parseFloat(SimVar.GetSimVarValue("A:PLANE LONGITUDE", "degrees longitude")),
@@ -95,8 +148,17 @@ SOARNET.displayUserList = function(){
       list.innerHTML += "<tr><td class='alignright'>" + (el.taskstate == "not started" ? "--" : i) + "</td><td class='mpusername'>" + el.username + "</td><td>" + LXN.displayValue(el.alt, "ft", "alt") + "</td><td class='alignright'>" + LXN.displayValue(el.avg, "kts", "speed") + "</td><td class='alignright'>" + (el.taskstate == "not started" ? "0" : LXN.displayValue(el.dist, "m", "dist")) + "</td></tr>";
       i++;  
     })
+
+    SOARNET.isSolo = i == 2 ? true : false;
   }
 
 SOARNET.updateEventInfo = function() {
-    
+    if( document.getElementById("eventlist") == null) { return; }
+    let list = document.getElementById("eventlist");
+    list.innerHTML = "";
+
+    for(var event in SOARNET.eventDetails) {
+        let starttime = new Date(SOARNET.eventDetails[event].start)
+        list.innerHTML += '<li><h3>' + SOARNET.eventDetails[event].title + '</h3><p>Startline opens ' + starttime.getHours() + ':' + starttime.getMinutes() + '</p><a href="#" class="eventClickhandler" data-id="' + event + '"></a></li>';
+    }
 }

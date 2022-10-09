@@ -40,39 +40,3 @@
 .bigdatafields #coursepointer {
 	top: 310px;
 }
-
-/* ---------- */
-
-.mp {
-	font-size: 3rem;
-	padding: 1em;
-	
-}
-
-#mpform {
-	display: flex;
-	position: relative;
-	margin-bottom: 2rem;
-}
-
-#mpform input, #mpform button {
-	font-size: 3rem;
-	padding: 0.5rem 1rem;
-}
-
-#mpform #username {
-	width: 70%;
-}
-
-#mpform input[type='submit'] {
-	width: 25%;
-}
-
-#userlist {
-	margin: 0 0 0 4rem;
-}
-
-#userlist li {
-	padding: 0.5rem 1rem;
-	border-bottom: 1px solid #666;
-}
