@@ -9026,6 +9026,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return Ar;
   }();
 
+  var Or = {
+    ".sv": "timestamp"
+  };
   jt.prototype.simpleListen = function (e, t) {
     this.sendRequest("q", {
       p: e
