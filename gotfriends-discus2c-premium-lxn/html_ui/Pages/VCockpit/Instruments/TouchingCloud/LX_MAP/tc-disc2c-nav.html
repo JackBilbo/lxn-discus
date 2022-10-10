@@ -604,8 +604,8 @@
 					</div>
 					<div class="pageframe">
 						<div class="page">
-							
-							<div class="content mp notConnected">
+
+							<div class="content mp notConnected noEvent">
 								<form id="mpform">
 									<input type="text" id="username" placeholder="Username">
 									<button id="mpformsubmit">LOGIN</button>
@@ -621,9 +621,8 @@
 								</table>
 
 								<div class="configpanel_buttons">
-									<a href="#" id="disconnect" class="servicelink">Disconnect</a>
+									<a href="#" id="leave_event" class="servicelink">Leave</a>
 								</div>
-
 								
 								<div id="events">
 									<p class="eventheader">Click to join or create an event</p>
@@ -639,6 +638,13 @@
 										<input type="submit" value="Create Flight">
 									</form>
 
+									<div class="configpanel_buttons">
+										<a href="#" id="disconnect" class="servicelink">Disconnect</a>
+									</div>
+								</div>
+
+								<div id="mp_mainswitch">
+									<a href="#" id="">CONNECT</a>
 								</div>
 							</div>
 						</div>
