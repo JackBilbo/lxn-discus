@@ -1644,12 +1644,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
                   return this._canUseIndexedDBPromise;
 
                 case 2:
-                  if (!_context7.sent) {
-                    _context7.next = 9;
+                  _context7.t1 = _context7.sent;
+
+                  if (!_context7.t1) {
+                    _context7.next = 7;
                     break;
                   }
 
-                  _context7.next = 5;
+                  _context7.next = 6;
                   return function () {
                     var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(e) {
                       var t, _n9;
@@ -1688,11 +1690,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
                     };
                   }()(this.app);
 
-                case 5:
-                  _context7.t0 = _context7.sent;
+                case 6:
+                  _context7.t1 = _context7.sent;
+
+                case 7:
+                  _context7.t0 = _context7.t1;
 
                   if (_context7.t0) {
-                    _context7.next = 8;
+                    _context7.next = 10;
                     break;
                   }
 
@@ -1700,15 +1705,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
                     heartbeats: []
                   };
 
-                case 8:
+                case 10:
                   return _context7.abrupt("return", _context7.t0);
 
-                case 9:
-                  return _context7.abrupt("return", {
-                    heartbeats: []
-                  });
-
-                case 10:
+                case 11:
                 case "end":
                   return _context7.stop();
               }
@@ -9026,6 +9026,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return Ar;
   }();
 
+  var Or = {
+    ".sv": "timestamp"
+  };
   jt.prototype.simpleListen = function (e, t) {
     this.sendRequest("q", {
       p: e
@@ -9038,66 +9041,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     var t = _ref8.instanceIdentifier;
     return Dr(e.getProvider("app").getImmediate(), e.getProvider("auth-internal"), e.getProvider("app-check-internal"), t);
   }, "PUBLIC").setMultipleInstances(!0)), ue(we, be, void 0), ue(we, be, "esm2017");
-
-  var Or = function () {
-    var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {
-      var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "[DEFAULT]";
-      var t = re.get(e);
-      if (!t) throw he.create("no-app", {
-        appName: e
-      });
-      return t;
-    }();
-    var t = arguments.length > 1 ? arguments[1] : undefined;
-    return function (e, t) {
-      var n = e.container.getProvider("heartbeat").getImmediate({
-        optional: !0
-      });
-      return n && n.triggerHeartbeat(), e.container.getProvider(t);
-    }(e, "database").getImmediate({
-      identifier: t
-    });
-  }(function (e) {
-    var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    "object" != _typeof(t) && (t = {
-      name: t
-    });
-    var n = Object.assign({
-      name: "[DEFAULT]",
-      automaticDataCollectionEnabled: !1
-    }, t),
-        i = n.name;
-    if ("string" != typeof i || !i) throw he.create("bad-app-name", {
-      appName: String(i)
-    });
-    var s = re.get(i);
-
-    if (s) {
-      if (w(e, s.options) && w(n, s.config)) return s;
-      throw he.create("duplicate-app", {
-        appName: i
-      });
-    }
-
-    var r = new R(i);
-
-    var _iterator15 = _createForOfIteratorHelper(oe.values()),
-        _step15;
-
-    try {
-      for (_iterator15.s(); !(_step15 = _iterator15.n()).done;) {
-        var _e102 = _step15.value;
-        r.addComponent(_e102);
-      }
-    } catch (err) {
-      _iterator15.e(err);
-    } finally {
-      _iterator15.f();
-    }
-
-    var o = new ce(e, n, r);
-    return re.set(i, o), o;
-  }({
+  var Mr = {
     apiKey: "AIzaSyClZE6Pm6b53gDmt1IXo9jw2nkTdBUUJqU",
     authDomain: "soarnet-2a594.firebaseapp.com",
     projectId: "soarnet-2a594",
@@ -9105,38 +9049,101 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     messagingSenderId: "574349000604",
     appId: "1:574349000604:web:478231141ef41a5022d259",
     databaseURL: "https://soarnet-2a594-default-rtdb.europe-west1.firebasedatabase.app"
-  }));
-
+  };
   SOARNET = {
     checkvalue: "",
     currentEvent: "test",
     eventDetails: "",
     userId: "",
     eventUserRef: null
-  }, Rr(Ir(Or, "check"), function (e) {
-    SOARNET.checkvalue = e.val();
-  }), Rr(Ir(Or, "eventDetails/"), function (e) {
-    SOARNET.eventDetails = e.val(), SOARNET.updateEventInfo();
-  }), SOARNET.updateEvent = function (e, t) {
-    kr(Ir(Or, "eventDetails/" + e), t);
-  }, SOARNET.createEvent = function (e) {
-    var t = Sr(Ir(Or, "eventDetails/"));
-    return Tr(t).remove(), kr(t, e), t.key;
-  }, SOARNET.createListener = function (e) {
-    SOARNET.eventUserRef = Ir(Or, "events/" + e + "/users/"), Rr(SOARNET.eventUserRef, function (e) {
-      SOARNET.eventusers = e.val();
-    });
-  }, SOARNET.detachlistener = function () {
-    !function (e, t, n) {
-      var i = null;
-      nr(e._repo, e, i);
-    }(SOARNET.eventUserRef);
-  }, SOARNET.writeUserData = function (e, t, n) {
-    kr(Ir(Or, "events/" + e + "/users/" + t), n);
-  }, SOARNET.getUserId = function (e) {
-    var t = Sr(Ir(Or, "events/" + e + "/users"));
-    return Tr(t).remove(), t.key;
-  }, SOARNET.deleteEventUser = function (e, t) {
-    Ir(Or, "events/" + e + "/users/" + t).remove();
+  }, SOARNET.initConnection = function () {
+    var e = function () {
+      var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {
+        var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "[DEFAULT]";
+        var t = re.get(e);
+        if (!t) throw he.create("no-app", {
+          appName: e
+        });
+        return t;
+      }();
+      var t = arguments.length > 1 ? arguments[1] : undefined;
+      return function (e, t) {
+        var n = e.container.getProvider("heartbeat").getImmediate({
+          optional: !0
+        });
+        return n && n.triggerHeartbeat(), e.container.getProvider(t);
+      }(e, "database").getImmediate({
+        identifier: t
+      });
+    }(function (e) {
+      var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      "object" != _typeof(t) && (t = {
+        name: t
+      });
+      var n = Object.assign({
+        name: "[DEFAULT]",
+        automaticDataCollectionEnabled: !1
+      }, t),
+          i = n.name;
+      if ("string" != typeof i || !i) throw he.create("bad-app-name", {
+        appName: String(i)
+      });
+      var s = re.get(i);
+
+      if (s) {
+        if (w(e, s.options) && w(n, s.config)) return s;
+        throw he.create("duplicate-app", {
+          appName: i
+        });
+      }
+
+      var r = new R(i);
+
+      var _iterator15 = _createForOfIteratorHelper(oe.values()),
+          _step15;
+
+      try {
+        for (_iterator15.s(); !(_step15 = _iterator15.n()).done;) {
+          var _e102 = _step15.value;
+          r.addComponent(_e102);
+        }
+      } catch (err) {
+        _iterator15.e(err);
+      } finally {
+        _iterator15.f();
+      }
+
+      var o = new ce(e, n, r);
+      return re.set(i, o), o;
+    }(Mr));
+
+    Rr(Ir(e, "check"), function (e) {
+      SOARNET.checkvalue = e.val();
+    }), Rr(Ir(e, "eventDetails/"), function (e) {
+      SOARNET.eventDetails = e.val(), SOARNET.updateEventInfo();
+    }), SOARNET.updateEvent = function (t, n) {
+      kr(Ir(e, "eventDetails/" + t), n);
+    }, SOARNET.createEvent = function (t) {
+      var n = Sr(Ir(e, "eventDetails/"));
+      return Tr(n).remove(), kr(n, t), n.key;
+    }, SOARNET.createListener = function (t) {
+      SOARNET.eventUserRef = Ir(e, "events/" + t + "/users/"), Rr(SOARNET.eventUserRef, function (e) {
+        SOARNET.eventusers = e.val();
+      });
+    }, SOARNET.detachlistener = function () {
+      !function (e, t, n) {
+        var i = null;
+        nr(e._repo, e, i);
+      }(SOARNET.eventUserRef);
+    }, SOARNET.writeUserData = function (t, n, i) {
+      kr(Ir(e, "events/" + t + "/users/" + n), i);
+    }, SOARNET.getUserId = function (t) {
+      var n = Sr(Ir(e, "events/" + t + "/users"));
+      return Tr(n).remove(), n.key;
+    }, SOARNET.deleteEventUser = function (t, n) {
+      Ir(e, "events/" + t + "/users/" + n).remove();
+    }, SOARNET.serverTime = function () {
+      return Or;
+    };
   };
 })();
