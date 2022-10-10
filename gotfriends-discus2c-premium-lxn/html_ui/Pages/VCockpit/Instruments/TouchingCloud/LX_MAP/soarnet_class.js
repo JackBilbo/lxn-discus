@@ -8,6 +8,12 @@ class soarnet {
     init() {
         console.log(SOARNET.eventDetails);
 
+        document.getElementById("mp_mainswitch").addEventListener("click", function(e) {
+            e.preventDefault();
+            SOARNET.initConnection();
+            document.querySelector(".mp").classList.remove("notConnected");
+        })
+
         document.getElementById("mpformsubmit").addEventListener("click", function(e) {
             e.preventDefault();
             if(SOARNET.checkvalue != "isActive") { 
@@ -33,19 +39,26 @@ class soarnet {
             e.preventDefault();
             SN.currentEvent = SOARNET.createEvent({
                 "title": document.getElementById("eventtitle").value,
-                "start": (Date.now() + 3600000)
+                "time": SOARNET.creatUTCstarttime_s(document.getElementById("utchours").value, document.getElementById("utcmin").value),
+                "wpstart": B21_SOARING_ENGINE.task.start_wp().position,
+                "wpfinish": B21_SOARING_ENGINE.task.finish_wp().position
             })
-            document.querySelector(".mp").classList.remove("notConnected");
+            document.querySelector(".mp").classList.remove("noEvent");
             document.getElementById("addEvent").classList.remove("on");
         })
 
-        document.getElementById("disconnect").addEventListener("click",function(e) {
+        document.getElementById("leave_event").addEventListener("click",function(e) {
             e.preventDefault();
-            console.log("deleting user " + SOARNET.userId + " from event " + SN.currentEvent);
-            SOARNET.writeUserData(SN.currentEvent, SOARNET.userId, null);
-            SOARNET.detachlistener();
+            try {
+                SOARNET.writeUserData(SN.currentEvent, SOARNET.userId, null);
+                SOARNET.detachlistener();
+            } catch(e) {
+                console.log(e);
+            }
+            
+            SN.currentEvent = "";
             SN.isActive = false;
-            document.querySelector(".mp").classList.add("notConnected");
+            document.querySelector(".mp").classList.add("noEvent");
             document.querySelector("#userlist tbody").innerHTML = "";
         })
 
@@ -53,7 +66,12 @@ class soarnet {
             e.preventDefault();
             let el = e.target;
             SN.currentEvent = el.getAttribute("data-id");
-            document.querySelector(".mp").classList.remove("notConnected");
+            document.querySelector(".mp").classList.remove("noEvent");
+        })
+
+        document.getElementById("disconnect").addEventListener("click", function(e) {
+            e.preventDefault();
+            document.querySelector(".mp").classList.add("notConnected");
         })
 
         SOARNET.updateEventInfo();
@@ -70,13 +88,14 @@ class soarnet {
              
             if(!SOARNET.isSolo) {
                 this.updateUserdata();
+                document.querySelector("#mp_info").innerHTML = SOARNET.eventDetails[this.currentEvent].title;
             } else {
                 document.querySelector("#mp_info").innerHTML = "Waiting for pilots to connect";
             }
 
             SOARNET.displayUserList();
             
-            let time_to_start = parseInt((Date.now() - Date.parse(SOARNET.eventDetails[this.currentEvent].start)) / 1000);  
+            let time_to_start = SOARNET.getTimetostart_s(SOARNET.eventDetails[this.currentEvent].time);  
             if (time_to_start < 0 && !B21_SOARING_ENGINE.task_started()) {
                 this.instrument.vars.tasktime.value = time_to_start;
             }
@@ -115,18 +134,18 @@ SOARNET.displayUserList = function(){
     list.innerHTML = "";
     
     for (user in SOARNET.eventusers) {
-        if(now - parseInt(SOARNET.eventusers[user].time) < 6000) {
-            if(SOARNET.eventusers[user].taskstate == "finished") {
-                finisherlist.push(SOARNET.eventusers[user]);
-            } else {
-                if (SOARNET.eventusers[user].taskstate == "not started") { SOARNET.eventusers[user].dist = -1; }
-                userList.push(SOARNET.eventusers[user]);
-            }
+        
+        if(SOARNET.eventusers[user].taskstate == "finished") {
+            finisherlist.push(SOARNET.eventusers[user]);
+        } else {
+            if (SOARNET.eventusers[user].taskstate == "not started") { SOARNET.eventusers[user].dist = -1; }
+            userList.push(SOARNET.eventusers[user]);
+        }
             
-            if(typeof(TOPOMAP.addLayer) == "function" && user != this.userId) {
-                NAVMAP.paintMultiplayers(user, SOARNET.eventusers[user]);
-            }
-        }     
+        if(typeof(TOPOMAP.addLayer) == "function" && user != this.userId) {
+            NAVMAP.paintMultiplayers(user, SOARNET.eventusers[user]);
+        }
+             
     }
 
     finisherlist.sort((a,b) => {
@@ -158,7 +177,19 @@ SOARNET.updateEventInfo = function() {
     list.innerHTML = "";
 
     for(var event in SOARNET.eventDetails) {
-        let starttime = new Date(SOARNET.eventDetails[event].start)
-        list.innerHTML += '<li><h3>' + SOARNET.eventDetails[event].title + '</h3><p>Startline opens ' + starttime.getHours() + ':' + starttime.getMinutes() + '</p><a href="#" class="eventClickhandler" data-id="' + event + '"></a></li>';
+        if(SOARNET.eventDetails[event].wpstart.lat == B21_SOARING_ENGINE.task.start_wp().position.lat && SOARNET.eventDetails[event].wpfinish.long == B21_SOARING_ENGINE.task.finish_wp().position.long) {
+            let starttime =  new Date(SOARNET.eventDetails[event].time * 1000).toUTCString().replace(/.*(\d\d:\d\d:\d\d).*/,"$1");
+            list.innerHTML += '<li><h3>' + SOARNET.eventDetails[event].title + '</h3><p>Task starts: ' +starttime + ' UTC</p><a href="#" class="eventClickhandler" data-id="' + event + '"></a></li>';
+        }
     }
+}
+
+SOARNET.creatUTCstarttime_s = function(eventHours,eventMinutes) {
+    let now = new Date();
+    return Date.UTC(now.getFullYear(),now.getMonth(),now.getDate(),parseInt(eventHours),parseInt(eventMinutes)) / 1000;
+}
+
+SOARNET.getTimetostart_s = function(eventStart_s) {
+    let now = new Date();
+    return Date.UTC(now.getFullYear(),now.getMonth(),now.getDate(),(now.getHours() + (now.getTimezoneOffset() / 60)),now.getMinutes(),now.getSeconds()) / 1000 - eventStart_s;
 }
