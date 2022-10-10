@@ -3,7 +3,7 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <h2>Experimental:</h2>
 
-This branch contains a new, highly experimental multiplayer-feature: on the page "multiplayer" enter any username and hit "Save" to connect to a session. Currently all connections are made to a "test" session.
+This branch contains a new, highly experimental multiplayer-feature.
   
 
 <h2>Installation:</h2>
