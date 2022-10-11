@@ -309,11 +309,11 @@
                                 </div>
                             </header>
 			    
-			    <div class="task-alerts">
+			    			<div class="task-alerts">
                                 Attention: Slew activated!
                             </div>
 			    
-			    <div id="wp-template" class="task-waypoint">
+			    			<div id="wp-template" class="task-waypoint">
                                 <div class="header">
                                     <div class="wp-name"></div>
                                     <div class="badge wp-ok">OK</div>
@@ -328,7 +328,7 @@
                                                 <span class="number">0</span><span class="unit"></span>
                                             </div>
                                         </div>
-					    <div class="wp-data ete"><div class="shine"></div>
+					    				<div class="wp-data ete"><div class="shine"></div>
                                             <span class="label">ETE</span>
                                             <div class="value">
                                                 <span class="number"></span><span class="unit"></span>
@@ -380,6 +380,54 @@
 							</div>
 
 						</div>
+
+						<div class="page">
+
+							<div class="content mp notConnected noEvent">
+								<form id="mpform">
+									<input type="text" id="username" placeholder="Username">
+									<button id="mpformsubmit">LOGIN</button>
+								</form>
+								<p id="mp_info"></p>
+								<table id="userlist">
+									<thead>
+										<th>P.</th><th>User</th><th>Alt</th><th>Avg</th><th class='alignright'>T./Dst</th>
+									</thead>
+									<tbody>
+
+									</tbody>
+								</table>
+
+								<div class="configpanel_buttons">
+									<a href="#" id="leave_event" class="servicelink">Leave</a>
+								</div>
+								
+								<div id="events">
+									<p class="eventheader">Click to join or create an event</p>
+									<ul id="eventlist">
+										
+									</ul>
+									<a href="#" id="addEventLink">Add new flight</a>
+									<form id="addEvent" class="off">
+										<input type="text" name="eventtitle" id="eventtitle" placeholder="Flight title">
+										<div class="timeinput">
+											<label>Task start UTC:</label><input type="text" name="utchours" id="utchours">:<input type="text" name="utcmin" id="utcmin">
+										</div>
+										<input type="submit" value="Create Flight">
+									</form>
+
+									<div class="configpanel_buttons">
+										<a href="#" id="disconnect" class="servicelink">Disconnect</a>
+									</div>
+								</div>
+
+								<div id="mp_mainswitch">
+									<p class="eventheader">Multiplayer Event:</p>
+									<a href="#" id="">CONNECT</a>
+								</div>
+							</div>
+						</div>
+
 					</div>
 				</div>
 
@@ -602,61 +650,6 @@
 					</div>
 				</div>
 					
-
-				<div class="panel">
-					<div class="pageheader">
-						<div class="title">Multiplayer</div>
-						<div class="time"><span class="livedata" data-value="localtime" showunit="no"></span></div>
-					</div>
-					<div class="pageframe">
-						<div class="page">
-
-							<div class="content mp notConnected noEvent">
-								<form id="mpform">
-									<input type="text" id="username" placeholder="Username">
-									<button id="mpformsubmit">LOGIN</button>
-								</form>
-								<p id="mp_info"></p>
-								<table id="userlist">
-									<thead>
-										<th>P.</th><th>User</th><th>Alt</th><th>Avg</th><th class='alignright'>T./Dst</th>
-									</thead>
-									<tbody>
-
-									</tbody>
-								</table>
-
-								<div class="configpanel_buttons">
-									<a href="#" id="leave_event" class="servicelink">Leave</a>
-								</div>
-								
-								<div id="events">
-									<p class="eventheader">Click to join or create an event</p>
-									<ul id="eventlist">
-										
-									</ul>
-									<a href="#" id="addEventLink">Add new flight</a>
-									<form id="addEvent" class="off">
-										<input type="text" name="eventtitle" id="eventtitle" placeholder="Flight title">
-										<div class="timeinput">
-											<label>Task start UTC:</label><input type="text" name="utchours" id="utchours">:<input type="text" name="utcmin" id="utcmin">
-										</div>
-										<input type="submit" value="Create Flight">
-									</form>
-
-									<div class="configpanel_buttons">
-										<a href="#" id="disconnect" class="servicelink">Disconnect</a>
-									</div>
-								</div>
-
-								<div id="mp_mainswitch">
-									<a href="#" id="">CONNECT</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
 			</div>
 
 
