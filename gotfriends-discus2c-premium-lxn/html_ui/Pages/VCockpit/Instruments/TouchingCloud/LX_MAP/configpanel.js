@@ -21,10 +21,12 @@ class configpanel {
 
         this.rangesliders = []
 
-        this.brightnessrange = new rangeinput(document.querySelector("#brightnesslider"), function(val) { SimVar.SetSimVarValue("L:NAV_BRIGHTNESS", "number", val); });
+        this.brightnessrange = new rangeinput(document.querySelector("#brightnesslider"), function(val) { SimVar.SetSimVarValue("L:NAV_BRIGHTNESS", "percent", val); });
         this.rangesliders.push(this.brightnessrange);
         this.glareshiledrange = new rangeinput(document.querySelector("#glareshieldslider"), function(val) { SimVar.SetSimVarValue("K:LIGHT_POTENTIOMETER_5_SET", "number", val); });
         this.rangesliders.push(this.glareshiledrange);
+        this.adverseyawrange = new rangeinput(document.querySelector("#adverseyawslider"), function(val) { SimVar.SetSimVarValue("L:AdverseYaw", "percent", val); });
+        this.rangesliders.push(this.adverseyawrange);
         this.adverseyawrange = new rangeinput(document.querySelector("#adverseyawslider"), function(val) { SimVar.SetSimVarValue("L:AdverseYaw", "percent", val); });
         this.rangesliders.push(this.adverseyawrange);
 
