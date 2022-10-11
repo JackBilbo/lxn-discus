@@ -343,7 +343,6 @@ class lxn extends NavSystemTouch {
             this.vars.total_energy.value = this.jbb_getTotalEnergy() / 0.51444;
             this.vars.calc_netto.value = this.vars.total_energy.value + Math.abs(this.vars.polar_sink.value);
 
-            SN.update();
         }
 
         if(this.TIME_S - this.TIMER_1 > 1) {
@@ -355,6 +354,7 @@ class lxn extends NavSystemTouch {
             if(this.vars.utctime.isUsed) {this.vars.utctime.value = new Date().toUTCString().replace(/.*(\d\d:\d\d:\d\d).*/,"$1"); }
 
             this.updateLiftdots();
+            SN.update();
 
             if(this.vars.alt_gnd.value > 100) { this.log.isStarted = true; }
             if(this.vars.gndspd.value < 20 && this.log.isStarted == true) { this.log.isStarted = false; }
