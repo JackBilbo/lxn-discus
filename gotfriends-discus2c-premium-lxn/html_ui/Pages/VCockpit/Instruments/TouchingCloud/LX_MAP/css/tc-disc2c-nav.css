@@ -722,6 +722,19 @@ input[type="radio"] {
 
 }
 
+.rangeinput .label {
+	display: block;
+	float: left;
+	line-height: 4rem;
+	padding: 0 1rem;
+}
+
+.rangeinput .label.placeright {
+	float: right;
+}
+
+
+
 /* /range inputs */
 
 .content {
