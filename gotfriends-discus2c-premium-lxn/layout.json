@@ -2,8 +2,8 @@
   "content": [
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/configpanel.js",
-      "size": 16116,
-      "date": 133095583988149130
+      "size": 16337,
+      "date": 133099725200625604
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/interface.js",
@@ -31,9 +31,25 @@
       "date": 133095583988169608
     },
     {
+<<<<<<< HEAD
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.html",
       "size": 42922,
       "date": 133096850890623378
+=======
+      "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/soarnet.js",
+      "size": 318983,
+      "date": 133099013553461599
+    },
+    {
+      "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/soarnet_class.js",
+      "size": 8721,
+      "date": 133099034464890086
+    },
+    {
+      "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.html",
+      "size": 45330,
+      "date": 133099730671279047
+>>>>>>> 81a7016 (Adverse Yaw Slider)
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.js",
@@ -73,7 +89,16 @@
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/bignumbers.css",
       "size": 823,
+<<<<<<< HEAD
       "date": 133096850890593355
+=======
+      "date": 133097808666391254
+    },
+    {
+      "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/soarnet.css",
+      "size": 2295,
+      "date": 133098995292681990
+>>>>>>> 81a7016 (Adverse Yaw Slider)
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/task-page.css",
@@ -82,8 +107,13 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/tc-disc2c-nav.css",
+<<<<<<< HEAD
       "size": 23037,
       "date": 133096850890603357
+=======
+      "size": 23124,
+      "date": 133097840552239727
+>>>>>>> 81a7016 (Adverse Yaw Slider)
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/thermalling_display/thermalling_display.css",
@@ -117,8 +147,8 @@
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/model/D2C_FES_INT.xml",
-      "size": 89390,
-      "date": 133095583988128025
+      "size": 89985,
+      "date": 133099746139589386
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/panel/panel.cfg",
