@@ -263,7 +263,6 @@ class lxn extends NavSystemTouch {
             this.jbb_update_stf();
 
             if (B21_SOARING_ENGINE.task_active()) {
-                this.vars.tasktime.value = B21_SOARING_ENGINE.task_time_s();
                 
                 this.update_task_page();   
 
@@ -277,14 +276,13 @@ class lxn extends NavSystemTouch {
                 if(this.vars.wp_arr_wpmin.isUsed) {this.vars.wp_arr_wpmin.value = (B21_SOARING_ENGINE.current_wp().arrival_height_msl_m - (B21_SOARING_ENGINE.current_wp().min_alt_m != null ? B21_SOARING_ENGINE.current_wp().min_alt_m : B21_SOARING_ENGINE.current_wp().alt_m)) / 0.3048;}
                 if(this.vars.task_arr_msl.isUsed) {this.vars.task_arr_msl.value = B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m / 0.3048;}
                 if(this.vars.task_arr_agl.isUsed) {this.vars.task_arr_agl.value = (B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - (B21_SOARING_ENGINE.task.finish_wp().min_alt_m != null ? B21_SOARING_ENGINE.task.finish_wp().min_alt_m : B21_SOARING_ENGINE.task.finish_wp().alt_m)) / 0.3048;}
-                if(this.vars.task_spd.isUsed) {this.vars.task_spd.value = B21_SOARING_ENGINE.task.avg_task_speed_kts();}
+                if(this.vars.task_spd.isUsed) {this.vars.task_spd.value = B21_SOARING_ENGINE.task_finished() ? B21_SOARING_ENGINE.finish_speed_ms() / 0.51444 : B21_SOARING_ENGINE.task.avg_task_speed_kts();}
             }
 
             
             CONFIGPANEL.update();
             this.updateKineticAssistant();
 
-            SN.update();
         }
 
         if(this.TIME_S - this.TIMER_1 > 1) {
@@ -297,6 +295,7 @@ class lxn extends NavSystemTouch {
 
             NAVPANEL.update();
             this.updateLiftdots();
+            SN.update();
 
             if(this.gearposition != SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool")) {
                 if(SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool") == true && this.vars.ballast.value > 5) {
@@ -819,14 +818,15 @@ class lxn extends NavSystemTouch {
 	    
         if(!B21_SOARING_ENGINE.task_finished()) {
             taskheader.querySelector(".task-state .task-timer .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task_time_s(),"s","time_of_day");
-            this.vars.tasktime.value = B21_SOARING_ENGINE.task_time_s();
+            if(B21_SOARING_ENGINE.task_started()) {
+                this.vars.tasktime.value = B21_SOARING_ENGINE.task_time_s();
+            }
         } else {
             taskheader.querySelector(".task-state .task-timer .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.finish_time_s - B21_SOARING_ENGINE.task.start_time_s,"s","time_of_day");
             taskheader.querySelector(".task-state .task-average .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.finish_speed_ms(),"ms","speed");
             taskheader.querySelector(".task-state .task-average .unit").innerHTML = this.units.speed.pref;
             
-            this.vars.tasktime.value = B21_SOARING_ENGINE.task.finish_time_s - B21_SOARING_ENGINE.task.start_time_s;
-            
+            this.vars.tasktime.value = B21_SOARING_ENGINE.task.finish_time_s - B21_SOARING_ENGINE.task.start_time_s;         
         }
 
         /* Cheat-Warnings */
