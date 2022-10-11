@@ -96,9 +96,18 @@ class soarnet {
             SOARNET.displayUserList();
             
             let time_to_start = SOARNET.getTimetostart_s(SOARNET.eventDetails[this.currentEvent].time);  
-            if (time_to_start < 0 && !B21_SOARING_ENGINE.task_started()) {
+            if (time_to_start <= 0 && !B21_SOARING_ENGINE.task_started()) {
                 this.instrument.vars.tasktime.value = time_to_start;
-            }
+                if(time_to_start >= -10) {
+                    if(time_to_start <= -1) { 
+                        SOARNET.countdown(Math.abs(time_to_start),400) 
+                    } else {
+                        SOARNET.countdown("GO",400);
+                        window.setTimeout(SOARNET.countdown_off,3000);
+                    }
+                    
+                }
+            } 
         }
     }
 
@@ -192,4 +201,16 @@ SOARNET.creatUTCstarttime_s = function(eventHours,eventMinutes) {
 SOARNET.getTimetostart_s = function(eventStart_s) {
     let now = new Date();
     return Date.UTC(now.getFullYear(),now.getMonth(),now.getDate(),(now.getHours() + (now.getTimezoneOffset() / 60)),now.getMinutes(),now.getSeconds()) / 1000 - eventStart_s;
+}
+
+SOARNET.countdown = function(number,size) {
+    let cd = document.getElementById("countdown");
+    cd.style.fontSize = size + "px";
+    cd.innerText = number;
+    cd.style.display = "block";
+} 
+
+SOARNET.countdown_off = function() {
+    console.log("countdown off!!");
+    document.getElementById("countdown").style.display = "none";
 }
