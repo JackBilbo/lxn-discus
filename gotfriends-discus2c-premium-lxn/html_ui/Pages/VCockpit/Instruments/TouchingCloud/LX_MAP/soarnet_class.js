@@ -6,20 +6,20 @@ class soarnet {
     }
 
     init() {
-        console.log(SOARNET.eventDetails);
-
         document.getElementById("mp_mainswitch").addEventListener("click", function(e) {
             e.preventDefault();
             SOARNET.initConnection();
-            document.querySelector(".mp").classList.remove("notConnected");
+            if(SOARNET.checkvalue.masterkey == "isActive" && SOARNET.checkvalue.ssckey == "isActive") { 
+                document.querySelector(".mainmessage").innerText = "";
+                document.querySelector(".mp").classList.remove("notConnected");
+            } else {
+                document.querySelector(".mainmessage").innerText = "Sorry, System currently not available.";
+            }
+            
         })
 
         document.getElementById("mpformsubmit").addEventListener("click", function(e) {
             e.preventDefault();
-            if(SOARNET.checkvalue != "isActive") { 
-                document.querySelector("#mp_info").innerHTML = "Sorry, system currently not available";
-                return false; 
-            }
             if(document.getElementById("username").value == "") {
                 document.querySelector("#mp_info").innerHTML = "Please enter a username";
                 return false; 
