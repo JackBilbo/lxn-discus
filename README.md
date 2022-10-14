@@ -1,9 +1,19 @@
 # lxn-discus
 Replacement mod for the GotFriends Discus' Nav computer
 
-<h2>Experimental:</h2>
+<h2>Experimental Multiplayer-Feature:</h2>
 
-This branch contains a new, highly experimental multiplayer-feature.
+Multiplayer-Info is located as a sub page under the task list - simply page down.
+
+First view is the main "Connect" Button to initialize the system. 
+
+Once connected you see a - most likely very short otr empty "events" list, showing all available flights. You only see events that use the same task/flightplan you have currently loaded. Click an event to join or click "add new flight" to create your own event. You need to enter a title and the start time (hour and minutes) in UTC/ZULU time.
+
+Next step: enter a username that will show on other pilots flight computer and click "Login" to join the event. Once other pilots join you'll now see the list of participants and also see other pilots position on the nav map. If you assigned "task time" to a data field it will now show a countdown to task start.
+
+When a pilot crosses the start line, his/her average speed and flown distance is shown in the list. The list will now be sorted by distance flown, effectively a live ranking of the race. When a pilot crosses the finish line, total task time will be displayed instead of distnace flown and used for sorting.
+
+Currently you can change your username any time by entering a new one and clicking "Login" again.
   
 
 <h2>Installation:</h2>
