@@ -164,3 +164,16 @@
     text-align: center;
     text-shadow: 2px 2px 20px rgba(0,0,0,0.8);
 }
+
+.mplabel {
+    position: absolute;
+    top: -1em;
+    left: 70%;
+    background-color: #fff;
+    color: #333;
+    padding: 0.1em 0.2em;
+    border: 2px solid #333;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+

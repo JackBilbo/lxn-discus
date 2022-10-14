@@ -9026,9 +9026,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return Ar;
   }();
 
-  var Or = {
-    ".sv": "timestamp"
-  };
   jt.prototype.simpleListen = function (e, t) {
     this.sendRequest("q", {
       p: e
@@ -9041,7 +9038,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     var t = _ref8.instanceIdentifier;
     return Dr(e.getProvider("app").getImmediate(), e.getProvider("auth-internal"), e.getProvider("app-check-internal"), t);
   }, "PUBLIC").setMultipleInstances(!0)), ue(we, be, void 0), ue(we, be, "esm2017");
-  var Mr = {
+  var Or = {
     apiKey: "AIzaSyClZE6Pm6b53gDmt1IXo9jw2nkTdBUUJqU",
     authDomain: "soarnet-2a594.firebaseapp.com",
     projectId: "soarnet-2a594",
@@ -9051,7 +9048,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     databaseURL: "https://soarnet-2a594-default-rtdb.europe-west1.firebasedatabase.app"
   };
   SOARNET = {
-    checkvalue: "",
+    checkvalue: {},
     currentEvent: "test",
     eventDetails: "",
     userId: "",
@@ -9115,9 +9112,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
       var o = new ce(e, n, r);
       return re.set(i, o), o;
-    }(Mr));
+    }(Or));
 
-    Rr(Ir(e, "check"), function (e) {
+    Rr(Ir(e, "check/"), function (e) {
       SOARNET.checkvalue = e.val();
     }), Rr(Ir(e, "eventDetails/"), function (e) {
       SOARNET.eventDetails = e.val(), SOARNET.updateEventInfo();
@@ -9142,8 +9139,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       return Tr(n).remove(), n.key;
     }, SOARNET.deleteEventUser = function (t, n) {
       Ir(e, "events/" + t + "/users/" + n).remove();
-    }, SOARNET.serverTime = function () {
-      return Or;
     };
   };
 })();
