@@ -457,15 +457,21 @@ class navmap {
     paintMultiplayers(userid, data) {
         
         if(this.mpMarker[userid] == null) {
-            this.mpMarker[userid] = L.marker([data.lat, data.long], { icon: this.mpglidericon }).addTo(TOPOMAP);
+            this.mpMarker[userid] = L.marker([data.lat, data.long], { icon: this.mpglidericon }).addTo(TOPOMAP)
+            let mplabel = document.createElement("div");
+            mplabel.classList.add("mplabel");
+            mplabel.innerText = data.username;
+            this.mpMarker[userid].getElement().append(mplabel);
         } else {
             this.mpMarker[userid].setLatLng([data.lat, data.long])
             this.mpMarker[userid].getElement().querySelector("svg").style.transform = "rotate(" + (data.hdg + 45) + "deg)";
+            this.mpMarker[userid].getElement().querySelector(".mplabel").innerText = data.username;
         }
 
         for (var marker in this.mpMarker) {
             if(!SOARNET.eventusers[marker]) {
                 TOPOMAP.removeLayer(this.mpMarker[marker]);
+                this.mpMarker[marker] = null;
             }
         }
     }
