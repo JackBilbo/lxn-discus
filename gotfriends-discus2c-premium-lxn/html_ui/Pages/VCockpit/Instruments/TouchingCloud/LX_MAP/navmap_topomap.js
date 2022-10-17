@@ -467,7 +467,15 @@ class navmap {
         } else {
             this.mpMarker[userid].setLatLng([data.lat, data.long])
             this.mpMarker[userid].getElement().querySelector("svg").style.transform = "rotate(" + (data.hdg + 45) + "deg)";
-            this.mpMarker[userid].getElement().querySelector(".mplabel").innerText = data.username;
+
+            let label = this.mpMarker[userid].getElement().querySelector(".mplabel");
+            label.innerText = data.username;
+
+            if(this.map_rotation == "trackup") {
+                label.style.transform = "rotate(" + this.instrument.vars.hdg.value + "deg)";
+            } else {
+                label.style.transform = "rotate(0deg)";
+            }
         }
 
         for (var marker in this.mpMarker) {
@@ -475,6 +483,13 @@ class navmap {
                 TOPOMAP.removeLayer(this.mpMarker[marker]);
                 this.mpMarker[marker] = null;
             }
+        }
+    }
+
+    wipeMultiplayers() {
+        for (var marker in this.mpMarker) {
+            TOPOMAP.removeLayer(this.mpMarker[marker]);
+            this.mpMarker[marker] = null;
         }
     }
 
