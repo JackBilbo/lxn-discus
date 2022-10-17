@@ -1,28 +1,27 @@
 # lxn-discus
 Replacement mod for the GotFriends Discus' Nav computer
 
-<h2>Experimental Multiplayer-Feature:</h2>
+<h2>Multiplayer-Feature:</h2>
 
 Multiplayer-Info is located as a sub page under the task list - simply page down.
 
-First view is the main "Connect" Button to initialize the system. 
+First view asks you to enter a username. As default the aircraft registration is used. You can change that to your pleasing. A good idea would be to use a name short name, as that will later be displayed on other pilots nav map and you don't want to clutter that with a username like "bestpilotinthewhilewideworld2338992" ;-) 
 
-Once connected you see a - most likely very short otr empty "events" list, showing all available flights. You only see events that use the same task/flightplan you have currently loaded. Click an event to join or click "add new flight" to create your own event. You need to enter a title and the start time (hour and minutes) in UTC/ZULU time.
+Once connected you see a - most likely very short or empty "events" list, showing all available flights. You only see events that use the same task/flightplan you have currently loaded. Click an event to join or click "add new flight" to create your own event and then join it. You need to enter a title and the start time (hour and minutes) in UTC/ZULU time.
 
-Next step: enter a username that will show on other pilots flight computer and click "Login" to join the event. Once other pilots join you'll now see the list of participants and also see other pilots position on the nav map. If you assigned "task time" to a data field it will now show a countdown to task start.
+Once other pilots join you'll see the list of participants and also see other pilots position on the nav map. If you assigned "task time" to a data field it will now show a countdown to task start.
 
-When a pilot crosses the start line, his/her average speed and flown distance is shown in the list. The list will now be sorted by distance flown, effectively a live ranking of the race. When a pilot crosses the finish line, total task time will be displayed instead of distnace flown and used for sorting.
+When a pilot crosses the start line, his/her average speed and flown distance is shown in the list. The list will now be sorted by distance flown, effectively a live ranking of the race. When a pilot crosses the finish line, total task time will be displayed instead of distance flown and used for sorting.
 
-Currently you can change your username any time by entering a new one and clicking "Login" again.
   
 
 <h2>Installation:</h2>
 
-Simply drop the included folder "gotfriends-discus2c-premium-lxn" into your community folder. If you use the freeware version you need to change the folder name to "gotfriends-discus2c-freeware-lxn", everything else will work fine in both versions. No need to change anything in your existing installation. To uninstall, delete the folder and you're "back to normal".
+Simply drop the included folder "gotfriends-discus2c-premium-lxn" into your community folder. No need to change anything in your existing installation. To uninstall, delete the folder and you're "back to normal".
 
 <b>Important: </b>If the map fails to load on first load / longer load times, simply hit "escape" and restart the flight. This will fix the issue.
 
-You may experience conflicts wit other existing mods, especially livery mods. See below for possible solutions.
+You may experience conflicts with other existing mods, especially livery mods. See below for possible solutions.
 
 <h2>Basic Features:</h2>
 
@@ -32,7 +31,7 @@ Currently there are five main pages: „APT“ for navigation to the selected Ai
 
 „APT“ Page automatically selects the nearest Airport as target. On the first subpage there's a bit of info about that airport including runway orientation and dimensions. The second subpage features a list of close airports where you can click any airport to select it for navigation. Click the selected airport again to return to "closest airport navigation". On the map a yellow line will be drawn from your glider to the selected airport to show the direction to fly.
 
-"WPT" is similar, except the navigation target is the current waypoint of the loaded flightplan. Using the buttons in the headerbar waypoints can be selected. The map will also show a yellow course-line from your glider to the waypoint to indicate the direction to fly. As a subpage to "WPT" you find a "thermalling help" page, displaying wind, climb and average climb for the current/last therma (a "thermal" is detected, when circling for more than 25 seconds). The lower section displays a bar chart of all thermals in the löast 40 minutes on the left and a graph of climb/sink values in the right half.
+"WPT" is similar, except the navigation target is the current waypoint of the loaded flightplan. Using the buttons in the headerbar waypoints can be selected. The map will also show a yellow course-line from your glider to the waypoint to indicate the direction to fly. As a subpage to "WPT" you find a "thermalling help" page, displaying wind, climb and average climb for the current/last therma (a "thermal" is detected, when circling for more than 25 seconds). The lower section displays a bar chart of all thermals in the last 40 minutes on the left and a graph of climb/sink values during the last five minutes in the right half.
 
 „APT“ and „WPT“ feature a maximum of 16 data fields each, that can be configured in game. The „tools“ button in the upper right hand corner of the map toggles „configuration mode“. Data fields are then marked with a light blue outline. Click any data field to bring up a popup, where you can set background color, text color and Information to be displayed. A second background color can be selected to be displayed when the displayed value <= 0 (e.g. switch background to red when arrival height is negative)
 
@@ -53,9 +52,8 @@ The Config-Page gives you access to various settings:
   - "Readability Mode" can be activated here to get some bigger readouts (and less data fields) 
   - toggle liftdot-trail on the map
   - Visual stall warning. If activated, the screen will flash red when the aircraft is close to a stall.
-- Bugs: An experimental feature to control arrival height calculations. In real life gliders dead insects on the wing's leading edge will deteriorate glide perfomance. Therefore a "bug factor" can be used in arrival height calculations. While you won't kill any simulated insects on your simulated wings, you can still use this factor to account for inaccuracies in the flight model or inefficiencies of the pilot. If you find you are constantly arriving lower than the predicted altitude try flying with a lower "bugs" value. This value is not persistent between sessions, because we all know, that you are cleaning your wings after each flight. Values can range from 0 to 100, default is 100 - completely clean, shiny wings. To point that out again: this setting does NOT affect your gliders performance in any way. ONLY the calculated arrival height.
 
-All config settings apart from bugs and ballast are persistent between sessions. Just make sure to click "close" after making any changes.
+All config settings apart from ballast are persistent between sessions. Just make sure to click "close" after making any changes.
 
 <h2>Some more Details</h2>
 
@@ -70,7 +68,7 @@ The map view features a lot of information to help you optimize your flight:
   - the active "leg" of the task is displayed in black/yellow stripes leading from the last waypoiont to the current one.
   - Semi circles indicate the start and finish lines of the task, where the task timer will start and stop automatically.
   - Small pink circles mark the turnpoints of the task. Entering the circle around the current waypoint will trigger the "waypoint ok" message and automatically switch to the next wp. But take a good look on the task page, if there are "Min/Max" values for the waypoint for altitude restrictions (usually for start and/or finish waypoints)
-  - when flying towards a waypoint larger yellow circles will indicate certain distances from the waypoint to give a better orientation.
+
   
 To make all this soaring task magic work, the flightplan needs to provide more information than usually present in MSFS generated flightplans. Easiest way to achieve that is to use B21's task planner to plan your flights: https://xp-soaring.github.io/tasks/b21_task_planner/index.html
 
@@ -83,21 +81,12 @@ Why use that MacCready setting? There's a lot more theory around that than can b
 
 Several functions can be operated by keybinds from joystick or throttle:
 
-Page left/right:    INCREASE/DECREASE COM1 (WHOLE)
-Page up/down:       INCREASE/DECREASE COM1 (FRACT)
-Waypoint next/prev: INCREASE/DECREASE TRANSPONDER (1000)
-Map Zoom:           INCREASE/DECREASE TRANSPONDER (10)
-Map Orientation:    INCREASE/DECREASE TRANSPONDER (1)
+- Page left/right:    INCREASE/DECREASE COM1 (WHOLE)
+- Page up/down:       INCREASE/DECREASE COM1 (FRACT)
+- Waypoint next/prev: INCREASE/DECREASE TRANSPONDER (1000)
+- Map Zoom:           INCREASE/DECREASE TRANSPONDER (10)
+- Map Orientation:    INCREASE/DECREASE TRANSPONDER (1)
 
-<h2>Known Limitations:</h2>
-
-Changing pages and subpages with "click and drag" in flight requires a lot of mouse handling skills :-) I recommend keybinding. Way up on the roadmap is using the rotary buttons aroud the screen for navigation as it is in the real world device.
-
-The map can not be panned. To avoid collision with „click and drag“ page changing another „mode switch“ would be needed. Considering the current quality of the ingame map, I don’t think it’s worth the added complexity.
-
-„Thermalling help“ through the typical green and red dots is a very basic „quick and dirty“ implementation. So far it can not be toggled. As soon as you are in the air the dotted trail will show.
-
-If you don't use a flightplan, the waypoint page uses the starting waypoint as "Home". This waypoint currently has no altitude, screwing up the estimation of arrival height above ground level in thie constellation.
 
 <h2>Conflicts with other mods</h2>
 
