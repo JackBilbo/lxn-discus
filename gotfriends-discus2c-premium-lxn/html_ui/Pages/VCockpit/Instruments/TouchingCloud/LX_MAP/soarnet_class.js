@@ -6,28 +6,28 @@ class soarnet {
     }
 
     init() {
-        document.getElementById("mp_mainswitch").addEventListener("click", function(e) {
-            e.preventDefault();
-            SOARNET.initConnection();
-            if(SOARNET.checkvalue.masterkey == "isActive" && SOARNET.checkvalue.ssckey == "isActive") { 
-                document.querySelector(".mainmessage").innerText = "";
-                document.querySelector(".mp").classList.remove("notConnected");
-            } else {
-                document.querySelector(".mainmessage").innerText = "Sorry, System currently not available.";
-            }
-            
-        })
+        document.getElementById("username").value = SimVar.GetSimVarValue("ATC ID", "string"); 
 
         document.getElementById("mpformsubmit").addEventListener("click", function(e) {
             e.preventDefault();
             if(document.getElementById("username").value == "") {
-                document.querySelector("#mp_info").innerHTML = "Please enter a username";
+                document.querySelector(".mainmessage").innerHTML = "Please enter a username";
                 return false; 
             }
-            SOARNET.createListener(SN.currentEvent);
-            SOARNET.userId = SOARNET.userId == "" ? SOARNET.getUserId(SN.currentEvent) : SOARNET.userId ;
+
             SN.mpUsername = document.getElementById("username").value;
-            SN.isActive = true;
+            SOARNET.initConnection();
+            document.querySelector(".mainmessage").innerText = "connecting...";
+
+            window.setTimeout(function() {
+                if(SOARNET.checkvalue.masterkey == "isActive" && SOARNET.checkvalue.ssckey == "isActive") { 
+                    document.querySelector(".mainmessage").innerText = "";
+                    document.querySelector(".mp").classList.remove("notConnected");
+                } else {
+                    document.querySelector(".mainmessage").innerText = "Sorry, System currently not available.";
+                }
+            }, 500)
+            
         })
 
         document.getElementById("addEventLink").addEventListener("click", function(e) {
@@ -43,8 +43,16 @@ class soarnet {
                 "wpstart": B21_SOARING_ENGINE.task.start_wp().position,
                 "wpfinish": B21_SOARING_ENGINE.task.finish_wp().position
             })
-            document.querySelector(".mp").classList.remove("noEvent");
+            
             document.getElementById("addEvent").classList.remove("on");
+        })
+
+        document.getElementById("eventlist").addEventListener("click", function(e) {
+            e.preventDefault();
+            let el = e.target;
+            SN.currentEvent = el.getAttribute("data-id");
+
+            SOARNET.joinEvent();
         })
 
         document.getElementById("leave_event").addEventListener("click",function(e) {
@@ -52,6 +60,7 @@ class soarnet {
             try {
                 SOARNET.writeUserData(SN.currentEvent, SOARNET.userId, null);
                 SOARNET.detachlistener();
+                NAVMAP.wipeMultiplayers();
             } catch(e) {
                 console.log(e);
             }
@@ -60,13 +69,6 @@ class soarnet {
             SN.isActive = false;
             document.querySelector(".mp").classList.add("noEvent");
             document.querySelector("#userlist tbody").innerHTML = "";
-        })
-
-        document.getElementById("eventlist").addEventListener("click", function(e) {
-            e.preventDefault();
-            let el = e.target;
-            SN.currentEvent = el.getAttribute("data-id");
-            document.querySelector(".mp").classList.remove("noEvent");
         })
 
         document.getElementById("disconnect").addEventListener("click", function(e) {
@@ -123,8 +125,8 @@ class soarnet {
                 "username": this.mpUsername,
                 "lat":      parseFloat(SimVar.GetSimVarValue("A:PLANE LATITUDE", "degrees latitude")),
                 "long":     parseFloat(SimVar.GetSimVarValue("A:PLANE LONGITUDE", "degrees longitude")),
-                "hdg":      this.instrument.vars.hdg.value,
-                "alt":      this.instrument.vars.alt.value,
+                "hdg":      Math.round(this.instrument.vars.hdg.value),
+                "alt":      Math.round(this.instrument.vars.alt.value),
                 "dist":     B21_SOARING_ENGINE.task.distance_m() - B21_SOARING_ENGINE.task.remaining_distance_m(),
                 "avg":      avg_speed,
                 "tasktime": this.instrument.vars.tasktime.value,
@@ -192,6 +194,13 @@ SOARNET.updateEventInfo = function() {
             list.innerHTML += '<li><h3>' + SOARNET.eventDetails[event].title + '</h3><p>Task starts: ' +starttime + ' UTC</p><a href="#" class="eventClickhandler" data-id="' + event + '"></a></li>';
         }
     }
+}
+
+SOARNET.joinEvent = function() {
+    SOARNET.createListener(SN.currentEvent);
+    SOARNET.userId = SOARNET.userId == "" ? SOARNET.getUserId(SN.currentEvent) : SOARNET.userId ;           
+    SN.isActive = true;
+    document.querySelector(".mp").classList.remove("noEvent");
 }
 
 SOARNET.creatUTCstarttime_s = function(eventHours,eventMinutes) {
