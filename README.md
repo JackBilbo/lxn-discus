@@ -1,19 +1,18 @@
 # lxn-discus
 Replacement mod for the GotFriends Discus' Nav computer
 
-<h2>Experimental Multiplayer-Feature:</h2>
+<h2>Multiplayer-Feature:</h2>
 
 Multiplayer-Info is located as a sub page under the task list - simply page down.
 
-First view is the main "Connect" Button to initialize the system. 
+First view asks you to enter a username. As default the aircraft registration is used. You can change that to your pleasing. A good idea would be to use a name short name, as that will later be displayed on other pilots nav map and you don't want to clutter that with a username like "bestpilotinthewhilewideworld2338992" ;-) 
 
-Once connected you see a - most likely very short otr empty "events" list, showing all available flights. You only see events that use the same task/flightplan you have currently loaded. Click an event to join or click "add new flight" to create your own event. You need to enter a title and the start time (hour and minutes) in UTC/ZULU time.
+Once connected you see a - most likely very short or empty "events" list, showing all available flights. You only see events that use the same task/flightplan you have currently loaded. Click an event to join or click "add new flight" to create your own event and then join it. You need to enter a title and the start time (hour and minutes) in UTC/ZULU time.
 
-Next step: enter a username that will show on other pilots flight computer and click "Login" to join the event. Once other pilots join you'll now see the list of participants and also see other pilots position on the nav map. If you assigned "task time" to a data field it will now show a countdown to task start.
+Once other pilots join you'll see the list of participants and also see other pilots position on the nav map. If you assigned "task time" to a data field it will now show a countdown to task start.
 
-When a pilot crosses the start line, his/her average speed and flown distance is shown in the list. The list will now be sorted by distance flown, effectively a live ranking of the race. When a pilot crosses the finish line, total task time will be displayed instead of distnace flown and used for sorting.
+When a pilot crosses the start line, his/her average speed and flown distance is shown in the list. The list will now be sorted by distance flown, effectively a live ranking of the race. When a pilot crosses the finish line, total task time will be displayed instead of distance flown and used for sorting.
 
-Currently you can change your username any time by entering a new one and clicking "Login" again.
   
 
 <h2>Installation:</h2>
@@ -30,7 +29,7 @@ Currently there are five main pages: „APT“ for navigation to the selected Ai
 
 „APT“ Page automatically selects the nearest Airport as target. On the first subpage there's a bit of info about that airport including runway orientation and dimensions. The second subpage features a list of close airports where you can click any airport to select it for navigation. Click the selected airport again to return to "closest airport navigation". On the map a yellow line will be drawn from your glider to the selected airport to show the direction to fly.
 
-"WPT" is similar, except the navigation target is the current waypoint of the loaded flightplan. Using the buttons in the headerbar waypoints can be selected. The map will also show a yellow course-line from your glider to the waypoint to indicate the direction to fly. As a subpage to "WPT" you find a "thermalling help" page, displaying wind, climb and average climb for the current/last therma (a "thermal" is detected, when circling for more than 25 seconds). The lower section displays a bar chart of all thermals in the löast 40 minutes on the left and a graph of climb/sink values in the right half.
+"WPT" is similar, except the navigation target is the current waypoint of the loaded flightplan. Using the buttons in the headerbar waypoints can be selected. The map will also show a yellow course-line from your glider to the waypoint to indicate the direction to fly. As a subpage to "WPT" you find a "thermalling help" page, displaying wind, climb and average climb for the current/last therma (a "thermal" is detected, when circling for more than 25 seconds). The lower section displays a bar chart of all thermals in the last 40 minutes on the left and a graph of climb/sink values during the last five minutes in the right half.
 
 „APT“ and „WPT“ feature a maximum of 16 data fields each, that can be configured in game. The „tools“ button in the upper right hand corner of the map toggles „configuration mode“. Data fields are then marked with a light blue outline. Click any data field to bring up a popup, where you can set background color, text color and Information to be displayed. A second background color can be selected to be displayed when the displayed value <= 0 (e.g. switch background to red when arrival height is negative)
 
