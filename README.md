@@ -25,7 +25,7 @@ You may experience conflicts with other existing mods, especially livery mods. S
 
 <h2>Basic Features:</h2>
 
-All Information is organized in „pages“ (horizontally) and „sub-pages“ (vertically). Pages can be changed by „click and drag“ with the mouse or - more comfortably - through keybinding „INCREASE/DECREASE COM1 (WHOLE)“ for horizontal and „INCREASE/DECREASE COM1 (FRACT)“ for vertical scrolling.
+All Information is organized in „pages“ (horizontally) and „sub-pages“ (vertically). Pages can be changed by „turning“ the rotary buttons on the bottom of the screen: left turns pages left/right, right button switches up/down. Alternatively you can keybind „INCREASE/DECREASE COM1 (WHOLE)“ for horizontal and „INCREASE/DECREASE COM1 (FRACT)“ for vertical scrolling.
 
 Currently there are five main pages: „APT“ for navigation to the selected Airport, „WPT“ for navigating a task/flightplan, „TASK“ for the current state of the task, "Kinetic Assitant" for launching through KA and „CONFIG“ for Unit switching, ballast management and some system settings. 
 
@@ -35,9 +35,11 @@ Currently there are five main pages: „APT“ for navigation to the selected Ai
 
 „APT“ and „WPT“ feature a maximum of 16 data fields each, that can be configured in game. The „tools“ button in the upper right hand corner of the map toggles „configuration mode“. Data fields are then marked with a light blue outline. Click any data field to bring up a popup, where you can set background color, text color and Information to be displayed. A second background color can be selected to be displayed when the displayed value <= 0 (e.g. switch background to red when arrival height is negative)
 
-Data field Configurations are persistent between simulator sessions. Click „reset all“ in the configuration popup to reset all data fields to default. Configurations are also persitent with different versions of this mod, so if you used an oder version or install an update, your settings will be save. There is however a slight chance, that a variable name gets mixed up, so if you experience any erratic behaviour with the datafields, try "reset all" and see if that helps.
+Data field configurations are persistent between simulator sessions. Click „reset all“ in the configuration popup to reset all data fields to default. Configurations are also persitent with different versions of this mod, so if you used another version or install an update, your settings will be save. There is however a slight chance, that a variable name gets mixed up, so if you experience any erratic behaviour with the datafields, try "reset all" and see if that helps.
 
 Data fields can be forced to use either metric or imperial units of measurement. Use with caution. If activated, the datafield will ignore the global unit selection. This feaature gives you the option to e.g. display altitude in feet side by side with altitude in meters. If a datafield has been configured this way an "*" is shown next to the unit as a reminder. 
+
+In standard mode the data fields are rather small and can be hard to read especially in VR. As a solution an "improved readability" mode can be activated in the "interface options". That mode shows only six data fields per page but with much larger text. Also a few other interface elements are enlarged in this mode.
 
 The task management system is Ian „B21“ Lewis’ Soaring Engine from the AS33. Some features like calculating glide ratios could not be recreated, as they are dependent of other instruments in the AS33. Others are still on the to do list.
 
@@ -71,8 +73,6 @@ The map view features a lot of information to help you optimize your flight:
 
   
 To make all this soaring task magic work, the flightplan needs to provide more information than usually present in MSFS generated flightplans. Easiest way to achieve that is to use B21's task planner to plan your flights: https://xp-soaring.github.io/tasks/b21_task_planner/index.html
-
-If you used an earlier version of this mod you might miss the buttons to set the MacCready value. This setting is now using the hardware button to the top right of the screen, that's also setting the MacCready pointer in the V80 Vario.
 
 Why use that MacCready setting? There's a lot more theory around that than can be covered here, but on thing important: calculation of estimated arrival height and time enroute is based on the suggested speed to fly (indicated as STF under the speed tape instrument), which is in turn influenced by MacCready setting and carried ballast. In short: the more ballast and the higher MacCready, the higher the calculated speed to fly. The more your actual speed deviates from the calculated speed to fly, the less accurate your arrival height estimations will be. You can also turn that around: on final glide you can turn the MacCready value up and see the estimated arrival height go down (due to more sink at higher speeds) until you get a safe altitude estimation. Now your computer tells you the maximum speed to fly, that still gets you to finish safely.
 
