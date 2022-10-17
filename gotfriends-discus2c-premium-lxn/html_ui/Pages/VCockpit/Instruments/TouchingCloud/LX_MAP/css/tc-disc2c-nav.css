@@ -414,6 +414,12 @@ input[type="radio"] {
 	stroke-width: 5px;
 }
 
+.mpglidericon {
+	fill: #fff;
+	stroke: #000;
+	stroke-width: 5px;
+}
+
 #glidericon #ac_hdg, #glidericon #ac_trk {
     width: 3px;
     height: 1000px;
@@ -512,7 +518,7 @@ input[type="radio"] {
             width: 100%;
         }
 
-        .configpanel_close {
+        .configpanel_close, .servicelink {
             width: 25%;
             background-color: rgb(255, 255, 255);
             border-top-left-radius: 4px;
@@ -715,6 +721,19 @@ input[type="radio"] {
     left: 0;
 
 }
+
+.rangeinput .label {
+	display: block;
+	float: left;
+	line-height: 4rem;
+	padding: 0 1rem;
+}
+
+.rangeinput .label.placeright {
+	float: right;
+}
+
+
 
 /* /range inputs */
 

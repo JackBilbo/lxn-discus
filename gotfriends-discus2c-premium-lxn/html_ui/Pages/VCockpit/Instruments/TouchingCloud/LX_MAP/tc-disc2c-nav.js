@@ -1,10 +1,11 @@
-let NAVMAP, NAVPANEL, CONFIGPANEL, UI, TOPOMAP;
+let LXN, NAVMAP, NAVPANEL, CONFIGPANEL, UI, TOPOMAP, SN, SOARNET;
 
 class lxn extends NavSystemTouch {
 
     constructor() {
         super();
 
+        LXN = this;
         this.TIMER_05 = 0;
         this.TIMER_1 = 0;
 
@@ -149,6 +150,8 @@ class lxn extends NavSystemTouch {
         NAVPANEL = new navpanel(this); NAVPANEL.init();
         CONFIGPANEL = new configpanel(this); CONFIGPANEL.initSystemSettings();
         UI = new ui(this); UI.init();
+        
+        SN = new soarnet(this); SN.init();
 
         this.jbb_refwt = SimVar.GetSimVarValue("A:Empty weight","number") > 300 ? 944 : 812;
 
@@ -260,7 +263,6 @@ class lxn extends NavSystemTouch {
             this.jbb_update_stf();
 
             if (B21_SOARING_ENGINE.task_active()) {
-                this.vars.tasktime.value = B21_SOARING_ENGINE.task_time_s();
                 
                 this.update_task_page();   
 
@@ -274,12 +276,13 @@ class lxn extends NavSystemTouch {
                 if(this.vars.wp_arr_wpmin.isUsed) {this.vars.wp_arr_wpmin.value = (B21_SOARING_ENGINE.current_wp().arrival_height_msl_m - (B21_SOARING_ENGINE.current_wp().min_alt_m != null ? B21_SOARING_ENGINE.current_wp().min_alt_m : B21_SOARING_ENGINE.current_wp().alt_m)) / 0.3048;}
                 if(this.vars.task_arr_msl.isUsed) {this.vars.task_arr_msl.value = B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m / 0.3048;}
                 if(this.vars.task_arr_agl.isUsed) {this.vars.task_arr_agl.value = (B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - (B21_SOARING_ENGINE.task.finish_wp().min_alt_m != null ? B21_SOARING_ENGINE.task.finish_wp().min_alt_m : B21_SOARING_ENGINE.task.finish_wp().alt_m)) / 0.3048;}
-                if(this.vars.task_spd.isUsed) {this.vars.task_spd.value = B21_SOARING_ENGINE.task.avg_task_speed_kts();}
+                if(this.vars.task_spd.isUsed) {this.vars.task_spd.value = B21_SOARING_ENGINE.task_finished() ? B21_SOARING_ENGINE.finish_speed_ms() / 0.51444 : B21_SOARING_ENGINE.task.avg_task_speed_kts();}
             }
 
             
             CONFIGPANEL.update();
             this.updateKineticAssistant();
+
         }
 
         if(this.TIME_S - this.TIMER_1 > 1) {
@@ -292,6 +295,7 @@ class lxn extends NavSystemTouch {
 
             NAVPANEL.update();
             this.updateLiftdots();
+            SN.update();
 
             if(this.gearposition != SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool")) {
                 if(SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool") == true && this.vars.ballast.value > 5) {
@@ -522,11 +526,12 @@ class lxn extends NavSystemTouch {
 
         /* We'll propably see a huge amount of special formatting exceptions here for various unit types. "+" for AGL e.g. */
         if(category == "time_of_day") {
-            let time = val;
+            let prefix = val < 0 ? "-" : "";
+            let time = Math.abs(val);
 			let seconds = Math.floor(time % 60);
 			let minutes = Math.floor((time / 60) % 60);
 			let hours = Math.floor(Math.min(time / 3600, 99));
-			result = ("0" + hours).substr(-2) + ":" + ("0" + minutes).substr(-2) + ":" + ("0" + seconds).substr(-2);
+			result = prefix + hours + ":" + ("0" + minutes).substr(-2) + ":" + ("0" + seconds).substr(-2);
 			
         }
 
@@ -813,14 +818,15 @@ class lxn extends NavSystemTouch {
 	    
         if(!B21_SOARING_ENGINE.task_finished()) {
             taskheader.querySelector(".task-state .task-timer .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task_time_s(),"s","time_of_day");
-            this.vars.tasktime.value = B21_SOARING_ENGINE.task_time_s();
+            if(B21_SOARING_ENGINE.task_started()) {
+                this.vars.tasktime.value = B21_SOARING_ENGINE.task_time_s();
+            }
         } else {
             taskheader.querySelector(".task-state .task-timer .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.finish_time_s - B21_SOARING_ENGINE.task.start_time_s,"s","time_of_day");
             taskheader.querySelector(".task-state .task-average .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.finish_speed_ms(),"ms","speed");
             taskheader.querySelector(".task-state .task-average .unit").innerHTML = this.units.speed.pref;
             
-            this.vars.tasktime.value = B21_SOARING_ENGINE.task.finish_time_s - B21_SOARING_ENGINE.task.start_time_s;
-            
+            this.vars.tasktime.value = B21_SOARING_ENGINE.task.finish_time_s - B21_SOARING_ENGINE.task.start_time_s;         
         }
 
         /* Cheat-Warnings */
@@ -838,7 +844,7 @@ class lxn extends NavSystemTouch {
 
         taskheader.querySelector(".task-state .task-totaldistance .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.distance_m(),"m","dist");
         taskheader.querySelector(".task-state .task-totaldistance .unit").innerHTML = this.units.dist.pref;
-	    taskheader.querySelector(".task-state .task-distanceleft .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.remaining_distance_m(),"m","dist");;
+	    taskheader.querySelector(".task-state .task-distanceleft .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.remaining_distance_m(),"m","dist");
         taskheader.querySelector(".task-state .task-distanceleft .unit").innerHTML = this.units.dist.pref;        
         taskheader.querySelector(".task-state .task-arrivalheight .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - (B21_SOARING_ENGINE.task.finish_wp().min_alt_m != null? B21_SOARING_ENGINE.task.finish_wp().min_alt_m : B21_SOARING_ENGINE.task.finish_wp().alt_m),"m","alt"); 
         taskheader.querySelector(".task-state .task-arrivalheight .unit").innerHTML = this.units.alt.pref;
@@ -1117,14 +1123,6 @@ class lxn extends NavSystemTouch {
 
 
 }
-
-
-
-    
-
-
-
-
 
 
 

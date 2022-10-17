@@ -25,6 +25,8 @@ class configpanel {
         this.rangesliders.push(this.brightnessrange);
         this.glareshiledrange = new rangeinput(document.querySelector("#glareshieldslider"), function(val) { SimVar.SetSimVarValue("K:LIGHT_POTENTIOMETER_5_SET", "number", val); });
         this.rangesliders.push(this.glareshiledrange);
+        this.adverseyawrange = new rangeinput(document.querySelector("#adverseyawslider"), function(val) { SimVar.SetSimVarValue("L:AdverseYaw", "percent", val); });
+        this.rangesliders.push(this.adverseyawrange);
 
         document.querySelectorAll(".lxconfigbtn").forEach((el)=> {
             el.addEventListener("click", function(e) {
@@ -235,7 +237,7 @@ class configpanel {
         })
 
         this.rangesliders.forEach((el) => {
-            sliderdata[el.id] = el.getValue();
+            sliderdata[el.id] = el.getValue().toFixed(2);
         })
 
         for(var unit in this.instrument.units) {
@@ -251,6 +253,7 @@ class configpanel {
     loadPersistentData() {
         let togglerawdata = GetStoredData("Discus_configtoggle");
         let sliderrawdata = GetStoredData("Discus_sliderdata");
+        // let sliderrawdata = "";
 
         if(togglerawdata != "") {
             try {
@@ -262,17 +265,22 @@ class configpanel {
             } catch(e) { console.log( "Could not load togglesettings: " + e )  }
         }
         
+        
         if(sliderrawdata != "") {
             try {
                 let sliderdata = JSON.parse(sliderrawdata);
                 this.rangesliders.forEach((el) => {
                     if(sliderdata[el.id]) {
-                        el.setValue(sliderdata[el.id]);
-                        el.callback(sliderdata[el.id]);
+                        console.log(sliderdata[el.id]);
+                        
+                        el.setValue(parseFloat(sliderdata[el.id]));
+                        el.callback(parseFloat(sliderdata[el.id]));
+                        
                     }
                 })
             } catch(e) { console.log( "Could not load slidersettings: " + e )  }
         }
+        
     }
 
     buildUnitDetailSetting() {
@@ -323,12 +331,16 @@ class rangeinput {
         this.rail = document.createElement("div");
         this.rail.setAttribute("class","rail");
 
+        this.label = document.createElement("div");
+        this.label.setAttribute("class","label");
+
         this.handle = document.createElement("div");
         this.handle.setAttribute("class", "handle");
 
         this.interact = document.createElement("div");
         this.interact.setAttribute("class", "interact");
 
+        this.rail.appendChild(this.label);
         this.rail.appendChild(this.handle);
         this.rail.appendChild(this.interact);
         el.appendChild(this.rail);
@@ -378,6 +390,7 @@ class rangeinput {
                 let diff = thisinput.maxvalue - thisinput.minvalue;
                 let value = (( pos / max ) * diff) + thisinput.minvalue;
                 thisinput.outputvalue = value;
+                thisinput.addLabel();
 
                 thisinput.callback(thisinput.outputvalue);
             }
@@ -394,8 +407,18 @@ class rangeinput {
         this.handle.style.left = pos + "px";
         this.marker.style.width = (pos + this.handle.clientWidth / 2)  + "px";
         this.outputvalue = val;
+        this.addLabel();
     }
 
     getValue() { return this.outputvalue; }
 
+    addLabel() {
+        let labelvalue = this.maxvalue == 1 ? (this.outputvalue * 100).toFixed(0) : this.outputvalue.toFixed(0);
+        this.label.innerText = labelvalue;
+        if(parseInt(this.handle.style.left) < 100) {
+            this.label.classList.add("placeright");
+        } else {
+            this.label.classList.remove("placeright"); 
+        }
+    }
 }
