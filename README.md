@@ -8,7 +8,7 @@ Simply drop the included folder "gotfriends-discus2c-premium-lxn" into your comm
 
 <b>Important: </b>If the map fails to load on first load / longer load times, simply hit "escape" and restart the flight. This will fix the issue.
 
-You may experience conflicts wit other existing mods, especially livery mods. See below for possible solutions.
+You may experience conflicts with other existing mods, especially livery mods. See below for possible solutions.
 
 <h2>Basic Features:</h2>
 
@@ -18,7 +18,7 @@ Currently there are five main pages: „APT“ for navigation to the selected Ai
 
 „APT“ Page automatically selects the nearest Airport as target. On the first subpage there's a bit of info about that airport including runway orientation and dimensions. The second subpage features a list of close airports where you can click any airport to select it for navigation. Click the selected airport again to return to "closest airport navigation". On the map a yellow line will be drawn from your glider to the selected airport to show the direction to fly.
 
-"WPT" is similar, except the navigation target is the current waypoint of the loaded flightplan. Using the buttons in the headerbar waypoints can be selected. The map will also show a yellow course-line from your glider to the waypoint to indicate the direction to fly. As a subpage to "WPT" you find a "thermalling help" page, displaying wind, climb and average climb for the current/last therma (a "thermal" is detected, when circling for more than 25 seconds). The lower section displays a bar chart of all thermals in the löast 40 minutes on the left and a graph of climb/sink values in the right half.
+"WPT" is similar, except the navigation target is the current waypoint of the loaded flightplan. Using the buttons in the headerbar waypoints can be selected. The map will also show a yellow course-line from your glider to the waypoint to indicate the direction to fly. As a subpage to "WPT" you find a "thermalling help" page, displaying wind, climb and average climb for the current/last therma (a "thermal" is detected, when circling for more than 25 seconds). The lower section displays a bar chart of all thermals in the last 40 minutes on the left and a graph of climb/sink values during the last five minutes in the right half.
 
 „APT“ and „WPT“ feature a maximum of 16 data fields each, that can be configured in game. The „tools“ button in the upper right hand corner of the map toggles „configuration mode“. Data fields are then marked with a light blue outline. Click any data field to bring up a popup, where you can set background color, text color and Information to be displayed. A second background color can be selected to be displayed when the displayed value <= 0 (e.g. switch background to red when arrival height is negative)
 
@@ -39,9 +39,8 @@ The Config-Page gives you access to various settings:
   - "Readability Mode" can be activated here to get some bigger readouts (and less data fields) 
   - toggle liftdot-trail on the map
   - Visual stall warning. If activated, the screen will flash red when the aircraft is close to a stall.
-- Bugs: An experimental feature to control arrival height calculations. In real life gliders dead insects on the wing's leading edge will deteriorate glide perfomance. Therefore a "bug factor" can be used in arrival height calculations. While you won't kill any simulated insects on your simulated wings, you can still use this factor to account for inaccuracies in the flight model or inefficiencies of the pilot. If you find you are constantly arriving lower than the predicted altitude try flying with a lower "bugs" value. This value is not persistent between sessions, because we all know, that you are cleaning your wings after each flight. Values can range from 0 to 100, default is 100 - completely clean, shiny wings. To point that out again: this setting does NOT affect your gliders performance in any way. ONLY the calculated arrival height.
 
-All config settings apart from bugs and ballast are persistent between sessions. Just make sure to click "close" after making any changes.
+All config settings apart from ballast are persistent between sessions. Just make sure to click "close" after making any changes.
 
 <h2>Some more Details</h2>
 
@@ -56,7 +55,7 @@ The map view features a lot of information to help you optimize your flight:
   - the active "leg" of the task is displayed in black/yellow stripes leading from the last waypoiont to the current one.
   - Semi circles indicate the start and finish lines of the task, where the task timer will start and stop automatically.
   - Small pink circles mark the turnpoints of the task. Entering the circle around the current waypoint will trigger the "waypoint ok" message and automatically switch to the next wp. But take a good look on the task page, if there are "Min/Max" values for the waypoint for altitude restrictions (usually for start and/or finish waypoints)
-  - when flying towards a waypoint larger yellow circles will indicate certain distances from the waypoint to give a better orientation.
+
   
 To make all this soaring task magic work, the flightplan needs to provide more information than usually present in MSFS generated flightplans. Easiest way to achieve that is to use B21's task planner to plan your flights: https://xp-soaring.github.io/tasks/b21_task_planner/index.html
 
