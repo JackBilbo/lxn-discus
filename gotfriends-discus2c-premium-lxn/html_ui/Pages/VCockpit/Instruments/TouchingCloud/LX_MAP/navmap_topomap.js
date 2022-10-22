@@ -479,9 +479,9 @@ class navmap {
         }
 
         for (var marker in this.mpMarker) {
-            if(!SOARNET.eventusers[marker]) {
+            if(!SOARNET.eventusers[marker] && this.mpMarker[marker] != null) {
                 TOPOMAP.removeLayer(this.mpMarker[marker]);
-                this.mpMarker[marker] = null;
+                delete this.mpMarker[marker];
             }
         }
     }
@@ -489,8 +489,8 @@ class navmap {
     wipeMultiplayers() {
         for (var marker in this.mpMarker) {
             TOPOMAP.removeLayer(this.mpMarker[marker]);
-            this.mpMarker[marker] = null;
         }
+        this.mpMarker = {}
     }
 
     initMap() {
