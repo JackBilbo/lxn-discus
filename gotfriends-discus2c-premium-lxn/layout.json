@@ -1,9 +1,19 @@
 {
   "content": [
     {
-      "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/gotfriends.png",
-      "size": 12189,
-      "date": 133156030936961275
+      "path": "html_ui/Pages/VCockpit/Instruments/s4sng/s4s.css",
+      "size": 101,
+      "date": 133113560889925567
+    },
+    {
+      "path": "html_ui/Pages/VCockpit/Instruments/s4sng/s4s.html",
+      "size": 296,
+      "date": 133113560503981857
+    },
+    {
+      "path": "html_ui/Pages/VCockpit/Instruments/s4sng/s4s.js",
+      "size": 156,
+      "date": 133113560575056821
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/configpanel.js",
@@ -27,8 +37,8 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navmap_topomap.js",
-      "size": 23892,
-      "date": 133156034108796840
+      "size": 24127,
+      "date": 133111911927657437
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navpanel.js",
@@ -42,8 +52,8 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/soarnet_class.js",
-      "size": 10373,
-      "date": 133128133027859127
+      "size": 10109,
+      "date": 133109829330472819
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.html",
@@ -52,8 +62,8 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.js",
-      "size": 57265,
-      "date": 133156039018700717
+      "size": 54141,
+      "date": 133112035425733579
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_includes/geo.js",
@@ -92,8 +102,8 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/soarnet.css",
-      "size": 2980,
-      "date": 133128133027703135
+      "size": 2896,
+      "date": 133109820373246106
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/task-page.css",
@@ -102,8 +112,8 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/tc-disc2c-nav.css",
-      "size": 23557,
-      "date": 133156034573909906
+      "size": 23286,
+      "date": 133109438067810887
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/thermalling_display/thermalling_display.css",
