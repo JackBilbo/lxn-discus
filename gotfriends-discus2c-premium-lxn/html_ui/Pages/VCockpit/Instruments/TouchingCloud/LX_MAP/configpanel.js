@@ -206,6 +206,10 @@ class configpanel {
         if (val == "on") {  this.autoMC = true } else {  this.autoMC = false }
     }
 
+    toggleAipLayer(val) {
+        if (val == "on") { NAVMAP.hasAipLayer = true; if(typeof(TOPOMAP.addLayer) == "function") { NAVMAP.addAipLayer() } } else { NAVMAP.removeAipLayer(); NAVMAP.hasAipLayer = false; }
+    }
+
     toggleHawkdisplay(val) {
         if (val == "on") {  
             this.displayHawk = true; 
