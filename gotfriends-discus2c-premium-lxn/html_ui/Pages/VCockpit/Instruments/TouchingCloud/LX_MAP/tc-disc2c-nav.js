@@ -887,7 +887,7 @@ class lxn extends NavSystemTouch {
         this.querySelector("#hawk #arrow_avg").style.transform = "rotate(" + averageindicator + "deg)";
         this.querySelector("#hawk #arrow_current").style.transform = "rotate(" + current_wind_direction + "deg)";
 
-        let wv = Math.min(600, current_wind_speed * 10 + 150);
+        let wv = Math.min(600, this.hawkwindspeed * 10 + 150);
         this.querySelector("#hawk #arrow_current").style.height = wv +"px";
         this.querySelector("#hawk #arrow_current").style.top = -wv/2 +"px";
 
