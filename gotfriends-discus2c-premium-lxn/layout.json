@@ -120,6 +120,18 @@
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/thermalling_display/thermalling_display.js",
       "size": 26052,
       "date": 133211410958471424
+      "size": 26492,
+      "date": 133128133027898993
+    },
+    {
+      "path": "SimObjects/Airplanes/gotfriends-discus2c/ai.cfg",
+      "size": 1874,
+      "date": 133128210578443637
+    },
+    {
+      "path": "SimObjects/Airplanes/gotfriends-discus2c/aircraft.cfg",
+      "size": 12208,
+      "date": 133128210251960627
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/gotfriends_circle.png",
@@ -133,33 +145,8 @@
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/panel/panel.cfg",
-      "size": 2237,
-      "date": 133214815877123234
-    },
-    {
-      "path": "SimObjects/Airplanes/gotfriends-discus2c/panel/panel_original_vario.cfg",
-      "size": 2190,
-      "date": 133214816206083972
-    },
-    {
-      "path": "SimObjects/Airplanes/gotfriends-discus2c/panel.NOREG/panel.cfg",
-      "size": 2170,
-      "date": 133186333641815808
-    },
-    {
-      "path": "SimObjects/Airplanes/gotfriends-discus2c/texture.DEFAULT/DISCUS2C_LXNAV_ALBD.PNG.DDS",
-      "size": 2097280,
-      "date": 133186333641935803
-    },
-    {
-      "path": "SimObjects/Airplanes/gotfriends-discus2c/texture.DEFAULT/DISCUS2C_LXNAV_ALBD.png.DDS.FLAGS",
-      "size": 22,
-      "date": 133186333641945809
-    },
-    {
-      "path": "SimObjects/Airplanes/gotfriends-discus2c/texture.DEFAULT/DISCUS2C_LXNAV_ALBD.PNG.DDS.json",
-      "size": 127,
-      "date": 133186333641935803
+      "size": 2192,
+      "date": 133078304308499845
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/ai.cfg",
@@ -189,12 +176,7 @@
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/panel/panel_original_vario.cfg",
       "size": 2375,
-      "date": 133214816519205323
-    },
-    {
-      "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/panel.NOREG/panel.cfg",
-      "size": 2355,
-      "date": 133186333641805849
+      "date": 133094541901214670
     }
   ]
 }
