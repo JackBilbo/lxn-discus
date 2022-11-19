@@ -63,7 +63,9 @@ class lxn extends NavSystemTouch {
             wp_ete: { value: 0, label: "WP ETE", longlabel: "Waypoint Time Enroute", category: "time", baseunit: "min" },
             task_arr_agl: { value: 0, label: "TSK FIN (AGL)", longlabel: "Task Finish Altitude (AGL)", category: "alt", baseunit: "ft" },
             task_arr_msl: { value: 0, label: "TSK FIN (MSL)", longlabel: "Task Finish Altitude (MSL)", category: "alt", baseunit: "ft" },
-            task_spd: { value: 0, label: "TSK SPD", longlabel: "Task Speed", category: "speed", baseunit: "kts"}
+            task_spd: { value: 0, label: "TSK SPD", longlabel: "Task Speed", category: "speed", baseunit: "kts"},
+            current_gr: { value: 0, label: "GR", longlabel: "Glide Ratio", category: "plaintext", baseunit: "none"},
+            stf_gr: { value: 0, label: "STF GR", longlabel: "Glide Ratio at STF", category: "plaintext", baseunit: "none"}
         }
         
         this.units = {
@@ -279,10 +281,10 @@ class lxn extends NavSystemTouch {
                 if(this.vars.task_spd.isUsed) {this.vars.task_spd.value = B21_SOARING_ENGINE.task_finished() ? B21_SOARING_ENGINE.finish_speed_ms() / 0.51444 : B21_SOARING_ENGINE.task.avg_task_speed_kts();}
             }
 
-            
+            NAVPANEL.update();
             CONFIGPANEL.update();
             this.updateKineticAssistant();
-
+            this.calc_gr();
         }
 
         if(this.TIME_S - this.TIMER_1 > 1) {
@@ -293,7 +295,6 @@ class lxn extends NavSystemTouch {
             if(this.vars.localtime.isUsed) {this.vars.localtime.value = SimVar.GetSimVarValue("E:LOCAL TIME","seconds");}
             if(this.vars.utctime.isUsed) {this.vars.utctime.value = new Date().toUTCString().replace(/.*(\d\d:\d\d:\d\d).*/,"$1"); }
 
-            NAVPANEL.update();
             this.updateLiftdots();
             SN.update();
 
@@ -975,7 +976,21 @@ class lxn extends NavSystemTouch {
         return false;
     }
 
+    calc_gr() {
+        /* Calculate current and optimum glide ratios */
+        this.vars.stf_gr.value = Math.abs(this.vars.stf.value / this.vars.sink_stf.value).toFixed(0);
 
+        let currentsink = SimVar.GetSimVarValue("VERTICAL SPEED", "knots");
+                
+        if(currentsink < 0) {
+            this.raw_gr = Math.abs(this.vars.ias.value / currentsink);
+            this.smoothed_gr = this.smoothed_gr ? this.smoothed_gr * 0.5 + this.raw_gr * 0.5 : this.raw_gr;
+            this.vars.current_gr.value = this.smoothed_gr.toFixed(0);
+        } else {
+            this.vars.current_gr.value = "---";
+            // this.smoothed_gr = null;
+        }
+    }
 
     /****************************************************************************************/
 
