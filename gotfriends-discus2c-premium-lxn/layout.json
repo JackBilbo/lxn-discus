@@ -126,12 +126,17 @@
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/ai.cfg",
       "size": 1874,
-      "date": 133128210578443637
+      "date": 133128276811878219
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/aircraft.cfg",
-      "size": 12208,
-      "date": 133128210251960627
+      "size": 12190,
+      "date": 133128218629562993
+    },
+    {
+      "path": "SimObjects/Airplanes/gotfriends-discus2c/reference_points.cfg",
+      "size": 672,
+      "date": 133126582160381877
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/gotfriends_circle.png",
