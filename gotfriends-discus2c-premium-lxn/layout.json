@@ -153,12 +153,17 @@
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/ai.cfg",
       "size": 1874,
-      "date": 133128209697513263
+      "date": 133130238193583075
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/aircraft.cfg",
-      "size": 12667,
-      "date": 133128209196119830
+      "size": 12649,
+      "date": 133128219492359177
+    },
+    {
+      "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/reference_points.cfg",
+      "size": 672,
+      "date": 133126582160381877
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/model/D2C_FES_INT.xml",
