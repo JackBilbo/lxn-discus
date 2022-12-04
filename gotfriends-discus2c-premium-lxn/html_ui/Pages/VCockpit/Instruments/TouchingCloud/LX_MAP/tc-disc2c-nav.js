@@ -136,7 +136,7 @@ class lxn extends NavSystemTouch {
                 "%": 1
             }
         }
-		
+
     }
 
     get templateID() {
@@ -596,7 +596,6 @@ class lxn extends NavSystemTouch {
          this.jbb_calcpolar_b  = btop/bbottom;
      
          this.jbb_calcpolar_c = d5 - this.jbb_calcpolar_a * c5 * c5 - this.jbb_calcpolar_b * c5;
-
     }
 
     jbb_update_stf()  {
