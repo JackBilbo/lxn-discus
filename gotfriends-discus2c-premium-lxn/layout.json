@@ -1,6 +1,11 @@
 {
   "content": [
     {
+      "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/gotfriends.png",
+      "size": 12189,
+      "date": 133156030936961275
+    },
+    {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/configpanel.js",
       "size": 17078,
       "date": 133184989970209748
@@ -37,13 +42,13 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.html",
-      "size": 45504,
-      "date": 133128133027869013
+      "size": 45921,
+      "date": 133156042742397034
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.js",
-      "size": 55292,
-      "date": 133133234608129719
+      "size": 57265,
+      "date": 133156039018700717
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_includes/geo.js",
@@ -92,8 +97,8 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/tc-disc2c-nav.css",
-      "size": 23259,
-      "date": 133128133027761841
+      "size": 23557,
+      "date": 133156034573909906
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/thermalling_display/thermalling_display.css",

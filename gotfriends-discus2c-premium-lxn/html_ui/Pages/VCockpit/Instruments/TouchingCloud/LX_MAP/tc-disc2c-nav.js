@@ -68,7 +68,10 @@ class lxn extends NavSystemTouch {
             task_arr_msl: { value: 0, label: "TSK FIN (MSL)", longlabel: "Task Finish Altitude (MSL)", category: "alt", baseunit: "ft" },
             task_spd: { value: 0, label: "TSK SPD", longlabel: "Task Speed", category: "speed", baseunit: "kts"},
             current_gr: { value: 0, label: "GR", longlabel: "Glide Ratio", category: "plaintext", baseunit: "none"},
-            stf_gr: { value: 0, label: "STF GR", longlabel: "Glide Ratio at STF", category: "plaintext", baseunit: "none"}
+            stf_gr: { value: 0, label: "STF GR", longlabel: "Glide Ratio at STF", category: "plaintext", baseunit: "none"},
+            polar_sink: { value: 0, label: "Polar Sink", longlabel: "Polar Sink at current speed", category: "verticalspeed", baseunit: "kts" },
+            total_energy: { value: 0, label: "TE", longlabel: "Total Energy", category: "verticalspeed", baseunit: "kts" },
+            calc_netto: { value: 0, label: "NET", longlabel: "Calculated Netto", category: "verticalspeed", baseunit: "kts" },
         }
         
         this.units = {
@@ -291,6 +294,10 @@ class lxn extends NavSystemTouch {
             CONFIGPANEL.update();
             this.updateKineticAssistant();
             this.calc_gr();
+
+            this.vars.polar_sink.value = this.jbb_getPolarSink_kts(this.vars.ias.value);
+            this.vars.total_energy.value = this.jbb_getTotalEnergy() / 0.51444;
+            this.vars.calc_netto.value = this.vars.total_energy.value - this.vars.polar_sink.value;
         }
 
         if(this.TIME_S - this.TIMER_1 > 1) {
