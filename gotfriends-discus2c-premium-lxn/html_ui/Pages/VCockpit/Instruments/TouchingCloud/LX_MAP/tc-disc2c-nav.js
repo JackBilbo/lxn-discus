@@ -20,6 +20,7 @@ class lxn extends NavSystemTouch {
         this.jbb_lift_dot_delay = 3;
         this.lift_dots = [];
         this.lift_dots_max = 40;
+        this.te = { v: 0, h: 0, t: 0, te: 0}
        	
         this.vars = {            
             ias: { value: 10, label: "IAS", longlabel: "Indicated Airspeed", category: "speed", baseunit: "kts" },
@@ -65,7 +66,10 @@ class lxn extends NavSystemTouch {
             task_arr_msl: { value: 0, label: "TSK FIN (MSL)", longlabel: "Task Finish Altitude (MSL)", category: "alt", baseunit: "ft" },
             task_spd: { value: 0, label: "TSK SPD", longlabel: "Task Speed", category: "speed", baseunit: "kts"},
             current_gr: { value: 0, label: "GR", longlabel: "Glide Ratio", category: "plaintext", baseunit: "none"},
-            stf_gr: { value: 0, label: "STF GR", longlabel: "Glide Ratio at STF", category: "plaintext", baseunit: "none"}
+            stf_gr: { value: 0, label: "STF GR", longlabel: "Glide Ratio at STF", category: "plaintext", baseunit: "none"},
+            polar_sink: { value: 0, label: "Polar Sink", longlabel: "Polar Sink at current speed", category: "verticalspeed", baseunit: "kts" },
+            total_energy: { value: 0, label: "TE", longlabel: "Total Energy", category: "verticalspeed", baseunit: "kts" },
+            calc_netto: { value: 0, label: "NET", longlabel: "Calculated Netto", category: "verticalspeed", baseunit: "kts" },
         }
         
         this.units = {
@@ -212,7 +216,12 @@ class lxn extends NavSystemTouch {
             this.ALTITUDE_M = this.vars.alt.value * 0.3048;
 
             this.update_speedgauge();
-            NAVMAP.load_map();
+            if(NAVMAP.map_instrument_loaded) {
+                NAVMAP.update_map();
+            } else if(NAVPANEL.airportsloaded) {
+                NAVMAP.load_map();
+                document.querySelector("#splashscreen").style.display = "none";
+            } 
         }
         
         
@@ -285,6 +294,10 @@ class lxn extends NavSystemTouch {
             CONFIGPANEL.update();
             this.updateKineticAssistant();
             this.calc_gr();
+
+            this.vars.polar_sink.value = this.jbb_getPolarSink_kts(this.vars.ias.value);
+            this.vars.total_energy.value = this.jbb_getTotalEnergy() / 0.51444;
+            this.vars.calc_netto.value = this.vars.total_energy.value - this.vars.polar_sink.value;
         }
 
         if(this.TIME_S - this.TIMER_1 > 1) {
@@ -298,22 +311,24 @@ class lxn extends NavSystemTouch {
             this.updateLiftdots();
             SN.update();
 
-            if(this.gearposition != SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool")) {
-                if(SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool") == true && this.vars.ballast.value > 5) {
-                    this.popalert("Gear Down. Check Ballast","");
+            if(CONFIGPANEL.cockpitwarnings) {
+                if(this.gearposition != SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool")) {
+                    if(SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool") == true && this.vars.ballast.value > 5) {
+                        this.popalert("Gear Down. Check Ballast","");
+                    }
+                    this.gearposition = SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool")
                 }
-                this.gearposition = SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool")
-            }
-    
-            
-            if(SimVar.GetSimVarValue("A:SPOILERS HANDLE POSITION","percent over 100") > 0.1 && this.gearposition != true && this.vars.alt_gnd.value < 800) {
-                if(!this.gearwarnsilenced) {
-                    this.popalert("CHECK GEAR","");
-                    this.gearwarnsilenced = true; 
+        
+                
+                if(SimVar.GetSimVarValue("A:SPOILERS HANDLE POSITION","percent over 100") > 0.1 && this.gearposition != true && this.vars.alt_gnd.value < 800) {
+                    if(!this.gearwarnsilenced) {
+                        this.popalert("CHECK GEAR","");
+                        this.gearwarnsilenced = true; 
+                    }
+                    let instrument = this;
+                    window.setTimeout(function() { instrument.gearwarnsilenced = false }, 10000);
                 }
-                let instrument = this;
-                window.setTimeout(function() { instrument.gearwarnsilenced = false }, 10000);
-            }
+            } 
   
         }
 
@@ -626,6 +641,35 @@ class lxn extends NavSystemTouch {
 
         // let ias = SimVar.GetSimVarValue("A:AIRSPEED INDICATED", "knots");
         // this.jbb_current_polar_sink = (aa * ias * ias) + (bb * ias) + cc;
+    }
+
+    jbb_getPolarSink_kts(spd) {
+        let bugs = 100;
+        let ballast = this.vars.ballast.value;
+        let wf = Math.sqrt(eval(this.jbb_refwt + parseFloat(ballast)) / this.jbb_refwt);
+    
+        let aa = this.jbb_calcpolar_a / wf * 100 / bugs;
+        let bb = this.jbb_calcpolar_b * 100 / bugs;
+        let cc = this.jbb_calcpolar_c * wf * 100 / bugs;
+    
+        return (aa * spd * spd) + (bb * spd) + cc;
+    }
+    
+    jbb_getTotalEnergy() {
+        let now = new Date().getTime();
+        let h = this.vars.alt.value * 0.3048;
+        let v = this.vars.ias.value * 0.51444; 
+        let t = (now - this.te.t) / 1000;
+    
+        let te = ( (h - this.te.h) + (Math.pow(v,2) - Math.pow(this.te.v,2)) / (2 * 9.81) )  / t;
+    
+        this.te.te = (this.te.te * 0.9) + (te * 0.1);
+    
+        this.te.h = h;
+        this.te.v = v;
+        this.te.t = now;
+    
+        return this.te.te;
     }
 
     init_speedgauge() {

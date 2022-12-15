@@ -12,6 +12,7 @@ class configpanel {
         }
 
         this.ballastIsInit = false;
+        this.cockpitwarnings = true;
 
         this.unitstore = SimVar.GetSimVarValue("L:UNITS_IMPERIAL","percent");
     }
@@ -208,6 +209,10 @@ class configpanel {
 
     toggleAipLayer(val) {
         if (val == "on") { NAVMAP.hasAipLayer = true; if(typeof(TOPOMAP.addLayer) == "function") { NAVMAP.addAipLayer() } } else { NAVMAP.removeAipLayer(); NAVMAP.hasAipLayer = false; }
+    }
+
+    toggleCockpitwarnings(val) {
+        if (val == "on") { this.cockpitwarnings = true; } else { this.cockpitwarnings = false; }
     }
 
     toggleHawkdisplay(val) {

@@ -1,9 +1,14 @@
 {
   "content": [
     {
+      "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/gotfriends.png",
+      "size": 12189,
+      "date": 133156030936961275
+    },
+    {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/configpanel.js",
-      "size": 17352,
-      "date": 133128133027692166
+      "size": 17491,
+      "date": 133156038625004123
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/interface.js",
@@ -22,13 +27,13 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navmap_topomap.js",
-      "size": 24440,
-      "date": 133132811820531252
+      "size": 23892,
+      "date": 133156034108796840
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navpanel.js",
       "size": 7530,
-      "date": 133128133027811687
+      "date": 133139562384320054
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/soarnet.js",
@@ -42,13 +47,13 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.html",
-      "size": 45504,
-      "date": 133128133027869013
+      "size": 45921,
+      "date": 133156042742397034
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.js",
-      "size": 55292,
-      "date": 133133234608129719
+      "size": 57265,
+      "date": 133156039018700717
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_includes/geo.js",
@@ -97,8 +102,8 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/tc-disc2c-nav.css",
-      "size": 23259,
-      "date": 133128133027761841
+      "size": 23557,
+      "date": 133156034573909906
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/thermalling_display/thermalling_display.css",
@@ -127,8 +132,8 @@
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/reference_points.cfg",
-      "size": 672,
-      "date": 133126582160381877
+      "size": 670,
+      "date": 133139729964247172
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/model/D2C_FREE_INT.xml",
@@ -158,7 +163,7 @@
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/reference_points.cfg",
       "size": 672,
-      "date": 133126582160381877
+      "date": 133139497745599429
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/model/D2C_FES_INT.xml",

@@ -41,6 +41,7 @@ class navpanel {
         
         if(this.listerisloading && this.airportlister.loadState == 6) {
             // Airportlister finished updating
+            this.airportsloaded = true;
             this.buildAirportList();
             this.listerisloading = false;
         }
