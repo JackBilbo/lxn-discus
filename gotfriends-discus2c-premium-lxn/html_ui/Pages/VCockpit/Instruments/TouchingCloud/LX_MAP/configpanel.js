@@ -215,6 +215,10 @@ class configpanel {
         if (val == "on") { this.cockpitwarnings = true; } else { this.cockpitwarnings = false; }
     }
 
+    toggleAutolog(val) {
+        if (val == "on") { this.instrument.log.isActive = true; } else { this.instrument.log.isActive = false; this.instrument.resetLog(); }
+    }
+
     toggleHawkdisplay(val) {
         if (val == "on") {  
             this.displayHawk = true; 
