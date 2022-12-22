@@ -3,9 +3,13 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <h2>Fixes and Features:</h2>
 
-The map has now an additional layer showing Aitports, Navaids and Airspaces. Can be toggled in interface settings on the config page
+New method to initialize the map. No more loading bar and no more blank screen due to long loading times.
 
-Limited the length of Usernames in Multiplayer table and map labels.
+Automatic flight log: when activated in interface settings will log time, distance, average groundspeed and climbed altitude for the current session. Can be displayed in any data field.
+
+Gear and ballast warnings can now be deactivated in interface settings.
+
+More data to display: polar sink at stf, netto, total energy.
 
 
 <h2>Installation:</h2>
