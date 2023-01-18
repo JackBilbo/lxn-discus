@@ -870,6 +870,7 @@ class lxn extends NavSystemTouch {
         this.vars.log_climb.value = 0;
     }   
 
+        // THIS SECTION ALSO INTIGRATES THE NEW LAUNCH MENU
     initKineticAssistant() {
         let instrument = this;
         this.ground_crew_menu = document.getElementById("ground_crew_menu");
@@ -879,7 +880,21 @@ class lxn extends NavSystemTouch {
 		this.ground_crew_push.onclick = function(e) {	instrument.toggleKA(75);	};
 		this.ground_crew_tow = document.getElementById("ground_crew_tow");
 		this.ground_crew_tow.onclick = function(e) {	instrument.toggleKA(100);	};
+		this.launch_menu = document.getElementById("launch_menu");
+		this.multiplayer_tow = document.getElementById("multiplayer_tow");
+		this.quick_winch = document.getElementById("quick_winch");
         this.KAisInit = true;
+		this.multiplayer_tow.onclick = function(e) {
+			SimVar.SetSimVarValue("K:LOGO_LIGHTS_SET", "percent", SimVar.GetSimVarValue("K:LOGO_LIGHTS_SET", "percent") == 100 ? 0 : 100).then(function() {
+				SetStoredData("Discus_towpreference", SimVar.GetSimVarValue("K:LOGO_LIGHTS_SET", "percent").toString());
+			});
+		}
+		
+		this.quick_winch.onclick = function(e) {
+			SimVar.SetSimVarValue("K:TOW_PLANE_REQUEST", "percent", SimVar.GetSimVarValue("K:TOW_PLANE_REQUEST", "percent") == 100 ? 0 : 100).then(function() {
+				SetStoredData("Discus_winchpreference", SimVar.GetSimVarValue("K:TOW_PLANE_REQUEST", "percent").toString());
+			});
+		}		
     }
 
     updateKineticAssistant() {
@@ -890,6 +905,8 @@ class lxn extends NavSystemTouch {
 		this.ground_crew_push.style.color = SimVar.GetSimVarValue("A:WATER RUDDER HANDLE POSITION", "percent") == 75 ? "red" : "green";
 		this.ground_crew_tow.style.borderColor = SimVar.GetSimVarValue("A:WATER RUDDER HANDLE POSITION", "percent") == 100 ? "red" : "green";
 		this.ground_crew_tow.style.color = SimVar.GetSimVarValue("A:WATER RUDDER HANDLE POSITION", "percent") == 100 ? "red" : "green";
+		this.multiplayer_tow.innerHTML = SimVar.GetSimVarValue("A:LIGHT LOGO", "percent") == 100 ? "MULTIPLAYER CONNECTION (CONNECTED)" : "MULTIPLAYER CONNECTION (CLICK TO CONNECT)";
+		this.quick_winch.innerHTML = SimVar.GetSimVarValue("A:TOW CONNECTION", "percent") == 100 ? "QUICK WINCH CONNECTION (CONNECTED)" : "QUICK WINCH CONNECTION (CLICK TO CONNECT)";
     }
 
     toggleKA(value) {

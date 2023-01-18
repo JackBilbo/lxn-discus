@@ -21,6 +21,32 @@
 <!-- ###################################### -->
 <!-- CUSTOM VISIBILITY SWITCHES ########### -->
 <!-- ###################################### -->
+		<Component ID="NATIVE_RELEASE_OVERRIDE">
+			<UseTemplate Name="ASOBO_GT_Update">
+				<FREQUENCY>30</FREQUENCY>
+				<UPDATE_CODE>
+					(A:TOW CONNECTION, percent) 100 ==
+					if{
+						0 (&gt;L:RELEASE_CABLE_NEW)
+					} els{
+						1 (&gt;L:RELEASE_CABLE_NEW)
+					}
+				</UPDATE_CODE>
+			</UseTemplate>
+		</Component>
+		<Component ID="CUSTOM_RELEASE_OVERRIDE">
+			<UseTemplate Name="ASOBO_GT_Update">
+				<FREQUENCY>30</FREQUENCY>
+				<UPDATE_CODE>
+					(A:LIGHT LOGO, percent) 100 == (A:LIGHT RECOGNITION, percent) 100 == or
+					if{
+						0 (&gt;L:RELEASE_CABLE_OLD)
+					} els{
+						1 (&gt;L:RELEASE_CABLE_OLD)
+					}
+				</UPDATE_CODE>
+			</UseTemplate>
+		</Component>
         <Component ID="NOTICE_VIS_SWITCH" Node="NOTICE">
 			<UseTemplate Name="ASOBO_GT_Switch_Code">
 				<ANIM_NAME>notice_vis</ANIM_NAME>
@@ -39,16 +65,24 @@
         		</Parameter>
         	</Visibility>
         </Component>
-	    <Component ID="CHECKLIST_ANIMATION" Node="CHECKLIST">
-			<UseTemplate Name="ASOBO_GT_Switch_Code">
-				<ANIM_NAME>Checklist_Anim</ANIM_NAME>
-				<ANIM_CODE>(L:CHECKLIST_ANIM, bool) 1 == if{ 100 } els{ 0 }</ANIM_CODE>
-				<ANIMTIP_0>View Information Card</ANIMTIP_0>
-				<ANIMTIP_1>Stow Information Card</ANIMTIP_1>
-				<ANIM_LAG>60</ANIM_LAG>
-				<LEFT_SINGLE_CODE>(L:CHECKLIST_ANIM, bool) 1 == if{ 0 (&gt;L:CHECKLIST_ANIM, bool) } els{ 1 (&gt;L:CHECKLIST_ANIM, bool) }</LEFT_SINGLE_CODE>
-			</UseTemplate>
-		</Component>
+        <Component ID="NAVSWAP_TOGGLE_VISIBILITY_1" Node="HTML_NAV">
+        	<Visibility>
+        		<Parameter>
+        			<Code>
+        			(L:NAV_SWAP, number) 0 ==
+        			</Code>
+        		</Parameter>
+        	</Visibility>
+        </Component>
+        <Component ID="NAVSWAP_TOGGLE_VISIBILITY_2" Node="HTML_LAUNCH">
+        	<Visibility>
+        		<Parameter>
+        			<Code>
+        			(L:NAV_SWAP, number) 1 ==
+        			</Code>
+        		</Parameter>
+        	</Visibility>
+        </Component>
         <Component ID="TEMP_TOGGLE_BUTTON" 			Node="GAUGE_THERMAL_BASE">
 			<UseTemplate Name="ASOBO_GT_Switch_Code">
 				<PART_ID>GAUGE_THERMAL_BASE</PART_ID>
@@ -308,39 +342,18 @@
                     </Code>
                 </Parameter>
             </Visibility>
-        </Component>
-        <Component ID="WINGLET_TOGGLE_VISIBILITY" 	Node="INT_NAV_LIGHT_INLET">
-        	<Visibility>
-        		<Parameter>
-        			<Code>
-        			(L:NAV_TOGGLE, number) 1 ==
-        			</Code>
-        		</Parameter>
-        	</Visibility>
-        </Component>
-        <Component ID="WINGLET_TOGGLE_ANIMATION" 	Node="SWITCH_LIGHT_NAV_LIGHT">
-			<UseTemplate Name="ASOBO_GT_Switch_Code">
-				<PART_ID>SWITCH_LIGHT_NAV_LIGHT</PART_ID>
-				<ANIM_NAME>Nav_Light_Switch</ANIM_NAME>
-				<ANIM_CODE>(A:LIGHT WING, bool) 1 == if{ 100 } els{ 0 }</ANIM_CODE>
-				<ANIMTIP_0>INOP (Navigation Lights)</ANIMTIP_0>
-				<ANIMTIP_1>INOP (Navigation Lights)</ANIMTIP_1>
-				<WWISE_EVENT_1>landing_light_switch_on</WWISE_EVENT_1>
-				<WWISE_EVENT_2>landing_light_switch_off</WWISE_EVENT_2>
-				<LEFT_SINGLE_CODE>(A:LIGHT WING, bool) 1 == if{ 0 } els{ 100 } (&gt;A:LIGHT WING, bool)</LEFT_SINGLE_CODE>
-			</UseTemplate>
-		</Component> 		
+        </Component>		
 		<Component ID="CANOPY_COVER_SPEED_CHECK" Node="CANOPY_COVER">
 			<UseTemplate Name="ASOBO_GT_Update">
 				<FREQUENCY>30</FREQUENCY>
-				<UPDATE_CODE> (A:TOTAL WORLD VELOCITY, meters per second) 1 &gt; (L:COVER_TOGGLE, number) 0 &gt; and if{ 0 (&gt;L:COVER_TOGGLE, number) }</UPDATE_CODE>
+				<UPDATE_CODE> (A:TOTAL WORLD VELOCITY, meters per second) 1 &gt; (L:COVER_TOGGLE, percent) 0 &gt; and if{ 0 (&gt;L:COVER_TOGGLE, percent) }</UPDATE_CODE>
 			</UseTemplate>
 		</Component>
         <Component ID="COVER_TOGGLE_VISIBILITY_1" 	Node="CANOPY_COVER">
             <Visibility>
                 <Parameter>
                     <Code>
-                        (L:COVER_TOGGLE) 1 == (A:LIGHT PEDESTRAL, bool) 0 == and
+                        (L:COVER_TOGGLE) 100 == (A:LIGHT PEDESTRAL, bool) 0 == and
                     </Code>
                 </Parameter>
             </Visibility>
@@ -386,36 +399,6 @@
 				</Parameter>
 			</Visibility>
 		</Component>
-        <Component ID="NAVSWAP_TOGGLE_BUTTON" 		Node="GAUGE_NAV_BUTTON">
-			<UseTemplate Name="ASOBO_GT_Switch_Code">
-				<PART_ID>GAUGE_NAV_BUTTON</PART_ID>
-				<ANIM_NAME>Swap_Nav_HTML</ANIM_NAME>
-				<ANIM_CODE>(L:NAV_SWAP, number) 100 *</ANIM_CODE>
-				<ANIMTIP_0>Switch to Winch Control</ANIMTIP_0>
-				<ANIMTIP_1>Switch to LX Navigation</ANIMTIP_1>
-				<WWISE_EVENT_1>battery_switch_on</WWISE_EVENT_1>
-				<WWISE_EVENT_2>battery_switch_off</WWISE_EVENT_2>
-				<LEFT_SINGLE_CODE>(L:NAV_SWAP) ! (&gt;L:NAV_SWAP)</LEFT_SINGLE_CODE>
-			</UseTemplate>
-		</Component>
-        <Component ID="NAVSWAP_TOGGLE_VISIBILITY_1" Node="HTML_NAV">
-        	<Visibility>
-        		<Parameter>
-        			<Code>
-        			(L:NAV_SWAP, number) 0 ==
-        			</Code>
-        		</Parameter>
-        	</Visibility>
-        </Component>
-        <Component ID="NAVSWAP_TOGGLE_VISIBILITY_2" Node="HTML_LAUNCH">
-        	<Visibility>
-        		<Parameter>
-        			<Code>
-        			(L:NAV_SWAP, number) 1 ==
-        			</Code>
-        		</Parameter>
-        	</Visibility>
-        </Component>
         <Component ID="NAV_HTML_BRIGHTNESS" 		Node="HTML_NAV">
 			<UseTemplate Name="ASOBO_GT_Emissive_Gauge">
 				<EMISSIVE_CODE>(L:NAV_BRIGHTNESS, Number) 1 / </EMISSIVE_CODE>
@@ -798,7 +781,7 @@
 				<PART_ID>BUTTON_CB5</PART_ID>
 				<ANIM_NAME>CB_Batt</ANIM_NAME>
 				<ANIM_CODE>(A:ELECTRICAL MASTER BATTERY, bool) 100 *</ANIM_CODE>
-				<ANIMTIP_0>BATTERY BREAKER (PULLED)</ANIMTIP_0>
+				<ANIMTIP_0>BATTERY BREAKER (DISCONNECTED)</ANIMTIP_0>
 				<ANIMTIP_1>BATTERY BREAKER (CONNECTED)</ANIMTIP_1>
 				<WWISE_EVENT_1>navcom_knob_push_button_on</WWISE_EVENT_1>
 				<WWISE_EVENT_2>navcom_knob_push_button_off</WWISE_EVENT_2>	
@@ -928,30 +911,7 @@
 					(L:S80_SD_CARD, bool) ! (&gt;L:S80_SD_CARD, bool)
 				</LEFT_SINGLE_CODE>
 			</UseTemplate>
-		</Component>
-        <Component ID="ROPE_RELEASE" 				Node="ROPE_RELEASE_HANDLE">
-            <UseTemplate Name="ASOBO_GT_Switch_Code">
-                <PART_ID>ROPE_RELEASE_HANDLE</PART_ID>
-                <ANIM_NAME>Rope_Release_Anim</ANIM_NAME>
-                <ANIM_CODE>
-                    (A:WATER RUDDER HANDLE POSITION, percent) (A:LIGHT RECOGNITION, bool) (A:LIGHT LOGO, bool) + + 1 min 100 *
-                </ANIM_CODE>
-                <ANIM_LAG>100</ANIM_LAG>
-                <ANIMTIP_0>RELEASE CABLE</ANIMTIP_0>
-                <WWISE_EVENT_1>parking_brake_switch_on</WWISE_EVENT_1>
-                <WWISE_EVENT_2>parking_brake_switch_off</WWISE_EVENT_2>
-                <LEFT_SINGLE_CODE>
-                    0 (&gt;A:WATER RUDDER HANDLE POSITION, percent)
-                    0 (&gt;K:RECOGNITION_LIGHTS_SET)
-                    0 (&gt;K:LOGO_LIGHTS_SET)
-                </LEFT_SINGLE_CODE>
-                <WHEEL_DOWN_CODE>
-                    0 (&gt;A:WATER RUDDER HANDLE POSITION, percent)
-                    0 (&gt;K:RECOGNITION_LIGHTS_SET)
-                    0 (&gt;K:LOGO_LIGHTS_SET)
-                </WHEEL_DOWN_CODE>
-            </UseTemplate>
-        </Component>		
+		</Component>	
 		<Component ID="FLARM_SWITCH" 				Node="GAUGE_FLARM_FRONT">
 			<UseTemplate Name="ASOBO_GT_Switch_Code">
 				<PART_ID>GAUGE_FLARM_FRONT</PART_ID>
@@ -1345,95 +1305,19 @@
                 </UPDATE_CODE>
             </UseTemplate>
         </Component>
-<!-- ###################################### -->
-<!-- ORIGINAL LX NAV BUTTONS AND KNOBS ######## -->
-<!-- ###################################### -->
-		<Component ID="LX_SOFTKEY_1" 			Node="INT_LXNAV_SOFTKEY_1">
-			<UseTemplate Name="ASOBO_GT_Switch_Code">
-				<PART_ID>INT_LXNAV_SOFTKEY_1</PART_ID>
-				<ANIM_NAME>UOM_Toggle</ANIM_NAME>
-				<ANIM_CODE>(L:UNITS_IMPERIAL, bool) 1 == if{ 100 } els{ 0 }</ANIM_CODE>
-				<ANIMTIP_0>UNITS (METRIC)</ANIMTIP_0>
-				<ANIMTIP_1>UNITS (IMPERIAL)</ANIMTIP_1>
-				<WWISE_EVENT_1>navcom_volume_knob_push_button_on</WWISE_EVENT_1>
-				<WWISE_EVENT_2>navcom_volume_knob_push_button_off</WWISE_EVENT_2>
-				<ANIM_LENGTH>100</ANIM_LENGTH>
-				<LEFT_SINGLE_CODE>(L:UNITS_IMPERIAL, bool) 1 == if{ 0.01 (&gt;L:UNITS_IMPERIAL, bool) } els{ 1 (&gt;L:UNITS_IMPERIAL, bool) }</LEFT_SINGLE_CODE>
-			</UseTemplate>
-		</Component>
-		<Component ID="LX_SOFTKEY_2" 	Node="INT_LXNAV_SOFTKEY_2">
-			<UseTemplate Name="ASOBO_GT_Switch_Code">
-				<PART_ID>INT_LXNAV_SOFTKEY_2</PART_ID>
-				<ANIM_NAME>Towplane_Toggle</ANIM_NAME>
-				<ANIM_CODE>(A:LIGHT LOGO, number) 1 == if{ 100 } els{ 0 }</ANIM_CODE>
-				<ANIM_LAG>500</ANIM_LAG>
-				<ANIMTIP_0>Connect to Towplane</ANIMTIP_0>
-				<ANIMTIP_1></ANIMTIP_1>
-				<WWISE_EVENT_1>landing_light_switch_on</WWISE_EVENT_1>
-				<WWISE_EVENT_2>landing_light_switch_off</WWISE_EVENT_2>
-				<LEFT_SINGLE_CODE>
-                    1 (&gt;K:LOGO_LIGHTS_SET)
-					0 (&gt;L:NAV_SWAP, number)	
-				</LEFT_SINGLE_CODE>
-			</UseTemplate>
-		</Component>			
-		<Component ID="LX_SOFTKEY_3" 		Node="INT_LXNAV_SOFTKEY_3">
-			<UseTemplate Name="ASOBO_GT_Switch_Code">
-				<PART_ID>INT_LXNAV_SOFTKEY_3</PART_ID>
-				<ANIM_NAME>CANOPY_TOGGLE</ANIM_NAME>
-				<ANIM_CODE>(L:CANOPY_TOGGLE) 100 *</ANIM_CODE>
-				<ANIMTIP_0>CANOPY TINT (ON)</ANIMTIP_0>
-				<ANIMTIP_1>CANOPY TINT (OFF)</ANIMTIP_1>
-				<WWISE_EVENT_1>navcom_volume_knob_push_button_on</WWISE_EVENT_1>
-				<WWISE_EVENT_2>navcom_volume_knob_push_button_off</WWISE_EVENT_2>
-				<LEFT_SINGLE_CODE>(L:CANOPY_TOGGLE) ! (&gt;L:CANOPY_TOGGLE)</LEFT_SINGLE_CODE>
-			</UseTemplate>
-		</Component>
-		<Component ID="LX_SOFTKEY_4" Node="INT_LXNAV_SOFTKEY_4">
-            <UseTemplate Name="ASOBO_GT_Switch_Code">
-                <PART_ID>INT_LXNAV_SOFTKEY_4</PART_ID>
-                <ANIM_NAME>OXYGEN_TOGGLE</ANIM_NAME>
-                <ANIM_CODE>(L:OXYGEN_TOGGLE) 100 *</ANIM_CODE>
-                <ANIMTIP_0>OXYGEN TANK (REMOVED)</ANIMTIP_0>
-                <ANIMTIP_1>OXYGEN TANK (AVAILABLE)</ANIMTIP_1>
-                <WWISE_EVENT_1>navcom_volume_knob_push_button_on</WWISE_EVENT_1>
-                <WWISE_EVENT_2>navcom_volume_knob_push_button_off</WWISE_EVENT_2>
-                <LEFT_SINGLE_CODE>
-                    (L:OXYGEN_TOGGLE) ! (&gt;L:OXYGEN_TOGGLE)
-                    0 (&gt;L:OXYGEN_KNOB)
-                </LEFT_SINGLE_CODE>
+        <Component ID="INIT">
+            <UseTemplate Name="ASOBO_GT_Update">
+                <UPDATE_ONCE>True</UPDATE_ONCE>
+                <UPDATE_CODE>
+                    1 (&gt;A:FUEL TANK CENTER LEVEL, Percent Over 100)
+                    (A:EMPTY WEIGHT, pounds) 700 &gt; (&gt;L:IsFES)
+                    0.5 (&gt;L:AdverseYaw)
+                </UPDATE_CODE>
             </UseTemplate>
         </Component>
-        <Component ID="LX_SOFTKEY_5" 		Node="INT_LXNAV_SOFTKEY_5">
-			<UseTemplate Name="ASOBO_GT_Switch_Code">
-				<PART_ID>INT_LXNAV_SOFTKEY_5</PART_ID>
-				<ANIM_NAME>WINGLET_TOGGLE</ANIM_NAME>
-				<ANIM_CODE>(L:NAV_TOGGLE) 100 *</ANIM_CODE>
-				<ANIMTIP_0>INOP (Navigation Lights)</ANIMTIP_0>
-				<ANIMTIP_1>INOP (Navigation Lights)</ANIMTIP_1>
-				<WWISE_EVENT_1>navcom_volume_knob_push_button_on</WWISE_EVENT_1>
-				<WWISE_EVENT_2>navcom_volume_knob_push_button_off</WWISE_EVENT_2>
-				<LEFT_SINGLE_CODE>
-					(L:NAV_TOGGLE) ! (&gt;L:NAV_TOGGLE)
-					0 (&gt;A:LIGHT WING, bool)				
-				</LEFT_SINGLE_CODE>
-			</UseTemplate>
-		</Component>
-        <Component ID="LX_SOFTKEY_6" 		Node="INT_LXNAV_SOFTKEY_6">
-            <UseTemplate Name="ASOBO_GT_Switch_Code">
-                <PART_ID>INT_LXNAV_SOFTKEY_6</PART_ID>
-                <ANIM_NAME>COVER_TOGGLE</ANIM_NAME>
-				<ANIM_CODE>(L:COVER_TOGGLE, number) 1 == if{ 100 } els{ 0 }</ANIM_CODE>
-                <ANIMTIP_0>CANOPY COVER (STOWED)</ANIMTIP_0>
-                <ANIMTIP_1>CANOPY COVER (PLACED)</ANIMTIP_1>
-				<WWISE_EVENT_1>navcom_volume_knob_push_button_on</WWISE_EVENT_1>
-				<WWISE_EVENT_2>navcom_volume_knob_push_button_off</WWISE_EVENT_2>
-                <LEFT_SINGLE_CODE>
-					(L:COVER_TOGGLE, number) 1 == if{ 0 (&gt;L:COVER_TOGGLE, number) } els{ 1 (&gt;L:COVER_TOGGLE, number) }
-                </LEFT_SINGLE_CODE>
-            </UseTemplate>
-        </Component>
-		<!--
+<!-- ###################################### -->
+<!-- ####### ORIGINAL LX NAV KNOBS ######## -->
+<!-- ######################################
         <Component ID="LX_KNOB_1" 	Node="INT_LX_KNOB_SMALL1">
 			<UseTemplate Name="ASOBO_GT_Knob_Finite_Code">
 				<WRAP>False</WRAP>
@@ -1474,22 +1358,22 @@
             <UseTemplate Name="ASOBO_GT_Knob_Finite_Code">
                 <WRAP>False</WRAP>
                 <PART_ID>INT_LX_KNOB_SMALL3</PART_ID>
-                <ANIM_CODE>(A:LIGHT POTENTIOMETER:5, number) 100 *</ANIM_CODE>
+                <ANIM_CODE>(L:AdverseYaw) 100 *</ANIM_CODE>
                 <ANIM_LENGTH>100</ANIM_LENGTH>
                 <ANIM_NAME>Macready_Knob</ANIM_NAME>
                 <WWISE_EVENT>as21_transponder_code_knob</WWISE_EVENT>
                 <ANTICLOCKWISE_CODE>
-                    (A:LIGHT POTENTIOMETER:5, number) 0.1 - 0.1 max 100 * (&gt;K:LIGHT_POTENTIOMETER_5_SET)
+                    (L:AdverseYaw) 0.1 - 0.0 max (&gt;L:AdverseYaw)
                 </ANTICLOCKWISE_CODE>
                 <CLOCKWISE_CODE>
-                    (A:LIGHT POTENTIOMETER:5, number) 0.1 + 1 min 100 * (&gt;K:LIGHT_POTENTIOMETER_5_SET)
+                    (L:AdverseYaw) 0.1 + 1.0 min (&gt;L:AdverseYaw)
                 </CLOCKWISE_CODE>
                 <ANIMCURSOR_DIR>1.0</ANIMCURSOR_DIR>
                 <ANIMCURSOR_MIN>0.1</ANIMCURSOR_MIN>
-                <TOOLTIPID>Glareshield Lighting %((A:LIGHT POTENTIOMETER:5, number) 100 *)%!2.0f!%&percnt;</TOOLTIPID>
+                <TOOLTIPID>Adverse Yaw %((L:AdverseYaw) 100 *)%!d!%&percnt;</TOOLTIPID>
                 <COUNT>10</COUNT>
             </UseTemplate>
-        </Component>		
+        </Component> 		
         <Component ID="LX_KNOB_4" 		Node="INT_LX_KNOB_SMALL4">
 			<UseTemplate Name="ASOBO_GT_Knob_Finite_Code">
 				<WRAP>False</WRAP>
@@ -1529,99 +1413,84 @@
 				<TOOLTIPID>Water Ballast %((L:WaterBallastRatio) 100 *)%!2.0f!%&percnt;</TOOLTIPID>
 				<COUNT>10</COUNT>
 			</UseTemplate>
-		</Component>
-		-->
-		<Component ID="MIC_SWITCH" 	Node="INT_MICROPHONE">
+		</Component> -->
+<!-- ###################################### -->
+<!-- ##### ADDITIONAL LX NAV BUTTONS ###### -->
+<!-- ###################################### -->
+<!--	<Component ID="MULTIPLAYER_TOWING_TOGGLE_BUTTON" 		Node="GAUGE_NAV_BUTTON">
 			<UseTemplate Name="ASOBO_GT_Switch_Code">
-				<PART_ID>INT_MICROPHONE</PART_ID>
-				<ANIM_NAME>Call_Crew</ANIM_NAME>
+				<PART_ID>GAUGE_NAV_BUTTON</PART_ID>
+				<ANIM_NAME>Swap_Nav_HTML</ANIM_NAME>
 				<ANIM_CODE>(L:KA_SOUND_ON, bool) 1 == if{ 100 } els{ 0 }</ANIM_CODE>
-				<ANIMTIP_0>Kinetic Assistant Options</ANIMTIP_0>
+				<ANIM_LAG>250</ANIM_LAG>
+				<ANIMTIP_0>Open Launch Menu</ANIMTIP_0>
+				<ANIMTIP_1>Close Launch Menu</ANIMTIP_1>
 				<WWISE_EVENT_1>landing_light_switch_on</WWISE_EVENT_1>
 				<WWISE_EVENT_2>landing_light_switch_off</WWISE_EVENT_2>
 				<LEFT_SINGLE_CODE>
 				(L:KA_SOUND_ON, bool) ! (&gt;L:KA_SOUND_ON, bool)				
-				0 (&gt;L:NAV_SWAP, number)
 				(Z:MIC_POSITION) 100 != 100 * (&gt;Z:MIC_POSITION)
+				</LEFT_SINGLE_CODE>
+			</UseTemplate>
+		</Component> -->
+        <Component ID="ROPE_RELEASE" 				Node="ROPE_RELEASE_HANDLE">
+            <UseTemplate Name="ASOBO_GT_Switch_Code">
+                <PART_ID>ROPE_RELEASE_HANDLE</PART_ID>
+                <ANIM_NAME>Rope_Release_Anim</ANIM_NAME>
+                <ANIM_CODE>(L:TOW_HANDLE) 100 *</ANIM_CODE>
+                <ANIM_LAG>100</ANIM_LAG>
+                <ANIMTIP_0>RELEASE CABLE</ANIMTIP_0>
+                <ANIMTIP_1>RELEASE CABLE</ANIMTIP_1>
+                <WWISE_EVENT_1>parking_brake_switch_on</WWISE_EVENT_1>
+                <WWISE_EVENT_2>parking_brake_switch_off</WWISE_EVENT_2>
+                <LEFT_SINGLE_CODE>
+                    0 (&gt;A:WATER RUDDER HANDLE POSITION, percent)
+                    0 (&gt;K:RECOGNITION_LIGHTS_SET)
+                    0 (&gt;K:LOGO_LIGHTS_SET)
+					1 (&gt;K:TOW_PLANE_RELEASE)
+					(L:TOW_HANDLE, bool) ! (&gt;L:TOW_HANDLE, bool)
+                </LEFT_SINGLE_CODE>
+                <WHEEL_DOWN_CODE>
+                    0 (&gt;A:WATER RUDDER HANDLE POSITION, percent)
+                    0 (&gt;K:RECOGNITION_LIGHTS_SET)
+                    0 (&gt;K:LOGO_LIGHTS_SET)
+					1 (&gt;K:TOW_PLANE_RELEASE)
+					(L:TOW_HANDLE, bool) ! (&gt;L:TOW_HANDLE, bool)
+                </WHEEL_DOWN_CODE>
+            </UseTemplate>
+        </Component>
+        <Component ID="OLD_LAUNCH_MENU" 			Node="INT_LXNAV_SDCARD">
+			<UseTemplate Name="ASOBO_GT_Switch_Code">
+				<PART_ID>INT_LXNAV_SDCARD</PART_ID>
+				<ANIM_NAME>OLD_MENU</ANIM_NAME>
+				<ANIM_CODE>(L:NAV_SWAP) 100 *</ANIM_CODE>
+				<ANIMTIP_0>OLD LAUNCH MENU (LOAD)</ANIMTIP_0>
+				<ANIMTIP_1>OLD LAUNCH MENU (UNLOAD)</ANIMTIP_1>
+				<ANIM_LAG>150</ANIM_LAG>
+				<WWISE_EVENT_1>landing_light_switch_on</WWISE_EVENT_1>
+				<WWISE_EVENT_2>landing_light_switch_off</WWISE_EVENT_2>
+				<LEFT_SINGLE_CODE>
+					(L:NAV_SWAP, bool) ! (&gt;L:NAV_SWAP, bool)
 				</LEFT_SINGLE_CODE>
 			</UseTemplate>
 		</Component>
 <!-- ###################################### -->
-<!-- CUSTOM LX NAV BUTTONS AND KNOBS ######## -->
+<!-- # JACKBILBO REPLACEMENT LX NAV KNOBS # -->
 <!-- ###################################### -->
-<!-- DELETE THIS LINE TO ACTIVATE/ UNHIDE AND ENSURE YOU HAVE DELETED CODE FROM ORGINAL AS WELL
-		<Component ID="LX_SOFTKEY_1" 			Node="INT_LXNAV_SOFTKEY_1">
-			<UseTemplate Name="ASOBO_GT_Switch_Code">
-				<PART_ID>INT_LXNAV_SOFTKEY_1</PART_ID>
-				<ANIM_NAME>UOM_Toggle</ANIM_NAME>
-				<ANIM_CODE>(L:SOFTKEY_1, bool) 1 == if{ 100 } els{ 0 }</ANIM_CODE>
-				<ANIMTIP_0>XXXX (XXXX)</ANIMTIP_0>
-				<ANIMTIP_1>XXXX (XXXX)</ANIMTIP_1>
-				<WWISE_EVENT_1>navcom_volume_knob_push_button_on</WWISE_EVENT_1>
-				<WWISE_EVENT_2>navcom_volume_knob_push_button_off</WWISE_EVENT_2>
-				<ANIM_LENGTH>100</ANIM_LENGTH>
-				<LEFT_SINGLE_CODE>(L:SOFTKEY_1, bool) 1 == if{ 0.01 (&gt;L:SOFTKEY_1, bool) } els{ 1 (&gt;L:SOFTKEY_1, bool) }</LEFT_SINGLE_CODE>
-			</UseTemplate>
-		</Component>
-		<Component ID="LX_SOFTKEY_2" 	Node="INT_LXNAV_SOFTKEY_2">
-			<UseTemplate Name="ASOBO_GT_Switch_Code">
-				<PART_ID>INT_LXNAV_SOFTKEY_2</PART_ID>
-				<ANIM_NAME>Towplane_Toggle</ANIM_NAME>
-				<ANIM_CODE>(L:SOFTKEY_2, number) 1 == if{ 100 } els{ 0 }</ANIM_CODE>
-				<ANIM_LAG>500</ANIM_LAG>
-				<ANIMTIP_0>XXXX (XXXX)</ANIMTIP_0>
-				<ANIMTIP_1>XXXX (XXXX)</ANIMTIP_1>
-				<WWISE_EVENT_1>landing_light_switch_on</WWISE_EVENT_1>
-				<WWISE_EVENT_2>landing_light_switch_off</WWISE_EVENT_2>
-				<LEFT_SINGLE_CODE>(L:SOFTKEY_2, bool) 1 == if{ 0.01 (&gt;L:SOFTKEY_2, bool) } els{ 1 (&gt;L:SOFTKEY_2, bool) }</LEFT_SINGLE_CODE>
-			</UseTemplate>
-		</Component>			
-		<Component ID="LX_SOFTKEY_3" 		Node="INT_LXNAV_SOFTKEY_3">
-			<UseTemplate Name="ASOBO_GT_Switch_Code">
-				<PART_ID>INT_LXNAV_SOFTKEY_3</PART_ID>
-				<ANIM_NAME>CANOPY_TOGGLE</ANIM_NAME>
-				<ANIM_CODE>(L:SOFTKEY_3) 100 *</ANIM_CODE>
-				<ANIMTIP_0>XXXX (XXXX)</ANIMTIP_0>
-				<ANIMTIP_1>XXXX (XXXX)</ANIMTIP_1><WWISE_EVENT_1>navcom_volume_knob_push_button_on</WWISE_EVENT_1>
-				<WWISE_EVENT_2>navcom_volume_knob_push_button_off</WWISE_EVENT_2>
-				<LEFT_SINGLE_CODE>(L:SOFTKEY_3, bool) 1 == if{ 0.01 (&gt;L:SOFTKEY_3, bool) } els{ 1 (&gt;L:SOFTKEY_3, bool) }</LEFT_SINGLE_CODE>
-			</UseTemplate>
-		</Component>
-		<Component ID="LX_SOFTKEY_4" Node="INT_LXNAV_SOFTKEY_4">
-            <UseTemplate Name="ASOBO_GT_Switch_Code">
-                <PART_ID>INT_LXNAV_SOFTKEY_4</PART_ID>
-                <ANIM_NAME>OXYGEN_TOGGLE</ANIM_NAME>
-                <ANIM_CODE>(L:SOFTKEY_4) 100 *</ANIM_CODE>
-                <ANIMTIP_0>XXXX (XXXX)</ANIMTIP_0>
-				<ANIMTIP_1>XXXX (XXXX)</ANIMTIP_1><WWISE_EVENT_1>navcom_volume_knob_push_button_on</WWISE_EVENT_1>
-                <WWISE_EVENT_2>navcom_volume_knob_push_button_off</WWISE_EVENT_2>
-                <LEFT_SINGLE_CODE>(L:SOFTKEY_4, bool) 1 == if{ 0.01 (&gt;L:SOFTKEY_4, bool) } els{ 1 (&gt;L:SOFTKEY_4, bool) }</LEFT_SINGLE_CODE>
+        <Component ID="GOT_FRIENDS_BUTTON_FIX">
+            <UseTemplate Name="ASOBO_GT_Update">
+                <UPDATE_CODE>
+                    1 (&gt;L:BUTTON_FIX)
+                </UPDATE_CODE>
             </UseTemplate>
         </Component>
-        <Component ID="LX_SOFTKEY_5" 		Node="INT_LXNAV_SOFTKEY_5">
-			<UseTemplate Name="ASOBO_GT_Switch_Code">
-				<PART_ID>INT_LXNAV_SOFTKEY_5</PART_ID>
-				<ANIM_NAME>WINGLET_TOGGLE</ANIM_NAME>
-				<ANIM_CODE>(L:SOFTKEY_5) 100 *</ANIM_CODE>
-				<ANIMTIP_0>XXXX (XXXX)</ANIMTIP_0>
-				<ANIMTIP_1>XXXX (XXXX)</ANIMTIP_1><WWISE_EVENT_1>navcom_volume_knob_push_button_on</WWISE_EVENT_1>
-				<WWISE_EVENT_2>navcom_volume_knob_push_button_off</WWISE_EVENT_2>
-				<LEFT_SINGLE_CODE>(L:SOFTKEY_5, bool) 1 == if{ 0.01 (&gt;L:SOFTKEY_5, bool) } els{ 1 (&gt;L:SOFTKEY_5, bool) }</LEFT_SINGLE_CODE>
+		<Component ID="GOT_FRIENDS_BUTTON_VISIBILITY" 				Node="GAUGE_NAV_BUTTON">
+			<UseTemplate Name="ASOBO_GT_Visibility_Code">
+				<VISIBILITY_CODE>
+					(L:BUTTON_FIX, bool) 0 ==
+				</VISIBILITY_CODE>
 			</UseTemplate>
 		</Component>
-        <Component ID="LX_SOFTKEY_6" 		Node="INT_LXNAV_SOFTKEY_6">
-            <UseTemplate Name="ASOBO_GT_Switch_Code">
-                <PART_ID>INT_LXNAV_SOFTKEY_6</PART_ID>
-                <ANIM_NAME>COVER_TOGGLE</ANIM_NAME>
-				<ANIM_CODE>(L:SOFTKEY_6, number) 1 == if{ 100 } els{ 0 }</ANIM_CODE>
-                <ANIMTIP_0>XXXX (XXXX)</ANIMTIP_0>
-				<ANIMTIP_1>XXXX (XXXX)</ANIMTIP_1><WWISE_EVENT_1>navcom_volume_knob_push_button_on</WWISE_EVENT_1>
-				<WWISE_EVENT_2>navcom_volume_knob_push_button_off</WWISE_EVENT_2>
-                <LEFT_SINGLE_CODE>(L:SOFTKEY_6, bool) 1 == if{ 0.01 (&gt;L:SOFTKEY_6, bool) } els{ 1 (&gt;L:SOFTKEY_6, bool) }</LEFT_SINGLE_CODE>
-            </UseTemplate>
-        </Component>
-
-		-->
         <Component ID="LX_KNOB_1" 	Node="INT_LX_KNOB_SMALL1">
 			<UseTemplate Name="ASOBO_GT_Knob_Finite_Code">
 				<WRAP>False</WRAP>
@@ -1674,7 +1543,7 @@
 				</CLOCKWISE_CODE>
 				<ANIMCURSOR_DIR>1.0</ANIMCURSOR_DIR>
 				<ANIMCURSOR_MIN>0.1</ANIMCURSOR_MIN>
-				<TOOLTIPID>XXXX %((L:LX_KNOB_3) 100 *)%!2.0f!%&percnt;</TOOLTIPID>
+				<TOOLTIPID>PAGE LEFT/RIGHT</TOOLTIPID>
 				<COUNT>10</COUNT>
 			</UseTemplate>
 		</Component>
@@ -1694,23 +1563,10 @@
 				</CLOCKWISE_CODE>
 				<ANIMCURSOR_DIR>1.0</ANIMCURSOR_DIR>
 				<ANIMCURSOR_MIN>0.1</ANIMCURSOR_MIN>
-				<TOOLTIPID>XXXX %((L:LX_KNOB_4) 100 *)%!2.0f!%&percnt;</TOOLTIPID>
+				<TOOLTIPID>PAGE UP/DOWN</TOOLTIPID>
 				<COUNT>10</COUNT>
 			</UseTemplate>
-		</Component>
-		<!--
-		<Component ID="MIC_SWITCH" 	Node="INT_MICROPHONE">
-			<UseTemplate Name="ASOBO_GT_Switch_Code">
-				<PART_ID>INT_MICROPHONE</PART_ID>
-				<ANIM_NAME>Call_Crew</ANIM_NAME>
-				<ANIM_CODE>(L:CLICK_MIC, bool) 1 == if{ 100 } els{ 0 }</ANIM_CODE>
-				<ANIMTIP_0>XXXX</ANIMTIP_0>
-				<WWISE_EVENT_1>landing_light_switch_on</WWISE_EVENT_1>
-				<WWISE_EVENT_2>landing_light_switch_off</WWISE_EVENT_2>
-				<LEFT_SINGLE_CODE>(L:CLICK_MIC, bool) 1 == if{ 0.01 (&gt;L:CLICK_MIC, bool) } els{ 1 (&gt;L:CLICK_MIC, bool) }</LEFT_SINGLE_CODE>
-			</UseTemplate>
-		</Component>
-DELETE THIS LINE TO ACTIVATE/UNHIDE THIS SECTION -->
+		</Component>		
 	</Behaviors>
 <!-- ###################################### -->
 <!-- CUSTOM ANIMATION CODING ############## -->
@@ -1878,9 +1734,9 @@ DELETE THIS LINE TO ACTIVATE/UNHIDE THIS SECTION -->
       </Parameter>
     </Animation>
   </PartInfo>
-<Animation name="goprogopropro" guid="42e02e83-454d-412f-b534-afe433912075" length="100" type="Sim" typeparam2="goprogopropro" typeparam="AutoPlay" />
+<Animation name="gopro" guid="42e02e83-454d-412f-b534-afe433912075" length="100" type="Sim" typeparam2="gopro" typeparam="AutoPlay" />
   <PartInfo>
-    <Name>goprogopropro</Name>
+    <Name>gopro</Name>
     <AnimLength>100</AnimLength>
     <Animation>
       <Parameter>
@@ -1889,16 +1745,6 @@ DELETE THIS LINE TO ACTIVATE/UNHIDE THIS SECTION -->
       </Parameter>
     </Animation>
   </PartInfo>
-<Animation name="swap_system" guid="1cf189f5-920a-4715-a3fa-51068615a993" length="2" type="Sim" typeparam2="swap_system" typeparam="AutoPlay" />
-	<PartInfo>
-		<Name>swap_system</Name>
-		<AnimLength>2</AnimLength>
-		<Animation>
-			<Parameter>
-				<Code>(L:NAV_SWAP, bool) 2 *</Code>
-			</Parameter>
-		</Animation>
-	</PartInfo>
 <Animation name="left_wingflex" guid="75573852-5364-48d3-84ca-ac399410a8bc" type="Sim" typeParam="AutoPlay" typeParam2="left_wingflex" length="100"/>
     <PartInfo>
         <Name>left_wingflex</Name>
@@ -1929,4 +1775,14 @@ DELETE THIS LINE TO ACTIVATE/UNHIDE THIS SECTION -->
 		  </Parameter>
         </Animation>
     </PartInfo>	
+<Animation name="swap_system" guid="1cf189f5-920a-4715-a3fa-51068615a993" length="2" type="Sim" typeparam2="swap_system" typeparam="AutoPlay" />
+	<PartInfo>
+		<Name>swap_system</Name>
+		<AnimLength>2</AnimLength>
+		<Animation>
+			<Parameter>
+				<Code>(L:NAV_SWAP, bool) 2 *</Code>
+			</Parameter>
+		</Animation>
+	</PartInfo>
 </ModelInfo>

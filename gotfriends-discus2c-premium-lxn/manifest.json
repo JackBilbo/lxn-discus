@@ -1,11 +1,11 @@
 {
   "dependencies": [],
   "content_type": "AIRCRAFT",
-  "title": "Discus-2c - LXN Replacement",
+  "title": "Discus-2c (LXN Replacement)",
   "manufacturer": "Schempp-Hirth",
   "creator": "Jack Bilbo",
-  "package_version": "0.1",
-  "minimum_game_version": "1.26.5",
+  "package_version": "2.0.6",
+  "minimum_game_version": "1.29.30",
   "release_notes": {
     "neutral": {
       "LastUpdate": "VERSION 0.1",

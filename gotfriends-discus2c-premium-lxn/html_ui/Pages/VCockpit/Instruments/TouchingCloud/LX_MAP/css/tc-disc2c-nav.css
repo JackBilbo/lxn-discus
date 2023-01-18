@@ -1148,8 +1148,41 @@ input[type="radio"] {
 	color: #000;
 }
 
-/* Kinetic Assistant */
+/* Launch Menu */
 
+#launch_menu > div {
+	width: 760px;
+	font-weight: bold;
+	font-size: 45px;
+	color: #fff;
+	margin: 50px;
+	text-align: left;
+}
+
+#multiplayer_tow {
+	border: 20px solid #0096ff !important;
+	padding: 50px;
+	text-align: center !important;
+	color: #0096ff !important;
+}
+
+#quick_winch {
+	border: 20px solid #0096ff !important;
+	padding: 50px;
+	text-align: center !important;
+	color: #0096ff !important;
+}
+
+#partners {
+	width: 100%;
+    text-align: center !important;
+}
+
+#partners img {
+	width: 28%;
+}
+
+/* Kinetic Assistant */
 
 #ground_crew_menu {
 	position: relative;
@@ -1174,10 +1207,6 @@ input[type="radio"] {
 #touching_cloud {
 	width: 100%;
     text-align: center !important;
-}
-
-#touching_cloud img {
-	width: 45%;
 }
 
 

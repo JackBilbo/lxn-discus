@@ -8,7 +8,6 @@ class configpanel {
             ballast: 50,
             tint: false,
             cover: false,
-            navlights: false
         }
 
         this.ballastIsInit = false;
@@ -180,7 +179,7 @@ class configpanel {
     }
 
     toggleCanopyCover(val) {
-        if(val == "on") { SimVar.SetSimVarValue("L:COVER_TOGGLE","bool",1); } else { SimVar.SetSimVarValue("L:COVER_TOGGLE","bool",0); }
+        if(val == "on") { SimVar.SetSimVarValue("L:COVER_TOGGLE","percent",100); } else { SimVar.SetSimVarValue("L:COVER_TOGGLE","percent",0); }
     }
 
     toggleDatafieldSize(val) {
@@ -193,10 +192,6 @@ class configpanel {
 
     toggleOxygen(val) {
         if (val == "on") {  SimVar.SetSimVarValue("L:OXYGEN_TOGGLE","number",1); } else { SimVar.SetSimVarValue("L:OXYGEN_TOGGLE","number",0); }
-    }
-
-    toggleNavlight(val) {
-        if (val == "on") {  SimVar.SetSimVarValue("L:NAV_TOGGLE","number",1); } else { SimVar.SetSimVarValue("L:NAV_TOGGLE","number",0); }
     }
 
     toggleStallwarning(val) {
