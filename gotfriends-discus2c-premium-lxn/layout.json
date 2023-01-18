@@ -1,11 +1,6 @@
 {
   "content": [
     {
-      "path": "MSFSLayoutGenerator.exe",
-      "size": 364032,
-      "date": 132738747107577355
-    },
-    {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/configpanel.js",
       "size": 17078,
       "date": 133184989970209748
@@ -42,13 +37,13 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.html",
-      "size": 45104,
-      "date": 133105094468155290
+      "size": 47135,
+      "date": 133185363163427117
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.js",
-      "size": 59412,
-      "date": 133184866982149193
+      "size": 61333,
+      "date": 133185364881547696
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_includes/geo.js",
@@ -88,7 +83,7 @@
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/soarnet.css",
       "size": 2796,
-      "date": 133184760800002554
+      "date": 133184989971694816
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/task-page.css",
@@ -98,7 +93,7 @@
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/tc-disc2c-nav.css",
       "size": 22837,
-      "date": 133184847534005072
+      "date": 133184989971884243
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/thermalling_display/thermalling_display.css",
