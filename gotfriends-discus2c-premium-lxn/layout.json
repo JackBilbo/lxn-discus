@@ -126,17 +126,17 @@
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/model/D2C_INT.xml",
       "size": 74887,
-      "date": 133184872277271412
+      "date": 133184989972467016
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/panel/panel.cfg",
       "size": 2110,
-      "date": 133184766606201270
+      "date": 133184989972696593
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/panel.NOREG/panel.cfg",
       "size": 2090,
-      "date": 133184767125072757
+      "date": 133184989972587120
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/gotfriends_circle.png",
@@ -181,7 +181,12 @@
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/panel/panel_original_vario.cfg",
       "size": 2375,
-      "date": 133094541901214670
+      "date": 133184989973333549
+    },
+    {
+      "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/panel.NOREG/panel.cfg",
+      "size": 2355,
+      "date": 133184989973253857
     }
   ]
 }
