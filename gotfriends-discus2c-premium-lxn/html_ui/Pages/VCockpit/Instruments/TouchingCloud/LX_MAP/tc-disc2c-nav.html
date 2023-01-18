@@ -11,7 +11,6 @@
 <script type="text/html" id="lxn">
     <div id="Mainframe" class="map_northup">
 		<div id="battery_required">
-			<div class="loader"><div class="bar"></div></div>
 			<div id="Map" ></div>
 
 			<div class="speedgauge">
@@ -446,13 +445,14 @@
 									<div id="ground_crew_winch">WINCH LAUNCH</div>
 									<div id="ground_crew_push">GROUND HANDLING</div>
 									<div id="ground_crew_tow">REQUEST TOWPLANE</div>
-									<div id="ground_crew_info">
-										1. Launch KineticAssistant<br />
-										2. Press CONNECT<br />
-										3. Minimize KineticAssistant
-									</div>
 									<div id="touching_cloud">
-									<img src="/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/touchcloud.png"/>
+										<u>NOTICE:</u><br/>
+										These Options Require Kinetic Assistant. Please use the built-in options if you are not using Kinetic Assistant.<br/>
+									</div>
+									<div id="ground_crew_info">
+										1: Launch Kinetic Assistant<br/>
+										2: Press Connect<br/>
+										3: Minimize Kinetic Assistant<br/>
 									</div>
 								</div>
 							</div>
@@ -462,16 +462,16 @@
 	
 				<div class="panel">
 					<div class="pageheader">
-						<div class="title">CONFIG:</div>
+						<div class="title">Settings</div>
 						<div class="time"><span class="livedata" data-value="localtime" showunit="no"></span></div>
 					</div>
 					<div class="pageframe">
 						<div class="page">
 							<div id="systemconfig">
 								<div class="buttonwrapper">
-									<button class="lxconfigbtn" id="conf_wb" aria-controls="conf_panel_wb">Ballast</button>
 									<button class="lxconfigbtn" id="conf_system" aria-controls="conf_panel_system">Aircraft Settings</button>
-									<button class="lxconfigbtn" id="conf_units" aria-controls="conf_panel_units">Units</button>
+									<button class="lxconfigbtn" id="conf_wb" aria-controls="conf_panel_wb">Water Ballast System</button>
+									<button class="lxconfigbtn" id="conf_units" aria-controls="conf_panel_units">Units of Measurement</button>
 									<button class="lxconfigbtn" id="conf_interface" aria-controls="conf_panel_interface">Interface Options</button>
 									<!--
 									<button class="lxconfigbtn" id="conf_bugs" aria-controls="conf_panel_bugs">Bugs</button>
@@ -479,7 +479,7 @@
 									-->	
 								</div>
 								<div class="configpanel" id="conf_panel_wb" aria-controlledby="conf_wb">
-									<header>Water Ballast</header>
+									<header>Water Ballast System</header>
 									<div class="configpanel_content">
 										<div class="configpanel_content">
 											<div class="tanks">
@@ -500,7 +500,7 @@
 									<div class="configpanel_content">
 										<div class="config_entry">
 											<div class="config_label">
-												<div class="title">Canopy tint</div>
+												<div class="title">Canopy Tint</div>
 											</div>
 											<div class="config_toggle" state="off" data-callback="toggleCanopyTint">
 												<div class="handle"></div>
@@ -508,7 +508,7 @@
 										</div>
 										<div class="config_entry">
 											<div class="config_label">
-												<div class="title">Canopy cover</div>
+												<div class="title">Canopy Cover</div>
 											</div>
 											<div class="config_toggle" state="off" data-callback="toggleCanopyCover">
 												<div class="handle"></div>
@@ -516,17 +516,9 @@
 										</div>
 										<div class="config_entry">
 											<div class="config_label">
-												<div class="title">Oxygen available</div>
+												<div class="title">Oxygen System</div>
 											</div>
 											<div class="config_toggle" state="on" data-callback="toggleOxygen">
-												<div class="handle"></div>
-											</div>
-										</div>
-										<div class="config_entry">
-											<div class="config_label">
-												<div class="title">Navlight Switch</div>
-											</div>
-											<div class="config_toggle" state="on" data-callback="toggleNavlight">
 												<div class="handle"></div>
 											</div>
 										</div>
@@ -555,7 +547,7 @@
 										<a href="#" class="configpanel_close">CLOSE & SAVE</a>
 									</div>
 								</div>
-								<div class="configpanel" id="conf_panel_units" aria-controlledby="conf_units"><header>Units</header>
+								<div class="configpanel" id="conf_panel_units" aria-controlledby="conf_units"><header>Units of Measurement</header>
 									<div class="configpanel_content">
 										<div class="quickselect">
 											<button class="lxsettingsbtn" id="conf_units_imperial">Imperial</button>
@@ -585,7 +577,7 @@
 										<div class="config_entry">
 											<div class="config_label">
 												<div class="title">Improved Readability</div>
-												<div class="description">Use only six much larger datafields per page</div>
+												<div class="description">Less but Larger Datafields</div>
 											</div>
 											<div class="config_toggle" state="off" data-callback="toggleDatafieldSize">
 												<div class="handle"></div>
@@ -601,7 +593,7 @@
 										</div>
 										<div class="config_entry">
 											<div class="config_label">
-												<div class="title">Visual Stallwarning</div>
+												<div class="title">Visual Stall Warning</div>
 											</div>
 											<div class="config_toggle" state="off" data-callback="toggleStallwarning">
 												<div class="handle"></div>
@@ -626,13 +618,37 @@
 										<div class="config_entry">
 											<div class="config_label">
 												<div class="title">Auto MacCready</div>
-												<div class="description">Update MC after every thermal</div>
 											</div>
 											<div class="config_toggle" state="off" data-callback="toggleAutoMC">
 												<div class="handle"></div>
 											</div>
 										</div>
+										<div class="config_entry">
+											<div class="config_label">
+												<div class="title">Aviation Map Layer</div>
+											</div>
+											<div class="config_toggle" state="on" data-callback="toggleAipLayer">
+												<div class="handle"></div>
+											</div>
+										</div>
+										<div class="config_entry">
+											<div class="config_label">
+												<div class="title">Gear & Ballast Warnings</div>
+											</div>
+											<div class="config_toggle" state="on" data-callback="toggleCockpitwarnings">
+												<div class="handle"></div>
+											</div>
+										</div>
+										<div class="config_entry">
+											<div class="config_label">
+												<div class="title">Auto-Log</div>
+											</div>
+											<div class="config_toggle" state="off" data-callback="toggleAutolog">
+												<div class="handle"></div>
+											</div>
+										</div>
 									</div>
+									
 									<div class="configpanel_buttons">
 										<a href="#" class="configpanel_close">CLOSE & SAVE</a>
 									</div>
@@ -645,6 +661,39 @@
 										<a href="#" class="configpanel_close">CLOSE & SAVE</a>
 									</div>
 								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="panel">
+					<div class="pageheader">
+						<div class="title">Launch Menu</div>
+						<div class="time"><span class="livedata" data-value="localtime" showunit="no"></span></div>
+					</div>
+					<div class="pageframe">
+						<div class="page">
+							
+							<div class="content">
+								
+								<div id="launch_menu">
+									<div id="multiplayer_tow">MULTIPLAYER CONNECTION</div>
+									<div id="multiplayer_tow_info">
+										- Requires Multiplayer Aircraft</br>
+										- Scans 200m Forward of Glider</br>
+										- Connects to Nearest Aircraft</br>
+									</div>
+									<div id="quick_winch">QUICK WINCH LAUNCH</div>
+									<div id="quick_winch_info">
+										- Available at Any Location</br>
+										- Spawns Crew & Winch Vehicle</br>
+										- Automatically Connects to Cable</br>
+									</div>
+									<div id="partners">
+									<img src="/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/gotfriends.png"/>
+									<img src="/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/touchcloud.png"/>
+									</div>
+								</div>								
 							</div>
 						</div>
 					</div>
@@ -769,6 +818,15 @@
 			
 		</div>
 		<div id="nav_debug">DEBUG</div>
+
+		<div id="splashscreen">
+			<div id="logo">
+				<img src="/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/gotfriends_circle.png"/>
+			</div>
+			<h1>Discus-2c</h1>
+			<h2>LXN Navigation</h2>
+			<h3>By JackBilbo</h3>
+		</div>
 	</div>
 </script>
 

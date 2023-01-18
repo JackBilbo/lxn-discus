@@ -20,6 +20,8 @@ class lxn extends NavSystemTouch {
         this.jbb_lift_dot_delay = 3;
         this.lift_dots = [];
         this.lift_dots_max = 40;
+        this.te = { v: 0, h: 0, t: 0, te: 0}
+        this.log = { isStarted: false };
        	
         this.vars = {            
             ias: { value: 10, label: "IAS", longlabel: "Indicated Airspeed", category: "speed", baseunit: "kts" },
@@ -31,7 +33,7 @@ class lxn extends NavSystemTouch {
             sink_stf: { value: 0, label: "Sink at STF", longlabel: "Sink at Speed to fly", category: "verticalspeed", baseunit: "kts" },
             current_netto: { value: 0, label: "NETTO", longlabel: "Smoothed Netto", category: "verticalspeed", baseunit: "kts"},
             aoa: { value: 0, label: "AoA", longlabel: "Angle of Attack", category: "direction", baseunit: "deg"},
-            wind_direction: { value: 0, label: "Wind", longlabel: "Wind Direction", category: "direction", baseunit: "deg" },
+            wind_direction: { value: null, label: "Wind", longlabel: "Wind Direction", category: "direction", baseunit: "deg" },
             wind_spd: { value: 0, label: "Wind", longlabel: "Windspeed", category: "windspeed", baseunit: "kts" },
             wind_vertical: { value: 0, label: "Wind Vert.", longlabel: "Vertical Windspeed", category: "windspeed", baseunit: "kts" },
             mccready: { value: 0, label: "MC", longlabel: "McCready Value", category: "verticalspeed", baseunit: "kts"},
@@ -63,7 +65,16 @@ class lxn extends NavSystemTouch {
             wp_ete: { value: 0, label: "WP ETE", longlabel: "Waypoint Time Enroute", category: "time", baseunit: "min" },
             task_arr_agl: { value: 0, label: "TSK FIN (AGL)", longlabel: "Task Finish Altitude (AGL)", category: "alt", baseunit: "ft" },
             task_arr_msl: { value: 0, label: "TSK FIN (MSL)", longlabel: "Task Finish Altitude (MSL)", category: "alt", baseunit: "ft" },
-            task_spd: { value: 0, label: "TSK SPD", longlabel: "Task Speed", category: "speed", baseunit: "kts"}
+            task_spd: { value: 0, label: "TSK SPD", longlabel: "Task Speed", category: "speed", baseunit: "kts"},
+            current_gr: { value: 0, label: "GR", longlabel: "Glide Ratio", category: "plaintext", baseunit: "none"},
+            stf_gr: { value: 0, label: "STF GR", longlabel: "Glide Ratio at STF", category: "plaintext", baseunit: "none"},
+            polar_sink: { value: 0, label: "Polar Sink", longlabel: "Polar Sink at current speed", category: "verticalspeed", baseunit: "kts" },
+            total_energy: { value: 0, label: "TE", longlabel: "Total Energy", category: "verticalspeed", baseunit: "kts" },
+            calc_netto: { value: 0, label: "NET", longlabel: "Calculated Netto", category: "verticalspeed", baseunit: "kts" },
+            log_time:{ value: 0, label: "LOG TIME", longlabel: "Log Time", category: "time_of_day", baseunit: "hms24" },
+            log_climb: { value: 0, label: "LOG CLB", longlabel: "Log Accumulated Climb", category: "alt", baseunit: "m"},
+            log_avg: { value: 0, label: "LOG AVG", longlabel: "Log Average TGroundspeed", category: "speed", baseunit: "kmh"},
+            log_dist: { value: 0, label: "LOG DIST", longlabel: "Log Distance", category: "dist", baseunit: "km" },
         }
         
         this.units = {
@@ -134,7 +145,7 @@ class lxn extends NavSystemTouch {
                 "%": 1
             }
         }
-		
+
     }
 
     get templateID() {
@@ -210,13 +221,18 @@ class lxn extends NavSystemTouch {
             this.ALTITUDE_M = this.vars.alt.value * 0.3048;
 
             this.update_speedgauge();
-            NAVMAP.load_map();
+            if(NAVMAP.map_instrument_loaded) {
+                NAVMAP.update_map();
+            } else if(NAVPANEL.airportsloaded) {
+                NAVMAP.load_map();
+                document.querySelector("#splashscreen").style.display = "none";
+            } 
         }
         
         
         if(this.tick == 1) {
             this.vars.wind_spd.value = parseFloat(SimVar.GetSimVarValue("A:AMBIENT WIND VELOCITY", "knots"));
-            this.vars.wind_direction.value = parseFloat(SimVar.GetSimVarValue("A:AMBIENT WIND DIRECTION", "degrees"));
+            this.vars.wind_direction.value = this.vars.wind_direction.value != null ? (0.9 * this.vars.wind_direction.value) + (0.1 * SimVar.GetSimVarValue("A:AMBIENT WIND DIRECTION", "degrees")) : SimVar.GetSimVarValue("A:AMBIENT WIND DIRECTION", "degrees");
             this.vars.wind_vertical.value = SimVar.GetSimVarValue("A:AMBIENT WIND Y", "knots");
             this.vars.current_netto.value = (this.vars.current_netto.value * 0.9) + (SimVar.GetSimVarValue("L:NETTO", "knots") * 0.1);
             if(this.vars.aoa.isUsed) {this.vars.aoa.value = SimVar.GetSimVarValue("INCIDENCE ALPHA", "radians") * (180/Math.PI);}
@@ -279,10 +295,14 @@ class lxn extends NavSystemTouch {
                 if(this.vars.task_spd.isUsed) {this.vars.task_spd.value = B21_SOARING_ENGINE.task_finished() ? B21_SOARING_ENGINE.finish_speed_ms() / 0.51444 : B21_SOARING_ENGINE.task.avg_task_speed_kts();}
             }
 
-            
+            NAVPANEL.update();
             CONFIGPANEL.update();
             this.updateKineticAssistant();
+            this.calc_gr();
 
+            this.vars.polar_sink.value = this.jbb_getPolarSink_kts(this.vars.ias.value);
+            this.vars.total_energy.value = this.jbb_getTotalEnergy() / 0.51444;
+            this.vars.calc_netto.value = this.vars.total_energy.value - this.vars.polar_sink.value;
         }
 
         if(this.TIME_S - this.TIMER_1 > 1) {
@@ -293,26 +313,34 @@ class lxn extends NavSystemTouch {
             if(this.vars.localtime.isUsed) {this.vars.localtime.value = SimVar.GetSimVarValue("E:LOCAL TIME","seconds");}
             if(this.vars.utctime.isUsed) {this.vars.utctime.value = new Date().toUTCString().replace(/.*(\d\d:\d\d:\d\d).*/,"$1"); }
 
-            NAVPANEL.update();
             this.updateLiftdots();
             SN.update();
 
-            if(this.gearposition != SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool")) {
-                if(SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool") == true && this.vars.ballast.value > 5) {
-                    this.popalert("Gear Down. Check Ballast","");
-                }
-                this.gearposition = SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool")
+            if(this.vars.alt_gnd.value > 100) { this.log.isStarted = true; }
+            if(this.vars.gndspd.value < 20 && this.log.isStarted == true) { this.log.isStarted = false; }
+
+            if(this.log.isStarted && this.log.isActive) {
+                this.updateLog();
             }
-    
-            
-            if(SimVar.GetSimVarValue("A:SPOILERS HANDLE POSITION","percent over 100") > 0.1 && this.gearposition != true && this.vars.alt_gnd.value < 800) {
-                if(!this.gearwarnsilenced) {
-                    this.popalert("CHECK GEAR","");
-                    this.gearwarnsilenced = true; 
+
+            if(CONFIGPANEL.cockpitwarnings) {
+                if(this.gearposition != SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool")) {
+                    if(SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool") == true && this.vars.ballast.value > 5) {
+                        this.popalert("Gear Down. Check Ballast","");
+                    }
+                    this.gearposition = SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool")
                 }
-                let instrument = this;
-                window.setTimeout(function() { instrument.gearwarnsilenced = false }, 10000);
-            }
+        
+                
+                if(SimVar.GetSimVarValue("A:SPOILERS HANDLE POSITION","percent over 100") > 0.1 && this.gearposition != true && this.vars.alt_gnd.value < 800) {
+                    if(!this.gearwarnsilenced) {
+                        this.popalert("CHECK GEAR","");
+                        this.gearwarnsilenced = true; 
+                    }
+                    let instrument = this;
+                    window.setTimeout(function() { instrument.gearwarnsilenced = false }, 10000);
+                }
+            } 
   
         }
 
@@ -595,7 +623,6 @@ class lxn extends NavSystemTouch {
          this.jbb_calcpolar_b  = btop/bbottom;
      
          this.jbb_calcpolar_c = d5 - this.jbb_calcpolar_a * c5 * c5 - this.jbb_calcpolar_b * c5;
-
     }
 
     jbb_update_stf()  {
@@ -626,6 +653,35 @@ class lxn extends NavSystemTouch {
 
         // let ias = SimVar.GetSimVarValue("A:AIRSPEED INDICATED", "knots");
         // this.jbb_current_polar_sink = (aa * ias * ias) + (bb * ias) + cc;
+    }
+
+    jbb_getPolarSink_kts(spd) {
+        let bugs = 100;
+        let ballast = this.vars.ballast.value;
+        let wf = Math.sqrt(eval(this.jbb_refwt + parseFloat(ballast)) / this.jbb_refwt);
+    
+        let aa = this.jbb_calcpolar_a / wf * 100 / bugs;
+        let bb = this.jbb_calcpolar_b * 100 / bugs;
+        let cc = this.jbb_calcpolar_c * wf * 100 / bugs;
+    
+        return (aa * spd * spd) + (bb * spd) + cc;
+    }
+    
+    jbb_getTotalEnergy() {
+        let now = new Date().getTime();
+        let h = this.vars.alt.value * 0.3048;
+        let v = this.vars.ias.value * 0.51444; 
+        let t = (now - this.te.t) / 1000;
+    
+        let te = ( (h - this.te.h) + (Math.pow(v,2) - Math.pow(this.te.v,2)) / (2 * 9.81) )  / t;
+    
+        this.te.te = (this.te.te * 0.9) + (te * 0.1);
+    
+        this.te.h = h;
+        this.te.v = v;
+        this.te.t = now;
+    
+        return this.te.te;
     }
 
     init_speedgauge() {
@@ -701,25 +757,22 @@ class lxn extends NavSystemTouch {
 
         
     }
-
+    
+    
     jbb_update_hawk() {
         let current_wind_direction = this.vars.wind_direction.value;
-        
-        this.jbb_avg_wind_direction = this.jbb_avg_wind_direction != null ? ((0.99 * this.jbb_avg_wind_direction) + (0.01 * current_wind_direction)) : current_wind_direction;
+        this.hawkwinddir = this.hawkwinddir != null ? (0.9 * this.hawkwinddir) + (0.1 * current_wind_direction) : current_wind_direction;
+        this.jbb_avg_wind_direction = this.jbb_avg_wind_direction != null ? ((0.99 * this.jbb_avg_wind_direction) + (0.01 * this.hawkwinddir)) : this.hawkwinddir;
 
         let averageindicator = this.jbb_avg_wind_direction;
-
-        if(NAVMAP.map_rotation == "trackup") {
-            current_wind_direction = current_wind_direction - this.vars.hdg.value;
-            averageindicator = averageindicator - this.vars.hdg.value;
-        }
-        
+       
         let current_wind_speed = this.vars.wind_spd.value;
         this.hawkwindspeed = this.hawkwindspeed != null ? (0.9 * this.hawkwindspeed) + (0.1 * current_wind_speed) : current_wind_speed; 
         this.jbb_avg_wind_speed = this.jbb_avg_wind_speed != null ? ((0.99 * this.jbb_avg_wind_speed) + (0.01 * this.hawkwindspeed)) : this.hawkwindspeed;
 
-        this.querySelector("#hawk #arrow_avg").style.transform = "rotate(" + averageindicator + "deg)";
-        this.querySelector("#hawk #arrow_current").style.transform = "rotate(" + current_wind_direction + "deg)";
+        document.querySelector("#hawk #arrow_avg").style.transform = "rotate(" + (NAVMAP.map_rotation == "trackup" ? averageindicator - this.vars.hdg.value : averageindicator) + "deg)";
+        document.querySelector("#hawk #arrow_current").style.transform = "rotate(" + (NAVMAP.map_rotation == "trackup" ? this.hawkwinddir - this.vars.hdg.value : this.hawkwinddir) + "deg)";
+
 
         let wv = Math.min(600, this.hawkwindspeed * 10 + 150);
         this.querySelector("#hawk #arrow_current").style.height = wv +"px";
@@ -781,8 +834,38 @@ class lxn extends NavSystemTouch {
         if(!this.showLiftdots) { this.lift_dots = []; }
     }
 
-       
+    updateLog() {
+        if(this.log.time == null) { this.log.time = this.SIM_TIME_S; }
+        this.vars.log_time.value = this.vars.log_time.value + (this.SIM_TIME_S - this.log.time); 
+        this.log.time = this.SIM_TIME_S;
 
+        if(this.log.pos == null) { this.log.pos = B21_SOARING_ENGINE.get_position(); }
+        let distance = Geo.get_distance_m(B21_SOARING_ENGINE.get_position(), this.log.pos);
+        this.vars.log_dist.value =  this.vars.log_dist.value + distance / 1000 ;
+    
+        if(this.log.alt == null) { this.log.alt = this.vars.alt.value; }
+        let deltaalt = this.vars.alt.value > this.log.alt ? this.vars.alt.value - this.log.alt : 0;
+        this.vars.log_climb.value = this.vars.log_climb.value + deltaalt;
+    
+        this.vars.log_avg.value =  this.vars.log_dist.value / (this.vars.log_time.value / 3600);
+    
+        this.log.pos = B21_SOARING_ENGINE.get_position();
+        this.log.alt = this.vars.alt.value;
+    }
+
+    resetLog() {
+        this.log = {
+            time: null,
+            alt: null,
+            pos: null
+        }
+        this.vars.log_time.value = 0;
+        this.vars.log_dist.value = 0;
+        this.vars.log_avg.value = 0;
+        this.vars.log_climb.value = 0;
+    }   
+
+        // THIS SECTION ALSO INTIGRATES THE NEW LAUNCH MENU
     initKineticAssistant() {
         let instrument = this;
         this.ground_crew_menu = document.getElementById("ground_crew_menu");
@@ -792,7 +875,21 @@ class lxn extends NavSystemTouch {
 		this.ground_crew_push.onclick = function(e) {	instrument.toggleKA(75);	};
 		this.ground_crew_tow = document.getElementById("ground_crew_tow");
 		this.ground_crew_tow.onclick = function(e) {	instrument.toggleKA(100);	};
+		this.launch_menu = document.getElementById("launch_menu");
+		this.multiplayer_tow = document.getElementById("multiplayer_tow");
+		this.quick_winch = document.getElementById("quick_winch");
         this.KAisInit = true;
+		this.multiplayer_tow.onclick = function(e) {
+			SimVar.SetSimVarValue("K:LOGO_LIGHTS_SET", "percent", SimVar.GetSimVarValue("K:LOGO_LIGHTS_SET", "percent") == 100 ? 0 : 100).then(function() {
+				SetStoredData("Discus_towpreference", SimVar.GetSimVarValue("K:LOGO_LIGHTS_SET", "percent").toString());
+			});
+		}
+		
+		this.quick_winch.onclick = function(e) {
+			SimVar.SetSimVarValue("K:TOW_PLANE_REQUEST", "percent", SimVar.GetSimVarValue("K:TOW_PLANE_REQUEST", "percent") == 100 ? 0 : 100).then(function() {
+				SetStoredData("Discus_winchpreference", SimVar.GetSimVarValue("K:TOW_PLANE_REQUEST", "percent").toString());
+			});
+		}		
     }
 
     updateKineticAssistant() {
@@ -803,6 +900,8 @@ class lxn extends NavSystemTouch {
 		this.ground_crew_push.style.color = SimVar.GetSimVarValue("A:WATER RUDDER HANDLE POSITION", "percent") == 75 ? "red" : "green";
 		this.ground_crew_tow.style.borderColor = SimVar.GetSimVarValue("A:WATER RUDDER HANDLE POSITION", "percent") == 100 ? "red" : "green";
 		this.ground_crew_tow.style.color = SimVar.GetSimVarValue("A:WATER RUDDER HANDLE POSITION", "percent") == 100 ? "red" : "green";
+		this.multiplayer_tow.innerHTML = SimVar.GetSimVarValue("A:LIGHT LOGO", "percent") == 100 ? "MULTIPLAYER CONNECTION (CONNECTED)" : "MULTIPLAYER CONNECTION (CLICK TO CONNECT)";
+		this.quick_winch.innerHTML = SimVar.GetSimVarValue("A:TOW CONNECTION", "percent") == 100 ? "QUICK WINCH CONNECTION (CONNECTED)" : "QUICK WINCH CONNECTION (CLICK TO CONNECT)";
     }
 
     toggleKA(value) {
@@ -978,7 +1077,21 @@ class lxn extends NavSystemTouch {
         return false;
     }
 
+    calc_gr() {
+        /* Calculate current and optimum glide ratios */
+        this.vars.stf_gr.value = Math.abs(this.vars.stf.value / this.vars.sink_stf.value).toFixed(0);
 
+        let currentsink = SimVar.GetSimVarValue("VERTICAL SPEED", "knots");
+                
+        if(currentsink < 0) {
+            this.raw_gr = Math.abs(this.vars.ias.value / currentsink);
+            this.smoothed_gr = this.smoothed_gr ? this.smoothed_gr * 0.5 + this.raw_gr * 0.5 : this.raw_gr;
+            this.vars.current_gr.value = this.smoothed_gr.toFixed(0);
+        } else {
+            this.vars.current_gr.value = "---";
+            // this.smoothed_gr = null;
+        }
+    }
 
     /****************************************************************************************/
 

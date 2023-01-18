@@ -8,10 +8,10 @@ class configpanel {
             ballast: 50,
             tint: false,
             cover: false,
-            navlights: false
         }
 
         this.ballastIsInit = false;
+        this.cockpitwarnings = true;
 
         this.unitstore = SimVar.GetSimVarValue("L:UNITS_IMPERIAL","percent");
     }
@@ -179,7 +179,7 @@ class configpanel {
     }
 
     toggleCanopyCover(val) {
-        if(val == "on") { SimVar.SetSimVarValue("L:COVER_TOGGLE","bool",1); } else { SimVar.SetSimVarValue("L:COVER_TOGGLE","bool",0); }
+        if(val == "on") { SimVar.SetSimVarValue("L:COVER_TOGGLE","percent",100); } else { SimVar.SetSimVarValue("L:COVER_TOGGLE","percent",0); }
     }
 
     toggleDatafieldSize(val) {
@@ -194,16 +194,24 @@ class configpanel {
         if (val == "on") {  SimVar.SetSimVarValue("L:OXYGEN_TOGGLE","number",1); } else { SimVar.SetSimVarValue("L:OXYGEN_TOGGLE","number",0); }
     }
 
-    toggleNavlight(val) {
-        if (val == "on") {  SimVar.SetSimVarValue("L:NAV_TOGGLE","number",1); } else { SimVar.SetSimVarValue("L:NAV_TOGGLE","number",0); }
-    }
-
     toggleStallwarning(val) {
         if (val == "on") {  this.stallwarning = true } else {  this.stallwarning = false }
     }
 
     toggleAutoMC(val) {
         if (val == "on") {  this.autoMC = true } else {  this.autoMC = false }
+    }
+
+    toggleAipLayer(val) {
+        if (val == "on") { NAVMAP.hasAipLayer = true; if(typeof(TOPOMAP.addLayer) == "function") { NAVMAP.addAipLayer() } } else { NAVMAP.removeAipLayer(); NAVMAP.hasAipLayer = false; }
+    }
+
+    toggleCockpitwarnings(val) {
+        if (val == "on") { this.cockpitwarnings = true; } else { this.cockpitwarnings = false; }
+    }
+
+    toggleAutolog(val) {
+        if (val == "on") { this.instrument.log.isActive = true; } else { this.instrument.log.isActive = false; this.instrument.resetLog(); }
     }
 
     toggleHawkdisplay(val) {

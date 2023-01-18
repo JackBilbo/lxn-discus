@@ -932,7 +932,6 @@ input[type="radio"] {
 	width: 100%;
 	height: 0;
 	background-color: #0d8b3c;
-	transition: height 0.2s;
 }
 
 #hawkbar svg {
@@ -1149,8 +1148,41 @@ input[type="radio"] {
 	color: #000;
 }
 
-/* Kinetic Assistant */
+/* Launch Menu */
 
+#launch_menu > div {
+	width: 760px;
+	font-weight: bold;
+	font-size: 45px;
+	color: #fff;
+	margin: 50px;
+	text-align: left;
+}
+
+#multiplayer_tow {
+	border: 20px solid #0096ff !important;
+	padding: 50px;
+	text-align: center !important;
+	color: #0096ff !important;
+}
+
+#quick_winch {
+	border: 20px solid #0096ff !important;
+	padding: 50px;
+	text-align: center !important;
+	color: #0096ff !important;
+}
+
+#partners {
+	width: 100%;
+    text-align: center !important;
+}
+
+#partners img {
+	width: 28%;
+}
+
+/* Kinetic Assistant */
 
 #ground_crew_menu {
 	position: relative;
@@ -1175,10 +1207,6 @@ input[type="radio"] {
 #touching_cloud {
 	width: 100%;
     text-align: center !important;
-}
-
-#touching_cloud img {
-	width: 45%;
 }
 
 
@@ -1287,4 +1315,37 @@ input[type="radio"] {
 	10% { opacity: 1 }
 	15% { opacity: 0 }
 	100% { opacity: 0 }
+}
+
+/* Splashscreen */
+
+#splashscreen {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: #000;
+	text-align: center;
+	font-size: 3rem;
+	z-index: 10000;
+}
+
+#logo {
+	position: relative;
+	width: 520px;
+	height: 520px;
+	margin: 4rem auto;
+}
+
+#logo img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#splashscreen h1 {
+	font-style: italic;
 }
