@@ -22,6 +22,8 @@ class lxn extends NavSystemTouch {
         this.lift_dots_max = 40;
         this.te = { v: 0, h: 0, t: 0, te: 0}
         this.log = { isStarted: false };
+        this.te = { v: 0, h: 0, t: 0, te: 0}
+        this.log = { isStarted: false };
        	
         this.vars = {            
             ias: { value: 10, label: "IAS", longlabel: "Indicated Airspeed", category: "speed", baseunit: "kts" },
@@ -340,6 +342,9 @@ class lxn extends NavSystemTouch {
             this.vars.total_energy.value = this.jbb_getTotalEnergy() / 0.51444;
             this.vars.calc_netto.value = this.vars.total_energy.value + Math.abs(this.vars.polar_sink.value);
 
+            this.vars.polar_sink.value = this.jbb_getPolarSink_kts(this.vars.ias.value);
+            this.vars.total_energy.value = this.jbb_getTotalEnergy() / 0.51444;
+            this.vars.calc_netto.value = this.vars.total_energy.value - this.vars.polar_sink.value;
         }
 
         if(this.TIME_S - this.TIMER_1 > 1) {
