@@ -1,29 +1,24 @@
 {
   "content": [
     {
-      "path": "MSFSLayoutGenerator.exe",
-      "size": 364032,
-      "date": 132738747107577355
-    },
-    {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/configpanel.js",
       "size": 17078,
-      "date": 133184861489427103
+      "date": 133184989970209748
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/interface.js",
       "size": 11556,
-      "date": 133184760796999306
+      "date": 133184989970308220
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/mapConfig.json",
       "size": 3409,
-      "date": 133184760797147327
+      "date": 133184989970387920
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navmap.js",
       "size": 19277,
-      "date": 133184760797327899
+      "date": 133184989970467293
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navmap_topomap.js",
@@ -33,12 +28,12 @@
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navpanel.js",
       "size": 7401,
-      "date": 133184760797666611
+      "date": 133184989970606844
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/soarnet_class.js",
       "size": 10136,
-      "date": 133184760798305372
+      "date": 133184989970756318
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.html",
@@ -53,32 +48,32 @@
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_includes/geo.js",
       "size": 5135,
-      "date": 133184760798871737
+      "date": 133184989971075278
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_includes/geo_test.html",
       "size": 234,
-      "date": 133184760798987143
+      "date": 133184989971145023
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_soaring_engine/b21_settings.js",
       "size": 1469,
-      "date": 133184760799311989
+      "date": 133184989971274632
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_soaring_engine/b21_soaring_engine.html",
       "size": 691,
-      "date": 133184760799483084
+      "date": 133184989971344357
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_soaring_engine/b21_soaring_engine.js",
       "size": 63624,
-      "date": 133184760799676381
+      "date": 133184989971424145
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_soaring_engine/README.md",
       "size": 1212,
-      "date": 133184760799162616
+      "date": 133184989971483906
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/bignumbers.css",
@@ -93,7 +88,7 @@
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/task-page.css",
       "size": 5642,
-      "date": 133184760800142793
+      "date": 133184989971784527
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/tc-disc2c-nav.css",
@@ -103,82 +98,67 @@
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/thermalling_display/thermalling_display.css",
       "size": 2894,
-      "date": 133184760800472430
+      "date": 133184989971973884
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/thermalling_display/thermalling_display.html",
       "size": 6418,
-      "date": 133184760800647537
+      "date": 133184989972063643
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/thermalling_display/thermalling_display.js",
       "size": 25953,
-      "date": 133184760800827110
+      "date": 133184989972148096
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/gotfriends_circle.png",
       "size": 41257,
-      "date": 133184777660221611
+      "date": 133184989972247754
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/model/D2C_INT.xml",
       "size": 74887,
-      "date": 133184872277271412
+      "date": 133184989972467016
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/panel/panel.cfg",
       "size": 2110,
-      "date": 133184766606201270
+      "date": 133184989972696593
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/panel.NOREG/panel.cfg",
       "size": 2090,
-      "date": 133184767125072757
+      "date": 133184989972587120
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/texture.DEFAULT/DISCUS2C_LXNAV_ALBD.PNG.DDS",
       "size": 2097280,
-      "date": 133184874042550540
+      "date": 133184989972935460
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/texture.DEFAULT/DISCUS2C_LXNAV_ALBD.png.DDS.FLAGS",
       "size": 22,
-      "date": 133094036233480807
+      "date": 133184989972995257
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/texture.DEFAULT/DISCUS2C_LXNAV_ALBD.PNG.DDS.json",
       "size": 127,
-      "date": 133001643259389443
-    },
-    {
-      "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/ai.cfg",
-      "size": 1874,
-      "date": 133130238193583075
-    },
-    {
-      "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/aircraft.cfg",
-      "size": 12649,
-      "date": 133128219492359177
-    },
-    {
-      "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/reference_points.cfg",
-      "size": 672,
-      "date": 133139497745599429
+      "date": 133184989973065035
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/model/D2C_FES_INT.xml",
       "size": 78675,
-      "date": 133184872262080393
+      "date": 133184989973174076
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/panel/panel.cfg",
       "size": 2375,
-      "date": 133184768120424007
+      "date": 133184989973333549
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/panel.NOREG/panel.cfg",
       "size": 2355,
-      "date": 133184768138499362
+      "date": 133184989973253857
     }
   ]
 }
