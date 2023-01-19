@@ -372,7 +372,6 @@ class lxn extends NavSystemTouch {
                     this.gearposition = SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool")
                 }
         
-                
                 if(SimVar.GetSimVarValue("A:SPOILERS HANDLE POSITION","percent over 100") > 0.1 && this.gearposition != true && this.vars.alt_gnd.value < 800) {
                     if(!this.gearwarnsilenced) {
                         this.popalert("CHECK GEAR","");

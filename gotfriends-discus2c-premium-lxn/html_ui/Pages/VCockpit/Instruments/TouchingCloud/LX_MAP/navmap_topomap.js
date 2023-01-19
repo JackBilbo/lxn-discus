@@ -454,47 +454,6 @@ class navmap {
 
     }
 
-    paintMultiplayers(userid, data) {
-        
-        if(this.mpMarker[userid] == null) {
-            this.mpMarker[userid] = L.marker([data.lat, data.long], { icon: this.mpglidericon }).addTo(TOPOMAP)
-            let mplabel = document.createElement("div");
-            mplabel.classList.add("mplabel");
-            mplabel.innerText = data.username;
-            this.mpMarker[userid].getElement().append(mplabel);
-        } else {
-            this.mpMarker[userid].setLatLng([data.lat, data.long])
-            this.mpMarker[userid].getElement().querySelector("svg").style.transform = "rotate(" + (data.hdg + 45) + "deg)";
-
-            let label = this.mpMarker[userid].getElement().querySelector(".mplabel");
-            label.innerText = data.username;
-
-            if(this.map_rotation == "trackup") {
-                label.style.transform = "rotate(" + this.instrument.vars.hdg.value + "deg)";
-            } else {
-                label.style.transform = "rotate(0deg)";
-            }
-        }
-
-        for (var marker in this.mpMarker) {
-            if(!SOARNET.eventusers[marker] && this.mpMarker[marker] != null) {
-                TOPOMAP.removeLayer(this.mpMarker[marker]);
-                delete this.mpMarker[marker];
-            }
-        }
-    }
-
-    wipeMultiplayers() {
-        for (var marker in this.mpMarker) {
-            try {
-                TOPOMAP.removeLayer(this.mpMarker[marker]);
-            } catch(e) {
-                console.log(e)
-            }
-        }
-        this.mpMarker = {}
-    }
-
     initMap() {
         let lat = parseFloat(SimVar.GetSimVarValue("A:PLANE LATITUDE", "degrees latitude"));
         let long = parseFloat(SimVar.GetSimVarValue("A:PLANE LONGITUDE", "degrees longitude"));
