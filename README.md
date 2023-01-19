@@ -3,13 +3,18 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <h2>Fixes and Features:</h2>
 
-New method to initialize the map. No more loading bar and no more blank screen due to long loading times.
+Mod adapted for Discus Version 2.0.6
 
-Automatic flight log: when activated in interface settings will log time, distance, average groundspeed and climbed altitude for the current session. Can be displayed in any data field.
+CHANGED KEYBINDS: some users experienced problems with binding to com frequencies. Changeing pages left/right and up/down are now bound to autopilot altitude and vertical speed settings:
 
-Gear and ballast warnings can now be deactivated in interface settings.
+- Page left/right:    INCREASE/DECREASE AUTOPILOT REFERENCE ALTITUDE
+- Page up/down:       INCREASE/DECREASE AUTOPILOT REFERENCE VS
 
-More data to display: polar sink at stf, netto, total energy.
+Please adjust your keybinds
+
+Fixed a bug where conditional background colors in data fields failed for altitude values >10k 
+
+Lots of text corrections. Thanks to Jonx!
 
 
 <h2>Installation:</h2>
@@ -42,9 +47,9 @@ The wind indicator in the center of the map is loosely based on the real world L
 
 The Config-Page gives you access to various settings:
 
-- Ballast: A light version of ballast loading system that can even be used in flight - which would be shameless cheating of course!
+- Water Ballast System: A light version of ballast loading system that can even be used in flight - which would be shameless cheating of course!
 - Aircraft Settings: Options that are originally controlled by knobs and buttons around the display. Moved here to free up the buttons for future use.
-- Units: allows you to select the units of measurement to use for various categories or generally "metric" or "imperial" system. Only "metric" or "imperial" settings have an effect on other instruments in the cockpit. Detailled settings only work inside the nav computer.
+- Units of Measurement: allows you to select the units of measurement to use for various categories or generally "metric" or "imperial" system. Only "metric" or "imperial" settings have an effect on other instruments in the cockpit. Detailled settings only work inside the nav computer.
 - Interface Options: Settings for the Nav Interface: 
   - "Readability Mode" can be activated here to get some bigger readouts (and less data fields) 
   - toggle liftdot-trail on the map
