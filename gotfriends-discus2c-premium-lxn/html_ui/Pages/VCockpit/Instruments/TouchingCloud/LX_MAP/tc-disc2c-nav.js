@@ -1,4 +1,4 @@
-let LXN, NAVMAP, NAVPANEL, CONFIGPANEL, UI, TOPOMAP, SN, SOARNET;
+let LXN, NAVMAP, NAVPANEL, CONFIGPANEL, UI, TOPOMAP;
 
 class lxn extends NavSystemTouch {
 
@@ -161,8 +161,6 @@ class lxn extends NavSystemTouch {
         NAVPANEL = new navpanel(this); NAVPANEL.init();
         CONFIGPANEL = new configpanel(this); CONFIGPANEL.initSystemSettings();
         UI = new ui(this); UI.init();
-        
-        SN = new soarnet(this); SN.init();
 
         this.jbb_refwt = SimVar.GetSimVarValue("A:Empty weight","number") > 300 ? 921 : 765;
 
@@ -314,7 +312,6 @@ class lxn extends NavSystemTouch {
             if(this.vars.utctime.isUsed) {this.vars.utctime.value = new Date().toUTCString().replace(/.*(\d\d:\d\d:\d\d).*/,"$1"); }
 
             this.updateLiftdots();
-            SN.update();
 
             if(this.vars.alt_gnd.value > 100) { this.log.isStarted = true; }
             if(this.vars.gndspd.value < 20 && this.log.isStarted == true) { this.log.isStarted = false; }
@@ -331,7 +328,6 @@ class lxn extends NavSystemTouch {
                     this.gearposition = SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool")
                 }
         
-                
                 if(SimVar.GetSimVarValue("A:SPOILERS HANDLE POSITION","percent over 100") > 0.1 && this.gearposition != true && this.vars.alt_gnd.value < 800) {
                     if(!this.gearwarnsilenced) {
                         this.popalert("CHECK GEAR","");
