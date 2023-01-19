@@ -3,13 +3,34 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <h2>New Features:</h2>
 
- 
+Mod adapted for Discus Version 2.0.6
+
+CHANGED KEYBINDS: some users experienced problems with binding to com frequencies. Changeing pages left/right and up/down are now bound to autopilot altitude and vertical speed settings:
+
+- Page left/right:    INCREASE/DECREASE AUTOPILOT REFERENCE ALTITUDE
+- Page up/down:       INCREASE/DECREASE AUTOPILOT REFERENCE VS
+
+Please adjust your keybinds
+
+Fixed a bug where conditional background colors in data fields failed for altitude values >10k 
+
+Lots of text corrections. Thanks to Jonx!
+
+Map loading should be stable now. No more silly loading bar.
+
+New feature: automatic log. If activated in interface settings the log will autostart once you reach 100m AGL. You can display log distance, time, altitude climbed and average ground speed. For people like me, who like to fly around without flightplan and still like to see some statistics :-)
+
+Some new info selectable for data fields: total energy, netto, glide ratios.
+
+For more in depth info about setting up glider flights, planning and using this mod for navigation check out David Aldrich's excellent video:
+
+https://www.youtube.com/watch?v=Ftn-_smpZ0c&t=1537s
+
+
 
 <h2>Installation:</h2>
 
 Simply drop the included folder "gotfriends-discus2c-premium-lxn" into your community folder. If you use the freeware version you need to change the folder name to "gotfriends-discus2c-freeware-lxn", everything else will work fine in both versions. No need to change anything in your existing installation. To uninstall, delete the folder and you're "back to normal". 
-
-<b>Important: </b>If the map fails to load on first load / longer load times, simply hit "escape" and restart the flight. This will fix the issue.
 
 You may experience conflicts with other existing mods, especially livery mods. See below for possible solutions.
 
@@ -48,19 +69,6 @@ The Config-Page gives you access to various settings:
 
 All config settings apart from bugs and ballast are persistent between sessions. Just make sure to click "close" after making any changes.
 
-<h2>Multiplayer Racing</h2>
-
-Multiplayer-Info is located as a sub page under the task list - simply page down.
-
-First view asks you to enter a username. As default the aircraft registration is used. You can change that to your pleasing. A good idea would be to use a name short name, as it will later be displayed on other pilots nav map and you don't want to clutter that with a username like "bestpilotinthewholewideworld2338992" ;-) 
-
-Once connected you see a - most likely very short or empty "events" list, showing all available flights. You only see events that use the same task/flightplan you have currently loaded. Click an event to join or click "add new flight" to create your own event and then join it. You need to enter a title and the start time (hour and minutes) in UTC/ZULU time.
-
-Once other pilots join you'll see the list of participants and also see other pilots position on the nav map. If you assigned "task time" to a data field it will now show a countdown to task start.
-
-When a pilot crosses the start line, his/her average speed and flown distance is shown in the list. The list will now be sorted by distance flown, effectively a live ranking of the race. When a pilot crosses the finish line, total task time will be displayed instead of distance flown and used for sorting.
-
-Communication is done via a google cloud service that has a traffic limit, so the feature might not always be available.
 
 <h2>Some more Details</h2>
 
@@ -86,21 +94,12 @@ Why use that MacCready setting? There's a lot more theory around that than can b
 
 Several functions can be operated by keybinds from joystick or throttle:
 
-Page left/right:    INCREASE/DECREASE COM1 (WHOLE)
-Page up/down:       INCREASE/DECREASE COM1 (FRACT)
-Waypoint next/prev: INCREASE/DECREASE TRANSPONDER (1000)
-Map Zoom:           INCREASE/DECREASE TRANSPONDER (10)
-Map Orientation:    INCREASE/DECREASE TRANSPONDER (1)
+- Page left/right:    INCREASE/DECREASE AUTOPILOT REFERENCE ALTITUDE
+- Page up/down:       INCREASE/DECREASE AUTOPILOT REFERENCE VS
+- Waypoint next/prev: INCREASE/DECREASE TRANSPONDER (1000)
+- Map Zoom:           INCREASE/DECREASE TRANSPONDER (10)
+- Map Orientation:    INCREASE/DECREASE TRANSPONDER (1)
 
-<h2>Known Limitations:</h2>
-
-Changing pages and subpages with "click and drag" in flight requires a lot of mouse handling skills :-) I recommend keybinding. Way up on the roadmap is using the rotary buttons aroud the screen for navigation as it is in the real world device.
-
-The map can not be panned. To avoid collision with „click and drag“ page changing another „mode switch“ would be needed. Considering the current quality of the ingame map, I don’t think it’s worth the added complexity.
-
-„Thermalling help“ through the typical green and red dots is a very basic „quick and dirty“ implementation. So far it can not be toggled. As soon as you are in the air the dotted trail will show.
-
-If you don't use a flightplan, the waypoint page uses the starting waypoint as "Home". This waypoint currently has no altitude, screwing up the estimation of arrival height above ground level in thie constellation.
 
 <h2>Conflicts with other mods</h2>
 
