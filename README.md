@@ -26,6 +26,7 @@ For more in depth info about setting up glider flights, planning and using this 
 
 https://www.youtube.com/watch?v=Ftn-_smpZ0c&t=1537s
 
+(the multiplayer function mentioned in the video is an experimental feature, that is not included in this release)
 
 
 <h2>Installation:</h2>
