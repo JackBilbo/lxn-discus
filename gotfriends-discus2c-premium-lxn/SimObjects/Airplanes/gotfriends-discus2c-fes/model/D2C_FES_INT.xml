@@ -776,6 +776,7 @@
                 <UPDATE_CODE>
                     1 (&gt;A:FUEL TANK CENTER LEVEL, Percent Over 100)
                     (A:EMPTY WEIGHT, pounds) 700 &gt; (&gt;L:IsFES)
+                    0.5 (&gt;L:AdverseYaw)
                 </UPDATE_CODE>
             </UseTemplate>
         </Component>
