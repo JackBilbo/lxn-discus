@@ -62,6 +62,8 @@ class lxn extends NavSystemTouch {
             wp_arr_agl: { value: 0, label: "WP ARR (AGL)", longlabel: "Waypoint Arrival AGL (WP-Height)", category: "alt", baseunit: "ft" },
             wp_arr_wpmin: { value: 0, label: "WP &#916; MIN", longlabel: "Waypoint Arrival (WP) incl. min-height", category: "alt", baseunit: "ft" },
             wp_arr_msl: { value: 0, label: "WP ARR (MSL)", longlabel: "Waypoint Arrival (MSL)", category: "alt", baseunit: "ft" },
+            wp_min: { value: 0, label: "WP MIN", longlabel: "Waypoint Min (if available)", category: "alt", baseunit: "ft", condition_to_hide: ()=> { return this.vars.wp_min.value == 0 } },
+            wp_max: { value: 0, label: "WP MAX", longlabel: "Waypoint Max (if available)", category: "alt", baseunit: "ft", condition_to_hide: ()=> { return this.vars.wp_max.value == 0 } },
             wp_ete: { value: 0, label: "WP ETE", longlabel: "Waypoint Time Enroute", category: "time", baseunit: "min" },
             task_arr_agl: { value: 0, label: "TSK FIN (AGL)", longlabel: "Task Finish Altitude (AGL)", category: "alt", baseunit: "ft" },
             task_arr_msl: { value: 0, label: "TSK FIN (MSL)", longlabel: "Task Finish Altitude (MSL)", category: "alt", baseunit: "ft" },
@@ -375,6 +377,14 @@ class lxn extends NavSystemTouch {
                     cell.style.backgroundColor = (LXNAV.vars[currentconfig.value].category == "temperature" ? displaynumber : LXNAV.vars[currentconfig.value].value) > 0 ? currentconfig.back + "BB" : currentconfig.backneg + "BB";
                     cell.style.color = currentconfig.text;
         
+                    if(currentconfig.value == "wp_min" ) {
+                        cell.style.backgroundColor = LXNAV.vars["wp_arr_msl"].value > LXNAV.vars["wp_min"].value ? currentconfig.back + "BB" : currentconfig.backneg + "BB";                    
+                    }
+
+                    if(currentconfig.value == "wp_max" ) {
+                        cell.style.backgroundColor = LXNAV.vars["wp_arr_msl"].value < LXNAV.vars["wp_max"].value ? currentconfig.back + "BB" : currentconfig.backneg + "BB";                    
+                    }
+
                     cell.querySelector(".label").innerHTML = LXNAV.vars[currentconfig.value].label;
                     
                     if(LXNAV.vars[currentconfig.value].category == "time_of_day" || LXNAV.vars[currentconfig.value].label == "RL UTC") {
@@ -390,6 +400,15 @@ class lxn extends NavSystemTouch {
                         cell.querySelector(".number").innerHTML = LXNAV.vars[currentconfig.value].value;
                         cell.querySelector(".unit").innerHTML = "";
                     }
+
+                    /* Optional "condition_to_hide" - hide datafields completelybelow a certain value (invented for WP min/max) */
+                    if(LXNAV.vars[currentconfig.value].condition_to_hide) {
+                        if( LXNAV.vars[currentconfig.value].condition_to_hide() ) {
+                            cell.style.backgroundColor = "transparent";
+                            cell.style.color = "transparent";
+                        }
+                    }
+                    
                 } else {
                     cell.style.backgroundColor = "transparent";
                     cell.style.color = "transparent";
