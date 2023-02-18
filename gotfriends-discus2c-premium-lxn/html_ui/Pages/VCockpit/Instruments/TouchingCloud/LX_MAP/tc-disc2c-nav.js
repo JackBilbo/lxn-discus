@@ -302,9 +302,10 @@ class lxn extends NavSystemTouch {
             this.updateKineticAssistant();
             this.calc_gr();
 
-            this.vars.polar_sink.value = this.jbb_getPolarSink_kts(this.vars.ias.value);
+            this.vars.polar_sink.value = this.vars.ias.value > 20 ? this.jbb_getPolarSink_kts(this.vars.ias.value) : 0;
+            SimVar.SetSimVarValue("L:JBB_CURRENT_POLAR_SINK","knots",this.vars.polar_sink.value);
             this.vars.total_energy.value = this.jbb_getTotalEnergy() / 0.51444;
-            this.vars.calc_netto.value = this.vars.total_energy.value - this.vars.polar_sink.value;
+            this.vars.calc_netto.value = this.vars.total_energy.value + Math.abs(this.vars.polar_sink.value);
         }
 
         if(this.TIME_S - this.TIMER_1 > 1) {
@@ -342,6 +343,16 @@ class lxn extends NavSystemTouch {
                     let instrument = this;
                     window.setTimeout(function() { instrument.gearwarnsilenced = false }, 10000);
                 }
+
+		        //OVERSPEED Warn by LeNinjaHD
+                if(this.vars.tas.value > 155) {
+                    if(!this.overspeedsilencer) {
+                        this.popalert("OVERSPEED!<br />CURRENT TAS: " + this.displayValue(this.vars.tas.value, "kts", "speed") + this.units.speed.pref, "")
+                        this.overspeedsilencer = true;
+                    }
+                } else {
+                    this.overspeedsilencer = false;
+                }                
             } 
   
         }
@@ -675,6 +686,7 @@ class lxn extends NavSystemTouch {
         this.vars.sink_stf.value = (aa * stf * stf) + (bb * stf) + cc;
         this.vars.stf.value = stf;
 
+        SimVar.SetSimVarValue("L:JBB_STF","knots",parseInt(stf));
         // let ias = SimVar.GetSimVarValue("A:AIRSPEED INDICATED", "knots");
         // this.jbb_current_polar_sink = (aa * ias * ias) + (bb * ias) + cc;
     }
@@ -694,7 +706,7 @@ class lxn extends NavSystemTouch {
     jbb_getTotalEnergy() {
         let now = new Date().getTime();
         let h = this.vars.alt.value * 0.3048;
-        let v = this.vars.ias.value * 0.51444; 
+        let v = this.vars.gndspd.value * 0.51444; 
         let t = (now - this.te.t) / 1000;
     
         let te = ( (h - this.te.h) + (Math.pow(v,2) - Math.pow(this.te.v,2)) / (2 * 9.81) )  / t;

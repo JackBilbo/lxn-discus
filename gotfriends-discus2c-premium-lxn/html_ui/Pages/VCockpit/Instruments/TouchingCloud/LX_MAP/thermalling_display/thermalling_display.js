@@ -421,6 +421,7 @@ class ThermallingDisplay {
         let alt_gain_speed_m = (Math.pow(exit_airspeed_ms, 2) - Math.pow(this.thermals_entry_airspeed_ms, 2)) / 2 / 9.81;
         let te_gain_m = exit_alt_m - this.thermals_entry_alt_m + alt_gain_speed_m;
         this.thermals_tru_avg_ms = te_gain_m / thermalling_time_s;
+        SimVar.SetSimVarValue("L:JBB_TRU_AVG_CLIMB","meters per second",this.thermals_tru_avg_ms);
 
         this.instrument.vars.ltherm_gain.value = te_gain_m / 0.3048;
         this.instrument.vars.ltherm_avg.value = this.thermals_tru_avg_ms / 0.51444;
