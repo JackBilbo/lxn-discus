@@ -1,0 +1,524 @@
+#v8 {
+    --baselength: 320px;
+    --scalecolor: rgba(255,255,255,0.8);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    font-size: calc(var(--baselength) / 20);
+    font-family: Roboto, Tahoma, Geneva, Verdana, sans-serif;
+
+    width: var(--baselength);
+    height: var(--baselength);
+
+    background-color: #444;
+
+}
+
+#battery_required {
+    display: block;
+}
+
+#splashscreen {
+    z-index: 10000;
+    color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    position: inherit;
+    width: 100%;
+    height: 100%;
+
+    font-size: 19.5px;
+    padding-left: 45px;
+}
+
+#hide {
+    display: none;
+}
+
+.screen {
+    top: 3.4em;
+    left: 3.4em;
+    position: absolute;
+    background: #222;
+    height: 13.2em;
+    width: 13.2em;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+
+.cover {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+
+    background: url("texture/v9_case.png") top left no-repeat;
+    background-size: contain;
+}
+
+
+.scalepositioner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-image: radial-gradient(#fff 0, #fff 7em, #ddd 7em, #ededed 7.5em);
+
+}
+
+.scale {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #333;
+}
+
+.scale .tick:before {
+    content: "";
+    position: absolute;
+    left: -2px;
+    height: 0.5em;
+    width: 0;
+    border: 2px solid #333;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.scale .tick.halftick:before {
+    height: 0.25em;
+    border: 1px solid #333;
+}
+
+.scale .number {
+    position: absolute;
+    top: 0.5em;
+    left: -0.5em;
+    width: 1em;
+    font-size: 1.6em;
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+    font-family: Tahoma, Verdana, sans-serif;
+}
+
+.scale.imperial .tick.odd:before { height: 0.25em; }
+.scale.imperial .tick .number, .scale .tick.halftick .number { display: none; }
+.scale.imperial .tick.even .number { display: block; }
+
+.scale.imperial .tick:first-child .number { top: 0.6em; left: -0.2em; }
+.scale.imperial .tick:last-child .number { top: 0.6em; left: -0.8em; }
+
+.scale.imperial.log .tick:first-child .number, .scale.imperial.log .tick:last-child .number { display: none;}
+
+.currentUnit {
+    position: absolute;
+    color: #333;
+    right: 6.6em;
+    bottom: 1.2em;
+}
+
+.currentUnit span {
+    font-family: Tahoma, sans-serif;
+    font-weight: bold;
+    font-size: 0.9em;
+    letter-spacing: -1px;
+}
+
+.log ~ .currentUnit {
+    right: 7.7em;
+    bottom: 0.8em;
+}
+
+.imperial.log ~ .currentUnit {
+    right: 5.5em;
+    bottom: 2.5em;
+}
+
+.arrow {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    height: 50%;
+    width: 0;
+    transform-origin: 0 100%;
+    transform: rotate(-90deg);
+}
+
+.mcmarker:after {
+        content: "";
+        display: block;
+        border-top: 1.2em solid #0707eb;
+        height: 0em;
+        width: 2px;
+        border-radius: 2px;
+        left: -0.5em;
+        position: absolute;
+        border-bottom: 1em solid transparent;
+        border-left: 0.5em solid transparent;
+        border-right: 0.5em solid transparent;
+        top: 0;
+        }
+
+.wind:after {
+        content: "";
+        display: block;
+        position: absolute;
+        height: 2.9em;
+        top: 0.1em;
+        width: 1em;
+        left: -0.5em;
+        background: linear-gradient(#2ba195 0, #2ba195 2.5em, #1e6e66 100%);
+        border-top-left-radius: 0.5em 3em;
+        border-top-right-radius: 0.5em 3em;
+    }
+
+.average:after {
+        display: block;
+        position: absolute;
+        content: "";
+        width: 1em;
+        height: 1em;
+        background: linear-gradient(70deg, rgb(235, 1, 2) 0%, rgb(154, 13, 10) 100%);
+        transform: rotate(55deg) skewX(25deg) scaleY(0.9);
+        border: 1px solid rgba(255, 255, 255,0.7);
+        border-radius: 3px;
+        left: -0.5em;
+        top: 0.3em;
+}
+
+.current:after {
+        content: "";
+        display: block;
+        position: absolute;
+        height: 2.9em;
+        top: 0.1em;
+        width: 1em;
+        left: -0.5em;
+        background: linear-gradient(#ff5e00 0, #ff5e00 2.5em, #cc4b00 100%);
+        border-top-left-radius: 0.5em 3em;
+        border-top-right-radius: 0.5em 3em;
+
+    }
+
+.lastthermalaverage:after {
+        content: "";
+        display: block;
+        position: absolute;
+        height: 1.5em;
+        top: 0;
+        width: 4px;
+        left: -2px;
+        background-color: rgb(0, 181, 0);
+}  
+
+.lastthermalaverage:before {
+        content: "";
+        display: block;
+        position: absolute;
+        height: 4px;
+        top: 0;
+        width: 1.6em;
+        left: -0.8em;
+        background-color: rgb(0, 181, 0);
+} 
+
+.lastthermalaverage {
+    transition: rotate 0.2s;
+}
+
+.infofield {
+    position: absolute;
+    right: 4.5em;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    color: var(--scalecolor);
+}    
+
+.data1 { top: 2.3em;}
+.data2 { top: 7em; }
+
+.infofield .value {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.infofield .number {
+    font-family: Tahoma, Verdana, sans-serif;
+    font-size: 2.8em;
+    line-height: 0.9;
+}
+
+.infofield .unit {
+    vertical-align: baseline;
+}
+
+
+.speedtape {
+    position: absolute;
+    bottom: -150px;
+    right: 1em;
+    width: 2.5em;
+    height: 1800px;
+}
+
+.speedtape .borderline { position: absolute; right:0 ; width: 1em; }
+.overspeed { background-color: #cc0000; }
+.highspeed { background-color: #ffcc00; }
+.maneuver { background-color: #eee; }
+.stallspeed { background-color: #cc0000; }
+
+.speedlabels span { 
+    display: block; 
+    position: absolute;
+    right: 1.5em;
+    border: 1px solid #bbb;
+    color: #bbb;
+    padding: 0.1em;
+    line-height: 1;
+    font-size: 0.8em;
+    border-radius:2px;
+}
+
+.speedlabels span:after {
+    content: "";
+    background-color: #222;
+    width: 3px;
+    height: 3px;
+    position: absolute;
+    right: -7px;
+    top: 50%;
+}
+
+.stfmarker {
+    display: block; 
+    position: absolute;
+    right: 0.6em;
+    border: 1px solid #ddd;
+    color: #ddd;
+    background-color: #00f;
+    padding: 0.1em;
+    line-height: 1;
+    font-size: 1em;
+    border-radius:2px;
+}
+
+.currentspeed {
+    display: block; 
+    position: absolute;
+    right: 1.6em;
+    top: calc(50% - 0.5em);
+    border: 1px solid #eee;
+    color: #eee;
+    background-color: #222;
+    padding: 0.1em;
+    line-height: 1;
+    font-size: 1em;
+    border-radius:2px;
+}
+
+#arc {
+    position: absolute;
+    top: 3em;
+    left: 3em;
+    width: calc(var(--baselength) - 6em);
+    height: calc(var(--baselength) - 6em);
+}
+
+#arc path {
+        fill: transparent;
+        stroke: #ff5e00;
+        stroke-width: 0.5em;
+     }
+
+.cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(transparent 60%, rgba(0,0,0,0.6) 100%);
+}     
+
+#hawk { display: none;}
+
+.hawkarrow {
+	position: absolute;
+	height: 3em;
+	top: 50%;
+	width: 1em;
+	left: calc(50% - 0.5em);
+	transform-origin: center;
+}
+
+#arrow_current {
+	background-color: #6162a9;
+    transform: rotate(90deg);
+}
+
+#arrow_avg {
+	background-color: #aaaaaa;
+}
+
+.hawkarrow svg {
+	width: 200%;
+	position: absolute;
+	bottom: -1em;
+	left: -50%;
+}
+
+#arrow_current svg {
+	fill: #6162a9;
+}
+
+#arrow_avg svg {
+	fill: #aaaaaa;
+}
+
+#hawk .numbers {
+	position: absolute;
+	bottom: 1.2em;
+    left: 50%;
+	padding: 0;
+	width: 8em;
+	margin-left: -4em;
+	text-align:center;
+	color: #eee;
+    font-size: 1.6em;
+}
+
+#hawk .numbers.avg {
+    bottom: auto;
+    top: 1.2em;
+    color: #aaa;
+}
+
+.map_trackup #hawk #number { bottom: -180px; }
+
+#attitude {
+    background-color: #0d91d9;
+    display: none;
+}
+
+#attitude .horizon {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 0;
+    background: #9e5a0d;
+    transform-origin: 50% 0;
+    border-top: 1px solid #ccc;
+}
+
+#attitude .indicator {
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: calc(50% - 1em);
+    left: calc(50% - 3em);
+    border-top: 1em solid transparent;
+    border-left: 3em solid transparent;
+    border-right: 3em solid transparent;
+    border-bottom: 1em solid #fff;
+}
+
+#attitude .indicator:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -7em;
+    left: -0.5em;
+    border-top: 1em solid transparent;
+    border-left: 0.5em solid transparent;
+    border-right: 0.5em solid transparent;
+    border-bottom: 1em solid #fff;
+}
+
+.ai_scale {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-origin: center;
+}
+
+.ai_tick {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.ai_tick:before {
+    content: "";
+    position: absolute;
+    border-top: 1px solid #eee;
+    left: -0.5em;
+    width: 1em;
+}
+
+.ai_tick.medium:before {
+    width: 2em;
+    left: -1em;
+}
+
+.ai_tick.hasnumber:before {
+    width: 5em;
+    left: -2.5em;
+}
+
+.ai_number {
+    font-size: 0.9em;
+    color: #eee;
+    position: absolute;
+    top: -0.6em;
+    right: -5em;
+    width: 2em;
+    text-align: center;
+    display: block;
+}
+
+.ai_number:first-child {
+    right: auto;
+    left: -5em;
+}
+
+#attitude .leftbank { transform: rotate(-45deg); }
+#attitude .rightbank { transform: rotate(45deg); }
+#attitude .centerbank { transform: rotate(0deg); }
+
+#attitude .leftbank:before, #attitude .rightbank:before {
+    content: "";
+    display: block;
+    height: 0.5em;
+    border: 1px solid #eee;
+}
+
+#attitude .centerbank:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    left: -0.5em;
+    border-top: 0.6em solid #eee;
+    border-left: 0.5em solid transparent;
+    border-right: 0.5em solid transparent;
+    border-bottom: 1em solid transparent;
+}
