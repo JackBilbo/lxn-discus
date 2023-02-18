@@ -1677,7 +1677,7 @@
         <Animation>
             <Parameter>
 				<Code>
-					(A:AIRSPEED TRUE, meters per second) d *
+					(A:GROUND VELOCITY, meters per second) d *
 					19.62 /
 					(A:PLANE ALTITUDE, meters) +
 					0.25 * (G:Var2) 0.75 * +
