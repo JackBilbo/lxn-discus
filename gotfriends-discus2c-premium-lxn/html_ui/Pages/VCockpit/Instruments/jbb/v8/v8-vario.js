@@ -1,6 +1,17 @@
 class v8_varioclass extends BaseInstrument {
     constructor() {
         super();
+
+        this.u = {
+            "metric": {
+                "verticalspeed": "meters per second",
+                "speed": "kph"
+            },
+            "imperial": {
+                "verticalspeed": "knots",
+                "speed": "knots"
+            }
+        }
     }
 
     get templateID() { return "v8-vario"; }
@@ -18,7 +29,7 @@ class v8_varioclass extends BaseInstrument {
         this.variomode = "total_energy";
         this.averager = 10; // number of seconds (approx.) to calculate rolling average
         this.avgvalues = []; // array to sore values for averager
-        this.smoother = 0; // variable to smooth out current value
+        this.liftsmoother = []; // array to smooth out current value
         this.windsmoother = 0; // variable to smooth out current vertical wind
 
         this.datafield1 = this.root.querySelector(".data1");
@@ -45,6 +56,9 @@ class v8_varioclass extends BaseInstrument {
         this.horizontalwinddirectionsmoother = 0;
         this.horizontalwinddirectionaverage = [];
 
+        this.verticalwind = 0;
+        this.verticalwindsmoother = [];
+
         this.speedtape = this.root.querySelector(".speedtape");
         this.overspeed = this.root.querySelector(".overspeed");
         this.highspeed = this.root.querySelector(".highspeed");
@@ -67,11 +81,36 @@ class v8_varioclass extends BaseInstrument {
         this.buildScale();
         this.buildSpeedtape();
         this.isInit = true;
+
+        document.addEventListener("keydown", (e) => {
+            console.log(e);
+            if(e.altKey) {
+                if(e.keyCode == 65) {
+                    this.pageUp();
+                }
+
+                if(e.keyCode == 83) {
+                    this.pageDown();
+                }
+            }
+        })
+    }
+
+    pageUp() {
+        this.screens[this.currentScreen].style.display = "none";
+        this.currentScreen = this.currentScreen > 0 ? this.currentScreen - 1 : this.screens.length - 1;
+        this.screens[this.currentScreen].style.display = "block";
+    }
+
+    pageDown() {
+        this.screens[this.currentScreen].style.display = "none";
+        this.currentScreen = this.currentScreen < this.screens.length - 1 ? this.currentScreen + 1 : 0;
+        this.screens[this.currentScreen].style.display = "block";
     }
 
     Update() {
         if(!this.isInit) { return; }
-        this.currentUnit = SimVar.GetSimVarValue("L:UNITS_IMPERIAL","percent") == 0 ? "metric" : "imperial";
+        this.currentUnit = SimVar.GetSimVarValue("L:UNITS_IMPERIAL","percent") == 100 ? "imperial" : "metric";
 
         if(this.units != this.currentUnit) {
             // if units to display have changed, rebuild the scale
@@ -86,10 +125,7 @@ class v8_varioclass extends BaseInstrument {
 
         if(SimVar.GetSimVarValue("L:S80_UP_BUTTON","number") == 1) {
             SimVar.SetSimVarValue("L:S80_UP_BUTTON","number", 0);
-            console.log("Up Button pressed");
-            this.screens[this.currentScreen].style.display = "none";
-            this.currentScreen = this.currentScreen > 0 ? this.currentScreen - 1 : this.screens.length - 1;
-            this.screens[this.currentScreen].style.display = "block";
+            this.pageUp();
         };
 
         if(SimVar.GetSimVarValue("L:S80_ENTER_BUTTON","number") == 1) {
@@ -100,17 +136,14 @@ class v8_varioclass extends BaseInstrument {
 
         if(SimVar.GetSimVarValue("L:S80_DOWN_BUTTON","number") == 1) {
             SimVar.SetSimVarValue("L:S80_DOWN_BUTTON","number", 0);
-            console.log("Down Button pressed");
-            this.screens[this.currentScreen].style.display = "none";
-            this.currentScreen = this.currentScreen < this.screens.length - 1 ? this.currentScreen + 1 : 0;
-            this.screens[this.currentScreen].style.display = "block";
+            this.pageDown();
         };
 
         let vm = SimVar.GetSimVarValue("L:VARIO_MODE","percent") == 0 ? "netto" : "te";
         if(this.variomode != vm) {
             this.variomode = vm;
             this.avgvalues = [0];
-            this.smoother = 0;
+            this.liftsmoother = [];
         }
 
         let current_te, current_netto, currentpolarsink, verticalwind, lastthermalaverage;
@@ -133,12 +166,12 @@ class v8_varioclass extends BaseInstrument {
         let averagevalue = this.updateaverage(currentvalue);
 
         this.updateWinddata();
-        this.windsmoother = this.windsmoother * 0.8 + verticalwind * 0.2;
+        // this.windsmoother = this.windsmoother * 0.8 + verticalwind * 0.2;
         // now move some arrows around
         this.currentarrow.style.transform = "rotate(" + this.calcAngle(Math.max( -this.maxScale, Math.min(this.maxScale, currentvalue))) + "deg)";
         this.averagearrow.style.transform = "rotate(" + this.calcAngle(Math.max( -this.maxScale, Math.min(this.maxScale, averagevalue))) + "deg)";
         this.lastthermalaverage.style.transform = "rotate(" + this.calcAngle(Math.max( -this.maxScale, Math.min(this.maxScale, lastthermalaverage))) + "deg)";
-        this.windarrow.style.transform = "rotate(" + this.calcAngle(Math.max( -this.maxScale, Math.min(this.maxScale, this.windsmoother))) + "deg)";
+        this.windarrow.style.transform = "rotate(" + this.calcAngle(Math.max( -this.maxScale, Math.min(this.maxScale, this.verticalwind))) + "deg)";
         this.mcmarker.style.transform = "rotate(" + this.calcAngle( SimVar.GetSimVarValue("L:BEZEL_CAL","percent") / (this.units == "metric" ? 20 : 10) ) + "deg)";
 
         if(this.currentScreen == 0) { this.updateDatafields(currentvalue,averagevalue); }
@@ -147,8 +180,29 @@ class v8_varioclass extends BaseInstrument {
     }
 
     updatecurrent(currentvalue) {
-        this.smoother = currentvalue * 0.01 + this.smoother * 0.99;
-        return this.smoother;
+        this.liftsmoother.push(parseFloat(currentvalue));
+        if(this.liftsmoother.length > 10) { this.liftsmoother.shift() }
+
+        // return this.trimmedMean(copyArr,20);
+        return this.liftsmoother.reduce((a, b) => a + b, 0) / this.liftsmoother.length;
+    }
+
+    trimmedMean(arr, trimPercentage) {
+        if(!Array.isArray(arr) || arr.length === 0) {
+            return null;
+        }
+
+        if(trimPercentage <0 || trimPercentage > 50) {
+            throw new Error("trimPercentage must be between 0 and 50");
+        }
+
+        const sortedArr = arr.sort((a, b) => a - b);
+        const trimAmount = Math.round((sortedArr.length * trimPercentage) / 100);
+        const trimmedArr = sortedArr.slice(trimAmount, sortedArr.length - trimAmount);
+        const sum = trimmedArr.reduce((total, num) => total + num, 0);
+        
+        const result = sum / trimmedArr.length;
+        return result;
     }
 
     updateaverage(currentvalue) {
@@ -217,13 +271,17 @@ class v8_varioclass extends BaseInstrument {
     }
 
     updateWinddata() {
-        this.horizontalwindspeed = this.horizontalwindspeed * 0.9 + SimVar.GetSimVarValue("A:AMBIENT WIND VELOCITY", "meters per second") * 0.1;
+        this.horizontalwindspeed = this.horizontalwindspeed * 0.9 + SimVar.GetSimVarValue("A:AMBIENT WIND VELOCITY", this.u[this.units].verticalspeed) * 0.1;
         this.horizontalwindspeedaverage.push(this.horizontalwindspeed);
         if(this.horizontalwindspeedaverage.length > this.averager * 18) { this.horizontalwindspeedaverage.shift() }
 
         this.horizontalwinddirection = SimVar.GetSimVarValue("A:AMBIENT WIND DIRECTION", "degrees");
         this.horizontalwinddirectionaverage.push(this.horizontalwinddirection);
         if(this.horizontalwinddirectionaverage.length > this.averager * 18) { this.horizontalwinddirectionaverage.shift() }
+
+        this.verticalwindsmoother.push(SimVar.GetSimVarValue("A:AMBIENT WIND Y", this.u[this.units].verticalspeed));
+        if(this.verticalwindsmoother.length > 20) { this.verticalwindsmoother.shift() }
+        this.verticalwind = this.verticalwindsmoother.reduce((a, b) => a + b, 0) / this.verticalwindsmoother.length;
     }
 
     updateHawk() {
@@ -231,16 +289,16 @@ class v8_varioclass extends BaseInstrument {
         let avgwinddirection = this.horizontalwinddirectionaverage.reduce((a, b) => a + b, 0) / this.horizontalwinddirectionaverage.length;
         let avgwindspeed = this.horizontalwindspeedaverage.reduce((a, b) => a + b, 0) / this.horizontalwindspeedaverage.length;
     
-        let vector = Math.min(250, this.horizontalwindspeed * 5 + 60);
+        let vector = Math.min(185, this.horizontalwindspeed * 5 + 60);
         this.hawkcurrent.style.transform = "translate(0, " + -vector/2 + "px) rotate(" + (this.horizontalwinddirection - hdg) + "deg)";
         this.hawkcurrent.style.height = vector + "px";
 
-        let avgvector = Math.min(250, avgwindspeed * 5 + 60);
+        let avgvector = Math.min(185, avgwindspeed * 5 + 60);
         this.hawkaverage.style.transform = "translate(0, " + -avgvector/2 + "px) rotate(" + ( avgwinddirection - hdg) + "deg)";
         this.hawkaverage.style.height = avgvector + "px";
 
-        this.hawkcurrentnumbers.innerHTML = this.horizontalwinddirection.toFixed(0) + " / " + (this.units == "metric" ? this.horizontalwindspeed.toFixed(1) : (this.horizontalwindspeed * 1.94384).toFixed(0));        
-        this.hawkaveragenumbers.innerHTML = avgwinddirection.toFixed(0) + " / " + (this.units == "metric" ? avgwindspeed.toFixed(1) : (avgwindspeed * 1.94384).toFixed(0) );        
+        this.hawkcurrentnumbers.innerHTML = ("000" + this.horizontalwinddirection.toFixed(0)).substr(-3) + " / " + this.horizontalwindspeed.toFixed(0);        
+        this.hawkaveragenumbers.innerHTML = ("000" + avgwinddirection.toFixed(0)).substr(-3) + " / " + avgwindspeed.toFixed(0);        
     }
 
     updateAttitude() {
