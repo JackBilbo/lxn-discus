@@ -179,6 +179,10 @@ class lxn extends NavSystemTouch {
         this.stallwarner = document.querySelector("#stallwarner");
         this.gearposition = SimVar.GetSimVarValue("A:GEAR HANDLE POSITION", "bool");
 
+        this.overspeedenter = 0;
+        this.overspeedexit = 0;
+        this.overspeedtotal = 0;
+        
         this.tick = 0;
 
         UI.resetPages();
