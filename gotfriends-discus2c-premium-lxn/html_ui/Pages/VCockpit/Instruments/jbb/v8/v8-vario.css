@@ -240,7 +240,7 @@
 
 .infofield {
     position: absolute;
-    right: 4.5em;
+    right: 4em;
     display: flex;
     flex-direction: column;
     text-align: right;
@@ -397,11 +397,12 @@
 	width: 8em;
 	margin-left: -4em;
 	text-align:center;
-	color: #eee;
-    font-size: 1.6em;
+	color: #fff;
+    font-size: 2em;
 }
 
 #hawk .numbers.avg {
+    font-size: 1.4em;
     bottom: auto;
     top: 1.2em;
     color: #aaa;
