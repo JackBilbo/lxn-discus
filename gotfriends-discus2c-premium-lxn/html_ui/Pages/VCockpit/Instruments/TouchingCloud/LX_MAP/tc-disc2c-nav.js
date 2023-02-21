@@ -182,7 +182,7 @@ class lxn extends NavSystemTouch {
         this.overspeedenter = 0;
         this.overspeedexit = 0;
         this.overspeedtotal = 0;
-        
+
         this.tick = 0;
 
         UI.resetPages();
@@ -298,6 +298,8 @@ class lxn extends NavSystemTouch {
                 if(this.vars.task_arr_msl.isUsed) {this.vars.task_arr_msl.value = B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m / 0.3048;}
                 if(this.vars.task_arr_agl.isUsed) {this.vars.task_arr_agl.value = (B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - (B21_SOARING_ENGINE.task.finish_wp().min_alt_m != null ? B21_SOARING_ENGINE.task.finish_wp().min_alt_m : B21_SOARING_ENGINE.task.finish_wp().alt_m)) / 0.3048;}
                 if(this.vars.task_spd.isUsed) {this.vars.task_spd.value = B21_SOARING_ENGINE.task_finished() ? B21_SOARING_ENGINE.finish_speed_ms() / 0.51444 : B21_SOARING_ENGINE.task.avg_task_speed_kts();}
+                if(this.vars.wp_min.isUsed) {this.vars.wp_min.value = B21_SOARING_ENGINE.task.current_wp().min_alt_m / 0.3048;}
+                if(this.vars.wp_max.isUsed) {this.vars.wp_max.value = B21_SOARING_ENGINE.task.current_wp().max_alt_m / 0.3048;}
             }
 
             NAVPANEL.update();
