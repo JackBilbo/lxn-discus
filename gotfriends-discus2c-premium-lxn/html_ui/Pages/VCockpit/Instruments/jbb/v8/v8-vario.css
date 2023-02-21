@@ -53,18 +53,6 @@
 }
 
 
-.cover {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-
-    background: url("texture/v9_case.png") top left no-repeat;
-    background-size: contain;
-}
-
-
 .scalepositioner {
     position: absolute;
     top: 0;
@@ -72,7 +60,7 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background-image: radial-gradient(#fff 0, #fff 7em, #ddd 7em, #ededed 7.5em);
+    background-image: radial-gradient(#fff 0, #eee 7em, #bbb 7em, #cdcdcd 7.5em);
 
 }
 
@@ -179,7 +167,7 @@
         top: 0.1em;
         width: 1em;
         left: -0.5em;
-        background: linear-gradient(#2ba195 0, #2ba195 2.5em, #1e6e66 100%);
+        background: linear-gradient(#2ba195 0, #2ba195 2.5em, #238077 100%);
         border-top-left-radius: 0.5em 3em;
         border-top-right-radius: 0.5em 3em;
     }
@@ -320,11 +308,11 @@
     display: block; 
     position: absolute;
     right: 1.6em;
-    top: calc(50% - 0.5em);
+    top: calc(50% - 0.7em);
     border: 1px solid #eee;
     color: #eee;
     background-color: #222;
-    padding: 0.1em;
+    padding: 0 0.2em 0.2em;
     line-height: 1;
     font-size: 1em;
     border-radius:2px;
@@ -351,7 +339,7 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: radial-gradient(transparent 60%, rgba(0,0,0,0.6) 100%);
+    background: radial-gradient(transparent 60%, rgba(0,0,0,0.9) 100%);
 }     
 
 #hawk { display: none;}

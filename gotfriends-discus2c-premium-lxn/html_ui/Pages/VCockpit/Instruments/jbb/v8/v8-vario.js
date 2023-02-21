@@ -43,7 +43,7 @@ class v8_varioclass extends BaseInstrument {
 
         this.avgarc = this.root.querySelector("#arc");
         this.avgpath = this.root.querySelector("#arc path");
-        this.innerRadius = this.avgarc.clientWidth / 2 - 4;
+        this.innerRadius = 224 / 2 - 4;
 
         this.aihorizon = this.root.querySelector(".horizon");
         this.aiscale = this.root.querySelector(".ai_scale");
@@ -83,7 +83,6 @@ class v8_varioclass extends BaseInstrument {
         this.isInit = true;
 
         document.addEventListener("keydown", (e) => {
-            console.log(e);
             if(e.altKey) {
                 if(e.keyCode == 65) {
                     this.pageUp();
@@ -183,26 +182,7 @@ class v8_varioclass extends BaseInstrument {
         this.liftsmoother.push(parseFloat(currentvalue));
         if(this.liftsmoother.length > 10) { this.liftsmoother.shift() }
 
-        // return this.trimmedMean(copyArr,20);
         return this.liftsmoother.reduce((a, b) => a + b, 0) / this.liftsmoother.length;
-    }
-
-    trimmedMean(arr, trimPercentage) {
-        if(!Array.isArray(arr) || arr.length === 0) {
-            return null;
-        }
-
-        if(trimPercentage <0 || trimPercentage > 50) {
-            throw new Error("trimPercentage must be between 0 and 50");
-        }
-
-        const sortedArr = arr.sort((a, b) => a - b);
-        const trimAmount = Math.round((sortedArr.length * trimPercentage) / 100);
-        const trimmedArr = sortedArr.slice(trimAmount, sortedArr.length - trimAmount);
-        const sum = trimmedArr.reduce((total, num) => total + num, 0);
-        
-        const result = sum / trimmedArr.length;
-        return result;
     }
 
     updateaverage(currentvalue) {
@@ -214,6 +194,11 @@ class v8_varioclass extends BaseInstrument {
         
         let minangle = Math.max(-210, Math.min(30, this.calcAngle(min)));
         let maxangle = Math.max(-210, Math.min(30, this.calcAngle(max)));
+
+        if(((maxangle + 360) - (minangle + 360)) > 179) {
+            if(currentvalue > 0) { minangle = maxangle - 179 }
+            else { maxangle = minangle + 179 }
+        }
 
         let minX = (this.innerRadius + 4) + this.innerRadius * (Math.cos((minangle-90) * Math.PI / 180.0));
         let minY = (this.innerRadius + 4) + this.innerRadius * (Math.sin((minangle-90) * Math.PI / 180.0));
@@ -310,16 +295,14 @@ class v8_varioclass extends BaseInstrument {
     }
 
     updateDatafields(current, avg) {
-        let curr = this.units == "metric" ? current : current * 1.9438;
-        let cprefix = curr >= 0 ? "+" : "";
+        let cprefix = current >= 0 ? "+" : "";
         this.datafield1.querySelector(".label").innerHTML = this.variomode == "te" ? "TE" : "NETTO";
-        this.datafield1.querySelector(".number").innerHTML = cprefix + curr.toFixed(1)
+        this.datafield1.querySelector(".number").innerHTML = cprefix + current.toFixed(1)
         this.datafield1.querySelector(".unit").innerHTML = this.units == "metric" ? "ms" : "kts";
 
-        let avgclimb = this.units == "metric" ? avg : avg * 1.9438;
-        let prefix = avgclimb >= 0 ? "+" : "";
+        let prefix = avg >= 0 ? "+" : "";
         this.datafield2.querySelector(".label").innerHTML = "AVG";
-        this.datafield2.querySelector(".number").innerHTML = prefix + avgclimb.toFixed(1);
+        this.datafield2.querySelector(".number").innerHTML = prefix + avg.toFixed(1);
         this.datafield2.querySelector(".unit").innerHTML = this.units == "metric" ? "ms" : "kts";
     
         this.updateSpeedtape();
