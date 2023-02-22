@@ -3,18 +3,39 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <h2>Fixes and Features:</h2>
 
-Mod adapted for Discus Version 2.0.6
+<strong>Overspeed Warning:</strong>
 
-CHANGED KEYBINDS: some users experienced problems with binding to com frequencies. Changeing pages left/right and up/down are now bound to autopilot altitude and vertical speed settings:
+Coded and contributed bei LeNinjaHD - thanks for that! Gives you a red warning if exceeding 152 knots true airspeed. Depending on altitude that can be way before reaching the red line on the VSI.
 
-- Page left/right:    INCREASE/DECREASE AUTOPILOT REFERENCE ALTITUDE
-- Page up/down:       INCREASE/DECREASE AUTOPILOT REFERENCE VS
+The message will pop up each time you pass the threshold for ten seconds and the disappear without any harm. Connected to the "Cockpit Warnigns"-Switch in "Interface options" so can be deactivated. Or even is if you have deactivated those gear and ballast warnings.
 
-Please adjust your keybinds
+<strong>New type of datafields</strong>
 
-Fixed a bug where conditional background colors in data fields failed for altitude values >10k 
+Two new variables: "Waypoint Min Altitude" and "Waypoint Max Altitude". These behave differently from all other vars: Fields will only be displayed, if a min/max value is present at the current waypoint. Otherwise the fields will be invisible, de-cluttering the interface. Now that the technique is there, it might be reused for other variables in the future.
 
-Lots of text corrections. Thanks to Jonx!
+<strong>Reworked Digital Variometer</strong>
+
+Breaking out of the small square screen... reworked the visuals of the digital vario. If you don't like it and want to keep the original, head for the folder /SimObjects/Airplanes/gotfriends-discus2c(-fes)/panel/ and rename panel_original_vari.cfg into panel.cfg (delete or rename the existing file) and you are back to normal.
+
+The rework contains a slightly enlarged scale and needles for better readability with five indicators:
+- orange: current climb/sink (TE or netto as selected by the bottom right knob)
+- turquoise: current vertical wind component (RL-inspiration: https://gliding.lxnav.com/news/hawk-wind-calculation/)
+- red square: 10s average climb/sink
+- small green T: total true average of the last thermal (as calculated by the thermal helper page in the LX computer)
+- blue triangle: MacCready setting
+
+The orange arc marks the range of values measured during the last ten seconds.
+
+Center of the instrument can display three different screens:
+
+- data fields for current and average climb plus a (VERY) tiny speedtape and STF-Marker ()
+- horizontal wind info (HAWK-style see above)
+- simple artificial horizon
+
+Screens can be cycled using the top and bottom button on the right. Center button toggles between the default linear and a logarithmic scale.
+
+Audio output of the vario is completely unchanged, as that is not done in JS, but in the model.xml code.
+
 
 
 <h2>Installation:</h2>
