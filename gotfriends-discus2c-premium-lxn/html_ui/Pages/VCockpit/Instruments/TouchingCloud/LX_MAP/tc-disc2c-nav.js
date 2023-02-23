@@ -353,21 +353,20 @@ class lxn extends NavSystemTouch {
             } 
 
             //OVERSPEED Warn by LeNinjaHD
-            if(this.vars.tas.value > 152) {
+            if(this.vars.tas.value > 154) {
                 if(!this.overspeedsilencer) {
                         this.overspeedenter = this.TIME_S;
                         this.overspeedsilencer = true;
 
                         if(CONFIGPANEL.cockpitwarnings) {
-                            this.popalert("OVERSPEED!<br />CURRENT TAS: " + this.displayValue(this.vars.tas.value, "kts", "speed") + this.units.speed.pref, "")
+                            this.popalert("OVERSPEED!<br />CURRENT TAS: " + this.displayValue(this.vars.tas.value, "kts", "speed") + this.units.speed.pref, "", 5)
                         }
                     }
             } else {
                 if(this.overspeedenter > 0) {
                     this.overspeedexit = this.TIME_S;
-                    if(this.overspeedexit > this.overspeedenter) {
+                    if((this.overspeedexit > this.overspeedenter + 5) && B21_SOARING_ENGINE.task_started()) {
                         this.overspeedtotal += this.overspeedexit - this.overspeedenter;
-                        console.log("Total time in overspeed: " + this.overspeedtotal + " seconds");
                     }
                     this.overspeedenter = 0;
                 }
@@ -756,7 +755,7 @@ class lxn extends NavSystemTouch {
             let t = document.createElement("span");
             let markerclass = "";
 
-            if(i < stallspeed_kph || i >= maxspeed_kph) {  markerclass = "tick_warn";  }
+            if(i < stallspeed_kph || i >= maxspeed_kph) {  markerclass = "tick_alert";  }
             if(i > maneuverspeed_kph && i < maxspeed_kph) {  markerclass = "tick_alert"; }
 
             t.setAttribute("class", "tick " + markerclass);
@@ -787,7 +786,8 @@ class lxn extends NavSystemTouch {
             this.querySelector(".speedladder.kts").prepend(t);
         }
 
-        
+        this.querySelector(".speedladder.kmh").prepend('<div class="vnemarker"></div>');
+        this.querySelector(".speedladder.kts").prepend('<div class="vnemarker"></div>');
     }
 
     update_speedgauge() {
@@ -796,12 +796,23 @@ class lxn extends NavSystemTouch {
         let IAS = SimVar.GetSimVarValue("A:AIRSPEED INDICATED", "kph");
         let speedbandoffset = -210;
 
+        let ambient_temp_kelvin = SimVar.GetSimVarValue("AMBIENT TEMPERATURE", "kelvin");
+        let ambient_pressure = SimVar.GetSimVarValue("AMBIENT PRESSURE", "millibar");
+
+        let vne_ias_ms = 78.25 * Math.sqrt(288.15 / ambient_temp_kelvin * ambient_pressure / 1013.25);
+
+        let b21factor_kts = 120 - vne_ias_ms;
+        let b21factor_kmh = 150 - vne_ias_ms;
+
         this.querySelector(".speedband").setAttribute("class", (units ? "speedband kts" : "speedband kmh"));
         this.querySelector(".currentspeed span").innerHTML = this.displayValue(this.vars.ias.value, "kts", "speed");
 
         if(IAS > 60 && IAS < 350) {
             document.querySelector(".speedladder.kmh").style.transform = "translate(0," + (speedbandoffset + (IAS - 60) * 10) +  "px)";
             document.querySelector(".speedladder.kts").style.transform = "translate(0," + (speedbandoffset + (IAS/1.852 - 30) * 10) +  "px)";
+
+            document.querySelector(".speedladder.kmh .vnemarker").style.transform = "translate(0," + (((vne_ias_ms * 3.6 - 60) * -10) + b21factor_kmh) +  "px)";
+            document.querySelector(".speedladder.kts .vnemarker").style.transform = "translate(0," + (((vne_ias_ms * 1.944 - 30) * -10) + b21factor_kts ) +  "px)";
 
             this.querySelector(".speedladder.kmh .stfmarker").style.transform = "translate(0,-" + ((this.vars.stf.value * 1.852 - 60) * 10) +  "px)";
             this.querySelector(".speedladder.kts .stfmarker").style.transform = "translate(0,-" + ((this.vars.stf.value - 30) * 10) +  "px)";
@@ -982,7 +993,10 @@ class lxn extends NavSystemTouch {
             taskheader.querySelector(".task-state .task-average .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.finish_speed_ms(),"ms","speed");
             taskheader.querySelector(".task-state .task-average .unit").innerHTML = this.units.speed.pref;
             
-            this.vars.tasktime.value = B21_SOARING_ENGINE.task.finish_time_s - B21_SOARING_ENGINE.task.start_time_s;         
+            this.vars.tasktime.value = B21_SOARING_ENGINE.task.finish_time_s - B21_SOARING_ENGINE.task.start_time_s;  
+            
+            taskheader.querySelector(".task-failures").innerHTML = this.overspeedtotal.toFixed(0) + "s in Overspeed";
+            taskheader.querySelector(".task-failures").style.display = "block";
         }
 
         /* Cheat-Warnings */
@@ -1016,7 +1030,11 @@ class lxn extends NavSystemTouch {
         } 
         
         if (B21_SOARING_ENGINE.task_finished()) {
-            document.getElementById("tasklist").setAttribute("class","task_finished hasScrollbars");
+            if(this.overspeedtotal > 0) {
+                document.getElementById("tasklist").setAttribute("class","task_finished task_overspeed hasScrollbars");
+            } else {
+                document.getElementById("tasklist").setAttribute("class","task_finished hasScrollbars");
+            }
         }
 
         for (let wp_index=0; wp_index<B21_SOARING_ENGINE.task_length(); wp_index++) {
@@ -1263,12 +1281,13 @@ class lxn extends NavSystemTouch {
     message_task_finish(wp, finish_speed_ms, completion_time_s) {
         // Display "TASK COMPLETED" message
         let hl = "TASK COMPLETED ";
-        let msg_str = this.displayValue(finish_speed_ms,"ms","speed")  + this.units.speed.pref; + "<br/>";
+        let msg_str = this.displayValue(finish_speed_ms,"ms","speed") + this.units.speed.pref + " (" + this.overspeedtotal.toFixed(0) + "s Overspeed)<br/>";
         msg_str += this.displayValue(this.vars.localtime.value,"s","time_of_day")+"<br/>";
         msg_str += wp.name+"<br/>";
         msg_str += "SEE TASK PAGE.";
         // this.task_message(msg_str, 10); // Display start message for 3 seconds
-        this.popalert(hl,msg_str,5,"#26783c");
+        let popcolor = this.overspeedtotal > 0 ? "#cc0000" : "#26783c";
+        this.popalert(hl,msg_str,10,popcolor);
     }
 
     message_task_finish_too_low(wp) {
