@@ -199,8 +199,36 @@ class v8_varioclass extends BaseInstrument {
         
         while(this.liftsmoother.length > limit * 18) { this.liftsmoother.shift(); }
 
+        const initialEstimate = this.liftsmoother[0];
+        const initialError = 1;
+        const processNoise = 0.1;
+        const measurementNoise = 2;
+
+        // const result = this.kalmanFilter(this.liftsmoother, initialEstimate, initialError, processNoise, measurementNoise);
+        // return result[result.length-1]
+        // return result.reduce((a, b) => a + b, 0) / result.length;
+
         return this.liftsmoother.reduce((a, b) => a + b, 0) / this.liftsmoother.length;
     }    
+
+    kalmanFilter(measurements, initialEstimate, initialError, processNoise, measurementNoise) {
+        let state = initialEstimate;
+        let error = initialError;
+        
+        return measurements.map(measurement => {
+          // Predict
+          const predictedState = state;
+          const predictedError = error + processNoise;
+          
+          // Update
+          const kalmanGain = predictedError / (predictedError + measurementNoise);
+          state = predictedState + kalmanGain * (measurement - predictedState);
+          error = (1 - kalmanGain) * predictedError;
+          
+          return state;
+        });
+    }
+      
 
     updateaverage(currentvalue) {
         this.avgvalues.push(parseFloat(currentvalue));
