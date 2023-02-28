@@ -9,13 +9,17 @@ Coded and contributed bei LeNinjaHD - thanks for that! Gives you a red warning i
 
 The message will pop up each time you pass the threshold for ten seconds and the disappear without any harm. Connected to the "Cockpit Warnigns"-Switch in "Interface options" so can be deactivated. Or even is if you have deactivated those gear and ballast warnings.
 
+No matter if deactivated, exceeding Vne will be recorded and evaluated at the end of the current task.
+
+The speedtape gauge also shows a dynamic estimation of Vne translated to indicated airspeed as "red zone". This estimation will always be a little on the "pessimistic" side, placing the red overspeed line a little lower than the popup trigger to give you an early warning.
+
 <strong>New type of datafields</strong>
 
 Two new variables: "Waypoint Min Altitude" and "Waypoint Max Altitude". These behave differently from all other vars: Fields will only be displayed, if a min/max value is present at the current waypoint. Otherwise the fields will be invisible, de-cluttering the interface. Now that the technique is there, it might be reused for other variables in the future.
 
 <strong>Reworked Digital Variometer</strong>
 
-Breaking out of the small square screen... reworked the visuals of the digital vario. If you don't like it and want to keep the original, head for the folder /SimObjects/Airplanes/gotfriends-discus2c(-fes)/panel/ and rename panel_original_vari.cfg into panel.cfg (delete or rename the existing file) and you are back to normal.
+Breaking out of the small square screen... reworked the visuals of the digital vario. If you don't like it and want to keep the original, head for the folder /SimObjects/Airplanes/gotfriends-discus2c(-fes)/panel/ and rename panel_original_vario.cfg into panel.cfg (delete or rename the existing file) and you are back to normal. Alternatively just open the panel.cfg in a text editor and place the comment marks for [VCockpit06] accordingly to load the vario you prefer.
 
 The rework contains a slightly enlarged scale and needles for better readability with five indicators:
 - orange: current climb/sink (TE or netto as selected by the bottom right knob)
@@ -28,11 +32,11 @@ The orange arc marks the range of values measured during the last ten seconds.
 
 Center of the instrument can display three different screens:
 
-- data fields for current and average climb plus a (VERY) tiny speedtape and STF-Marker ()
+- data fields for current and average climb plus a (VERY) tiny speedtape and STF-Marker (laughed hard when i saw it in VR myself :-))
 - horizontal wind info (HAWK-style see above)
 - simple artificial horizon
 
-Screens can be cycled using the top and bottom button on the right. Center button toggles between the default linear and a logarithmic scale.
+Screens can be cycled using the top and bottom button on the right. Center button toggles between the default linear and a logarithmic scale. You can also cycle screens using alt/a alt/s on the keyboard (doesn't work in VR).
 
 Audio output of the vario is completely unchanged, as that is not done in JS, but in the model.xml code.
 
