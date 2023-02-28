@@ -784,8 +784,8 @@ class lxn extends NavSystemTouch {
             this.querySelector(".speedladder.kts").prepend(t);
         }
 
-        this.querySelector(".speedladder.kmh").prepend('<div class="vnemarker"></div>');
-        this.querySelector(".speedladder.kts").prepend('<div class="vnemarker"></div>');
+        this.querySelector(".speedladder.kmh").innerHTML += '<div class="vnemarker"></div>';
+        this.querySelector(".speedladder.kts").innerHTML += '<div class="vnemarker"></div>';
     }
 
     update_speedgauge() {
