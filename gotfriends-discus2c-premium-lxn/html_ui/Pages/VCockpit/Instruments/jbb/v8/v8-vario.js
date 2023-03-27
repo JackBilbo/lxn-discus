@@ -151,13 +151,13 @@ class v8_varioclass extends BaseInstrument {
             current_te = SimVar.GetSimVarValue("L:TOTAL ENERGY", "meters per second");
             current_netto = SimVar.GetSimVarValue("L:NETTO","meters per second");
             currentpolarsink = SimVar.GetSimVarValue("L:JBB_CURRENT_POLAR_SINK","meters per second");
-            verticalwind = SimVar.GetSimVarValue("A:AMBIENT WIND Y", "meters per second");
+            verticalwind = SimVar.GetSimVarValue("A:STRUCT AMBIENT WIND Y", "meters per second");
             lastthermalaverage = SimVar.GetSimVarValue("L:JBB_TRU_AVG_CLIMB","meters per second");
         } else {
             current_te = SimVar.GetSimVarValue("L:TOTAL ENERGY", "knots");
             current_netto = SimVar.GetSimVarValue("L:NETTO","knots");
             currentpolarsink = SimVar.GetSimVarValue("L:JBB_CURRENT_POLAR_SINK", "knots");
-            verticalwind = SimVar.GetSimVarValue("A:AMBIENT WIND Y", "knots");
+            verticalwind = SimVar.GetSimVarValue("A:STRUCT AMBIENT WIND Y", "knots");
             lastthermalaverage = SimVar.GetSimVarValue("L:JBB_TRU_AVG_CLIMB","knots");
         }
 
