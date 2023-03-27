@@ -1,4 +1,4 @@
-let LXN, NAVMAP, NAVPANEL, CONFIGPANEL, UI, TOPOMAP, SN, SOARNET;
+let LXN, NAVMAP, NAVPANEL, CONFIGPANEL, UI, TOPOMAP;
 
 class lxn extends NavSystemTouch {
 
@@ -76,7 +76,7 @@ class lxn extends NavSystemTouch {
             log_time:{ value: 0, label: "LOG TIME", longlabel: "Log Time", category: "time_of_day", baseunit: "hms24" },
             log_climb: { value: 0, label: "LOG CLB", longlabel: "Log Accumulated Climb", category: "alt", baseunit: "m"},
             log_avg: { value: 0, label: "LOG AVG", longlabel: "Log Average TGroundspeed", category: "speed", baseunit: "kmh"},
-            log_dist: { value: 0, label: "LOG DIST", longlabel: "Log Distance", category: "dist", baseunit: "km" },
+            log_dist: { value: 0, label: "LOG DIST", longlabel: "Log Distance", category: "dist", baseunit: "km" }
         }
         
         this.units = {
@@ -99,7 +99,7 @@ class lxn extends NavSystemTouch {
                 kts : 1,
                 kmh : 1.852,
                 mph : 1.15078,
-                ms : 0.51444
+                ms : 0.51444424416
             },
             dist: {
                 nm : 1,
@@ -163,8 +163,6 @@ class lxn extends NavSystemTouch {
         NAVPANEL = new navpanel(this); NAVPANEL.init();
         CONFIGPANEL = new configpanel(this); CONFIGPANEL.initSystemSettings();
         UI = new ui(this); UI.init();
-        
-        SN = new soarnet(this); SN.init();
 
         this.jbb_refwt = SimVar.GetSimVarValue("A:Empty weight","number") > 300 ? 921 : 765;
 
@@ -323,7 +321,6 @@ class lxn extends NavSystemTouch {
             if(this.vars.utctime.isUsed) {this.vars.utctime.value = new Date().toUTCString().replace(/.*(\d\d:\d\d:\d\d).*/,"$1"); }
 
             this.updateLiftdots();
-            SN.update();
 
             if(this.vars.alt_gnd.value > 100) { this.log.isStarted = true; }
             if(this.vars.gndspd.value < 20 && this.log.isStarted == true) { this.log.isStarted = false; }
@@ -373,7 +370,15 @@ class lxn extends NavSystemTouch {
                 
                 this.overspeedsilencer = false;
             }
-  
+
+            /*
+            let ambient_temp_kelvin = SimVar.GetSimVarValue("AMBIENT TEMPERATURE", "kelvin");
+            let ambient_pressure = SimVar.GetSimVarValue("AMBIENT PRESSURE", "millibar");
+    
+            let tcal_ms = (this.vars.ias.value * 0.51444424416) / Math.sqrt(288.15 / ambient_temp_kelvin * ambient_pressure / 1013.25);
+            console.log(tcal_ms);
+            this.vars.tas_calc.value = tcal_ms * 1.9438452;
+            */
         }
 
         if(this.lift_dots_timer_prev == null) {
@@ -743,7 +748,7 @@ class lxn extends NavSystemTouch {
         
         var minspeed_kph = 60;
         var stallspeed_kph = 80;
-        var maneuverspeed_kph = 200;
+        var maneuverspeed_kph = 180;
         var maxspeed_kph = 300;
 
         var minspeed_kts = 30;
@@ -801,9 +806,6 @@ class lxn extends NavSystemTouch {
 
         let vne_ias_ms = 78.25 * Math.sqrt(288.15 / ambient_temp_kelvin * ambient_pressure / 1013.25);
 
-        let b21factor_kts = 120 - vne_ias_ms;
-        let b21factor_kmh = 150 - vne_ias_ms;
-
         this.querySelector(".speedband").setAttribute("class", (units ? "speedband kts" : "speedband kmh"));
         this.querySelector(".currentspeed span").innerHTML = this.displayValue(this.vars.ias.value, "kts", "speed");
 
@@ -811,8 +813,8 @@ class lxn extends NavSystemTouch {
             document.querySelector(".speedladder.kmh").style.transform = "translate(0," + (speedbandoffset + (IAS - 60) * 10) +  "px)";
             document.querySelector(".speedladder.kts").style.transform = "translate(0," + (speedbandoffset + (IAS/1.852 - 30) * 10) +  "px)";
 
-            document.querySelector(".speedladder.kmh .vnemarker").style.transform = "translate(0," + (((vne_ias_ms * 3.6 - 60) * -10) + b21factor_kmh) +  "px)";
-            document.querySelector(".speedladder.kts .vnemarker").style.transform = "translate(0," + (((vne_ias_ms * 1.944 - 30) * -10) + b21factor_kts ) +  "px)";
+            document.querySelector(".speedladder.kmh .vnemarker").style.transform = "translate(0," + (((vne_ias_ms * 3.6 - 60) * -10)) + "px)";
+            document.querySelector(".speedladder.kts .vnemarker").style.transform = "translate(0," + (((vne_ias_ms * 1.944 - 30) * -10)) + "px)";
 
             this.querySelector(".speedladder.kmh .stfmarker").style.transform = "translate(0,-" + ((this.vars.stf.value * 1.852 - 60) * 10) +  "px)";
             this.querySelector(".speedladder.kts .stfmarker").style.transform = "translate(0,-" + ((this.vars.stf.value - 30) * 10) +  "px)";
