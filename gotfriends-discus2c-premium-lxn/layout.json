@@ -131,7 +131,12 @@
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/panel/panel.cfg",
       "size": 2237,
-      "date": 133212150944964108
+      "date": 133214815877123234
+    },
+    {
+      "path": "SimObjects/Airplanes/gotfriends-discus2c/panel/panel_original_vario.cfg",
+      "size": 2190,
+      "date": 133214816206083972
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/panel.NOREG/panel.cfg",
