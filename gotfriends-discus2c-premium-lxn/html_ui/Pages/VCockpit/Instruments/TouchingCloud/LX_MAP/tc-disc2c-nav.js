@@ -273,6 +273,7 @@ class lxn extends NavSystemTouch {
         if(this.TIME_S - this.TIMER_05 > 0.5) {
             /* Stuff happening twice per second  */
             this.TIMER_05 = this.TIME_S;
+            this.ENGINE_RUNNING = SimVar.GetSimVarValue("A:GENERAL ENG COMBUSTION:1","boolean") ? true : false;
 
             let mastermc = SimVar.GetSimVarValue("L:BEZEL_CAL","percent")
             if(this.v80_mcvalue != mastermc) {
@@ -310,6 +311,24 @@ class lxn extends NavSystemTouch {
             SimVar.SetSimVarValue("L:JBB_CURRENT_POLAR_SINK","knots",this.vars.polar_sink.value);
             this.vars.total_energy.value = this.jbb_getTotalEnergy() / 0.51444;
             this.vars.calc_netto.value = this.vars.total_energy.value + Math.abs(this.vars.polar_sink.value);
+
+            // Detect SLEWED, TIME_NEGATIVE
+            if (B21_SOARING_ENGINE.task_active() &&
+                B21_SOARING_ENGINE.task_started() &&
+                ! B21_SOARING_ENGINE.task_finished()) {
+
+                 if (this.ENGINE_RUNNING) {
+                    this.SIM_TIME_ENGINE = true;
+                    if(!this.enginewarnsilencer) {
+                        if(CONFIGPANEL.cockpitwarnings) {
+                                this.popalert("Engine running - Task failed", "", 5)
+                        }
+                        this.enginewarnsilencer = true;
+                    }
+                } else {
+                        this.enginewarnsilencer = false;
+                }   
+            }
         }
 
         if(this.TIME_S - this.TIMER_1 > 1) {
@@ -371,14 +390,6 @@ class lxn extends NavSystemTouch {
                 this.overspeedsilencer = false;
             }
 
-            /*
-            let ambient_temp_kelvin = SimVar.GetSimVarValue("AMBIENT TEMPERATURE", "kelvin");
-            let ambient_pressure = SimVar.GetSimVarValue("AMBIENT PRESSURE", "millibar");
-    
-            let tcal_ms = (this.vars.ias.value * 0.51444424416) / Math.sqrt(288.15 / ambient_temp_kelvin * ambient_pressure / 1013.25);
-            console.log(tcal_ms);
-            this.vars.tas_calc.value = tcal_ms * 1.9438452;
-            */
         }
 
         if(this.lift_dots_timer_prev == null) {
