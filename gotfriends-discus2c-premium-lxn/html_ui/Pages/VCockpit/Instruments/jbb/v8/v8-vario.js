@@ -16,7 +16,7 @@ class v8_varioclass extends BaseInstrument {
 
     get templateID() { return "v8-vario"; }
 
-    get isInteractive() { return false;}
+    get isInteractive() { return true;}
 
     connectedCallback() {
         super.connectedCallback();
@@ -27,7 +27,7 @@ class v8_varioclass extends BaseInstrument {
         this.scale = "straight";
         
         this.variomode = "total_energy";
-        this.averager = 10; // number of seconds (approx.) to calculate rolling average
+        this.averager = .5; // number of seconds (approx.) to calculate rolling average for needle smoothing
         this.avgvalues = []; // array to sore values for averager
         this.liftsmoother = []; // array to smooth out current value
         this.windsmoother = 0; // variable to smooth out current vertical wind
@@ -75,6 +75,7 @@ class v8_varioclass extends BaseInstrument {
             this.root.querySelector("#datafields"),
             this.root.querySelector("#hawk"),
             this.root.querySelector("#attitude"),
+            this.root.querySelector("#smoothing")
         ]
         this.currentScreen = 0;
 
@@ -93,6 +94,17 @@ class v8_varioclass extends BaseInstrument {
                 }
             }
         })
+
+        let savedsmoothing = GetStoredData("Discus_variosmoothing") != "" ? parseInt(GetStoredData("Discus_variosmoothing")) : 1;  
+        SimVar.SetSimVarValue("L:VARIO_SMOOTHING", "number", savedsmoothing);
+
+        this.smoothingrange = new rangeinput(document.querySelector("#smoothingslider"), function(val) { 
+            SimVar.SetSimVarValue("L:VARIO_SMOOTHING", "number", Math.round(val));
+            SetStoredData("Discus_variosmoothing", val.toFixed(0)) 
+        });
+        
+        this.smoothingrange.setValue(savedsmoothing);
+        document.querySelector("#smoothing").style.display = "none";
     }
 
     pageUp() {
@@ -180,42 +192,19 @@ class v8_varioclass extends BaseInstrument {
 
     updatecurrent(currentvalue) {
         this.liftsmoother.push(parseFloat(currentvalue));
-        if(this.liftsmoother.length > 10) { this.liftsmoother.shift() }
 
-        const initialEstimate = this.liftsmoother[0];
-        const initialError = 1;
-        const processNoise = 0.1;
-        const measurementNoise = 2;
-
-        // const result = this.kalmanFilter(this.liftsmoother, initialEstimate, initialError, processNoise, measurementNoise);
-        // return result[result.length-1]
-        // return result.reduce((a, b) => a + b, 0) / result.length;
+        let limit = SimVar.GetSimVarValue("L:VARIO_SMOOTHING", "number") > 0 ? SimVar.GetSimVarValue("L:VARIO_SMOOTHING", "number") : 0.2;
+        
+        while(this.liftsmoother.length > limit * 18) { this.liftsmoother.shift(); }
 
         return this.liftsmoother.reduce((a, b) => a + b, 0) / this.liftsmoother.length;
-    }
-
-    kalmanFilter(measurements, initialEstimate, initialError, processNoise, measurementNoise) {
-        let state = initialEstimate;
-        let error = initialError;
-        
-        return measurements.map(measurement => {
-          // Predict
-          const predictedState = state;
-          const predictedError = error + processNoise;
-          
-          // Update
-          const kalmanGain = predictedError / (predictedError + measurementNoise);
-          state = predictedState + kalmanGain * (measurement - predictedState);
-          error = (1 - kalmanGain) * predictedError;
-          
-          return state;
-        });
-    }
-      
+    }    
 
     updateaverage(currentvalue) {
         this.avgvalues.push(parseFloat(currentvalue));
-        if(this.avgvalues.length > this.averager * 18) { this.avgvalues.shift() }
+
+        let limit = SimVar.GetSimVarValue("L:VARIO_SMOOTHING", "number") > 0 ? SimVar.GetSimVarValue("L:VARIO_SMOOTHING", "number") : 1;
+        while(this.avgvalues.length > limit * 10 * 18) { this.avgvalues.shift() }
 
         let min = Math.min(...this.avgvalues);
         let max = Math.max(...this.avgvalues);
@@ -389,5 +378,108 @@ class v8_varioclass extends BaseInstrument {
     }
 }
 
-
 registerInstrument("v8-vario-element", v8_varioclass);
+
+class rangeinput {
+    constructor(el, callback) {
+        this.rangebg = el;
+        this.id = el.getAttribute("id");
+        
+        this.marker = document.createElement("div");
+        this.marker.setAttribute("class","marker");
+        el.appendChild(this.marker);
+        
+        this.rail = document.createElement("div");
+        this.rail.setAttribute("class","rail");
+
+        this.label = document.createElement("div");
+        this.label.setAttribute("class","label");
+
+        this.handle = document.createElement("div");
+        this.handle.setAttribute("class", "handle");
+
+        this.interact = document.createElement("div");
+        this.interact.setAttribute("class", "interact");
+
+        this.rail.appendChild(this.label);
+        this.rail.appendChild(this.handle);
+        this.rail.appendChild(this.interact);
+        el.appendChild(this.rail);
+
+        this.isActive = false;
+        this.clickposition = 0;
+        this.maxvalue = parseFloat(el.getAttribute("data-max"));
+        this.minvalue = parseFloat(el.getAttribute("data-min"));
+
+        this.callback = callback;
+
+        this.initvalue = parseFloat(el.getAttribute("data-value"));
+        this.outputvalue = this.initvalue;
+
+        this.init();
+        
+    }
+
+    init() {
+        let thisinput = this;
+        thisinput.rail.addEventListener("mousedown", (e)=> {
+            thisinput.handle.style.backgroundColor = "#888";
+            thisinput.clickposition = e.offsetX;
+            thisinput.isActive = true;
+        })
+
+        thisinput.rail.addEventListener("mouseup", (e)=> {
+            thisinput.handle.style.backgroundColor = "#ccc";
+            thisinput.isActive = false;
+        })
+
+        thisinput.rail.addEventListener("mouseleave", (e)=> {
+            thisinput.handle.style.backgroundColor = "#ccc";
+            thisinput.isActive = false;
+        })
+
+        thisinput.rail.addEventListener("mousemove", (e) => {
+            if(thisinput.isActive) {
+                let pos = e.offsetX - thisinput.handle.clientWidth / 2;
+                let max = thisinput.rail.clientWidth - thisinput.handle.clientWidth;
+                pos = pos < 0 ? 0 : pos;
+                pos = pos < max - thisinput.handle.clientWidth / 2 ? pos : max ;
+
+                thisinput.marker.style.width = (pos + thisinput.handle.clientWidth / 2)  + "px";
+                thisinput.handle.style.left = pos + "px";
+
+                let diff = thisinput.maxvalue - thisinput.minvalue;
+                let value = (( pos / max ) * diff) + thisinput.minvalue;
+                thisinput.outputvalue = value;
+                thisinput.addLabel();
+
+                thisinput.callback(thisinput.outputvalue);
+            }
+        })
+        
+        this.setValue(this.initvalue);
+    }
+
+    setValue(val) {
+        if(val < this.minvalue || val > this.maxvalue) { return; }
+        let diff = this.maxvalue - this.minvalue;
+        let max = this.rail.clientWidth - this.handle.clientWidth;
+        let pos = (max / diff) * (val - this.minvalue);
+        this.handle.style.left = pos + "px";
+        this.marker.style.width = (pos + this.handle.clientWidth / 2)  + "px";
+        this.outputvalue = val;
+        this.addLabel();
+    }
+
+    getValue() { return this.outputvalue; }
+
+    addLabel() {
+        let labelvalue = this.maxvalue == 1 ? (this.outputvalue * 100).toFixed(0) : this.outputvalue.toFixed(0);
+        this.label.innerText = labelvalue;
+        if(parseInt(this.handle.style.left) < 100) {
+            this.label.classList.add("placeright");
+        } else {
+            this.label.classList.remove("placeright"); 
+        }
+    }
+}

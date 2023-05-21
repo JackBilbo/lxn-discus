@@ -274,6 +274,7 @@ class lxn extends NavSystemTouch {
             /* Stuff happening twice per second  */
             this.TIMER_05 = this.TIME_S;
             this.ENGINE_RUNNING = SimVar.GetSimVarValue("A:GENERAL ENG COMBUSTION:1","boolean") ? true : false;
+            this.SLEW_MODE = SimVar.GetSimVarValue("IS SLEW ACTIVE", "bool") ? true : false; // Convert number to JS boolean
 
             let mastermc = SimVar.GetSimVarValue("L:BEZEL_CAL","percent")
             if(this.v80_mcvalue != mastermc) {
@@ -312,7 +313,7 @@ class lxn extends NavSystemTouch {
             this.vars.total_energy.value = this.jbb_getTotalEnergy() / 0.51444;
             this.vars.calc_netto.value = this.vars.total_energy.value + Math.abs(this.vars.polar_sink.value);
 
-            // Detect SLEWED, TIME_NEGATIVE
+            // Detect SLEWED, TIME_NEGATIVE, ENGINE
             if (B21_SOARING_ENGINE.task_active() &&
                 B21_SOARING_ENGINE.task_started() &&
                 ! B21_SOARING_ENGINE.task_finished()) {
@@ -327,7 +328,11 @@ class lxn extends NavSystemTouch {
                     }
                 } else {
                         this.enginewarnsilencer = false;
-                }   
+                }  
+                
+                if (this.SLEW_MODE) {
+                    this.SIM_TIME_SLEWED = true;
+                }
             }
         }
 
