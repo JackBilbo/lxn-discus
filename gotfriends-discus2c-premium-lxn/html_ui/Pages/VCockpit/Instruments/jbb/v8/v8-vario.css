@@ -511,3 +511,101 @@
     border-right: 0.5em solid transparent;
     border-bottom: 1em solid transparent;
 }
+
+#smoothing {
+   /* display: none;*/
+}
+
+/* Range Inputs */
+
+.rangepositioner {
+    margin: 2em 2em 2em 0.5em;
+}
+
+.config_entry {
+    position: relative;
+    display: flex;
+	flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+	margin-bottom: 2rem;
+}
+
+.config_label {
+    width: 83%;
+    padding-right: 0.5rem;
+}
+
+.range .config_label {
+	width: 100%;
+    text-align: center;
+    padding: 0;
+}
+
+.config_label .title { font-size: 1.2em; }
+.config_label .description { color: #aaa; }
+
+.rangeinput {
+    display: block;
+    width: 100%;
+    border: 2px solid #ccc;
+    height: 4rem;
+    border-radius: 2rem;
+	position: relative;
+	margin: 1rem 0;
+}
+
+.rail {
+    position: absolute;
+    width: calc(100% - 0.5rem);
+    height: 4rem;
+    left: 0.3rem;
+    top:0;
+
+}
+
+.marker {
+        background-color: #2656a3;
+        height: 3.8rem;
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-top-left-radius: 2rem;
+        border-bottom-left-radius: 2rem;
+    }
+
+.rangeinput .handle {
+    position: absolute;
+    height: 3.4rem;
+    width: 3.4rem;
+    top: 0.3rem;
+    left: 0;
+    border: 1px solid #ccc;
+    background-color: #ccc;
+    border-radius: 50%;
+
+}
+
+.interact {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+}
+
+.rangeinput .label {
+	display: block;
+	float: left;
+    font-size: 1.8em;
+	line-height: 2.2em;
+	padding: 0 0.5em;
+}
+
+.rangeinput .label.placeright {
+	float: right;
+}
+
+
+
+/* /range inputs */
