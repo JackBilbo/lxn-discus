@@ -203,8 +203,8 @@ class v8_varioclass extends BaseInstrument {
     updateaverage(currentvalue) {
         this.avgvalues.push(parseFloat(currentvalue));
 
-        let limit = SimVar.GetSimVarValue("L:VARIO_SMOOTHING", "number") > 0 ? SimVar.GetSimVarValue("L:VARIO_SMOOTHING", "number") : 1;
-        while(this.avgvalues.length > limit * 10 * 18) { this.avgvalues.shift() }
+        // let limit = SimVar.GetSimVarValue("L:VARIO_SMOOTHING", "number") > 0 ? SimVar.GetSimVarValue("L:VARIO_SMOOTHING", "number") : 1;
+        while(this.avgvalues.length > 180) { this.avgvalues.shift() }
 
         let min = Math.min(...this.avgvalues);
         let max = Math.max(...this.avgvalues);
@@ -279,7 +279,7 @@ class v8_varioclass extends BaseInstrument {
 
         this.horizontalwinddirection = SimVar.GetSimVarValue("A:AMBIENT WIND DIRECTION", "degrees");
         this.horizontalwinddirectionaverage.push(this.horizontalwinddirection);
-        if(this.horizontalwinddirectionaverage.length > this.averager * 18) { this.horizontalwinddirectionaverage.shift() }
+        if(this.horizontalwinddirectionaverage.length > this.averager * 180) { this.horizontalwinddirectionaverage.shift() } // 10 sec average on wind direction
 
         this.verticalwindsmoother.push(SimVar.GetSimVarValue("A:AMBIENT WIND Y", this.u[this.units].verticalspeed));
         if(this.verticalwindsmoother.length > 20) { this.verticalwindsmoother.shift() }
@@ -288,7 +288,9 @@ class v8_varioclass extends BaseInstrument {
 
     updateHawk() {
         let hdg = SimVar.GetSimVarValue("A:PLANE HEADING DEGREES TRUE","degrees");
-        let avgwinddirection = this.horizontalwinddirectionaverage.reduce((a, b) => a + b, 0) / this.horizontalwinddirectionaverage.length;
+
+        let avgwinddirection = this.meanAngleDeg(this.horizontalwinddirectionaverage);
+        avgwinddirection = avgwinddirection < 0 ? 360 + avgwinddirection : avgwinddirection;
         let avgwindspeed = this.horizontalwindspeedaverage.reduce((a, b) => a + b, 0) / this.horizontalwindspeedaverage.length;
     
         let vector = Math.min(185, this.horizontalwindspeed * 5 + 60);
@@ -375,6 +377,23 @@ class v8_varioclass extends BaseInstrument {
             this.speedtape.querySelector(".speedlabels").innerHTML += '<span style="bottom: ' + ((i * this.speedtapestep) - 9) + 'px">' + i + '</span>';
         } 
 
+    }
+
+    sum(a) {
+        var s = 0;
+        for (var i = 0; i < a.length; i++) s += a[i];
+        return s;
+    } 
+    
+    degToRad(a) {
+        return Math.PI / 180 * a;
+    }
+    
+    meanAngleDeg(a) {
+        return 180 / Math.PI * Math.atan2(
+            this.sum(a.map(this.degToRad).map(Math.sin)) / a.length,
+            this.sum(a.map(this.degToRad).map(Math.cos)) / a.length
+        );
     }
 }
 
@@ -463,10 +482,11 @@ class rangeinput {
     setValue(val) {
         if(val < this.minvalue || val > this.maxvalue) { return; }
         let diff = this.maxvalue - this.minvalue;
-        let max = this.rail.clientWidth - this.handle.clientWidth;
+        // let max = this.rail.clientWidth - this.handle.clientWidth;
+        let max = 159 - 39;
         let pos = (max / diff) * (val - this.minvalue);
         this.handle.style.left = pos + "px";
-        this.marker.style.width = (pos + this.handle.clientWidth / 2)  + "px";
+        this.marker.style.width = (pos + 39 / 2)  + "px";
         this.outputvalue = val;
         this.addLabel();
     }
