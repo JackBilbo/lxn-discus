@@ -513,13 +513,13 @@
 }
 
 #smoothing {
-   /* display: none;*/
+   display: none;
 }
 
 /* Range Inputs */
 
 .rangepositioner {
-    margin: 2em 2em 2em 0.5em;
+    margin: 3em 2em 2em 0.5em;
 }
 
 .config_entry {
@@ -548,8 +548,8 @@
     display: block;
     width: 100%;
     border: 2px solid #ccc;
-    height: 4rem;
-    border-radius: 2rem;
+    height: 3rem;
+    border-radius: 1.5rem;
 	position: relative;
 	margin: 1rem 0;
 }
@@ -557,7 +557,7 @@
 .rail {
     position: absolute;
     width: calc(100% - 0.5rem);
-    height: 4rem;
+    height: 2.8rem;
     left: 0.3rem;
     top:0;
 
@@ -565,19 +565,19 @@
 
 .marker {
         background-color: #2656a3;
-        height: 3.8rem;
+        height: 2.8rem;
         position: absolute;
         left: 0;
         top: 0;
-        border-top-left-radius: 2rem;
-        border-bottom-left-radius: 2rem;
+        border-top-left-radius: 1.4rem;
+        border-bottom-left-radius: 1.4rem;
     }
 
 .rangeinput .handle {
     position: absolute;
-    height: 3.4rem;
-    width: 3.4rem;
-    top: 0.3rem;
+    height: 2.6rem;
+    width: 2.6rem;
+    top: 0.1rem;
     left: 0;
     border: 1px solid #ccc;
     background-color: #ccc;
@@ -598,7 +598,7 @@
 	display: block;
 	float: left;
     font-size: 1.8em;
-	line-height: 2.2em;
+	line-height: 1.5;
 	padding: 0 0.5em;
 }
 

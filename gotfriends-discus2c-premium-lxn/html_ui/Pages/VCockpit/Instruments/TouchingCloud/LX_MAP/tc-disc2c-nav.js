@@ -182,6 +182,7 @@ class lxn extends NavSystemTouch {
         this.overspeedexit = 0;
         this.overspeedtotal = 0;
 
+        this.avg_wind_direction = [];
         this.tick = 0;
 
         UI.resetPages();
@@ -208,6 +209,30 @@ class lxn extends NavSystemTouch {
 
         this.TIME_S = SimVar.GetSimVarValue("E:SIMULATION TIME","seconds");
         this.SIM_TIME_S = this.TIME_S;
+        this.SLEW_MODE = SimVar.GetSimVarValue("IS SLEW ACTIVE", "bool") ? true : false;
+        this.ENGINE_RUNNING = SimVar.GetSimVarValue("A:GENERAL ENG COMBUSTION:1","boolean") ? true : false;
+
+        // Detect SLEWED, TIME_NEGATIVE
+        if (B21_SOARING_ENGINE.task_active() &&
+        B21_SOARING_ENGINE.task_started() &&
+        ! B21_SOARING_ENGINE.task_finished()) {
+
+            if (this.ENGINE_RUNNING) {
+                this.SIM_TIME_ENGINE = true;
+                if(!this.enginewarnsilencer) {
+                    if(CONFIGPANEL.cockpitwarnings) {
+                            this.popalert("Engine running - Task failed", "", 5)
+                    }
+                    this.enginewarnsilencer = true;
+                }
+            } else {
+                    this.enginewarnsilencer = false;
+            }
+            
+            if (this.SLEW_MODE) {
+                this.SIM_TIME_SLEWED = true;
+            }
+        }
         
         if(this.tick == 0) {
             this.vars.ias.value = SimVar.GetSimVarValue("A:AIRSPEED INDICATED", "knots");
@@ -236,7 +261,7 @@ class lxn extends NavSystemTouch {
         
         if(this.tick == 1) {
             this.vars.wind_spd.value = parseFloat(SimVar.GetSimVarValue("A:AMBIENT WIND VELOCITY", "knots"));
-            this.vars.wind_direction.value = this.vars.wind_direction.value != null ? (0.9 * this.vars.wind_direction.value) + (0.1 * SimVar.GetSimVarValue("A:AMBIENT WIND DIRECTION", "degrees")) : SimVar.GetSimVarValue("A:AMBIENT WIND DIRECTION", "degrees");
+            this.vars.wind_direction.value = parseInt(SimVar.GetSimVarValue("A:AMBIENT WIND DIRECTION", "degrees"));
             this.vars.wind_vertical.value = SimVar.GetSimVarValue("A:AMBIENT WIND Y", "knots");
             this.vars.current_netto.value = (this.vars.current_netto.value * 0.9) + (SimVar.GetSimVarValue("L:NETTO", "knots") * 0.1);
             if(this.vars.aoa.isUsed) {this.vars.aoa.value = SimVar.GetSimVarValue("INCIDENCE ALPHA", "radians") * (180/Math.PI);}
@@ -313,27 +338,6 @@ class lxn extends NavSystemTouch {
             this.vars.total_energy.value = this.jbb_getTotalEnergy() / 0.51444;
             this.vars.calc_netto.value = this.vars.total_energy.value + Math.abs(this.vars.polar_sink.value);
 
-            // Detect SLEWED, TIME_NEGATIVE, ENGINE
-            if (B21_SOARING_ENGINE.task_active() &&
-                B21_SOARING_ENGINE.task_started() &&
-                ! B21_SOARING_ENGINE.task_finished()) {
-
-                 if (this.ENGINE_RUNNING) {
-                    this.SIM_TIME_ENGINE = true;
-                    if(!this.enginewarnsilencer) {
-                        if(CONFIGPANEL.cockpitwarnings) {
-                                this.popalert("Engine running - Task failed", "", 5)
-                        }
-                        this.enginewarnsilencer = true;
-                    }
-                } else {
-                        this.enginewarnsilencer = false;
-                }  
-                
-                if (this.SLEW_MODE) {
-                    this.SIM_TIME_SLEWED = true;
-                }
-            }
         }
 
         if(this.TIME_S - this.TIMER_1 > 1) {
@@ -846,24 +850,21 @@ class lxn extends NavSystemTouch {
     
     jbb_update_hawk() {
         let current_wind_direction = this.vars.wind_direction.value;
-        this.hawkwinddir = this.hawkwinddir != null ? (0.9 * this.hawkwinddir) + (0.1 * current_wind_direction) : current_wind_direction;
-        this.jbb_avg_wind_direction = this.jbb_avg_wind_direction != null ? ((0.99 * this.jbb_avg_wind_direction) + (0.01 * this.hawkwinddir)) : this.hawkwinddir;
-
-        let averageindicator = this.jbb_avg_wind_direction;
-       
         let current_wind_speed = this.vars.wind_spd.value;
-        this.hawkwindspeed = this.hawkwindspeed != null ? (0.9 * this.hawkwindspeed) + (0.1 * current_wind_speed) : current_wind_speed; 
-        this.jbb_avg_wind_speed = this.jbb_avg_wind_speed != null ? ((0.99 * this.jbb_avg_wind_speed) + (0.01 * this.hawkwindspeed)) : this.hawkwindspeed;
+        this.avg_wind_speed = this.avg_wind_speed != null ? ((0.99 * this.avg_wind_speed) + (0.01 * current_wind_speed)) : current_wind_speed;
+
+        this.avg_wind_direction.push(current_wind_direction);
+        if(this.avg_wind_direction.length > 45) { this.avg_wind_direction.shift() } // 10 sec average on wind direction
+        let averageindicator = this.meanAngleDeg(this.avg_wind_direction);
 
         document.querySelector("#hawk #arrow_avg").style.transform = "rotate(" + (NAVMAP.map_rotation == "trackup" ? averageindicator - this.vars.hdg.value : averageindicator) + "deg)";
-        document.querySelector("#hawk #arrow_current").style.transform = "rotate(" + (NAVMAP.map_rotation == "trackup" ? this.hawkwinddir - this.vars.hdg.value : this.hawkwinddir) + "deg)";
+        document.querySelector("#hawk #arrow_current").style.transform = "rotate(" + (NAVMAP.map_rotation == "trackup" ? current_wind_direction - this.vars.hdg.value : current_wind_direction) + "deg)";
 
-
-        let wv = Math.min(600, this.hawkwindspeed * 10 + 150);
+        let wv = Math.min(600, current_wind_speed * 10 + 150);
         this.querySelector("#hawk #arrow_current").style.height = wv +"px";
         this.querySelector("#hawk #arrow_current").style.top = -wv/2 +"px";
 
-        let wvavg = Math.min(600, this.jbb_avg_wind_speed * 10 + 150);
+        let wvavg = Math.min(600, this.avg_wind_speed * 10 + 150);
         this.querySelector("#hawk #arrow_avg").style.height = wvavg +"px";
         this.querySelector("#hawk #arrow_avg").style.top = -wvavg/2 +"px";
         
@@ -878,6 +879,25 @@ class lxn extends NavSystemTouch {
 
         this.querySelector("#hawkbar").style.height =  Math.abs(this.vars.wind_vertical.value * 18) + "px";
     }
+
+    sum(a) {
+        var s = 0;
+        for (var i = 0; i < a.length; i++) s += a[i];
+        return s;
+    } 
+    
+    degToRad(a) {
+        return Math.PI / 180 * a;
+    }
+    
+    meanAngleDeg(a) {
+        return 180 / Math.PI * Math.atan2(
+            this.sum(a.map(this.degToRad).map(Math.sin)) / a.length,
+            this.sum(a.map(this.degToRad).map(Math.cos)) / a.length
+        );
+    }
+
+
 
     addLiftdot() {
         let position = this.get_position();
@@ -1013,16 +1033,19 @@ class lxn extends NavSystemTouch {
             
             this.vars.tasktime.value = B21_SOARING_ENGINE.task.finish_time_s - B21_SOARING_ENGINE.task.start_time_s;  
             
+            /*
             taskheader.querySelector(".task-failures").innerHTML = this.overspeedtotal.toFixed(0) + "s in Overspeed";
             taskheader.querySelector(".task-failures").style.display = "block";
+            */
         }
 
         /* Cheat-Warnings */
-        if (this.SIM_TIME_PAUSED || this.SIM_TIME_SLEWED || this.SIM_TIME_NEGATIVE || this.SIM_TIME_ENGINE) {
+        if (this.SIM_TIME_PAUSED || this.SIM_TIME_SLEWED || this.SIM_TIME_NEGATIVE || this.SIM_TIME_ENGINE || this.overspeedtotal > 0) {
             let alert_msg = this.SIM_TIME_PAUSED ? "+PAUSED " : "";
             alert_msg += this.SIM_TIME_SLEWED ? "+SLEWED " : "";
             alert_msg += this.SIM_TIME_NEGATIVE ? "+TIME_SLIDE " : "";
             alert_msg += this.SIM_TIME_ENGINE ? "+MOTOR" : "";
+            alert_msg += this.overspeedtotal > 0 ? "+" + this.overspeedtotal.toFixed(0) + "s OVERSPEED" : "";
 		
 	        document.querySelector(".task-alerts").innerHTML = alert_msg;
 	        document.querySelector(".task-alerts").style.display = "block";    
@@ -1048,12 +1071,14 @@ class lxn extends NavSystemTouch {
         } 
         
         if (B21_SOARING_ENGINE.task_finished()) {
-            if(this.overspeedtotal > 0) {
-                document.getElementById("tasklist").setAttribute("class","task_finished task_overspeed hasScrollbars");
-            } else {
-                document.getElementById("tasklist").setAttribute("class","task_finished hasScrollbars");
-            }
+            document.getElementById("tasklist").setAttribute("class","task_finished hasScrollbars");
+            
+            if(document.querySelector(".task-alerts").style.display = "block") {
+                document.getElementById("tasklist").classList.add("task_overspeed");
+            } 
+            
         }
+        
 
         for (let wp_index=0; wp_index<B21_SOARING_ENGINE.task_length(); wp_index++) {
             let wp_el = document.getElementById("wp_" + wp_index);
@@ -1299,12 +1324,12 @@ class lxn extends NavSystemTouch {
     message_task_finish(wp, finish_speed_ms, completion_time_s) {
         // Display "TASK COMPLETED" message
         let hl = "TASK COMPLETED ";
-        let msg_str = this.displayValue(finish_speed_ms,"ms","speed") + this.units.speed.pref + " (" + this.overspeedtotal.toFixed(0) + "s Overspeed)<br/>";
+        let msg_str = this.displayValue(finish_speed_ms,"ms","speed") + this.units.speed.pref + "<br/>";
         msg_str += this.displayValue(this.vars.localtime.value,"s","time_of_day")+"<br/>";
         msg_str += wp.name+"<br/>";
         msg_str += "SEE TASK PAGE.";
-        // this.task_message(msg_str, 10); // Display start message for 3 seconds
-        let popcolor = this.overspeedtotal > 0 ? "#cc0000" : "#26783c";
+        
+        let popcolor = document.querySelector(".task-alerts").style.display == "block" ? "#cc0000" : "#26783c";
         this.popalert(hl,msg_str,10,popcolor);
     }
 
