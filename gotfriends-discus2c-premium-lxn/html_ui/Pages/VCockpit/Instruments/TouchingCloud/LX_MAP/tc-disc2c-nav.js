@@ -843,6 +843,16 @@ class lxn extends NavSystemTouch {
             document.querySelector(".speedladder.kts").style.transform = "translate(0, " + speedbandoffset +  "px)";
         }
 
+        if(this.vars.tas.value > 123) {
+            let op = Math.abs((124 - this.vars.tas.value) / 30);
+            document.querySelectorAll(".speedladder").forEach((e)=> {
+                e.style.backgroundColor = "rgba(255,125,0," + op + ")";
+            })
+        } else {
+            document.querySelectorAll(".speedladder").forEach((e)=> {
+                e.style.backgroundColor = "transparent";
+            })
+        }
         
     }
     
