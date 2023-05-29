@@ -3,6 +3,10 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <h2>Fixes and Features:</h2>
 
+<strong>Check for slew and engine use</strong>
+
+Using the engine or slew mode during a task will now be registered and invalidate the task. Using either before start or after finish line will have no consequences.
+
 <strong>Dynamic Overspeed Warning:</strong>
 
 The speedtape gauge  shows a dynamic estimation of Vne translated to indicated airspeed as "red zone". Additionally the background of the speed tape will gradually turn orange as your speed ghet's closer to Vne.
@@ -21,16 +25,16 @@ The rework contains a slightly enlarged scale and needles for better readability
 
 The orange arc marks the range of values measured during the last ten seconds.
 
-Center of the instrument can display three different screens:
+Center of the instrument can display four different screens:
 
 - data fields for current and average climb plus a (VERY) tiny speedtape and STF-Marker
 - horizontal wind info (HAWK-style see above)
 - simple artificial horizon
-- slider to adjust needle smoothing (calculating average values) between 0 and 5 seconds. Allows to change the sensitivity of the vario needle in gusty conditions. 
+- slider to adjust "current" needle smoothing (calculating average values) between 0 and 5 seconds. Allows to change the sensitivity of the vario needle in gusty conditions. Higher values will make the vario less responsive when entering lift, but filter out rapid movement from rapidly changing wind speeds.
 
 Screens can be cycled using the top and bottom button on the right. Center button toggles between the default linear and a logarithmic scale. You can also cycle screens using alt/a alt/s on the keyboard (doesn't work in VR).
 
-Audio output of the vario is completely unchanged, as that is not done in JS, but in the model.xml code.
+Audio output of the vario is completely unchanged.
 
 
 
