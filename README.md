@@ -3,20 +3,14 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <h2>Fixes and Features:</h2>
 
-<strong>Overspeed Warning:</strong>
+<strong>Dynamic Overspeed Warning:</strong>
 
-Coded and contributed bei LeNinjaHD - thanks for that! Gives you a red warning if exceeding 152 knots true airspeed. Depending on altitude that can be way before reaching the red line on the VSI.
-
-The message will pop up each time you pass the threshold for ten seconds and the disappear without any harm. Connected to the "Cockpit Warnings"-Switch in "Interface options" so can be deactivated. Or even is if you have deactivated those gear and ballast warnings.
-
-No matter if deactivated, exceeding Vne will be recorded and evaluated at the end of the current task.
-
-The speedtape gauge also shows a dynamic estimation of Vne translated to indicated airspeed as "red zone". This estimation will always be a little on the "pessimistic" side, placing the red overspeed line a little lower than the popup trigger to give you an early warning.
+The speedtape gauge  shows a dynamic estimation of Vne translated to indicated airspeed as "red zone". Additionally the background of the speed tape will gradually turn orange as your speed ghet's closer to Vne.
 
 
 <strong>Reworked Digital Variometer</strong>
 
-Breaking out of the small square screen... reworked the visuals of the digital vario. If you don't like it and want to keep the original, head for the folder /SimObjects/Airplanes/gotfriends-discus2c(-fes)/panel/ and rename panel_original_vario.cfg into panel.cfg (delete or rename the existing file) and you are back to normal. Alternatively just open the panel.cfg in a text editor and place the comment marks for [VCockpit06] accordingly to load the vario you prefer.
+This mod contains a visual rework of the digital vario. If you don't like it and want to keep the original, head for the folder /SimObjects/Airplanes/gotfriends-discus2c(-fes)/panel/ and rename panel_original_vario.cfg into panel.cfg (delete or rename the existing file) and you are back to normal. Alternatively just open the panel.cfg in a text editor and place the comment marks for [VCockpit06] accordingly to load the vario you prefer.
 
 The rework contains a slightly enlarged scale and needles for better readability with five indicators:
 - orange: current climb/sink (TE or netto as selected by the bottom right knob)
@@ -29,9 +23,10 @@ The orange arc marks the range of values measured during the last ten seconds.
 
 Center of the instrument can display three different screens:
 
-- data fields for current and average climb plus a (VERY) tiny speedtape and STF-Marker (laughed hard when i saw it in VR myself :-))
+- data fields for current and average climb plus a (VERY) tiny speedtape and STF-Marker
 - horizontal wind info (HAWK-style see above)
 - simple artificial horizon
+- slider to adjust needle smoothing (calculating average values) between 0 and 5 seconds. Allows to change the sensitivity of the vario needle in gusty conditions. 
 
 Screens can be cycled using the top and bottom button on the right. Center button toggles between the default linear and a logarithmic scale. You can also cycle screens using alt/a alt/s on the keyboard (doesn't work in VR).
 
@@ -81,19 +76,6 @@ The Config-Page gives you access to various settings:
 All config settings apart from bugs and ballast are persistent between sessions. Just make sure to click "close" after making any changes.
 
 
-<h2>Multiplayer Racing</h2>
-
-Multiplayer-Info is located as a sub page under the task list - simply page down.
-
-First view asks you to enter a username. As default the aircraft registration is used. You can change that to your pleasing. A good idea would be to use a name short name, as it will later be displayed on other pilots nav map and you don't want to clutter that with a username like "bestpilotinthewholewideworld2338992" ;-) 
-
-Once connected you see a - most likely very short or empty "events" list, showing all available flights. You only see events that use the same task/flightplan you have currently loaded. Click an event to join or click "add new flight" to create your own event and then join it. You need to enter a title and the start time (hour and minutes) in UTC/ZULU time.
-
-Once other pilots join you'll see the list of participants and also see other pilots position on the nav map. If you assigned "task time" to a data field it will now show a countdown to task start.
-
-When a pilot crosses the start line, his/her average speed and flown distance is shown in the list. The list will now be sorted by distance flown, effectively a live ranking of the race. When a pilot crosses the finish line, total task time will be displayed instead of distance flown and used for sorting.
-
-Communication is done via a google cloud service that has a traffic limit, so the feature might not always be available.
 
 <h2>Some more Details</h2>
 
