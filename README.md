@@ -63,7 +63,7 @@ Data fields can be forced to use either metric or imperial units of measurement.
 
 In standard mode the data fields are rather small and can be hard to read especially in VR. As a solution an "improved readability" mode can be activated in the "interface options". That mode shows only six data fields per page but with much larger text. Also a few other interface elements are enlarged in this mode.
 
-The task management system is Ian „B21“ Lewis’ Soaring Engine from the AS33. Some features like calculating glide ratios could not be recreated, as they are dependent of other instruments in the AS33. Others are still on the to do list.
+The task management system is Ian „B21“ Lewis’ Soaring Engine from the AS33. "TASK" Page shows the status of the loaded task on top ("not started", "running", "finished") and a list of all available waypoints. When you pass a waypoint it's marked "ok" and jumps to the bottom of the list, so that the current waypoint is always on top of the list. After all waypoints are passed correctly the page shows task time, distance and average speed in the header. If you used the engine, slew mode or exceeded maximum speed (Vne = 154 kts True Airspeed) for more than 5 seconds, the header will turn red an include a notification.
 
 The wind indicator in the center of the map is loosely based on the real world LX-„Hawk“ system displaying current (blue) and average (grey) wind-arrows and a green/red column indicator for the vertical wind component.
 
