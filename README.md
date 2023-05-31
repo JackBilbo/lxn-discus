@@ -9,7 +9,7 @@ Using the engine or slew mode during a task will now be registered and invalidat
 
 <strong>Dynamic Overspeed Warning:</strong>
 
-The speedtape gauge  shows a dynamic estimation of Vne translated to indicated airspeed as "red zone". Additionally the background of the speed tape will gradually turn orange as your speed ghet's closer to Vne.
+The speedtape gauge  shows a dynamic estimation of Vne translated to indicated airspeed as "red zone". Additionally the background of the speed tape will gradually turn orange as your speed get's closer to Vne.
 
 
 <strong>Reworked Digital Variometer</strong>
@@ -62,7 +62,7 @@ Data fields can be forced to use either metric or imperial units of measurement.
 
 In standard mode the data fields are rather small and can be hard to read especially in VR. As a solution an "improved readability" mode can be activated in the "interface options". That mode shows only six data fields per page but with much larger text. Also a few other interface elements are enlarged in this mode.
 
-The task management system is Ian „B21“ Lewis’ Soaring Engine from the AS33. Some features like calculating glide ratios could not be recreated, as they are dependent of other instruments in the AS33. Others are still on the to do list.
+The task management system is Ian „B21“ Lewis’ Soaring Engine from the AS33. "TASK" Page shows the status of the loaded task on top ("not started", "running", "finished") and a list of all available waypoints. When you pass a waypoint it's marked "ok" and jumps to the bottom of the list, so that the current waypoint is always on top of the list. After all waypoints are passed correctly the page shows task time, distance and average speed in the header. If you used the engine, slew mode or exceeded maximum speed (Vne = 154 kts True Airspeed) for more than 5 seconds, the header will turn red an include a notification.
 
 The wind indicator in the center of the map is loosely based on the real world LX-„Hawk“ system displaying current (blue) and average (grey) wind-arrows and a green/red column indicator for the vertical wind component.
 
@@ -75,7 +75,7 @@ The Config-Page gives you access to various settings:
   - "Readability Mode" can be activated here to get some bigger readouts (and less data fields) 
   - toggle liftdot-trail on the map
   - Visual stall warning. If activated, the screen will flash red when the aircraft is close to a stall.
-  - Toggle gear and ballast warnings
+  - Toggle cockpit warnings for gear, ballast and overspeed
   - Toggle aviation specific info on the map (can be slow to load and clutter the map)
   - Enable or disable automatic logging. If enabled logged time, distance, average speed and altitude climbed can be displayed in data fields. Log starts autoamtically at 100m AGL and stops on touchdown
 
@@ -95,11 +95,22 @@ The map view features a lot of information to help you optimize your flight:
   - the active "leg" of the task is displayed in black/yellow stripes leading from the last waypoiont to the current one.
   - Semi circles indicate the start and finish lines of the task, where the task timer will start and stop automatically.
   - Small pink circles mark the turnpoints of the task. Entering the circle around the current waypoint will trigger the "waypoint ok" message and automatically switch to the next wp. But take a good look on the task page, if there are "Min/Max" values for the waypoint for altitude restrictions (usually for start and/or finish waypoints)
-
   
 To make all this soaring task magic work, the flightplan needs to provide more information than usually present in MSFS generated flightplans. Easiest way to achieve that is to use B21's task planner to plan your flights: https://xp-soaring.github.io/tasks/b21_task_planner/index.html
 
-Why use that MacCready setting? There's a lot more theory around that than can be covered here, but on thing important: calculation of estimated arrival height and time enroute is based on the suggested speed to fly (indicated as STF under the speed tape instrument), which is in turn influenced by MacCready setting and carried ballast. In short: the more ballast and the higher MacCready, the higher the calculated speed to fly. The more your actual speed deviates from the calculated speed to fly, the less accurate your arrival height estimations will be. You can also turn that around: on final glide you can turn the MacCready value up and see the estimated arrival height go down (due to more sink at higher speeds) until you get a safe altitude estimation. Now your computer tells you the maximum speed to fly, that still gets you to finish safely.
+Calculation of estimated arrival height and time enroute is based on the suggested speed to fly (indicated as STF under the speed tape instrument), which is in turn influenced by MacCready setting and carried ballast. In short: the more ballast and the higher MacCready, the higher the calculated speed to fly. The more your actual speed deviates from the calculated speed to fly, the less accurate your arrival height estimations will be. You can also turn that around: on final glide you can turn the MacCready value up and see the estimated arrival height go down (due to more sink at higher speeds) until you get a safe altitude estimation. Now your computer tells you the maximum speed to fly, that still gets you to finish safely.
+
+
+<h2>Videos with more info</h2>
+
+Thankfully there are a whole lot of talented people out there with iompressive skills in making informative videos:
+
+IWILZ has a great walkthrough on the mod in italian (activate english subtitles, if your italian is as bad as mine): https://www.youtube.com/watch?v=Xiy44W7Pc-c (Mille grazie!)
+
+Another great video to watch is Dave Aldrich's "Glider Setup" which also contains a detailed view on this mod: https://www.youtube.com/watch?v=Ftn-_smpZ0c&t=1537s
+
+To learn more about task planning and flying, check out Ian Lewis' great tutorial (and all his other videos ;-)) on Youtube: https://www.youtube.com/watch?v=u7zJSu4jlPU
+
 
 
 <h2>Keybinds</h2>
