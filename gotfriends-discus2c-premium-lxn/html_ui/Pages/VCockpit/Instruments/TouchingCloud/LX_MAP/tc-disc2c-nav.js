@@ -187,6 +187,8 @@ class lxn extends NavSystemTouch {
 
         UI.resetPages();
 
+        document.getElementById("vignettage").style.border = "1px solid transparent";
+
         this._isConnected = true;
 	}
 	
