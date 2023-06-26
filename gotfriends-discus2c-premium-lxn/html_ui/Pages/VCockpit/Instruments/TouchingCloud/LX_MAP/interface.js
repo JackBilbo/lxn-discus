@@ -10,8 +10,8 @@ class ui {
         this.panels = [];
         this.pagepos_x = 0;
         this.pagepos_y = 0;
-        this.pagewidth = 867;
-        this.pageheight = 1319;
+        this.pagewidth = 908;
+        this.pageheight = 1360;
         this.isswipeinteractive = true;
     }
 

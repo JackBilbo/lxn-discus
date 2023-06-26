@@ -1,8 +1,8 @@
 :root {
 	--horizontalpadding: 0.5rem;
 	--verticalpadding: 0.2rem;
-	--deviceheight: 1319px;
-	--devicewidth: 867px;
+	--deviceheight: 1360px;
+	--devicewidth: 908px;
 	--map_size: 1740; /* VARIABLE SETTING THE (SQUARE) MAP SIZE IN PX, THE 1000x1000 map is expanded to this */
 }
 
