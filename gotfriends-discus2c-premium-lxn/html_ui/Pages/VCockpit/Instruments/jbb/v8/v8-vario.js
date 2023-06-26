@@ -105,6 +105,8 @@ class v8_varioclass extends BaseInstrument {
         
         this.smoothingrange.setValue(savedsmoothing);
         document.querySelector("#smoothing").style.display = "none";
+        
+        document.getElementById("vignettage").style.border = "1px solid transparent";
     }
 
     pageUp() {
