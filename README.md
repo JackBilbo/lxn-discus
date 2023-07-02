@@ -44,80 +44,10 @@ Simply drop the included folder "gotfriends-discus2c-premium-lxn" into your comm
 
 You may experience conflicts with other existing mods, especially livery mods. See below for possible solutions.
 
-<h2>Basic Features:</h2>
-
-All Information is organized in „pages“ (horizontally) and „sub-pages“ (vertically). Pages can be changed by „turning“ the rotary buttons on the bottom of the screen: left turns pages left/right, right button switches up/down. Alternatively you can keybind „INCREASE/DECREASE COM1 (WHOLE)“ for horizontal and „INCREASE/DECREASE COM1 (FRACT)“ for vertical scrolling.
-All Information is organized in „pages“ (horizontally) and „sub-pages“ (vertically). Pages can be changed by „turning“ the rotary buttons on the bottom of the screen: left turns pages left/right, right button switches up/down. Alternatively you can keybind „INCREASE/DECREASE COM1 (WHOLE)“ for horizontal and „INCREASE/DECREASE COM1 (FRACT)“ for vertical scrolling.
-
-Currently there are five main pages: „APT“ for navigation to the selected Airport, „WPT“ for navigating a task/flightplan, „TASK“ for the current state of the task, "Kinetic Assitant" for launching through KA and „CONFIG“ for Unit switching, ballast management and some system settings. 
-
-„APT“ Page automatically selects the nearest Airport as target. On the first subpage there's a bit of info about that airport including runway orientation and dimensions. The second subpage features a list of close airports where you can click any airport to select it for navigation. Click the selected airport again to return to "closest airport navigation". On the map a yellow line will be drawn from your glider to the selected airport to show the direction to fly.
-
-"WPT" is similar, except the navigation target is the current waypoint of the loaded flightplan. Using the buttons in the headerbar waypoints can be selected. The map will also show a yellow course-line from your glider to the waypoint to indicate the direction to fly. As a subpage to "WPT" you find a "thermalling help" page, displaying wind, climb and average climb for the current/last therma (a "thermal" is detected, when circling for more than 25 seconds). The lower section displays a bar chart of all thermals in the last 40 minutes on the left and a graph of climb/sink values during the last five minutes in the right half.
-
-„APT“ and „WPT“ feature a maximum of 16 data fields each, that can be configured in game. The „tools“ button in the upper right hand corner of the map toggles „configuration mode“. Data fields are then marked with a light blue outline. Click any data field to bring up a popup, where you can set background color, text color and Information to be displayed. A second background color can be selected to be displayed when the displayed value <= 0 (e.g. switch background to red when arrival height is negative)
-
-Data field configurations are persistent between simulator sessions. Click „reset all“ in the configuration popup to reset all data fields to default. Configurations are also persitent with different versions of this mod, so if you used another version or install an update, your settings will be save. There is however a slight chance, that a variable name gets mixed up, so if you experience any erratic behaviour with the datafields, try "reset all" and see if that helps.
-
-Data fields can be forced to use either metric or imperial units of measurement. Use with caution. If activated, the datafield will ignore the global unit selection. This feaature gives you the option to e.g. display altitude in feet side by side with altitude in meters. If a datafield has been configured this way an "*" is shown next to the unit as a reminder. 
-
-In standard mode the data fields are rather small and can be hard to read especially in VR. As a solution an "improved readability" mode can be activated in the "interface options". That mode shows only six data fields per page but with much larger text. Also a few other interface elements are enlarged in this mode.
-
-The task management system is Ian „B21“ Lewis’ Soaring Engine from the AS33. "TASK" Page shows the status of the loaded task on top ("not started", "running", "finished") and a list of all available waypoints. When you pass a waypoint it's marked "ok" and jumps to the bottom of the list, so that the current waypoint is always on top of the list. After all waypoints are passed correctly the page shows task time, distance and average speed in the header. If you used the engine, slew mode or exceeded maximum speed (Vne = 154 kts True Airspeed) for more than 5 seconds, the header will turn red an include a notification.
-
-The wind indicator in the center of the map is loosely based on the real world LX-„Hawk“ system displaying current (blue) and average (grey) wind-arrows and a green/red column indicator for the vertical wind component.
-
-The Config-Page gives you access to various settings:
-
-- Water Ballast System: A light version of ballast loading system that can even be used in flight - which would be shameless cheating of course!
-- Aircraft Settings: Options that are originally controlled by knobs and buttons around the display. Moved here to free up the buttons for future use.
-- Units of Measurement: allows you to select the units of measurement to use for various categories or generally "metric" or "imperial" system. Only "metric" or "imperial" settings have an effect on other instruments in the cockpit. Detailled settings only work inside the nav computer.
-- Interface Options: Settings for the Nav Interface: 
-  - "Readability Mode" can be activated here to get some bigger readouts (and less data fields) 
-  - toggle liftdot-trail on the map
-  - Visual stall warning. If activated, the screen will flash red when the aircraft is close to a stall.
-  - Toggle cockpit warnings for gear, ballast and overspeed
-  - Toggle aviation specific info on the map (can be slow to load and clutter the map)
-  - Enable or disable automatic logging. If enabled logged time, distance, average speed and altitude climbed can be displayed in data fields. Log starts autoamtically at 100m AGL and stops on touchdown
-
-All config settings apart from ballast are persistent between sessions. Just make sure to click "close" after making any changes.
-
-All config settings apart from bugs and ballast are persistent between sessions. Just make sure to click "close" after making any changes.
-
-
-
-<h2>Some more Details</h2>
-
-The map view features a lot of information to help you optimize your flight:
-
-- There are three thin lines pointing away from your glider:
-  - the blue line is simply your plane's heading
-  - the pink/magenta line is your gps ground track, the direction, your plane is travelling over the terrain. The stronger a crosswind, the more this will deviate from your heading.
-  - the yellow line points to your current nav target. Depending on which page you are, this is the selected airport or the current waypoint. So as a rule of thumb: "put the pink on the yellow" and you're going where you are supposed to go ;-)
-  
-- Your loaded flightplan is diplayed as the current "task" in broader pink/magenta lines, circles and semi circles.
-  - the active "leg" of the task is displayed in black/yellow stripes leading from the last waypoiont to the current one.
-  - Semi circles indicate the start and finish lines of the task, where the task timer will start and stop automatically.
-  - Small pink circles mark the turnpoints of the task. Entering the circle around the current waypoint will trigger the "waypoint ok" message and automatically switch to the next wp. But take a good look on the task page, if there are "Min/Max" values for the waypoint for altitude restrictions (usually for start and/or finish waypoints)
-  
-To make all this soaring task magic work, the flightplan needs to provide more information than usually present in MSFS generated flightplans. Easiest way to achieve that is to use B21's task planner to plan your flights: https://xp-soaring.github.io/tasks/b21_task_planner/index.html
-
-Calculation of estimated arrival height and time enroute is based on the suggested speed to fly (indicated as STF under the speed tape instrument), which is in turn influenced by MacCready setting and carried ballast. In short: the more ballast and the higher MacCready, the higher the calculated speed to fly. The more your actual speed deviates from the calculated speed to fly, the less accurate your arrival height estimations will be. You can also turn that around: on final glide you can turn the MacCready value up and see the estimated arrival height go down (due to more sink at higher speeds) until you get a safe altitude estimation. Now your computer tells you the maximum speed to fly, that still gets you to finish safely.
-
-
-<h2>Videos with more info</h2>
-
-Thankfully there are a whole lot of talented people out there with iompressive skills in making informative videos:
-
-IWILZ has a great walkthrough on the mod in italian (activate english subtitles, if your italian is as bad as mine): https://www.youtube.com/watch?v=Xiy44W7Pc-c (Mille grazie!)
-
-Another great video to watch is Dave Aldrich's "Glider Setup" which also contains a detailed view on this mod: https://www.youtube.com/watch?v=Ftn-_smpZ0c&t=1537s
-
-To learn more about task planning and flying, check out Ian Lewis' great tutorial (and all his other videos ;-)) on Youtube: https://www.youtube.com/watch?v=u7zJSu4jlPU
-
-
 
 <h2>Keybinds</h2>
+
+This is a really "frequently asked question" so first up:
 
 Several functions can be operated by keybinds from joystick or throttle:
 
@@ -128,18 +58,139 @@ Several functions can be operated by keybinds from joystick or throttle:
 - Map Orientation:    INCREASE/DECREASE TRANSPONDER (1)
 
 
+<h1>Manual and Handling</h1>
+
+
+The basic idea during development was not to build a "ready to use" instrument, but to build a tool that you can use to build the interface that fits your style of flying and give you the information you're interested in. The bad news: this is not "plug 'n play". You're not supposed to use any of the default settings, but play around and find out what combination of the partly redundant information you like.
+
+All Information is organized in „pages“ (horizontally) and „sub-pages“ (vertically). Pages can be changed by „turning“ the rotary buttons on the bottom of the screen: left turns pages left/right, right button switches up/down. Alternatively you can keybind „INCREASE/DECREASE COM1 (WHOLE)“ for horizontal and „INCREASE/DECREASE COM1 (FRACT)“ for vertical scrolling.
+All Information is organized in „pages“ (horizontally) and „sub-pages“ (vertically). Pages can be changed by „turning“ the rotary buttons on the bottom of the screen: left turns pages left/right, right button switches up/down. Alternatively you can keybind „INCREASE/DECREASE COM1 (WHOLE)“ for horizontal and „INCREASE/DECREASE COM1 (FRACT)“ for vertical scrolling.
+
+Currently there are five main pages: „APT“ for navigation to the selected Airport, „WPT“ for navigating a task/flightplan, „TASK“ for the current state of the task, "Kinetic Assitant" for launching through KA and „CONFIG“ for Unit switching, ballast management and some system settings. 
+
+<h2>APT/WPT Page</h2>
+
+These are the two main pages, which are largely identical. The main difference is the selected navigation target: "APT" guides you to an airport, "WPT" to the current waypoint in your flight plan. Navigation works the same for both cases: the aircraft icon on the map shows your position. Three lines point away from the aircraft icon: the yellow line points to the current nav target, the blue line is your heading and the magenta line the actual ground track, including the effect of wind drift. As a simple rule of thumb, if you "put the magenta on the yellow" you fly towards your target.
+
+If a glider task was loaded during flight setup in MSFS the "WPT" page will also show the waypoints connected by magenta lines on the map. The current leg and waypoint is highlighted in yellow. 
+
+The name of the target is shown in the black header bar on the very top of the page. Either the Airport name and ICAO or the waypoint name.
+
+If the option "dotted glider path" is activated in interface settings, the glider icon will leave a colored dot every few seconds on the map indicating lift (green) and sink (red) making it easier to find and stay in areas of lift.
+
+The option "wind indicator" gives you a purple arrow showing horizontal wind direction and speed (and a numerical output below) and a green/red arrow on the right side of the screen, displaying the vertical wind component. This release contains the same wind info as an option in the digital variometer.
+
+<h3>APT Subpages</h3>
+
+Scrolling down on the APT page shows a page with info about the currently selected airport - by default the nearest one.
+
+Scroll down again to find the list of the 20 nearest airports around you. Click any airport to make it your current target. Click again to return to "nearest airport" mode.
+
+<h3>WPT Subpage</h3>
+
+Below the WPT page you find the "thermalling helper" page, displaying wind, climb and average climb for the current/last thermal (a "thermal" is detected, when circling for more than 25 seconds). The lower section displays a bar chart of all thermals in the last 40 minutes on the left and a graph of climb/sink values during the last five minutes in the right half.
+
+The "true average climb" for the current thermal is also used to display a small "T" indicator on the digital vario.
+
+
+<h3>Data Fields</h3>
+
+„APT“ and „WPT“ feature a maximum of 16 data fields each, that can be configured in game. The „tools“ button in the upper right hand corner of the map toggles „configuration mode“. Data fields are then marked with a light blue outline. Click any data field to bring up a popup, where you can set background color, text color and Information to be displayed. A second background color can be selected to be displayed when the displayed value <= 0 (e.g. switch background to red when arrival height is negative)
+
+Data field configurations are persistent between simulator sessions. Click „reset all“ in the configuration popup to reset all data fields to default. Configurations are also persitent with different versions of this mod, so if you used another version or install an update, your settings will be save. There is however a slight chance, that a variable name gets mixed up, so if you experience any erratic behaviour with the datafields, try "reset all" and see if that helps.
+
+Data fields can be forced to use either metric or imperial units of measurement. Use with caution. If activated, the datafield will ignore the global unit selection. This feature gives you the option to e.g. display altitude in feet side by side with altitude in meters. If a datafield has been configured this way an "*" is shown next to the unit as a reminder. 
+
+In standard mode the data fields are rather small and can be hard to read especially in VR. As a solution an "improved readability" mode can be activated in the "interface options". That mode shows only six data fields per page but with much larger text. Also a few other interface elements are enlarged in this mode.
+
+
+<h2>TASK Page</h2>
+
+The task management system is Ian „B21“ Lewis’ Soaring Engine from the AS33. "TASK" Page shows the status of the loaded task on top ("not started", "running", "finished") and a list of all available waypoints. When you pass a waypoint it's marked "ok" and jumps to the bottom of the list, so that the current waypoint is always on top of the list. After all waypoints are passed correctly the page shows task time, distance and average speed in the header. 
+
+If you used the engine, slew mode or exceeded maximum speed (Vne = 152 kts True Airspeed) for more than 5 seconds, the header will turn red an include a notification.
+
+The whole task system is ideally used with Ian's "B21 Task Planner": https://xp-soaring.github.io/tasks/b21_task_planner/index.html. Plan your flight there, download the MSFS *.pln file and load that plan when setting up your flight in MSFS. The nav computer will automatically display your plan and use it for navigation.
+
+Detailled info on planning and flying glider tasks: https://www.youtube.com/watch?v=u7zJSu4jlPU
+
+<h2>Kinetic Assist Launch Menu</h2>
+
+Links to remote control functions of "Kinetic Assistant" by "Touching Cloud". Please refer to the KA manual for details.
+
+
+<h2>CONFIG Page</h2>
+
+- <b>Water Ballast System:</b> A light version of ballast loading system that can even be used in flight - which would be shameless cheating of course!
+- <b>Aircraft Settings:</b> Options that are originally controlled by knobs and buttons around the display. Moved here to free up the buttons for future use.
+- <b>Units of Measurement:</b> allows you to select the units of measurement to use for various categories or generally "metric" or "imperial" system. Only "metric" or "imperial" settings have an effect on other instruments in the cockpit. Detailled settings only work inside the nav computer.
+- <b>Interface Options:</b> Settings for the Nav Interface: 
+  - "Readability Mode" can be activated here to get some bigger readouts (and less data fields) 
+  - toggle liftdot-trail on the map
+  - Visual stall warning. If activated, the screen will flash red when the aircraft is close to a stall.
+  - Toggle cockpit warnings for gear, ballast and overspeed
+  - Toggle aviation specific info on the map (can be slow to load and clutter the map)
+  - Enable or disable automatic logging. If enabled logged time, distance, average speed and altitude climbed can be displayed in data fields. Log starts autoamtically at 100m AGL and stops on touchdown
+
+All config settings apart from ballast are persistent between sessions. Just make sure to click "close" after making any changes.
+
+All config settings apart from ballast are persistent between sessions. Just make sure to click "CLOSE & SAVE" after making any changes.
+
+
+
+
+<h2>Speed to Fly, MacCready and why you should care</h2>
+
+Every glider has it's very own "best glide" speed: the speed where it will glide the longest distance from any given altitude. In the Discus that is where the yellow triangle is on the speed instrument. Sounds simple, but isn't, because that is only valid for a glider without ballast and simply gliding a long distance in still air is rarely what we're looking for.
+
+Gliders usually fly from one source of lift to the next, climb back to altitude and on to the next thermal or ridge. Very early pilots realized, that flying "best glide speed" is not the most efficient way to go. If you fly faster, you lose more altitude but reach the next updraft faster and can use the time saved to regain that lost altitude. But how much faster? This is obviously dependent on the strength of the lift you're heading for. That's where Paul MacCready and other glider pilots based the theory of "Speed to Fly" on.
+
+Speed to Fly (STF) is calculated from a complicated formula using aircraft performance, ballast and the expected strength of the next source of climb, set by the pilot with the top right rotary button - the "MacCready" value. The higher the MC value, the higher the resulting speed to fly. The nav computer displays the STF as a numerical value under the speed tape and as a green area on the speed tape.
+
+Calculation of all estimated arrival heights and time enroute is based on STF. This allows you to plan ahead, especially when flying different phases of a task. As you change the MC setting, you'll see the estimated arrival height and time go up and down. For example, when on final glide to your destination airport you can turn um MC until the estimated arrival is close to zero and the computer will tell you how fast you can fly. On the other hand, if you low and slow in difficult conditions, turn MC to zero and the computer tells you the speed for best glide with current ballast and if you will make it home at all.
+
+Of course the computer has no way of telling, if there are up or downdrafts on the way, so arrival height estimations ared always... well... estimations. if the wind changes or you pass an area of lift, the estimation will constantly be updated.
+
+There's an abundance of theories and opinions on how to use MC settings strategically. I strongly recommend diving into google and read away.
+
+
+<h2>Videos with more info</h2>
+
+Thankfully there are a whole lot of talented people out there with impressive skills in making informative videos:
+
+IWILZ has a great walkthrough on the mod in italian (activate english subtitles, if your italian is as bad as mine): https://www.youtube.com/watch?v=Xiy44W7Pc-c (Mille grazie!)
+
+Another great video to watch is Dave Aldrich's "Glider Setup" which also contains a detailed view on this mod: https://www.youtube.com/watch?v=Ftn-_smpZ0c&t=1537s
+
+To learn more about task planning and flying, check out Ian Lewis' great tutorial (and all his other videos ;-)) on Youtube: https://www.youtube.com/watch?v=u7zJSu4jlPU
+
+
+
+
 <h2>Conflicts with other mods</h2>
 
 Multiple mods changing the same aircraft are prone to conflict somehow. If you run into problems the first and easiest option is to decide, which modification is more important to you and remove the conflicting one. If you absolutely want to keep both, you can try to find out which files conflict. In the case of most livery modifications the conflicting file is the file panel.cfg, that is used to modify aircraft registration. This mod also changes panel.cfg. You can try to solve the conflict by either copying panel.cfg from this mod over to you livery completely, or only copy the section [VCockpit02] from this mod's panel.cfg and paste it to the same file in you livery mod. Sounds way more complicated than it is, but try it at your own risk, of course.
 
-<h2>Developer Info:</h2>
 
-If you have a basic understanding of what HTML, Javascript and CSS are, jump into the code and try your hand on it. There is no black magic involved :-)
+<h2>Reworked Variometer</h2>
 
-The front end is intended to be easily extensible with new features. New pages and sub-pages can be added by simply copy/pasting the respective HTML-Structures.
+The rework is losely based on the realworld LXN V80 vario but doesn't attempt to exactly emulate its funcionality. It contains a slightly enlarged scale and needles for better readability with five indicators:
 
-All variables that are displayed in the frontend are stored in the „this.vars“-object in the file tc-dsic2c-nav.js. This object contains the value itself as well as unit- and label-information and makes the variable user-selectable in the in game configuration popup. To add a new readout to your panel all you have to do is add a line to the „this.vars“-object with your own variable name and label/unit information. When you start the next flight, you can simply assign your variable value to a data field of your choice and if the variable value is manipulated somewhere in the javascript, the cockpit readout will be updated automatically.
+- orange: current climb/sink (TE or netto as selected by the bottom right knob)
+- turquoise: current vertical wind component (RL-inspiration: https://gliding.lxnav.com/news/hawk-wind-calculation/)
+- red square: 10s average climb/sink.
+- small green T: total true average of the last thermal (as calculated by the thermal helper page in the LX computer). When flying in thermal conditions this marker can help with judging you MC setting: if you're leaving a thermal and this marker is below the blue MC marker, you overestimated the climb and might consider dialling MC down a bit. If it's the other way around you could go a little more aggressive.
+- blue triangle: MacCready setting
 
-If you need a variable displayed somewhere outside of the data fields, you can do so directly in the html using the attributes class=“livedata“ data-value=„VARIABLE“.
+The orange arc marks the range of values measured during the last ten seconds.
 
-Units: All variables are kept in a „base unit“, which is (currently) „imperial“ units. When displayed in a data field or as „livedata“ in the html the value is converted to the user preferred unit. So if you like to display a distance you should store nautical miles in the variable and conversion will be automatic.
+The center of the instrument can display four different screens:
+
+- data fields for current and average climb plus a (VERY) tiny speedtape and STF-Marker
+- horizontal wind info (HAWK-style see above)
+- simple artificial horizon
+- slider to adjust "current" needle smoothing (calculating average values) between 0 and 5 seconds. Allows to change the sensitivity of the vario needle in gusty conditions. Higher values will make the vario less responsive when entering lift, but filter out rapid movement from rapidly changing wind speeds. When flying in a weather preset with 0 gusts, you can safely set this to 0. When you encounter gusts (as in live weather most of the time) adjust the smoothing upward to calm down the needle.
+
+Screens can be cycled using the top and bottom button on the right. Center button toggles between the default linear and a logarithmic scale. You can also cycle screens using alt/a alt/s on the keyboard (doesn't work in VR for some reason).
+
+Audio output of the vario is completely unchanged.
