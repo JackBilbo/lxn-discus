@@ -74,11 +74,11 @@ These are the two main pages, which are largely identical. The main difference i
 
 If a glider task was loaded during flight setup in MSFS the "WPT" page will also show the waypoints connected by magenta lines on the map. The current leg and waypoint is highlighted in yellow. 
 
-The name of the target is shown in the black header bar on the very top of the page. Either the Airport name and ICAO or the waypoint name.
+The name of the target is shown in the black header bar on the very top of the page. Either the Airport name and ICAO or the waypoint name. On WPT page there are also small arrow-buttons in the header bar to select next/previous waypoint.
 
 If the option "dotted glider path" is activated in interface settings, the glider icon will leave a colored dot every few seconds on the map indicating lift (green) and sink (red) making it easier to find and stay in areas of lift.
 
-The option "wind indicator" gives you a purple arrow showing horizontal wind direction and speed (and a numerical output below) and a green/red arrow on the right side of the screen, displaying the vertical wind component. This release contains the same wind info as an option in the digital variometer.
+The purple arrow shows horizontal wind direction and speed (and a numerical output below) and a green/red arrow on the right side of the screen, displaying the vertical wind component. This can be deactivated in interface options on the config-page. The same info is now displayed in the reworked digital vario.
 
 <h3>APT Subpages</h3>
 
@@ -143,13 +143,13 @@ All config settings apart from ballast are persistent between sessions. Just mak
 
 Every glider has it's very own "best glide" speed: the speed where it will glide the longest distance from any given altitude. In the Discus that is where the yellow triangle is on the speed instrument. Sounds simple, but isn't, because that is only valid for a glider without ballast and simply gliding a long distance in still air is rarely what we're looking for.
 
-Gliders usually fly from one source of lift to the next, climb back to altitude and on to the next thermal or ridge. Very early pilots realized, that flying "best glide speed" is not the most efficient way to go. If you fly faster, you lose more altitude but reach the next updraft faster and can use the time saved to regain that lost altitude. But how much faster? This is obviously dependent on the strength of the lift you're heading for. That's where Paul MacCready and other glider pilots based the theory of "Speed to Fly" on.
+Gliders usually fly from one source of lift to the next, climb back to altitude and on to the next thermal or ridge. Very early pilots realized, that flying "best glide speed" is not the most efficient way to go. If you fly faster, you lose more altitude but reach the next updraft faster and can use the time saved to regain that lost altitude. But how much faster? This is obviously dependent on the strength of the lift you're heading for and that's what Paul MacCready and other glider pilots based the theory of "Speed to Fly" on.
 
 Speed to Fly (STF) is calculated from a complicated formula using aircraft performance, ballast and the expected strength of the next source of climb, set by the pilot with the top right rotary button - the "MacCready" value. The higher the MC value, the higher the resulting speed to fly. The nav computer displays the STF as a numerical value under the speed tape and as a green area on the speed tape.
 
-Calculation of all estimated arrival heights and time enroute is based on STF. This allows you to plan ahead, especially when flying different phases of a task. As you change the MC setting, you'll see the estimated arrival height and time go up and down. For example, when on final glide to your destination airport you can turn um MC until the estimated arrival is close to zero and the computer will tell you how fast you can fly. On the other hand, if you low and slow in difficult conditions, turn MC to zero and the computer tells you the speed for best glide with current ballast and if you will make it home at all.
+Calculation of all estimated arrival heights and time enroute is based on STF. This allows you to plan ahead, especially when flying different phases of a task. As you change the MC setting, you'll see the estimated arrival height and time go up and down. For example, when on final glide to your destination airport you can turn up MC until the estimated arrival is close to zero and the computer will tell you how fast you can fly. On the other hand, if you're low and slow in difficult conditions, turn MC to zero and the computer tells you the speed for best glide with current ballast and if you will make it home at all.
 
-Of course the computer has no way of telling, if there are up or downdrafts on the way, so arrival height estimations ared always... well... estimations. if the wind changes or you pass an area of lift, the estimation will constantly be updated.
+Of course the computer has no way of telling, if there are up or downdrafts on the way, so arrival height estimations are always... well... estimations. if the wind changes or you pass an area of lift, the estimation will constantly be updated.
 
 There's an abundance of theories and opinions on how to use MC settings strategically. I strongly recommend diving into google and read away.
 
