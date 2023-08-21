@@ -5,7 +5,7 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <strong>Overspeed Warning:</strong>
 
-The computer now checks a maximum safe speed (Vne) of 152kts true aispeed. If you exceed that speed for more than a few seconds you'ss see a red warning and if flying a task, the task page will show how long you have been speeding in total. Usage of slew mode and motor will also be noted on task page.
+The computer now checks a maximum safe speed (Vne) of 152kts true aispeed. If you exceed that speed for more than a few seconds you'll see a red warning and if flying a task, the task page will show how long you have been speeding in total. Usage of slew mode and motor will also be noted on task page.
 
 Since Vne is bassed on true airspeed, the maximum indicated airspeed (as displayed on speed instrument) will be lower with altitude and no longer match the painted red line on the speed instrument. The speed tape on the left of the screen shows a dynamic "red zone" and the background of the tape will gradually change it's background to orange as you get closer to Vne. 
 
