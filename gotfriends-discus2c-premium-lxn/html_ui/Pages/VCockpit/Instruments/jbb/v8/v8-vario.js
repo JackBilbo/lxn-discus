@@ -164,14 +164,14 @@ class v8_varioclass extends BaseInstrument {
         if(this.units == "metric") {
             current_te = SimVar.GetSimVarValue("L:TOTAL ENERGY", "meters per second");
             current_netto = SimVar.GetSimVarValue("L:NETTO","meters per second");
-            currentpolarsink = SimVar.GetSimVarValue("L:JBB_CURRENT_POLAR_SINK","meters per second");
-            verticalwind = SimVar.GetSimVarValue("A:STRUCT AMBIENT WIND Y", "meters per second");
+            // currentpolarsink = SimVar.GetSimVarValue("L:JBB_CURRENT_POLAR_SINK","meters per second");
+            // verticalwind = SimVar.GetSimVarValue("A:STRUCT AMBIENT WIND Y", "meters per second");
             lastthermalaverage = SimVar.GetSimVarValue("L:JBB_TRU_AVG_CLIMB","meters per second");
         } else {
             current_te = SimVar.GetSimVarValue("L:TOTAL ENERGY", "knots");
             current_netto = SimVar.GetSimVarValue("L:NETTO","knots");
-            currentpolarsink = SimVar.GetSimVarValue("L:JBB_CURRENT_POLAR_SINK", "knots");
-            verticalwind = SimVar.GetSimVarValue("A:STRUCT AMBIENT WIND Y", "knots");
+            // currentpolarsink = SimVar.GetSimVarValue("L:JBB_CURRENT_POLAR_SINK", "knots");
+            // verticalwind = SimVar.GetSimVarValue("A:STRUCT AMBIENT WIND Y", "knots");
             lastthermalaverage = SimVar.GetSimVarValue("L:JBB_TRU_AVG_CLIMB","knots");
         }
 
@@ -283,7 +283,7 @@ class v8_varioclass extends BaseInstrument {
         this.horizontalwinddirectionaverage.push(this.horizontalwinddirection);
         if(this.horizontalwinddirectionaverage.length > this.averager * 180) { this.horizontalwinddirectionaverage.shift() } // 10 sec average on wind direction
 
-        this.verticalwindsmoother.push(SimVar.GetSimVarValue("A:AMBIENT WIND Y", this.u[this.units].verticalspeed));
+        this.verticalwindsmoother.push(SimVar.GetSimVarValue("A:AMBIENT WIND Y", this.u[this.units].verticalspeed) + SimVar.GetSimVarValue("L:JBB_CURRENT_POLAR_SINK", this.u[this.units].verticalspeed));
         if(this.verticalwindsmoother.length > 20) { this.verticalwindsmoother.shift() }
         this.verticalwind = this.verticalwindsmoother.reduce((a, b) => a + b, 0) / this.verticalwindsmoother.length;
     }
