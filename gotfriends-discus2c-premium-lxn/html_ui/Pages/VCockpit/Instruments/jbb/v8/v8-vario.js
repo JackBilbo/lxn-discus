@@ -198,11 +198,7 @@ class v8_varioclass extends BaseInstrument {
         let limit = SimVar.GetSimVarValue("L:VARIO_SMOOTHING", "number") > 0 ? SimVar.GetSimVarValue("L:VARIO_SMOOTHING", "number") : 0.2;
         
         while(this.liftsmoother.length > limit * 18) { this.liftsmoother.shift(); }
-
-        let limit = SimVar.GetSimVarValue("L:VARIO_SMOOTHING", "number") > 0 ? SimVar.GetSimVarValue("L:VARIO_SMOOTHING", "number") : 0.2;
         
-        while(this.liftsmoother.length > limit * 18) { this.liftsmoother.shift(); }
-
         return this.liftsmoother.reduce((a, b) => a + b, 0) / this.liftsmoother.length;
     }
 

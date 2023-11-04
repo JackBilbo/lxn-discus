@@ -46,7 +46,6 @@
       "date": 133186333641965846
     },
     {
-<<<<<<< HEAD
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.html",
       "size": 45249,
       "date": 133238908654009524
@@ -120,8 +119,6 @@
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/thermalling_display/thermalling_display.js",
       "size": 26052,
       "date": 133211410958471424
-      "size": 26492,
-      "date": 133128133027898993
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/model/D2C_INT.xml",
