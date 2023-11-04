@@ -563,6 +563,23 @@ class lxn extends NavSystemTouch {
                 UI.pageUp();
              }
 
+            this.macselector = Math.round(SimVar.GetSimVarValue("VARIOMETER MAC CREADY SETTING:1","knots") * 10) / 10;
+
+            if(this.macselector == 0) { 
+                SimVar.SetSimVarValue("VARIOMETER MAC CREADY SETTING:1","knots", 1)
+            }
+
+            if(this.macselector > 1) {
+                let currentmc = Math.round(SimVar.GetSimVarValue("L:BEZEL_CAL","percent") / 10) * 10;
+                SimVar.SetSimVarValue("L:BEZEL_CAL","percent", (currentmc <= 90 ? currentmc + 10 : 100) );
+                SimVar.SetSimVarValue("VARIOMETER MAC CREADY SETTING:1","knots", 1);
+            }
+
+            if(this.macselector < 1) {
+                let currentmc = Math.round(SimVar.GetSimVarValue("L:BEZEL_CAL","percent") / 10) * 10;
+                SimVar.SetSimVarValue("L:BEZEL_CAL","percent", (currentmc >=10 ? currentmc - 10 : 0));
+                SimVar.SetSimVarValue("VARIOMETER MAC CREADY SETTING:1","knots", 1);
+            }
 
 
          if(SimVar.GetSimVarValue("L:LX_Knob_3","percent") > 0.5) {
