@@ -22,8 +22,6 @@ class lxn extends NavSystemTouch {
         this.lift_dots_max = 40;
         this.te = { v: 0, h: 0, t: 0, te: 0}
         this.log = { isStarted: false };
-        this.te = { v: 0, h: 0, t: 0, te: 0}
-        this.log = { isStarted: false };
        	
         this.vars = {            
             ias: { value: 10, label: "IAS", longlabel: "Indicated Airspeed", category: "speed", baseunit: "kts" },
@@ -886,7 +884,7 @@ class lxn extends NavSystemTouch {
         this.querySelector("#hawk #arrow_avg").style.transform = "rotate(" + averageindicator + "deg)";
         this.querySelector("#hawk #arrow_current").style.transform = "rotate(" + current_wind_direction + "deg)";
 
-        let wv = Math.min(600, this.hawkwindspeed * 10 + 150);
+        let wv = Math.min(600, current_wind_speed * 10 + 150);
         this.querySelector("#hawk #arrow_current").style.height = wv +"px";
         this.querySelector("#hawk #arrow_current").style.top = -wv/2 +"px";
 
@@ -1081,7 +1079,7 @@ class lxn extends NavSystemTouch {
 
         taskheader.querySelector(".task-state .task-totaldistance .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.distance_m(),"m","dist");
         taskheader.querySelector(".task-state .task-totaldistance .unit").innerHTML = this.units.dist.pref;
-	    taskheader.querySelector(".task-state .task-distanceleft .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.remaining_distance_m(),"m","dist");;
+	    taskheader.querySelector(".task-state .task-distanceleft .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.remaining_distance_m(),"m","dist");
         taskheader.querySelector(".task-state .task-distanceleft .unit").innerHTML = this.units.dist.pref;        
         taskheader.querySelector(".task-state .task-arrivalheight .number").innerHTML = this.displayValue(B21_SOARING_ENGINE.task.finish_wp().arrival_height_msl_m - (B21_SOARING_ENGINE.task.finish_wp().min_alt_m != null? B21_SOARING_ENGINE.task.finish_wp().min_alt_m : B21_SOARING_ENGINE.task.finish_wp().alt_m),"m","alt"); 
         taskheader.querySelector(".task-state .task-arrivalheight .unit").innerHTML = this.units.alt.pref;

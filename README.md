@@ -1,42 +1,29 @@
 # lxn-discus
 Replacement mod for the GotFriends Discus' Nav computer
 
-<h2>New Features:</h2>
+<h2>Fixes and Updates:</h2>
 
-Mod adapted for Discus Version 2.0.6
+<strong>Overspeed Warning:</strong>
 
-CHANGED KEYBINDS: some users experienced problems with binding to com frequencies. Changeing pages left/right and up/down are now bound to autopilot altitude and vertical speed settings:
+The computer now checks a maximum safe speed (Vne) of 152kts true aispeed. If you exceed that speed for more than a few seconds you'll see a red warning and if flying a task, the task page will show how long you have been speeding in total. Usage of slew mode and motor will also be noted on task page.
 
-- Page left/right:    INCREASE/DECREASE AUTOPILOT REFERENCE ALTITUDE
-- Page up/down:       INCREASE/DECREASE AUTOPILOT REFERENCE VS
+Since Vne is bassed on true airspeed, the maximum indicated airspeed (as displayed on speed instrument) will be lower with altitude and no longer match the painted red line on the speed instrument. The speed tape on the left of the screen shows a dynamic "red zone" and the background of the tape will gradually change it's background to orange as you get closer to Vne. 
 
-Please adjust your keybinds
+As in real life, the speed limit has a sizable safety margin and is nowhere near the speed at which the sim really breaks the aircraft, so feel free to disable "cockpit warnings" in interface settings.
 
-Fixed a bug where conditional background colors in data fields failed for altitude values >10k 
 
-Lots of text corrections. Thanks to Jonx!
+<strong>Reworked Digital Variometer</strong>
 
-Map loading should be stable now. No more silly loading bar.
+This mod contains a visual rework of the digital vario. If you don't like it and want to keep the original, head for the folder /SimObjects/Airplanes/gotfriends-discus2c(-fes)/panel/ and rename panel_original_vario.cfg into panel.cfg (delete or rename the existing file) and you are back to normal. Alternatively just open the panel.cfg in a text editor and place the comment marks for [VCockpit06] accordingly to load the vario you prefer. For more Details on the rework see the end of this document.
 
-New feature: automatic log. If activated in interface settings the log will autostart once you reach 100m AGL. You can display log distance, time, altitude climbed and average ground speed. For people like me, who like to fly around without flightplan and still like to see some statistics :-)
+<strong>Conditional Data Fields</strong>
 
-Some new info selectable for data fields: total energy, netto, glide ratios.
+There are two new, special datafield options available: "Waypoint Min" and "Waypoint Max". These will display Min/Max Altitudes for the current waypoint if set in the flightplan. If no value is present, the datafield will be completely invisible. 
 
-For more in depth info about setting up glider flights, planning and using this mod for navigation check out David Aldrich's excellent video:
+<strong>Bugfix</strong>
 
-https://www.youtube.com/watch?v=Ftn-_smpZ0c&t=1537s
+One of the recent MSFS updates introduced a new "feature" that shows a thick white outline around HTML instruments, especially when using head tracking software. This mod avoids this behaviour for the nav computer and the vario. If you experience it anywhere else in the cockpit, try moving the mouse cursor to the very top of the screen, that should avoid those outlines.
 
-- Compatible with Discus 2.0.5
-
-- Hardware buttons in cockpit remapped:
-  - top left: map zoom
-  - bottom left: page right/left
-  - bottom right: page up/down
-
-No more "click and drag" for page switch
-
-various bug fixes
-  
 
 <h2>Installation:</h2>
 
@@ -63,8 +50,7 @@ Several functions can be operated by keybinds from joystick or throttle:
 
 The basic idea during development was not to build a "ready to use" instrument, but to build a tool that you can use to build the interface that fits your style of flying and give you the information you're interested in. The bad news: this is not "plug 'n play". You're not supposed to use any of the default settings, but play around and find out what combination of the partly redundant information you like.
 
-All Information is organized in „pages“ (horizontally) and „sub-pages“ (vertically). Pages can be changed by „turning“ the rotary buttons on the bottom of the screen: left turns pages left/right, right button switches up/down. Alternatively you can keybind „INCREASE/DECREASE COM1 (WHOLE)“ for horizontal and „INCREASE/DECREASE COM1 (FRACT)“ for vertical scrolling.
-All Information is organized in „pages“ (horizontally) and „sub-pages“ (vertically). Pages can be changed by „turning“ the rotary buttons on the bottom of the screen: left turns pages left/right, right button switches up/down. Alternatively you can keybind „INCREASE/DECREASE COM1 (WHOLE)“ for horizontal and „INCREASE/DECREASE COM1 (FRACT)“ for vertical scrolling.
+All Information is organized in „pages“ (horizontally) and „sub-pages“ (vertically). Pages can be changed by „turning“ the rotary buttons on the bottom of the screen: left turns pages left/right, right button switches up/down (or use the keybinds mentioned above). 
 
 Currently there are five main pages: „APT“ for navigation to the selected Airport, „WPT“ for navigating a task/flightplan, „TASK“ for the current state of the task, "Kinetic Assitant" for launching through KA and „CONFIG“ for Unit switching, ballast management and some system settings. 
 
@@ -97,7 +83,22 @@ The "true average climb" for the current thermal is also used to display a small
 
 „APT“ and „WPT“ feature a maximum of 16 data fields each, that can be configured in game. The „tools“ button in the upper right hand corner of the map toggles „configuration mode“. Data fields are then marked with a light blue outline. Click any data field to bring up a popup, where you can set background color, text color and Information to be displayed. A second background color can be selected to be displayed when the displayed value <= 0 (e.g. switch background to red when arrival height is negative)
 
-Data field Configurations are persistent between simulator sessions. Click „reset all“ in the configuration popup to reset all data fields to default. Configurations are also persitent with different versions of this mod, so if you used an oder version or install an update, your settings will be save. There is however a slight chance, that a variable name gets mixed up, so if you experience any erratic behaviour with the datafields, try "reset all" and see if that helps.
+Data field configurations are persistent between simulator sessions. Click „reset all“ in the configuration popup to reset all data fields to default. Configurations are also persitent with different versions of this mod, so if you used another version or install an update, your settings will be save. There is however a slight chance, that a variable name gets mixed up, so if you experience any erratic behaviour with the datafields, try "reset all" and see if that helps.
+
+Data fields can be forced to use either metric or imperial units of measurement. Use with caution. If activated, the datafield will ignore the global unit selection. This feature gives you the option to e.g. display altitude in feet side by side with altitude in meters. If a datafield has been configured this way an "*" is shown next to the unit as a reminder. 
+
+In standard mode the data fields are rather small and can be hard to read especially in VR. As a solution an "improved readability" mode can be activated in the "interface options". That mode shows only six data fields per page but with much larger text. Also a few other interface elements are enlarged in this mode.
+
+
+<h2>TASK Page</h2>
+
+The task management system is Ian „B21“ Lewis’ Soaring Engine from the AS33. "TASK" Page shows the status of the loaded task on top ("not started", "running", "finished") and a list of all available waypoints. When you pass a waypoint it's marked "ok" and jumps to the bottom of the list, so that the current waypoint is always on top of the list. After all waypoints are passed correctly the page shows task time, distance and average speed in the header. 
+
+If you used the engine, slew mode or exceeded maximum speed (Vne = 152 kts True Airspeed) for more than 5 seconds, the header will turn red an include a notification.
+
+The whole task system is ideally used with Ian's "B21 Task Planner": https://xp-soaring.github.io/tasks/b21_task_planner/index.html. Plan your flight there, download the MSFS *.pln file and load that plan when setting up your flight in MSFS. The nav computer will automatically display your plan and use it for navigation.
+
+Detailled info on planning and flying glider tasks: https://www.youtube.com/watch?v=u7zJSu4jlPU
 
 <h2>Kinetic Assist Launch Menu</h2>
 
@@ -112,12 +113,14 @@ Links to remote control functions of "Kinetic Assistant" by "Touching Cloud". Pl
 - <b>Interface Options:</b> Settings for the Nav Interface: 
   - "Readability Mode" can be activated here to get some bigger readouts (and less data fields) 
   - toggle liftdot-trail on the map
-  - Visual stall warning. If activated, the screen will flash red when the aircraft is close to a stall.
-  - Toggle cockpit warnings for gear, ballast and overspeed
-  - Toggle aviation specific info on the map (can be slow to load and clutter the map)
-  - Enable or disable automatic logging. If enabled logged time, distance, average speed and altitude climbed can be displayed in data fields. Log starts autoamtically at 100m AGL and stops on touchdown
+  - Visual stall warning: If activated, the screen will flash red when the aircraft is close to a stall.
+  - Wind Indicator: Toggles the wind arrows on the map
+  - Course Pointer Arrow: displays left/right arrows on top of the map to guide you to your nav target.
+  - Auto MacCready: Will update your MC setting based on the last "thermal" (i.e. last time you circled). 
+  - Aviation Map Layer: Overlays airspace information on top of the topographic map, if you really want to avoid flying into control zones etc.
+  - Cockpit Warnings: If active, you'll get various popup warnings on screen: gear, ballast, overspeed warnings.
+  - Auto Log: Automaticalls logs flight data. Time, total climb, average groundspeed and total distance can be displayed in data fields. 
 
-All config settings apart from ballast are persistent between sessions. Just make sure to click "close" after making any changes.
 
 All config settings apart from ballast are persistent between sessions. Just make sure to click "CLOSE & SAVE" after making any changes.
 

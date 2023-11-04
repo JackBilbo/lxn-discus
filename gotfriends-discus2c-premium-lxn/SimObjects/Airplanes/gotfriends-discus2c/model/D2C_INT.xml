@@ -1303,11 +1303,6 @@
                     (A:SPOILERS HANDLE POSITION, Percent over 100) l0 * (A:TOTAL WEIGHT, kg) / s2
                     (A:VELOCITY BODY Z, Knots) l1 0.0003 * - l2 1.900 * - (&gt;A:VELOCITY BODY Z, Knots)
                     (A:AILERON LEFT DEFLECTION PCT, percent) (L:AdverseYaw) -1 * * (&gt;K:RUDDER_TRIM_SET)
-                    (A:DYNAMIC PRESSURE, Psf) s0
-                    (A:AMBIENT PRECIP RATE, Millimeters of water) 8 min l0 * s1
-                    (A:SPOILERS HANDLE POSITION, Percent over 100) l0 * (A:TOTAL WEIGHT, kg) / s2
-                    (A:VELOCITY BODY Z, Knots) l1 0.0003 * - l2 1.900 * - (&gt;A:VELOCITY BODY Z, Knots)
-                    (A:AILERON LEFT DEFLECTION PCT, percent) (L:AdverseYaw) -1 * * (&gt;K:RUDDER_TRIM_SET)
                 </UPDATE_CODE>
             </UseTemplate>
         </Component>

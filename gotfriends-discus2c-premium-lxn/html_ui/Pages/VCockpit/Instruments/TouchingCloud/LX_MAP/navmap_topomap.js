@@ -38,8 +38,6 @@ class navmap {
         this.task_svg_el = document.getElementById("lx_9050_task");
 
         this.mpMarker = {};
-
-        this.mpMarker = {};
         
         TOPOMAP = "noinit";
     }

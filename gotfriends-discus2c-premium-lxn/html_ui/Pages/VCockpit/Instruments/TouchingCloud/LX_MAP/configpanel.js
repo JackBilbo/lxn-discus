@@ -27,8 +27,6 @@ class configpanel {
         this.rangesliders.push(this.glareshiledrange);
         this.adverseyawrange = new rangeinput(document.querySelector("#adverseyawslider"), function(val) { SimVar.SetSimVarValue("L:AdverseYaw", "percent", val); });
         this.rangesliders.push(this.adverseyawrange);
-        this.adverseyawrange = new rangeinput(document.querySelector("#adverseyawslider"), function(val) { SimVar.SetSimVarValue("L:AdverseYaw", "percent", val); });
-        this.rangesliders.push(this.adverseyawrange);
 
         document.querySelectorAll(".lxconfigbtn").forEach((el)=> {
             el.addEventListener("click", function(e) {
