@@ -107,7 +107,7 @@ Links to remote control functions of "Kinetic Assistant" by "Touching Cloud". Pl
   - Auto MacCready: Will update your MC setting based on the last "thermal" (i.e. last time you circled). 
   - Aviation Map Layer: Overlays airspace information on top of the topographic map, if you really want to avoid flying into control zones etc.
   - Cockpit Warnings: If active, you'll get various popup warnings on screen: gear, ballast, overspeed warnings.
-  - Auto Log: Automaticalls logs flight data. Time, total climb, average groundspeed and total distance can be displayed in data fields. 
+  - Auto Log: Automaticalls logs flight data: time, total climb, average groundspeed and total distance can be displayed in data fields. This is only meant as informative display during flight. The mod cannot write any real logfiles.
 
 
 All config settings apart from ballast are persistent between sessions. Just make sure to click "CLOSE & SAVE" after making any changes.
