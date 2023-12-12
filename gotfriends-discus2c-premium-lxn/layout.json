@@ -1,29 +1,19 @@
 {
   "content": [
     {
-      "path": "html_ui/Pages/VCockpit/Instruments/jbb/v8/v8-vario.css",
-      "size": 10193,
-      "date": 133214800846826637
-    },
-    {
-      "path": "html_ui/Pages/VCockpit/Instruments/jbb/v8/v8-vario.html",
-      "size": 2728,
-      "date": 133212213371712619
-    },
-    {
-      "path": "html_ui/Pages/VCockpit/Instruments/jbb/v8/v8-vario.js",
-      "size": 18608,
-      "date": 133215739529407332
-    },
-    {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/configpanel.js",
       "size": 17510,
-      "date": 133186337706185441
+      "date": 133437597048788817
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/interface.js",
-      "size": 11556,
-      "date": 133184989970308220
+      "size": 11828,
+      "date": 133326985229750121
+    },
+    {
+      "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/keybinds.js",
+      "size": 919,
+      "date": 133437597048828822
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/mapConfig.json",
@@ -37,8 +27,8 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navmap_topomap.js",
-      "size": 23892,
-      "date": 133186906901309315
+      "size": 23890,
+      "date": 133437597048828822
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navpanel.js",
@@ -46,19 +36,14 @@
       "date": 133186333641965846
     },
     {
-      "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/soarnet_class.js",
-      "size": 10373,
-      "date": 133186336000228061
-    },
-    {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.html",
-      "size": 45249,
-      "date": 133238908654009524
+      "size": 45159,
+      "date": 133437597048828822
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.js",
-      "size": 65429,
-      "date": 133238907737560964
+      "size": 68188,
+      "date": 133437597048838786
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_includes/geo.js",
@@ -83,7 +68,7 @@
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_soaring_engine/b21_soaring_engine.js",
       "size": 65169,
-      "date": 133186334706353189
+      "date": 133436014307575280
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_soaring_engine/README.md",
@@ -93,22 +78,22 @@
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/bignumbers.css",
       "size": 823,
-      "date": 133096850890593355
+      "date": 133437597048788817
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/soarnet.css",
       "size": 2980,
-      "date": 133186334943962953
+      "date": 133437597048788817
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/task-page.css",
-      "size": 5755,
-      "date": 133216544190467697
+      "size": 6028,
+      "date": 133371087570667891
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/css/tc-disc2c-nav.css",
       "size": 24357,
-      "date": 133216665049400897
+      "date": 133437591649602402
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/thermalling_display/thermalling_display.css",
@@ -122,8 +107,8 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/thermalling_display/thermalling_display.js",
-      "size": 26052,
-      "date": 133211410958471424
+      "size": 26592,
+      "date": 133326984640487324
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/gotfriends_circle.png",
@@ -131,34 +116,14 @@
       "date": 133186333641995809
     },
     {
-      "path": "SimObjects/Airplanes/gotfriends-discus2c/model/D2C_INT.xml",
-      "size": 76718,
-      "date": 133186693402955725
-    },
-    {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/panel/panel.cfg",
-      "size": 2192,
-      "date": 133078304308499845
-    },
-    {
-      "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/model/D2C_FES_INT.xml",
-      "size": 80606,
-      "date": 133212080328015625
+      "size": 2316,
+      "date": 133468747320216887
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/panel/panel.cfg",
-      "size": 2422,
-      "date": 133214816624171427
-    },
-    {
-      "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/panel/panel_original_vario.cfg",
-      "size": 2375,
-      "date": 133214816519205323
-    },
-    {
-      "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/panel.NOREG/panel.cfg",
-      "size": 2355,
-      "date": 133186333641805849
+      "size": 2499,
+      "date": 133468748288661064
     }
   ]
 }
