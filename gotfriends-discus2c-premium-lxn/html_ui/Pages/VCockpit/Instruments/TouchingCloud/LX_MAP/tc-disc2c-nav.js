@@ -164,7 +164,7 @@ class lxn extends NavSystemTouch {
         CONFIGPANEL = new configpanel(this); CONFIGPANEL.initSystemSettings();
         UI = new ui(this); UI.init();
 
-        this.jbb_refwt = SimVar.GetSimVarValue("A:Empty weight","number") > 300 ? 921 : 765;
+        this.jbb_refwt = SimVar.GetSimVarValue("A:Empty weight","number") > 300 ? 981 : 787;
 
         this.init_speedgauge();
         this.jbb_init_calc_polar();

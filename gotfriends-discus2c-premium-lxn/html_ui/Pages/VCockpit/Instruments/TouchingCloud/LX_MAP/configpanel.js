@@ -126,7 +126,6 @@ class configpanel {
 
         let masterunits = SimVar.GetSimVarValue("L:UNITS_IMPERIAL","percent");
         if(this.unitstore != masterunits && ( masterunits == 0 || masterunits == 100 )) {
-            console.log("SWITCHING UUUUNITS: " + SimVar.GetSimVarValue("L:UNITS_IMPERIAL","percent") );
             if(masterunits == 100) { this.setUnitPrefs("imperial") } else { this.setUnitPrefs("metric") }
             this.unitstore = masterunits;
         }

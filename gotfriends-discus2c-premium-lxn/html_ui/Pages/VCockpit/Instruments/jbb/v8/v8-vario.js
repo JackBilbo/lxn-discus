@@ -141,9 +141,9 @@ class v8_varioclass extends BaseInstrument {
             this.pageUp();
         };
 
-        if(SimVar.GetSimVarValue("L:S80_ENTER_BUTTON","number") == 1) {
-            SimVar.SetSimVarValue("L:S80_ENTER_BUTTON","number", 0);
-            this.scale = this.scale == "straight" ? this.scale = "log" : "straight";
+        if(SimVar.GetSimVarValue("L:S80_MODE","bool") != this.s80mode) {
+            this.s80mode = SimVar.GetSimVarValue("L:S80_MODE","bool");
+            this.scale = this.s80mode == "1" ? "log" : "straight";
             this.buildScale(); 
         };
 
