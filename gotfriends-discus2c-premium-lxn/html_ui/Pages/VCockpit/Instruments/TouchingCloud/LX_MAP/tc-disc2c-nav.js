@@ -164,7 +164,7 @@ class lxn extends NavSystemTouch {
         CONFIGPANEL = new configpanel(this); CONFIGPANEL.initSystemSettings();
         UI = new ui(this); UI.init();
 
-        this.jbb_refwt = SimVar.GetSimVarValue("A:Empty weight","number") > 300 ? 981 : 787;
+        this.jbb_refwt = SimVar.GetSimVarValue("A:Empty weight","number") > 300 ? 925 : 787;
 
         this.init_speedgauge();
         this.jbb_init_calc_polar();
@@ -723,12 +723,14 @@ class lxn extends NavSystemTouch {
     }
 
     jbb_update_stf()  {
-        // No "Bugs" on simulated wings so far
+        /* No "Bugs" on simulated wings so far
         let bugs = document.querySelector("#buginput").value;
               
         if(bugs != parseInt(bugs)) { bugs = 100; }
         if(bugs < 0 || bugs > 100) { bugs = 100; }
+        */
 
+        let bugs = 100;
         let ballast = this.vars.ballast.value;
         let wf = Math.sqrt(eval(this.jbb_refwt + parseFloat(ballast)) / this.jbb_refwt);
     

@@ -7,7 +7,9 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <p>Before using this version please make sure, you're flying verison 2.0.8 of GotFriends Discus.</p>
 
+<strong>New keybind MacCready</strong>
 
+<p>You can now use the native INCREASE/DECREASE MAC CREADY SETTING. This will change the MC value by 1kt or 0.5m/s per button press. Known issue: when using metric settings, there are occaional rounding errors. If you're using the original digital vario, the blue MC marker will not move when using those keybinds until you touch the rotary button.
 
 
 <h2>Installation:</h2>
@@ -28,7 +30,7 @@ Several functions can be operated by keybinds from joystick or throttle:
 - Waypoint next/prev: INCREASE/DECREASE TRANSPONDER (1000)
 - Map Zoom:           INCREASE/DECREASE TRANSPONDER (10)
 - Map Orientation:    INCREASE/DECREASE TRANSPONDER (1)
-- set MacCready       INCREASE/DECREASE MACCREADY VALUE
+- set MacCready       INCREASE/DECREASE MACCREADY SETTING
 
 
 <h1>Manual and Handling</h1>

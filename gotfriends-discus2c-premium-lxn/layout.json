@@ -12,13 +12,13 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/jbb/v8/v8-vario.js",
-      "size": 22972,
-      "date": 133468772725460883
+      "size": 22957,
+      "date": 133468819304560427
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/configpanel.js",
-      "size": 17510,
-      "date": 133437597048788817
+      "size": 17405,
+      "date": 133468911167428368
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/interface.js",
@@ -57,8 +57,8 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.js",
-      "size": 68188,
-      "date": 133437597048838786
+      "size": 68225,
+      "date": 133468913222189040
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_includes/geo.js",
@@ -126,29 +126,19 @@
       "date": 133186333641995809
     },
     {
-      "path": "SimObjects/Airplanes/gotfriends-discus2c/model/D2C_FREE_INT.xml",
-      "size": 58562,
-      "date": 133468772725320350
-    },
-    {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/model/D2C_INT.xml",
-      "size": 61494,
-      "date": 133468705595680707
-    },
-    {
-      "path": "SimObjects/Airplanes/gotfriends-discus2c/model/D2C_INT_jbb.xml",
-      "size": 76718,
-      "date": 133468772725320350
+      "size": 65226,
+      "date": 133468917417524560
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/panel/panel.cfg",
-      "size": 2235,
-      "date": 133468772725330619
+      "size": 2361,
+      "date": 133468886718034129
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/panel/panel_original_vario.cfg",
-      "size": 2190,
-      "date": 133468772725330619
+      "size": 2361,
+      "date": 133468887595558689
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/panel.NOREG/panel.cfg",
@@ -171,24 +161,19 @@
       "date": 133468772725445867
     },
     {
-      "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/model/D2C_FES_INT copy.xml",
-      "size": 80604,
-      "date": 133468772724917849
-    },
-    {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/model/D2C_FES_INT.xml",
-      "size": 64898,
-      "date": 133468797268721313
+      "size": 68629,
+      "date": 133468817109802976
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/panel/panel.cfg",
-      "size": 2420,
-      "date": 133468772724926541
+      "size": 2546,
+      "date": 133468887686601791
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/panel/panel_original_vario.cfg",
-      "size": 2375,
-      "date": 133468772725315331
+      "size": 2546,
+      "date": 133468887452423076
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/panel.NOREG/panel.cfg",

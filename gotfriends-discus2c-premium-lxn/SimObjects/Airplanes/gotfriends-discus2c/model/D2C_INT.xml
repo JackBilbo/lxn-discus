@@ -1052,7 +1052,7 @@
 		</Component>
 <!-- ###################################### -->
 <!-- ##### LX NAV AND CABLE RELEASE ####### -->
-<!-- ###################################### -->
+<!-- ###################################### 
         <Component ID="LX_KNOB_1" Node="INT_LX_KNOB_SMALL1">
 			<UseTemplate Name="ASOBO_GT_Knob_Finite_Code">
 				<WRAP>False</WRAP>
@@ -1149,6 +1149,103 @@
 				<COUNT>10</COUNT>
 			</UseTemplate>
 		</Component>
+		-->
+
+
+<!-- ###################################### -->
+<!-- # JACKBILBO REPLACEMENT LX NAV KNOBS # -->
+<!-- ###################################### -->
+        <Component ID="GOT_FRIENDS_BUTTON_FIX">
+            <UseTemplate Name="ASOBO_GT_Update">
+                <UPDATE_CODE>
+                    1 (&gt;L:BUTTON_FIX)
+                </UPDATE_CODE>
+            </UseTemplate>
+        </Component>
+		<Component ID="GOT_FRIENDS_BUTTON_VISIBILITY" 				Node="GAUGE_NAV_BUTTON">
+			<UseTemplate Name="ASOBO_GT_Visibility_Code">
+				<VISIBILITY_CODE>
+					(L:BUTTON_FIX, bool) 0 ==
+				</VISIBILITY_CODE>
+			</UseTemplate>
+		</Component>
+        <Component ID="LX_KNOB_1" 	Node="INT_LX_KNOB_SMALL1">
+			<UseTemplate Name="ASOBO_GT_Knob_Finite_Code">
+				<WRAP>False</WRAP>
+				<PART_ID>INT_LX_KNOB_SMALL1</PART_ID>
+				<ANIM_CODE>(L:LX_KNOB_1, number) 100 *</ANIM_CODE>
+				<ANIM_LENGTH>100</ANIM_LENGTH>
+				<ANIM_NAME>Brightness_Knob</ANIM_NAME>
+				<WWISE_EVENT>as21_transponder_code_knob</WWISE_EVENT>
+				<ANTICLOCKWISE_CODE>
+					(L:LX_KNOB_1) 0.1 - 0.1 max (&gt;L:LX_KNOB_1)
+				</ANTICLOCKWISE_CODE>
+				<CLOCKWISE_CODE>
+					(L:LX_KNOB_1) 0.1 + 1 min (&gt;L:LX_KNOB_1)
+				</CLOCKWISE_CODE>
+				<ANIMCURSOR_DIR>1.0</ANIMCURSOR_DIR>
+				<ANIMCURSOR_MIN>0.1</ANIMCURSOR_MIN>
+				<TOOLTIPID>MAP ZOOM</TOOLTIPID>
+				<COUNT>10</COUNT>
+			</UseTemplate>
+		</Component>
+		<Component ID="LX_KNOB_2">
+			<UseTemplate Name="ASOBO_GT_Knob_Finite_Dummy">
+				<KNOB_NAME>INT_LX_KNOB_SMALL2</KNOB_NAME>
+				<PART_ID>INT_LX_KNOB_SMALL2</PART_ID>
+				<ANIM_NAME>Ballast_Knob</ANIM_NAME>
+				<WWISE_EVENT>as21_transponder_code_knob</WWISE_EVENT>
+				<COUNT>9</COUNT>
+				<KNOB_SPEED>1</KNOB_SPEED>
+				<KNOB_POSITION_VAR>BEZEL_CAL</KNOB_POSITION_VAR>
+				<KNOB_POSITION_VAR_TYPE>L</KNOB_POSITION_VAR_TYPE>
+				<KNOB_POSITION_VAR_UNIT>PERCENT</KNOB_POSITION_VAR_UNIT>
+				<ANIM_LENGTH>100</ANIM_LENGTH>
+				<ANIM_CODE>(L:BEZEL_CAL,percent) 9 /</ANIM_CODE>
+				<TOOLTIPID>Digital MacCready %((L:BEZEL_CAL) 1 *)%!2.0f!%&percnt;</TOOLTIPID>
+			</UseTemplate>
+		</Component>
+        <Component ID="LX_KNOB_3"             Node="INT_LX_KNOB_SMALL3">
+            <UseTemplate Name="ASOBO_GT_Knob_Finite_Code">
+                <WRAP>False</WRAP>
+                <PART_ID>INT_LX_KNOB_SMALL3</PART_ID>
+                <ANIM_CODE>(L:LX_KNOB_3, number) 100 *</ANIM_CODE>
+                <ANIM_LENGTH>100</ANIM_LENGTH>
+                <ANIM_NAME>Macready_Knob</ANIM_NAME>
+                <WWISE_EVENT>as21_transponder_code_knob</WWISE_EVENT>
+                <ANTICLOCKWISE_CODE>
+					(L:LX_KNOB_3) 0.1 - 0.1 max (&gt;L:LX_KNOB_3)
+				</ANTICLOCKWISE_CODE>
+				<CLOCKWISE_CODE>
+					(L:LX_KNOB_3) 0.1 + 1 min (&gt;L:LX_KNOB_3)
+				</CLOCKWISE_CODE>
+				<ANIMCURSOR_DIR>1.0</ANIMCURSOR_DIR>
+				<ANIMCURSOR_MIN>0.1</ANIMCURSOR_MIN>
+				<TOOLTIPID>PAGE LEFT/RIGHT</TOOLTIPID>
+				<COUNT>10</COUNT>
+			</UseTemplate>
+		</Component>
+        <Component ID="LX_KNOB_4" 		Node="INT_LX_KNOB_SMALL4">
+			<UseTemplate Name="ASOBO_GT_Knob_Finite_Code">
+				<WRAP>False</WRAP>
+				<PART_ID>INT_LX_KNOB_SMALL4</PART_ID>
+				<ANIM_CODE>(L:LX_KNOB_4, number) 100 *</ANIM_CODE>
+				<ANIM_LENGTH>100</ANIM_LENGTH>
+				<ANIM_NAME>Zoom_Knob</ANIM_NAME>
+				<WWISE_EVENT>as21_transponder_code_knob</WWISE_EVENT>
+				<ANTICLOCKWISE_CODE>
+					(L:LX_KNOB_4) 0.1 - 0.1 max (&gt;L:LX_KNOB_4)
+				</ANTICLOCKWISE_CODE>
+				<CLOCKWISE_CODE>
+					(L:LX_KNOB_4) 0.1 + 1 min (&gt;L:LX_KNOB_4)
+				</CLOCKWISE_CODE>
+				<ANIMCURSOR_DIR>1.0</ANIMCURSOR_DIR>
+				<ANIMCURSOR_MIN>0.1</ANIMCURSOR_MIN>
+				<TOOLTIPID>PAGE UP/DOWN</TOOLTIPID>
+				<COUNT>10</COUNT>
+			</UseTemplate>
+		</Component>
+
 		<Component ID="LAUNCH_MENU">
 			<Component ID="OLD_MENU" Node="INT_LXNAV_SDCARD">
 				<UseTemplate Name="ASOBO_GT_Switch_Code">
