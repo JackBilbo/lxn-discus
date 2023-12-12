@@ -3,31 +3,16 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <h2>Fixes and Updates:</h2>
 
-<strong>Overspeed Warning:</strong>
+<strong>Update for Discus version 2.0.8</strong>
 
-The computer now checks a maximum safe speed (Vne) of 152kts true aispeed. If you exceed that speed for more than a few seconds you'll see a red warning and if flying a task, the task page will show how long you have been speeding in total. Usage of slew mode and motor will also be noted on task page.
-
-Since Vne is bassed on true airspeed, the maximum indicated airspeed (as displayed on speed instrument) will be lower with altitude and no longer match the painted red line on the speed instrument. The speed tape on the left of the screen shows a dynamic "red zone" and the background of the tape will gradually change it's background to orange as you get closer to Vne. 
-
-As in real life, the speed limit has a sizable safety margin and is nowhere near the speed at which the sim really breaks the aircraft, so feel free to disable "cockpit warnings" in interface settings.
+<p>Before using this version please make sure, you're flying verison 2.0.8 of GotFriends Discus.</p>
 
 
-<strong>Reworked Digital Variometer</strong>
-
-This mod contains a visual rework of the digital vario. If you don't like it and want to keep the original, head for the folder /SimObjects/Airplanes/gotfriends-discus2c(-fes)/panel/ and rename panel_original_vario.cfg into panel.cfg (delete or rename the existing file) and you are back to normal. Alternatively just open the panel.cfg in a text editor and place the comment marks for [VCockpit06] accordingly to load the vario you prefer. For more Details on the rework see the end of this document.
-
-<strong>Conditional Data Fields</strong>
-
-There are two new, special datafield options available: "Waypoint Min" and "Waypoint Max". These will display Min/Max Altitudes for the current waypoint if set in the flightplan. If no value is present, the datafield will be completely invisible. 
-
-<strong>Bugfix</strong>
-
-One of the recent MSFS updates introduced a new "feature" that shows a thick white outline around HTML instruments, especially when using head tracking software. This mod avoids this behaviour for the nav computer and the vario. If you experience it anywhere else in the cockpit, try moving the mouse cursor to the very top of the screen, that should avoid those outlines.
 
 
 <h2>Installation:</h2>
 
-Simply drop the included folder "gotfriends-discus2c-premium-lxn" into your community folder. If you use the freeware version you need to change the folder name to "gotfriends-discus2c-freeware-lxn", everything else will work fine in both versions. No need to change anything in your existing installation. To uninstall, delete the folder and you're "back to normal". 
+Simply drop the included folder "gotfriends-discus2c-premium-lxn" into your community folder - doesn't matter, if you're using the free or premium version. No need to change anything in your existing installation. To uninstall, delete the folder and you're "back to normal". 
 
 You may experience conflicts with other existing mods, especially livery mods. See below for possible solutions.
 
@@ -43,6 +28,7 @@ Several functions can be operated by keybinds from joystick or throttle:
 - Waypoint next/prev: INCREASE/DECREASE TRANSPONDER (1000)
 - Map Zoom:           INCREASE/DECREASE TRANSPONDER (10)
 - Map Orientation:    INCREASE/DECREASE TRANSPONDER (1)
+- set MacCready       INCREASE/DECREASE MACCREADY VALUE
 
 
 <h1>Manual and Handling</h1>
