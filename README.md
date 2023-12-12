@@ -3,26 +3,10 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <h2>Fixes and Updates:</h2>
 
-<strong>Overspeed Warning:</strong>
+<strong>Quick update for Discus version 2.0.8</strong>
 
-The computer now checks a maximum safe speed (Vne) of 152kts true aispeed. If you exceed that speed for more than a few seconds you'll see a red warning and if flying a task, the task page will show how long you have been speeding in total. Usage of slew mode and motor will also be noted on task page.
-
-Since Vne is bassed on true airspeed, the maximum indicated airspeed (as displayed on speed instrument) will be lower with altitude and no longer match the painted red line on the speed instrument. The speed tape on the left of the screen shows a dynamic "red zone" and the background of the tape will gradually change it's background to orange as you get closer to Vne. 
-
-As in real life, the speed limit has a sizable safety margin and is nowhere near the speed at which the sim really breaks the aircraft, so feel free to disable "cockpit warnings" in interface settings.
-
-
-<strong>Reworked Digital Variometer</strong>
-
-This mod contains a visual rework of the digital vario. If you don't like it and want to keep the original, head for the folder /SimObjects/Airplanes/gotfriends-discus2c(-fes)/panel/ and rename panel_original_vario.cfg into panel.cfg (delete or rename the existing file) and you are back to normal. Alternatively just open the panel.cfg in a text editor and place the comment marks for [VCockpit06] accordingly to load the vario you prefer. For more Details on the rework see the end of this document.
-
-<strong>Conditional Data Fields</strong>
-
-There are two new, special datafield options available: "Waypoint Min" and "Waypoint Max". These will display Min/Max Altitudes for the current waypoint if set in the flightplan. If no value is present, the datafield will be completely invisible. 
-
-<strong>Bugfix</strong>
-
-One of the recent MSFS updates introduced a new "feature" that shows a thick white outline around HTML instruments, especially when using head tracking software. This mod avoids this behaviour for the nav computer and the vario. If you experience it anywhere else in the cockpit, try moving the mouse cursor to the very top of the screen, that should avoid those outlines.
+<p>Reworked vario is completely removed.<p>
+<p>Due to changes in the Discus model nav screens can no longer be switched with the rotary buttons in cockpit. For now you have to use the keybinds below to change pages left/right or up/down</p>
 
 
 <h2>Installation:</h2>
@@ -158,27 +142,3 @@ To learn more about task planning and flying, check out Ian Lewis' great tutoria
 <h2>Conflicts with other mods</h2>
 
 Multiple mods changing the same aircraft are prone to conflict somehow. If you run into problems the first and easiest option is to decide, which modification is more important to you and remove the conflicting one. If you absolutely want to keep both, you can try to find out which files conflict. In the case of most livery modifications the conflicting file is the file panel.cfg, that is used to modify aircraft registration. This mod also changes panel.cfg. You can try to solve the conflict by either copying panel.cfg from this mod over to you livery completely, or only copy the section [VCockpit02] from this mod's panel.cfg and paste it to the same file in you livery mod. Sounds way more complicated than it is, but try it at your own risk, of course.
-
-
-<h2>Reworked Variometer</h2>
-
-The rework is losely based on the realworld LXN V80 vario but doesn't attempt to exactly emulate its funcionality. It contains a slightly enlarged scale and needles for better readability with five indicators:
-
-- orange: current climb/sink (TE or netto as selected by the bottom right knob)
-- turquoise: current vertical wind component (RL-inspiration: https://gliding.lxnav.com/news/hawk-wind-calculation/)
-- red square: 10s average climb/sink.
-- small green T: total true average of the last thermal (as calculated by the thermal helper page in the LX computer). When flying in thermal conditions this marker can help with judging you MC setting: if you're leaving a thermal and this marker is below the blue MC marker, you overestimated the climb and might consider dialling MC down a bit. If it's the other way around you could go a little more aggressive.
-- blue triangle: MacCready setting
-
-The orange arc marks the range of values measured during the last ten seconds.
-
-The center of the instrument can display four different screens:
-
-- data fields for current and average climb plus a (VERY) tiny speedtape and STF-Marker
-- horizontal wind info (HAWK-style see above)
-- simple artificial horizon
-- slider to adjust "current" needle smoothing (calculating average values) between 0 and 5 seconds. Allows to change the sensitivity of the vario needle in gusty conditions. Higher values will make the vario less responsive when entering lift, but filter out rapid movement from rapidly changing wind speeds. When flying in a weather preset with 0 gusts, you can safely set this to 0. When you encounter gusts (as in live weather most of the time) adjust the smoothing upward to calm down the needle.
-
-Screens can be cycled using the top and bottom button on the right. Center button toggles between the default linear and a logarithmic scale. You can also cycle screens using alt/a alt/s on the keyboard (doesn't work in VR for some reason).
-
-Audio output of the vario is completely unchanged.
