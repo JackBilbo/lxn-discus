@@ -11,6 +11,9 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <p>You can now use the native INCREASE/DECREASE MAC CREADY SETTING. This will change the MC value by 1kt or 0.5m/s per button press. Known issue: when using metric settings, there are occaional rounding errors. If you're using the original digital vario, the blue MC marker will not move when using those keybinds until you touch the rotary button.
 
+<strong>Small Update to Ballast System</strong>
+
+<p>Tail Ballast does not empty when dumping ballast in flight. This is now correctly displayed on the ballas management page. Also total ballast and ballast percentage no longer count down to zero when dumping, as tail ballast stays onboard.</p>
 
 <h2>Installation:</h2>
 
