@@ -682,6 +682,10 @@ class lxn extends NavSystemTouch {
             result = result < 10 ? result.toFixed(1) : result.toFixed(0);
         }
 
+        if(category == "verticalspeed" && this.units.verticalspeed.pref == "ms" && val == this.vars.mccready.value) {
+            result = (Math.round(result * 2) / 2).toFixed(1);
+        }
+
         /* if no formatting has messed with our result up to this point, simply make it a whole number */
         if(typeof(result) == "number") { result = result.toFixed(0); }
 
