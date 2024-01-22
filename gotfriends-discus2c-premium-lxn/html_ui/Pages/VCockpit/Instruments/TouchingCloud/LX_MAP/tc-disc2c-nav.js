@@ -22,6 +22,8 @@ class lxn extends NavSystemTouch {
         this.lift_dots_max = 40;
         this.te = { v: 0, h: 0, t: 0, te: 0}
         this.log = { isStarted: false };
+
+        this.netto_array = [];
        	
         this.vars = {            
             ias: { value: 10, label: "IAS", longlabel: "Indicated Airspeed", category: "speed", baseunit: "kts" },
@@ -30,6 +32,7 @@ class lxn extends NavSystemTouch {
             trk: { value: 0, label: "TRK", longlabel: "GPS Groundtrack", category: "direction", baseunit: "deg"},
             gndspd: { value: 0, label: "GND SPD", longlabel: "GPS Groundspeed", category: "speed", baseunit: "kts"},
             stf: { value: 0, label: "STF", longlabel: "Speed to fly", category: "speed", baseunit: "kts" },
+            dynamic_stf: { value: 0, label: "STF/NETTO", longlabel: "Speed to fly corrected for Netto", category: "speed", baseunit: "kts" },
             sink_stf: { value: 0, label: "Sink at STF", longlabel: "Sink at Speed to fly", category: "verticalspeed", baseunit: "kts" },
             current_netto: { value: 0, label: "NETTO", longlabel: "Smoothed Netto", category: "verticalspeed", baseunit: "kts"},
             aoa: { value: 0, label: "AoA", longlabel: "Angle of Attack", category: "direction", baseunit: "deg"},
@@ -251,7 +254,9 @@ class lxn extends NavSystemTouch {
             this.AIRSPEED_TRUE_MS = this.vars.tas.value * 0.51444;
             this.ALTITUDE_M = this.vars.alt.value * 0.3048;
 
+            this.jbb_update_stf();
             this.update_speedgauge();
+
             if(NAVMAP.map_instrument_loaded) {
                 NAVMAP.update_map();
             } else if(NAVPANEL.airportsloaded) {
@@ -265,7 +270,7 @@ class lxn extends NavSystemTouch {
             this.vars.wind_spd.value = parseFloat(SimVar.GetSimVarValue("A:AMBIENT WIND VELOCITY", "knots"));
             this.vars.wind_direction.value = parseInt(SimVar.GetSimVarValue("A:AMBIENT WIND DIRECTION", "degrees"));
             this.vars.wind_vertical.value = SimVar.GetSimVarValue("A:AMBIENT WIND Y", "knots");
-            this.vars.current_netto.value = (this.vars.current_netto.value * 0.9) + (SimVar.GetSimVarValue("L:NETTO", "knots") * 0.1);
+            // this.vars.current_netto.value = (this.vars.current_netto.value * 0.9) + (SimVar.GetSimVarValue("L:NETTO", "knots") * 0.1);
             if(this.vars.aoa.isUsed) {this.vars.aoa.value = SimVar.GetSimVarValue("INCIDENCE ALPHA", "radians") * (180/Math.PI);}
 
             this.ON_GROUND = SimVar.GetSimVarValue("SIM ON GROUND", "bool") ? true : false;
@@ -308,8 +313,6 @@ class lxn extends NavSystemTouch {
                 this.vars.mccready.value = mastermc / 10;
                 this.v80_mcvalue = mastermc;
             }
-
-            this.jbb_update_stf();
 
             if (B21_SOARING_ENGINE.task_active()) {
                 
@@ -749,11 +752,20 @@ class lxn extends NavSystemTouch {
         // let mccready_shifted = mccready - this.vars.current_netto.value;
         // if (mccready_shifted < 0) { mccready_shifted = 0; }
 
+        this.netto_array.push(SimVar.GetSimVarValue("L:NETTO", "knots"));
+        if(this.netto_array.length > 35) { this.netto_array.shift() }
+        this.vars.current_netto.value = this.netto_array.reduce((a, b) => a + b, 0) / this.netto_array.length;
+
+        let mccready_shifted = mccready - this.vars.current_netto.value;
+        if (mccready_shifted < 0) { mccready_shifted = 0; }
+        this.vars.dynamic_stf.value = Math.sqrt((cc - mccready_shifted) / aa).toFixed(0);
+
         let stf = Math.sqrt((cc - mccready) /aa).toFixed(0);
 
         this.vars.sink_stf.value = (aa * stf * stf) + (bb * stf) + cc;
         this.vars.stf.value = stf;
 
+        SimVar.SetSimVarValue("L:JBB_STF_DYNAMIC","knots",parseInt(this.vars.dynamic_stf.value));
         SimVar.SetSimVarValue("L:JBB_STF","knots",parseInt(stf));
         // let ias = SimVar.GetSimVarValue("A:AIRSPEED INDICATED", "knots");
         // this.jbb_current_polar_sink = (aa * ias * ias) + (bb * ias) + cc;
@@ -860,8 +872,8 @@ class lxn extends NavSystemTouch {
             document.querySelector(".speedladder.kmh .vnemarker").style.transform = "translate(0," + (((vne_ias_ms * 3.6 - 60) * -10)) + "px)";
             document.querySelector(".speedladder.kts .vnemarker").style.transform = "translate(0," + (((vne_ias_ms * 1.944 - 30) * -10)) + "px)";
 
-            this.querySelector(".speedladder.kmh .stfmarker").style.transform = "translate(0,-" + ((this.vars.stf.value * 1.852 - 60) * 10) +  "px)";
-            this.querySelector(".speedladder.kts .stfmarker").style.transform = "translate(0,-" + ((this.vars.stf.value - 30) * 10) +  "px)";
+            this.querySelector(".speedladder.kmh .stfmarker").style.transform = "translate(0,-" + ((this.vars.dynamic_stf.value * 1.852 - 60) * 10) +  "px)";
+            this.querySelector(".speedladder.kts .stfmarker").style.transform = "translate(0,-" + ((this.vars.dynamic_stf.value - 30) * 10) +  "px)";
 
         } else {
             document.querySelector(".speedladder.kmh").style.transform = "translate(0, " + speedbandoffset +  "px)";

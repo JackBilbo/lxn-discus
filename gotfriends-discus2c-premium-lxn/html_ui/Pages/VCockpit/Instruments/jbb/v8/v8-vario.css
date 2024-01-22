@@ -304,6 +304,13 @@
     border-radius:2px;
 }
 
+.stfmarker.under {
+    background-color: darkgreen;
+}
+
+.stfmarker.over {
+    background-color: #c00; }
+
 .currentspeed {
     display: block; 
     position: absolute;

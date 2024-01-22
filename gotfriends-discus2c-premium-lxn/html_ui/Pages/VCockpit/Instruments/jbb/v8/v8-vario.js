@@ -64,6 +64,7 @@ class v8_varioclass extends BaseInstrument {
         this.highspeed = this.root.querySelector(".highspeed");
         this.maneuver = this.root.querySelector(".maneuver");
         this.stallspeed = this.root.querySelector(".stallspeed");
+        this.stfmarker = this.speedtape.querySelector(".stfmarker");
 
         this.hawkcurrent = this.root.querySelector("#arrow_current");
         this.hawkaverage = this.root.querySelector("#arrow_avg");
@@ -330,13 +331,26 @@ class v8_varioclass extends BaseInstrument {
     }
 
     updateSpeedtape() {
-        let stf = this.units == "metric" ? SimVar.GetSimVarValue("L:JBB_STF","kph") : SimVar.GetSimVarValue("L:JBB_STF","knots");
+        let stf = this.units == "metric" ? SimVar.GetSimVarValue("L:JBB_STF_DYNAMIC","kph") : SimVar.GetSimVarValue("L:JBB_STF_DYNAMIC","knots");
         let ias = this.units == "metric" ? SimVar.GetSimVarValue("A:AIRSPEED INDICATED", "kph") : SimVar.GetSimVarValue("A:AIRSPEED INDICATED", "knots");
 
         if(ias > 30) {
             this.speedtape.style.transform = "translate(0, " + (ias * this.speedtapestep - 250 ) + "px)";
             this.root.querySelector(".currentspeed").innerHTML = ("000" + ias.toFixed(0)).substr(-3);
-            this.speedtape.querySelector(".stfmarker").style.bottom = ((stf * this.speedtapestep) - 9) + "px";
+
+            let stfmarkerpos;
+            if(ias > (parseInt(stf) + 20)) {
+                stfmarkerpos = (ias - 20) * this.speedtapestep - 9;
+                this.stfmarker.setAttribute("class", "stfmarker over");
+            } else if(ias < (parseInt(stf) - 20)) {
+                stfmarkerpos = (ias + 20) * this.speedtapestep - 9;
+                this.stfmarker.setAttribute("class", "stfmarker under");
+            } else {
+                this.stfmarker.setAttribute("class", "stfmarker");
+                stfmarkerpos = (stf * this.speedtapestep) - 9;
+            }
+
+            this.stfmarker.style.bottom = stfmarkerpos + "px";
         }
     }
 
@@ -349,7 +363,7 @@ class v8_varioclass extends BaseInstrument {
                 maneuverspeed : 190,
                 maxspeed : 280,
                 maxvalue : 350,
-                tapeheight: 2000
+                tapeheight: 1000
             },
             imperial: {
                 minspeed : 30,
@@ -357,13 +371,14 @@ class v8_varioclass extends BaseInstrument {
                 maneuverspeed : 108,
                 maxspeed : 160,
                 maxvalue: 220,
-                tapeheight: 1400
+                tapeheight: 700
             }
         }
 
         this.speedtape.style.height = speeds[this.units].tapeheight;
         
         this.speedtapestep = speeds[this.units].tapeheight / speeds[this.units].maxvalue;
+        console.log("speedtapestep: " + this.speedtapestep);
 
         this.overspeed.style.height = (speeds[this.units].maxvalue - speeds[this.units].maxspeed) * this.speedtapestep + "px";
         this.overspeed.style.bottom = (speeds[this.units].maxspeed * this.speedtapestep) + "px"; 
@@ -375,7 +390,7 @@ class v8_varioclass extends BaseInstrument {
         this.stallspeed.style.bottom = "0px";
 
         this.speedtape.querySelector(".speedlabels").innerHTML = "";
-        for( let i = speeds[this.units].minspeed; i < speeds[this.units].maxvalue; i = i + 10 ) {
+        for( let i = speeds[this.units].minspeed; i < speeds[this.units].maxvalue; i = i + 20 ) {
             this.speedtape.querySelector(".speedlabels").innerHTML += '<span style="bottom: ' + ((i * this.speedtapestep) - 9) + 'px">' + i + '</span>';
         } 
 
