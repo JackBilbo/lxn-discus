@@ -24,6 +24,7 @@ class lxn extends NavSystemTouch {
         this.log = { isStarted: false };
 
         this.netto_array = [];
+        this.lowpassdata = {};
        	
         this.vars = {            
             ias: { value: 10, label: "IAS", longlabel: "Indicated Airspeed", category: "speed", baseunit: "kts" },
@@ -747,28 +748,33 @@ class lxn extends NavSystemTouch {
 
         let mccready = this.vars.mccready.value;
         
-        // temporarily shift mccready to give higher speed in netto sink and slower in climbs. Does that make sense??
-        // this.jbb_smoothed_netto = (this.jbb_smoothed_netto * 0.9) + (SimVar.GetSimVarValue("L:NETTO", "meters per second").toFixed(2) * 0.1);
-        // let mccready_shifted = mccready - this.vars.current_netto.value;
-        // if (mccready_shifted < 0) { mccready_shifted = 0; }
-
-        this.netto_array.push(SimVar.GetSimVarValue("L:NETTO", "knots"));
-        if(this.netto_array.length > 35) { this.netto_array.shift() }
-        this.vars.current_netto.value = this.netto_array.reduce((a, b) => a + b, 0) / this.netto_array.length;
-
-        let mccready_shifted = mccready - this.vars.current_netto.value;
-        if (mccready_shifted < 0) { mccready_shifted = 0; }
-        this.vars.dynamic_stf.value = Math.sqrt((cc - mccready_shifted) / aa).toFixed(0);
-
         let stf = Math.sqrt((cc - mccready) /aa).toFixed(0);
 
         this.vars.sink_stf.value = (aa * stf * stf) + (bb * stf) + cc;
         this.vars.stf.value = stf;
 
-        SimVar.SetSimVarValue("L:JBB_STF_DYNAMIC","knots",parseInt(this.vars.dynamic_stf.value));
         SimVar.SetSimVarValue("L:JBB_STF","knots",parseInt(stf));
-        // let ias = SimVar.GetSimVarValue("A:AIRSPEED INDICATED", "knots");
-        // this.jbb_current_polar_sink = (aa * ias * ias) + (bb * ias) + cc;
+        this.vars.current_netto.value = this.lowpassfilter("netto",SimVar.GetSimVarValue("L:NETTO", "knots"),0.05,0.1,0.05);
+
+        if(CONFIGPANEL.showDynamicstf) {
+            /* We opted for dynmic STF, so shift MacCready for current netto, to give slower STF in lift, faster in sink */            
+            let mccready_shifted = mccready - this.vars.current_netto.value;
+            if (mccready_shifted < 0) { mccready_shifted = 0; }
+            let dyn_stf = this.lowpassfilter("dynamic_stf", Math.round(Math.sqrt((cc - mccready_shifted) / aa)))
+            this.vars.dynamic_stf.value = dyn_stf;
+            SimVar.SetSimVarValue("L:JBB_STF_DYNAMIC","knots", dyn_stf);
+        } else {
+            this.vars.dynamic_stf.value = stf;
+            SimVar.SetSimVarValue("L:JBB_STF_DYNAMIC","knots",parseInt(stf));
+        }
+    }
+
+    lowpassfilter(name,value,tc1 = 0.1,tc2 = 0.1,tc3 = 0) {
+        if(!this.lowpassdata[name]) { this.lowpassdata[name] = [0,0]; }
+        this.lowpassdata[name][0] = this.lowpassdata[name][0] * (1-tc1) + value * tc1; 
+        this.lowpassdata[name][1] = this.lowpassdata[name][1] * (1-tc2-tc3) + this.lowpassdata[name][0] * tc2 + value * tc3; 
+
+        return this.lowpassdata[name][1]
     }
 
     jbb_getPolarSink_kts(spd) {
@@ -871,6 +877,9 @@ class lxn extends NavSystemTouch {
 
             document.querySelector(".speedladder.kmh .vnemarker").style.transform = "translate(0," + (((vne_ias_ms * 3.6 - 60) * -10)) + "px)";
             document.querySelector(".speedladder.kts .vnemarker").style.transform = "translate(0," + (((vne_ias_ms * 1.944 - 30) * -10)) + "px)";
+
+            /* STF should never exceed VNE */
+            this.vars.dynamic_stf.value = this.vars.dynamic_stf.value < vne_ias_ms * 3.6 ? this.vars.dynamic_stf.value : vne_ias_ms * 3.6;
 
             this.querySelector(".speedladder.kmh .stfmarker").style.transform = "translate(0,-" + ((this.vars.dynamic_stf.value * 1.852 - 60) * 10) +  "px)";
             this.querySelector(".speedladder.kts .stfmarker").style.transform = "translate(0,-" + ((this.vars.dynamic_stf.value - 30) * 10) +  "px)";

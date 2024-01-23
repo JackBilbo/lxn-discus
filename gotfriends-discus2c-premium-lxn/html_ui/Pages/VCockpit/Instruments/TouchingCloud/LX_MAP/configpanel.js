@@ -238,6 +238,10 @@ class configpanel {
         }
     }
 
+    toggleDynamicSTF(val) {
+        if (val == "on") { this.showDynamicstf = true; } else { this.showDynamicstf = false; }
+    }
+
 
     savePersistentData() {
         let toggledata = {}
