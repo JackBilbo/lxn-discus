@@ -12,6 +12,7 @@ class configpanel {
 
         this.ballastIsInit = false;
         this.cockpitwarnings = true;
+        this.showDynamicstf = true;
 
         this.unitstore = SimVar.GetSimVarValue("L:UNITS_IMPERIAL","percent");
     }
