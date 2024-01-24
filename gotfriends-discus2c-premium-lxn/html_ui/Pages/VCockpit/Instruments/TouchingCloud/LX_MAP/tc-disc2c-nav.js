@@ -25,6 +25,7 @@ class lxn extends NavSystemTouch {
 
         this.netto_array = [];
         this.lowpassdata = {};
+        this.max_stf = 0;
        	
         this.vars = {            
             ias: { value: 10, label: "IAS", longlabel: "Indicated Airspeed", category: "speed", baseunit: "kts" },
@@ -758,11 +759,29 @@ class lxn extends NavSystemTouch {
 
         if(CONFIGPANEL.showDynamicstf) {
             /* We opted for dynmic STF, so shift MacCready for current netto, to give slower STF in lift, faster in sink */            
+            	    let stf0 = Math.sqrt(cc / aa);	// speed of best glide in still air
+            //	    let stf0 = -bb / (2*aa);       	// speed of minimum sink in still air
+            //	    let stf0 = 43;		  	// stall speed
+            // let stf0 = 43*1.2;		  	// stall speed plus margin
+
             let mccready_shifted = mccready - this.vars.current_netto.value;
-            if (mccready_shifted < 0) { mccready_shifted = 0; }
-            let dyn_stf = this.lowpassfilter("dynamic_stf", Math.round(Math.sqrt((cc - mccready_shifted) / aa)))
-            this.vars.dynamic_stf.value = dyn_stf;
-            SimVar.SetSimVarValue("L:JBB_STF_DYNAMIC","knots", dyn_stf);
+            if ( (cc - mccready_shifted)/aa < stf0**2 ) { mccready_shifted = cc - aa*stf0**2; }
+            let dyn_stf = Math.sqrt((cc - mccready_shifted) / aa);
+
+            // limit rate of speed variations to prevent extreme dive and pull-up
+            let max_stf_rate = 0.5*9.81*3.6/1.852/17;   // shall limit acceleration to 0.5 g (thus ~ 27  dive or pull-up)
+            if (this.vars.dynamic_stf.value < stf0) { this.vars.dynamic_stf.value = stf0; } // initialization of rate limiter
+            if ( dyn_stf > this.vars.dynamic_stf.value + max_stf_rate) { 
+                this.vars.dynamic_stf.value = this.vars.dynamic_stf.value + max_stf_rate;
+            } else if ( dyn_stf < this.vars.dynamic_stf.value - max_stf_rate) {
+                this.vars.dynamic_stf.value = this.vars.dynamic_stf.value - max_stf_rate;
+            } else { 
+                this.vars.dynamic_stf.value = dyn_stf;
+            }
+
+            this.vars.dynamic_stf.value = Math.min(this.vars.dynamic_stf.value, this.max_stf);	    
+            // dynamic_stf.value must not be coerced to toFixed(0), otherwise dynamics of variations are affected by rounding errors (too fast or too slow)
+            SimVar.SetSimVarValue("L:JBB_STF_DYNAMIC","knots", this.vars.dynamic_stf.value);
         } else {
             this.vars.dynamic_stf.value = stf;
             SimVar.SetSimVarValue("L:JBB_STF_DYNAMIC","knots",parseInt(stf));
@@ -867,6 +886,7 @@ class lxn extends NavSystemTouch {
         let ambient_pressure = SimVar.GetSimVarValue("AMBIENT PRESSURE", "millibar");
 
         let vne_ias_ms = 78.25 * Math.sqrt(288.15 / ambient_temp_kelvin * ambient_pressure / 1013.25);
+        this.max_stf = vne_ias_ms * 3.6/1.852;
 
         this.querySelector(".speedband").setAttribute("class", (units ? "speedband kts" : "speedband kmh"));
         this.querySelector(".currentspeed span").innerHTML = this.displayValue(this.vars.ias.value, "kts", "speed");
@@ -877,9 +897,6 @@ class lxn extends NavSystemTouch {
 
             document.querySelector(".speedladder.kmh .vnemarker").style.transform = "translate(0," + (((vne_ias_ms * 3.6 - 60) * -10)) + "px)";
             document.querySelector(".speedladder.kts .vnemarker").style.transform = "translate(0," + (((vne_ias_ms * 1.944 - 30) * -10)) + "px)";
-
-            /* STF should never exceed VNE */
-            this.vars.dynamic_stf.value = this.vars.dynamic_stf.value < vne_ias_ms * 3.6 ? this.vars.dynamic_stf.value : vne_ias_ms * 3.6;
 
             this.querySelector(".speedladder.kmh .stfmarker").style.transform = "translate(0,-" + ((this.vars.dynamic_stf.value * 1.852 - 60) * 10) +  "px)";
             this.querySelector(".speedladder.kts .stfmarker").style.transform = "translate(0,-" + ((this.vars.dynamic_stf.value - 30) * 10) +  "px)";
