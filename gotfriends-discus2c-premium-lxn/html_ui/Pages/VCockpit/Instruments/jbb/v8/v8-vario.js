@@ -26,7 +26,7 @@ class v8_varioclass extends BaseInstrument {
         this.units = "metric";
         this.scale = "straight";
         
-        this.variomode = "total_energy";
+        this.variomode = "te";
         this.averager = .5; // number of seconds (approx.) to calculate rolling average for needle smoothing
         this.avgvalues = []; // array to sore values for averager
         this.liftsmoother = []; // array to smooth out current value
@@ -34,6 +34,8 @@ class v8_varioclass extends BaseInstrument {
 
         this.datafield1 = this.root.querySelector(".data1");
         this.datafield2 = this.root.querySelector(".data2");
+        this.datafield3 = this.root.querySelector(".data3");
+        this.datafield4 = this.root.querySelector(".data4");
 
         this.currentarrow = this.root.querySelector(".current");
         this.averagearrow = this.root.querySelector(".average");
@@ -72,10 +74,13 @@ class v8_varioclass extends BaseInstrument {
         this.hawkaveragenumbers = this.root.querySelector("#hawk .numbers.avg");
         this.hawkcurrentnumbers = this.root.querySelector("#hawk .numbers.current");
 
+        this.isBusy = false;
+
         this.screens = [
             this.root.querySelector("#datafields"),
             this.root.querySelector("#hawk"),
             this.root.querySelector("#attitude"),
+            this.root.querySelector("#stfinfo"),
             this.root.querySelector("#smoothing")
         ]
         this.currentScreen = 0;
@@ -108,6 +113,8 @@ class v8_varioclass extends BaseInstrument {
         document.querySelector("#smoothing").style.display = "none";
         
         document.getElementById("vignettage").style.border = "1px solid transparent";
+
+        this.registerKeyListeners();
     }
 
     pageUp() {
@@ -120,6 +127,14 @@ class v8_varioclass extends BaseInstrument {
         this.screens[this.currentScreen].style.display = "none";
         this.currentScreen = this.currentScreen < this.screens.length - 1 ? this.currentScreen + 1 : 0;
         this.screens[this.currentScreen].style.display = "block";
+    }
+
+    showPage(p) {
+        if(p<this.screens.length - 1) {
+            this.currentScreen = p;
+            this.screens.forEach((screen) => { screen.style.display = "none"});
+            this.screens[this.currentScreen].style.display = "block";
+        }
     }
 
     Update() {
@@ -153,44 +168,86 @@ class v8_varioclass extends BaseInstrument {
             this.pageDown();
         };
 
-        let vm = SimVar.GetSimVarValue("L:VARIO_MODE","percent") == 0 ? "netto" : "te";
+        let vm = SimVar.GetSimVarValue("L:VARIO_MODE","percent") == 0 ? "stf" : "te";
         if(this.variomode != vm) {
-            this.variomode = vm;
-            this.avgvalues = [0];
-            this.liftsmoother = [];
+            this.setVariomode(vm);
         }
 
-        let current_te, current_netto, currentpolarsink, verticalwind, lastthermalaverage;
+        let current_te, lastthermalaverage;
 
         if(this.units == "metric") {
             current_te = SimVar.GetSimVarValue("L:TOTAL ENERGY", "meters per second");
-            current_netto = SimVar.GetSimVarValue("L:NETTO","meters per second");
-            // currentpolarsink = SimVar.GetSimVarValue("L:JBB_CURRENT_POLAR_SINK","meters per second");
-            // verticalwind = SimVar.GetSimVarValue("A:STRUCT AMBIENT WIND Y", "meters per second");
             lastthermalaverage = SimVar.GetSimVarValue("L:JBB_TRU_AVG_CLIMB","meters per second");
         } else {
             current_te = SimVar.GetSimVarValue("L:TOTAL ENERGY", "knots");
-            current_netto = SimVar.GetSimVarValue("L:NETTO","knots");
-            // currentpolarsink = SimVar.GetSimVarValue("L:JBB_CURRENT_POLAR_SINK", "knots");
-            // verticalwind = SimVar.GetSimVarValue("A:STRUCT AMBIENT WIND Y", "knots");
             lastthermalaverage = SimVar.GetSimVarValue("L:JBB_TRU_AVG_CLIMB","knots");
         }
 
-        let currentvalue = this.updatecurrent(this.variomode == "te" ? current_te : current_netto);
+        let currentvalue = this.updatecurrent(current_te);
         let averagevalue = this.updateaverage(currentvalue);
 
         this.updateWinddata();
-        // this.windsmoother = this.windsmoother * 0.8 + verticalwind * 0.2;
-        // now move some arrows around
-        this.currentarrow.style.transform = "rotate(" + this.calcAngle(Math.max( -this.maxScale, Math.min(this.maxScale, currentvalue))) + "deg)";
-        this.averagearrow.style.transform = "rotate(" + this.calcAngle(Math.max( -this.maxScale, Math.min(this.maxScale, averagevalue))) + "deg)";
-        this.lastthermalaverage.style.transform = "rotate(" + this.calcAngle(Math.max( -this.maxScale, Math.min(this.maxScale, lastthermalaverage))) + "deg)";
-        this.windarrow.style.transform = "rotate(" + this.calcAngle(Math.max( -this.maxScale, Math.min(this.maxScale, this.verticalwind))) + "deg)";
-        this.mcmarker.style.transform = "rotate(" + this.calcAngle( SimVar.GetSimVarValue("L:BEZEL_CAL","percent") / (this.units == "metric" ? 20 : 10) ) + "deg)";
 
+        if(this.variomode == "te") {
+            this.currentarrow.style.transform = "rotate(" + this.calcAngle(Math.max( -this.maxScale, Math.min(this.maxScale, currentvalue))) + "deg)";
+            this.averagearrow.style.transform = "rotate(" + this.calcAngle(Math.max( -this.maxScale, Math.min(this.maxScale, averagevalue))) + "deg)";
+            this.lastthermalaverage.style.transform = "rotate(" + this.calcAngle(Math.max( -this.maxScale, Math.min(this.maxScale, lastthermalaverage))) + "deg)";
+            this.windarrow.style.transform = "rotate(" + this.calcAngle(Math.max( -this.maxScale, Math.min(this.maxScale, this.verticalwind))) + "deg)";
+            this.mcmarker.style.transform = "rotate(" + this.calcAngle( SimVar.GetSimVarValue("L:BEZEL_CAL","percent") / (this.units == "metric" ? 20 : 10) ) + "deg)";
+        } else if (this.variomode == "stf") {
+            let stf_error = SimVar.GetSimVarValue("A:AIRSPEED INDICATED", "knots") - SimVar.GetSimVarValue("L:JBB_STF_DYNAMIC","knots");
+            
+            let stf_error_disp = this.units == "metric" ? stf_error * 1.852 : stf_error;
+            this.currentarrow.style.transform = "rotate(" + this.calcAngle(Math.max( -this.maxScale, Math.min(this.maxScale, stf_error_disp))) + "deg)";
+
+            if ( Math.abs(stf_error ) < 1.5) { stf_error = 0; }
+            SimVar.SetSimVarValue("L:JBB_STF_TONE", "number", stf_error * 2500 / 20);
+        }
+        
         if(this.currentScreen == 0) { this.updateDatafields(currentvalue,averagevalue); }
         if(this.currentScreen == 1) { this.updateHawk(); }
         if(this.currentScreen == 2) { this.updateAttitude(); }
+        if(this.currentScreen == 3) { this.updateSTFdatafields(); }
+    }
+
+    toggleVariomode() {
+        this.isBusy = true;
+        // window.setTimeout(()=> { this.isBusy = false; }, 500);
+
+        if(this.variomode == "stf") {
+            this.setVariomode("te");
+        } else {
+            this.setVariomode("stf");
+        }
+    }
+
+    setVariomode(vm) {
+        console.log("setting Variomode " + vm);
+        this.variomode = vm;
+        if(vm == "stf") {
+            this.root.classList.add("stfmode");
+            this.showPage(3);
+            this.buildScale();
+
+            this.root.querySelector(".currentUnit span").innerHTML = this.units == "metric" ? "kmh" : "kts";
+            this.root.querySelector(".currentMode span").innerHTML = "STF";
+            
+            SimVar.SetSimVarValue("L:VARIO_STF_MODE","number", 1);
+            SimVar.SetSimVarValue("L:VARIO_MODE","percent",0);
+        } else {
+            this.root.classList.remove("stfmode");
+            this.showPage(0);
+            this.avgvalues = [0];
+            this.liftsmoother = [];
+            this.buildScale();
+
+            this.root.querySelector(".currentUnit span").innerHTML = this.units == "metric" ? "m/s" : "kts";
+            this.root.querySelector(".currentMode span").innerHTML = "TE";
+
+            SimVar.SetSimVarValue("L:VARIO_STF_MODE","number", 0);
+            SimVar.SetSimVarValue("L:VARIO_MODE","percent",100);
+        }
+        this.isBusy = false;
     }
 
     updatecurrent(currentvalue) {
@@ -233,8 +290,15 @@ class v8_varioclass extends BaseInstrument {
     }
 
     buildScale() {
-        this.maxScale = this.units == "metric" ? 5 : 10;
-        let step = this.units == "metric" ? 0.5 : 1
+        let step;
+        if(this.variomode == "stf") {
+            this.maxScale = this.units == "metric" ? 50 : 25;
+            step = this.units == "metric" ? 10 : 5;
+        } else {
+            this.maxScale = this.units == "metric" ? 5 : 10;
+            step = this.units == "metric" ? 0.5 : 1;
+        }
+        
 
         this.root.querySelector(".scale").innerHTML = "";
 
@@ -330,6 +394,14 @@ class v8_varioclass extends BaseInstrument {
         this.updateSpeedtape();
     }
 
+    updateSTFdatafields() {
+        this.datafield3.querySelector(".number").innerHTML = this.units == "metric" ? Math.round(SimVar.GetSimVarValue("L:JBB_STF_DYNAMIC","kph")) : Math.round(SimVar.GetSimVarValue("L:JBB_STF_DYNAMIC","knots"));
+        this.datafield3.querySelector(".unit").innerHTML = this.units == "metric" ? "kmh" : "kts";
+
+        this.datafield4.querySelector(".number").innerHTML = SimVar.GetSimVarValue("L:BEZEL_CAL","percent") / (this.units == "metric" ? 20 : 10);
+        this.datafield4.querySelector(".unit").innerHTML = this.units == "metric" ? "ms" : "kts";
+    }
+
     updateSpeedtape() {
         let stf = this.units == "metric" ? SimVar.GetSimVarValue("L:JBB_STF_DYNAMIC","kph") : SimVar.GetSimVarValue("L:JBB_STF_DYNAMIC","knots");
         let ias = this.units == "metric" ? SimVar.GetSimVarValue("A:AIRSPEED INDICATED", "kph") : SimVar.GetSimVarValue("A:AIRSPEED INDICATED", "knots");
@@ -378,7 +450,6 @@ class v8_varioclass extends BaseInstrument {
         this.speedtape.style.height = speeds[this.units].tapeheight;
         
         this.speedtapestep = speeds[this.units].tapeheight / speeds[this.units].maxvalue;
-        console.log("speedtapestep: " + this.speedtapestep);
 
         this.overspeed.style.height = (speeds[this.units].maxvalue - speeds[this.units].maxspeed) * this.speedtapestep + "px";
         this.overspeed.style.bottom = (speeds[this.units].maxspeed * this.speedtapestep) + "px"; 
@@ -411,6 +482,18 @@ class v8_varioclass extends BaseInstrument {
             this.sum(a.map(this.degToRad).map(Math.sin)) / a.length,
             this.sum(a.map(this.degToRad).map(Math.cos)) / a.length
         );
+    }
+
+    registerKeyListeners() {
+        this.keyListener = RegisterViewListener('JS_LISTENER_KEYEVENT', () => {
+            Coherent.call('INTERCEPT_KEY_EVENT', 'TOGGLE_VARIOMETER_SWITCH', 1);
+            this.keyListener.on('keyIntercepted', (key, value1, value0, value2)=>{
+                switch (key) {
+                    case 'TOGGLE_VARIOMETER_SWITCH': if(!this.isBusy) { this.toggleVariomode() }; break;
+                }
+            });
+        });
+
     }
 }
 

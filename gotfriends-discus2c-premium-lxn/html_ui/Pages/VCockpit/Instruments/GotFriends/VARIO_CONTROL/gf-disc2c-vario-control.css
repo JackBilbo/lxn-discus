@@ -1,0 +1,360 @@
+﻿@font-face {
+  font-family: "Quartz";
+  src: url("/Pages/VCockpit/Instruments/TouchingCloud/FONTS/Quartz.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+
+html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden; }
+  html body {
+    color: white;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+cambridge_vario-element {
+  background: black;
+  height: 100vh;
+  width: 100vw;
+  display: inline-block;
+  overflow: hidden;
+ }
+
+#cambridge_vario {
+    position: absolute;
+    top: 0;
+    left: 0;
+  height: 100%;
+  width: 100%;
+/*    background-image: url("/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/tablet.png");
+    background-size: cover;
+	background-size: cover;
+	background-position: top left;*/
+	
+}
+
+#cambridge_vario_debug {
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    width: 1px;
+	height: 1px;
+    font-size: 14px;
+}
+
+/* Cambridge Vario */
+
+#variometer {
+		position: absolute;
+		overflow: hidden;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+		background-image: url("/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/background.png");
+		background-position: 0px 0px;
+		background-size: cover;
+		width: 90px;
+		height: 90px;
+		transform: scale(4.0);
+}
+
+.variometer_battery_required {
+		position: absolute;
+        display: none;
+		width: 100%;
+		height: 100%;
+}
+
+#variometer_averager_digits {
+		background: transparent;
+		position: absolute;
+		overflow: hidden;
+		text-align: right;
+		font-family: "Quartz";
+		color: #5bc2d1;
+		font-size: 22px;
+
+		width: 45px;
+		height: 22px;
+		left: 0px;
+		top: 52px;
+	}
+
+#variometer_averager_decimal {
+		background: transparent;
+		position: absolute;
+		overflow: hidden;
+		text-align: right;
+		font-family: "Quartz";
+		color: #5bc2d1;
+		font-size: 20px;
+
+		width: 25px;
+		height: 22px;
+		left: 35px;
+		top: 52px;
+	}
+
+#variometer_averager_sign {
+		background: transparent;
+		position: absolute;
+		overflow: hidden;
+		text-align: right;
+		font-family: "Quartz";
+		color: #5bc2d1;
+		font-size: 22px;
+
+		width: 25px;
+		height: 22px;
+		left: 3px;
+		top: 52px;
+	}
+
+#variometer_averager_avg {
+		background: transparent;
+		background-image: url("/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/avg.png");
+		background-position: 0px 0px;
+		background-size: cover;
+		position: absolute;
+		overflow: hidden;
+        /*display: none;*/
+		width: 18px;
+		height: 11px;
+		left: 17px;
+		top: 44px;
+	}
+
+#variometer_averager_decimal_point {
+		background: transparent;
+		background-image: url("/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/decimal_point.png");
+		background-position: 0px 0px;
+		background-size: cover;
+		position: absolute;
+		overflow: hidden;
+        /*display: none;*/
+		width: 4px;
+		height: 4px;
+		left: 47px;
+		top: 70px;
+	}
+
+#variometer_average_increasing {
+		background: transparent;
+		background-image: url("/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/average_increasing.png");
+		background-position: 0px 0px;
+		background-size: cover;
+		position: absolute;
+		overflow: hidden;
+        /*display: none;*/
+		width: 8px;
+		height: 5px;
+		left: 60px;
+		top: 56px;
+	}
+
+#variometer_average_decreasing {
+		background: transparent;
+		background-image: url("/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/average_decreasing.png");
+		background-position: 0px 0px;
+		background-size: cover;
+		position: absolute;
+		overflow: hidden;
+        /* display: none; */
+		width: 8px;
+		height: 6px;
+		left: 60px;
+		top: 64px;
+	}
+
+#variometer_flap_display {
+		position: absolute;
+		overflow: hidden;
+		font-family: "Quartz";
+		color: #5bc2d1;
+		font-size: 22px;
+	    text-align: center;
+        font-weight: 700;
+
+        /*display: none;*/
+		width: 30px;
+		height: 22px;
+		left: 23px;
+		top: 15px;
+	}
+
+#variometer_flap_up_1 {
+		background: transparent;
+		background-image: url("/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/arrow_up.png");
+		background-position: 0px 0px;
+		background-size: cover;
+		position: absolute;
+		overflow: hidden;
+		/* display: none; */
+		width: 7px;
+		height: 7px;
+		left: 50px;
+		top: 20px;
+	}
+
+#variometer_flap_up_2 {
+		background: transparent;
+		background-image: url("/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/arrow_up.png");
+		background-position: 0px 0px;
+		background-size: cover;
+		position: absolute;
+		overflow: hidden;
+		/* display: none; */
+		width: 7px;
+		height: 7px;
+		left: 57px;
+		top: 20px;
+	}
+
+#variometer_flap_down_1 {
+		background: transparent;
+		background-image: url("/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/arrow_down.png");
+		background-position: 0px 0px;
+		background-size: cover;
+		position: absolute;
+		overflow: hidden;
+		/* display: none; */
+		width: 7px;
+		height: 7px;
+		left: 50px;
+		top: 28px;
+	}
+
+#variometer_flap_down_2 {
+		background: transparent;
+		background-image: url("/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/arrow_down.png");
+		background-position: 0px 0px;
+		background-size: cover;
+		position: absolute;
+		overflow: hidden;
+		/* display: none; */
+		width: 7px;
+		height: 7px;
+		left: 57px;
+		top: 28px;
+	}
+
+#variometer_mode_auto_climb {
+		background: transparent;
+		background-image: url("/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/mode_auto_climb.png");
+		background-position: 0px 0px;
+		background-size: cover;
+		position: absolute;
+		overflow: hidden;
+		/* display: none; */
+
+		width: 14px;
+		height: 11px;
+		left: 60px;
+		top: 42px;
+	}
+
+#variometer_mode_climb {
+		background: transparent;
+		background-image: url("/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/mode_climb.png");
+		background-position: 0px 0px;
+		background-size: cover;
+		position: absolute;
+		overflow: hidden;
+		display: none;
+
+		width: 14px;
+		height: 11px;
+		left: 60px;
+		top: 42px;
+	}
+
+#variometer_mode_cruise {
+		background: transparent;
+		background-image: url("/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/mode_cruise.png");
+		background-position: 0px 0px;
+		background-size: cover;
+		position: absolute;
+		overflow: hidden;
+		display: none;
+
+		width: 14px;
+		height: 11px;
+		left: 60px;
+		top: 42px;
+	}
+
+#variometer_needle {
+		display: none;
+		background: transparent;
+		background-image: url("/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/needle.png");
+		background-position: 0px 0px;
+		background-size: cover;
+		position: absolute;
+		overflow: hidden;
+
+		width: 54px;
+		height: 16px;
+		left: 2px;
+		top: 37px;
+		transform-origin: 43.000px 8.333px;
+	}
+
+	#variometer_muted {
+		background: transparent;
+		background-image: url("/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/tone_muted.png");
+		background-position: 0px 0px;
+		background-size: cover;
+		position: absolute;
+		overflow: hidden;
+		opacity: 0.5;
+		/* display: none; */
+		width: 11px;
+		height: 11px;
+		left: 40px;
+		top: 40px;
+	}
+
+		#variometer_unmuted {
+		background: transparent;
+		background-image: url("/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/tone_unmuted.png");
+		background-position: 0px 0px;
+		background-size: cover;
+		position: absolute;
+		overflow: hidden;
+		opacity: 0.5;
+		/* display: none; */
+		display: none;
+		width: 11px;
+		height: 11px;
+		left: 40px;
+		top: 40px;
+	}
+
+	#variometer_wind {
+		position: absolute;
+		overflow: hidden;
+		width: 100%;
+		height: 100%;
+		background: transparent;
+	}
+	
+	#variometer_wind > div {
+		background-image: url("/Pages/VCockpit/Instruments/TouchingCloud/TEXTURE/wind.png");
+		background-position: center;
+		background-size: contain;
+		background-repeat: no-repeat;
+		position: absolute;
+		overflow: hidden;
+		width: 4px;
+		height: 36px;
+		left: calc(50% - 2px);
+		top: 11px;
+		transform-origin: bottom center;
+	}

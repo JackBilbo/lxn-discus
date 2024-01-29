@@ -872,6 +872,10 @@
 <!-- ###################################### -->
 <!-- ####### CUSTOM PHYSICS DRIVERS ####### -->
 <!-- ###################################### -->
+<!-- 2024-01-26 CumulusX! Modification for Speed-to-fly tone starting line 862-->
+<!-- Normal mode (0), beeper indicates lift, line  853 -->
+<!-- STF-Mode (1), beeper indicates speed error if error > 2 m/s, line 858-->
+
 		<Component ID="MASTER_DRIVER">
 			<UseTemplate Name="ASOBO_GT_Update">
 				<FREQUENCY>30</FREQUENCY>
@@ -896,13 +900,7 @@
 						l5 l7 * (&gt;L:BALLAST_SPLASH_LEFT, percent)
 						l6 (&gt;L:BALLAST_DUMP_RIGHT, percent)
 						l6 l7 * (&gt;L:BALLAST_SPLASH_RIGHT, percent)						
-						(A:PRESSURE ALTITUDE, meters) (L:LAST PRESSURE ALTITUDE, meters) - 
-						(A:AIRSPEED TRUE, meters per second) 2 pow (L:LAST AIRSPEED TRUE, meters per second) 2 pow - 2 9.80665 * / +
-						(A:ANIMATION DELTA TIME, seconds) / s15						
-						l15 10 &lt; l15 -10 &gt; and if{
-							1 (A:ANIMATION DELTA TIME, seconds) - (L:TOTAL ENERGY, meters per second) * (A:ANIMATION DELTA TIME, seconds) l15 * +
-							-10 max 10 min (&gt;L:TOTAL ENERGY, meters per second)
-						}						
+												
 						(A:FOLDING WING RIGHT PERCENT, meters per second) 0 == (A:FOLDING WING RIGHT PERCENT, meters per second) 20 &gt; or if{ 
 							0.1 (&gt;A:FOLDING WING RIGHT PERCENT, meters per second)
 						}
@@ -922,23 +920,31 @@
 							(E:ABSOLUTE TIME, seconds) 1 % (A:ANIMATION DELTA TIME, seconds) &lt;= if{
 								(A:FOLDING WING RIGHT PERCENT, meters per second) 0.5 * 0.1 max (&gt;A:FOLDING WING RIGHT PERCENT, meters per second)
 							}
-						}
+						
 												
-					}					
-					(A:AIRSPEED TRUE, meters per second) (&gt;L:LAST AIRSPEED TRUE, meters per second)
-					(A:PRESSURE ALTITUDE, meters) (&gt;L:LAST PRESSURE ALTITUDE, meters)					
-					(L:VARIO_TONE_ACTIVE, percent) 20 - s16					
+						}					
+						(A:AIRSPEED TRUE, meters per second) (&gt;L:LAST AIRSPEED TRUE, meters per second)
+						(A:PRESSURE ALTITUDE, meters) (&gt;L:LAST PRESSURE ALTITUDE, meters)					
+						(L:VARIO_TONE_ACTIVE, percent) 20 - s16		
+					}			
 					(L:VARIO_POWER_STATUS) l16 0 &gt; and if{
-						(L:VARIO_NEEDLE, meters per second) 196.85 * (&gt;L:VARIO_TONE, feet per minute)
-						(L:VARIO_NEEDLE, meters per second) 0.1 &gt; if{ l16 (A:AIRSPEED TRUE, meters per second) 5 / 1 min * } els{ 0 } (&gt;L:VARIO_TONE_LIFT, percent)
-						(L:VARIO_NEEDLE, meters per second) -0.1 &lt; if{ l16 (A:AIRSPEED TRUE, meters per second) 5 / 1 min * } els{ 0 } (&gt;L:VARIO_TONE_SINK, percent)
+						(L:VARIO_STF_MODE, number) 0 == if{
+							(L:VARIO_NEEDLE, meters per second) 196.85 * (&gt;L:VARIO_TONE, feet per minute)
+							(L:VARIO_NEEDLE, meters per second) 0.1 &gt; if{ l16 (A:AIRSPEED TRUE, meters per second) 5 / 1 min * } els{ 0 } (&gt;L:VARIO_TONE_LIFT, percent)
+							(L:VARIO_NEEDLE, meters per second) -0.1 &lt; if{ l16 (A:AIRSPEED TRUE, meters per second) 5 / 1 min * } els{ 0 } (&gt;L:VARIO_TONE_SINK, percent)
+						} els{ 	(L:VARIO_STF_MODE, number) 1 == if{
+								(L:JBB_STF_TONE, number) (&gt;L:VARIO_TONE, feet per minute)
+								(L:JBB_STF_TONE, number) 0.1 &gt; if{ l16 (A:AIRSPEED TRUE, meters per second) 5 / 1 min * } els{ 0 } (&gt;L:VARIO_TONE_LIFT, percent)
+								(L:JBB_STF_TONE, number) -0.1 &lt; if{ l16 (A:AIRSPEED TRUE, meters per second) 5 / 1 min * } els{ 0 } (&gt;L:VARIO_TONE_SINK, percent)
+							}
+						}
 					} els{
 						0 (&gt;L:VARIO_TONE, feet per minute)
 						0 (&gt;L:VARIO_TONE_LIFT, percent)
 						0 (&gt;L:VARIO_TONE_SINK, percent)
 					}				
 					(A:TOTAL VELOCITY, meters per second) (&gt;L:LAST VELOCITY, meters per second)
-					}					
+										
 					(A:ELECTRICAL MASTER BATTERY, bool) if{
 						(L:AUTO_PILOT_BANK, radians) 0 != if{
 							(A:PLANE PITCH DEGREES, radians) (A:ROTATION VELOCITY BODY X, radians per second) 10 / + 0.05 + (&gt;A:ELEVATOR TRIM POSITION, number)
@@ -1395,12 +1401,12 @@
 					(A:AIRSPEED TRUE, meters per second) d *
 					19.62 /
 					(A:PLANE ALTITUDE, meters) +
-					0.25 * (G:Var2) 0.75 * +
+					0.05 * (G:Var2) 0.95 * +
 					d (G:Var2) -
-					(E:ABSOLUTE TIME, seconds)
-					0.25 * (G:Var1) 0.75 * +
-					d (G:Var1) -
-					r (&gt;G:Var1)
+					(E:ANIMATION DELTA TIME, seconds)
+					0.05 * (G:Var1) 0.95 * +
+					d (&gt;G:Var1)
+
 					/
 					r (&gt;G:Var2)
 					0.05 * (L:TOTAL ENERGY, meters per second) 0.95 * + 10 min 10 neg max

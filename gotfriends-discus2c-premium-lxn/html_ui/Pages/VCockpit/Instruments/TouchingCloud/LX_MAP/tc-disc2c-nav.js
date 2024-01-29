@@ -264,7 +264,7 @@ class lxn extends NavSystemTouch {
             } else if(NAVPANEL.airportsloaded) {
                 NAVMAP.load_map();
                 document.querySelector("#splashscreen").style.display = "none";
-            } 
+            }	    
         }
         
         
@@ -290,9 +290,14 @@ class lxn extends NavSystemTouch {
             B21_SOARING_ENGINE.STF_SINK_0_MS = this.vars.sink_stf.value * 0.5144;
 
             // Additional vars used by thermalling_display
-            this.NETTO_MS = SimVar.GetSimVarValue("L:NETTO","meters per second"); 
             // this.TE_MS = SimVar.GetSimVarValue("L:B21_TE_MS", "number"); // From model xml
             this.TE_MS = SimVar.GetSimVarValue("L:TOTAL ENERGY", "meters per second");
+
+	    // 2024-01-26 CumulusX! Calculate netto here, polar in gf-disc2c-variocontrol.js wrong and no weight compensation
+	    this.vars.polar_sink.value = this.vars.ias.value > 20 ? this.jbb_getPolarSink_kts(this.vars.ias.value) : 0;
+            this.NETTO_MS = this.TE_MS - this.vars.polar_sink.value*0.51444;    
+	    SimVar.SetSimVarValue("L:NETTO", "meters per second", this.NETTO_MS);
+	    
             this.MACCREADY_MS = B21_SOARING_ENGINE.MACCREADY_MS;
             this.WP_BEARING_DEG = B21_SOARING_ENGINE.current_wp() == null ? null : B21_SOARING_ENGINE.current_wp().bearing_deg;
 
@@ -340,11 +345,15 @@ class lxn extends NavSystemTouch {
             this.updateKineticAssistant();
             this.calc_gr();
 
-            this.vars.polar_sink.value = this.vars.ias.value > 20 ? this.jbb_getPolarSink_kts(this.vars.ias.value) : 0;
+//            this.vars.polar_sink.value = this.vars.ias.value > 20 ? this.jbb_getPolarSink_kts(this.vars.ias.value) : 0;  // already in tick=1
             SimVar.SetSimVarValue("L:JBB_CURRENT_POLAR_SINK","knots",this.vars.polar_sink.value);
+
+// Only for data cells?
             this.vars.total_energy.value = this.jbb_getTotalEnergy() / 0.51444;
             this.vars.calc_netto.value = this.vars.total_energy.value + Math.abs(this.vars.polar_sink.value);
 
+	    // 2024-01-25 CumulusX! Control variable to switch vario beeper mode (0 : Lift, 1: STF Command)
+	    if (CONFIGPANEL.AutoSTFMode) {SimVar.SetSimVarValue("L:VARIO_STF_MODE","number", Number(this.vars.ias.value > 65)); }
         }
 
         if(this.TIME_S - this.TIMER_1 > 1) {
@@ -709,15 +718,18 @@ class lxn extends NavSystemTouch {
 
         // Speed and sink in knots at Minimum Sink
          let c4 = 43;
-         let d4 = -0.933;
+         let d4 = -1.17;
+        // let d4 = -0.933;
  
          // Speed and sink in knots at best glide
          let c5 = 59;
-         let d5 = -1.1857;
+         let d5 = -1.29;
+         // let d5 = -1.1857;
  
          // Speed and sink in knots at "fast speed" - around 92kts/170kmh
          let c6 = 92;
-         let d6 = -2.5075;
+         let d6 = -4.04;
+         // let d6 = -2.5075;
  
          let atop = (c6-c5) * (d4-d5) + (c5-c4) * (d6-d5);
          let abottom = c4 * c4 * (c6 -c5) + c6 * c6 * (c5-c4) + c5 * c5 * (c4-c6);
@@ -786,6 +798,10 @@ class lxn extends NavSystemTouch {
             this.vars.dynamic_stf.value = stf;
             SimVar.SetSimVarValue("L:JBB_STF_DYNAMIC","knots",parseInt(stf));
         }
+	// calculate STF_TONE
+	let stf_error = this.vars.ias.value - this.vars.dynamic_stf.value;
+	if ( Math.abs(stf_error ) < 1.5) { stf_error = 0; }
+	SimVar.SetSimVarValue("L:JBB_STF_TONE", "number", stf_error * 2500 / 20);
     }
 
     lowpassfilter(name,value,tc1 = 0.1,tc2 = 0.1,tc3 = 0) {

@@ -13,6 +13,7 @@ class configpanel {
         this.ballastIsInit = false;
         this.cockpitwarnings = true;
         this.showDynamicstf = true;
+        this.AutoSTFMode = true;
 
         this.unitstore = SimVar.GetSimVarValue("L:UNITS_IMPERIAL","percent");
     }
@@ -204,7 +205,8 @@ class configpanel {
     }
 
     toggleAutoMC(val) {
-        if (val == "on") {  this.autoMC = true } else {  this.autoMC = false }
+        this.autoMC = false;
+        // if (val == "on") {  this.autoMC = true } else {  this.autoMC = false }
     }
 
     toggleAipLayer(val) {
@@ -241,6 +243,10 @@ class configpanel {
 
     toggleDynamicSTF(val) {
         if (val == "on") { this.showDynamicstf = true; } else { this.showDynamicstf = false; }
+    }
+
+    toggleAutoSTF(val) {
+        if (val == "on") { this.AutoSTFMode = true; } else { this.AutoSTFMode = false; }
     }
 
 

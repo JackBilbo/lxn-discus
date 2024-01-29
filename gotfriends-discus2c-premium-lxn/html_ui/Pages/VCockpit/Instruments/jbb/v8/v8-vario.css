@@ -110,14 +110,18 @@
 
 .scale.imperial.log .tick:first-child .number, .scale.imperial.log .tick:last-child .number { display: none;}
 
-.currentUnit {
+.currentUnit, .currentMode {
     position: absolute;
     color: #333;
     right: 6.6em;
     bottom: 1.2em;
 }
 
-.currentUnit span {
+.currentMode {
+    right: 8em;
+}
+
+.currentUnit span, .currentMode span {
     font-family: Tahoma, sans-serif;
     font-weight: bold;
     font-size: 0.9em;
@@ -226,6 +230,10 @@
     transition: rotate 0.2s;
 }
 
+.stfmode .lastthermalaverage, .stfmode .mcmarker, .stfmode .wind, .stfmode .average, .stfmode #arc {
+    display: none;
+}
+
 .infofield {
     position: absolute;
     right: 4em;
@@ -235,8 +243,8 @@
     color: var(--scalecolor);
 }    
 
-.data1 { top: 2.3em;}
-.data2 { top: 7em; }
+.data1, .data3 { top: 2.3em;}
+.data2, .data4 { top: 7em; }
 
 .infofield .value {
     display: flex;
@@ -521,6 +529,10 @@
 
 #smoothing {
    display: none;
+}
+
+#stfinfo {
+    display: none;
 }
 
 /* Range Inputs */
