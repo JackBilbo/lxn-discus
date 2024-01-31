@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!-- 2024-01-26 CumulusX! Modification for Speed-to-fly tone starting line 868 -->
+<!-- 	Normal mode (0), beeper indicates lift, line  868 -->
+<!-- 	STF-Mode (1), beeper indicates speed error |stf_tone| > 0.1 m/s, line 872 -->
+<!-- 2024-01-28 CumulusX! New TE formula, uses "E:Simulation Time" instead of "E:Absolute Time" for better precision (lines 853-864), removed conflicting code in Legacy section-->
+<!-- 2024-01-30 CumulusX! intercept potential division by zero with if-clause (lines 854/865)-->
 <ModelInfo>
 	<LODS>
 		<LOD minSize="0" ModelFile="D2C_INT.gltf"/>
@@ -797,10 +802,6 @@
 <!-- ###################################### -->
 <!-- ####### CUSTOM PHYSICS DRIVERS ####### -->
 <!-- ###################################### -->
-<!-- 2024-01-26 CumulusX! Modification for Speed-to-fly tone starting line 862-->
-<!-- Normal mode (0), beeper indicates lift, line  853 -->
-<!-- STF-Mode (1), beeper indicates speed error if error > 2 m/s, line 858-->
-
 		<Component ID="MASTER_DRIVER">
 			<UseTemplate Name="ASOBO_GT_Update">
 				<FREQUENCY>30</FREQUENCY>
@@ -824,8 +825,7 @@
 						l5 (&gt;L:BALLAST_DUMP_LEFT, percent)
 						l5 l7 * (&gt;L:BALLAST_SPLASH_LEFT, percent)
 						l6 (&gt;L:BALLAST_DUMP_RIGHT, percent)
-						l6 l7 * (&gt;L:BALLAST_SPLASH_RIGHT, percent)	
-											
+						l6 l7 * (&gt;L:BALLAST_SPLASH_RIGHT, percent)						
 						(A:FOLDING WING RIGHT PERCENT, meters per second) 0 == (A:FOLDING WING RIGHT PERCENT, meters per second) 20 &gt; or if{ 
 							0.1 (&gt;A:FOLDING WING RIGHT PERCENT, meters per second)
 						}
@@ -848,7 +848,21 @@
 						}
 						(A:AIRSPEED TRUE, meters per second) (&gt;L:LAST AIRSPEED TRUE, meters per second)
 						(A:PRESSURE ALTITUDE, meters) (&gt;L:LAST PRESSURE ALTITUDE, meters)					
-						(L:VARIO_TONE_ACTIVE, percent) 20 - s16
+						(L:VARIO_TONE_ACTIVE, percent) 20 - sp16
+						
+						(E:SIMULATION TIME, seconds) d (L:Cx_L_SIMTIME, seconds) - s19 (&gt;L:Cx_L_SIMTIMEdT, seconds) (&gt;L:Cx_L_SIMTIME, seconds)						
+						l19 0 &gt; if{
+							1 0.5 30 * / s17 sp18
+							(A:AIRSPEED TRUE, meters per second) d *
+							19.62 /
+							(A:PLANE ALTITUDE, meters) +
+							l17 * (Z:Cx_L_TE) 1 l17 - * +
+							d (Z:Cx_L_TE) -
+							l19 /
+							r (&gt;Z:Cx_L_TE)
+							l18 * (L:TOTAL ENERGY, meters per second) 1 l18 - * + 10 min 10 neg max
+							(&gt;L:TOTAL ENERGY, meters per second)			
+						}
 					}
 					(L:VARIO_POWER_STATUS) l16 0 &gt; and if{
 						(L:VARIO_STF_MODE, number) 0 == if{
@@ -867,7 +881,6 @@
 						0 (&gt;L:VARIO_TONE_SINK, percent)
 					}				
 					(A:TOTAL VELOCITY, meters per second) (&gt;L:LAST VELOCITY, meters per second)
-
 					(A:ELECTRICAL MASTER BATTERY, bool) if{
 						(L:AUTO_PILOT_BANK, radians) 0 != if{
 							(A:PLANE PITCH DEGREES, radians) (A:ROTATION VELOCITY BODY X, radians per second) 10 / + 0.05 + (&gt;A:ELEVATOR TRIM POSITION, number)
@@ -1321,18 +1334,6 @@
 		<Animation>
 			<Parameter>
 				<Code>
-					(A:AIRSPEED TRUE, meters per second) d *
-					19.62 /
-					(A:PLANE ALTITUDE, meters) +
-					0.05 * (G:Var2) 0.95 * +
-					d (G:Var2) -
-					(A:ANIMATION DELTA TIME, seconds)
-					0.05 * (G:Var1) 0.95 * +
-					d (&gt;G:Var1)
-					/
-					r (&gt;G:Var2)
-					0.05 * (L:TOTAL ENERGY, meters per second) 0.95 * + 10 min 10 neg max
-					(&gt;L:TOTAL ENERGY, meters per second)				
 					(L:NETTO, meters per second) 10 * 50 +
 				</Code>
 				<Lag>20</Lag>

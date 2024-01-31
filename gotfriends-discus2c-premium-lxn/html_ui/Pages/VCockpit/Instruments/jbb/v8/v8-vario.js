@@ -233,7 +233,7 @@ class v8_varioclass extends BaseInstrument {
             this.root.querySelector(".currentMode span").innerHTML = "STF";
             
             SimVar.SetSimVarValue("L:VARIO_STF_MODE","number", 1);
-            SimVar.SetSimVarValue("L:VARIO_MODE","percent",0);
+            SimVar.SetSimVarValue("L:VARIO_MODE","number",0);
         } else {
             this.root.classList.remove("stfmode");
             this.showPage(0);
@@ -245,7 +245,7 @@ class v8_varioclass extends BaseInstrument {
             this.root.querySelector(".currentMode span").innerHTML = "TE";
 
             SimVar.SetSimVarValue("L:VARIO_STF_MODE","number", 0);
-            SimVar.SetSimVarValue("L:VARIO_MODE","percent",100);
+            SimVar.SetSimVarValue("L:VARIO_MODE","number",100);
         }
         this.isBusy = false;
     }
