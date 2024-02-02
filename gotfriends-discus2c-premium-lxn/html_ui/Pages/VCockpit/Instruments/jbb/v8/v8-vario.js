@@ -292,8 +292,8 @@ class v8_varioclass extends BaseInstrument {
     buildScale() {
         let step;
         if(this.variomode == "stf") {
-            this.maxScale = this.units == "metric" ? 50 : 25;
-            step = this.units == "metric" ? 10 : 5;
+            this.maxScale = this.units == "metric" ? 25 : 25;
+            step = this.units == "metric" ? 5 : 5;
         } else {
             this.maxScale = this.units == "metric" ? 5 : 10;
             step = this.units == "metric" ? 0.5 : 1;
