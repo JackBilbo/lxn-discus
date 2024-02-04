@@ -79,9 +79,8 @@ class configpanel {
             CONFIGPANEL.setUnitPrefs("metric");
         })
     
-        document.querySelectorAll(".config_toggle .handle").forEach((el)=> {
+        document.querySelectorAll(".config_toggle").forEach((el)=> {
             el.addEventListener("click", (e)=> {
-                let el = e.target.parentNode;
                 let callback = el.getAttribute("data-callback");
                 let state = el.getAttribute("state") == "on" ? "off" : "on";
                 el.setAttribute("state", state );

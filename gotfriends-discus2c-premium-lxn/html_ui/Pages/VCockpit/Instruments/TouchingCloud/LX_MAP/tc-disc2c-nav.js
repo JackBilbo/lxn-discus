@@ -798,10 +798,7 @@ class lxn extends NavSystemTouch {
             this.vars.dynamic_stf.value = stf;
             SimVar.SetSimVarValue("L:JBB_STF_DYNAMIC","knots",parseInt(stf));
         }
-	// calculate STF_TONE
-	let stf_error = this.vars.ias.value - this.vars.dynamic_stf.value;
-	if ( Math.abs(stf_error ) < 1.5) { stf_error = 0; }
-	SimVar.SetSimVarValue("L:JBB_STF_TONE", "number", stf_error * 2500 / 20);
+
     }
 
     lowpassfilter(name,value,tc1 = 0.1,tc2 = 0.1,tc3 = 0) {
