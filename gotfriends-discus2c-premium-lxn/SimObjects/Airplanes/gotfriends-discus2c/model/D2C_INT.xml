@@ -17,7 +17,7 @@
 		<Include ModelBehaviorFile="Asobo\Airliner\FMC.xml"/>
 		<Include ModelBehaviorFile="Asobo\NAVCOM\AS92.xml"/>
 		<Include ModelBehaviorFile="Asobo\Transponder\AS21.xml"/>	
-		<Include ModelBehaviorFile=".\TrimWizard.XML"/>	
+		<Include ModelBehaviorFile=".\TrimWizardInclude.xml"/>	
 <!-- ###################################### -->
 <!-- ########## PRIMARY CONTROLS ########## -->
 <!-- ###################################### -->	
