@@ -27,13 +27,13 @@
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/jbb/v8/v8-vario.js",
-      "size": 26730,
-      "date": 133514219623562926
+      "size": 26786,
+      "date": 133518077738000311
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/configpanel.js",
-      "size": 18521,
-      "date": 133514219622428807
+      "size": 18466,
+      "date": 133515481355370953
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/interface.js",
@@ -58,7 +58,7 @@
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navmap_topomap.js",
       "size": 23890,
-      "date": 133514219622438829
+      "date": 133517942699200110
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/navpanel.js",
@@ -68,12 +68,12 @@
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.html",
       "size": 45797,
-      "date": 133515203069171381
+      "date": 133515246960214948
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/tc-disc2c-nav.js",
-      "size": 71621,
-      "date": 133514425517922790
+      "size": 71372,
+      "date": 133515480823905309
     },
     {
       "path": "html_ui/Pages/VCockpit/Instruments/TouchingCloud/LX_MAP/b21_includes/geo.js",
@@ -142,13 +142,13 @@
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/model/D2C_INT.xml",
-      "size": 65881,
-      "date": 133515204596932059
+      "size": 66017,
+      "date": 133518007788687818
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/model/TrimWizardInclude.xml",
-      "size": 682,
-      "date": 133515202691806861
+      "size": 754,
+      "date": 133518006614322599
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c/panel/panel.cfg",
@@ -166,9 +166,29 @@
       "date": 133514218777887146
     },
     {
+      "path": "SimObjects/Airplanes/gotfriends-discus2c/texture.DEFAULT/DISCUS2C_DECALS_ALBD.PNG.DDS",
+      "size": 5592560,
+      "date": 133517750844253889
+    },
+    {
+      "path": "SimObjects/Airplanes/gotfriends-discus2c/texture.DEFAULT/DISCUS2C_DECALS_ALBD.png.DDS.FLAGS",
+      "size": 22,
+      "date": 133475643072935451
+    },
+    {
+      "path": "SimObjects/Airplanes/gotfriends-discus2c/texture.DEFAULT/DISCUS2C_DECALS_ALBD.PNG.DDS.json",
+      "size": 144,
+      "date": 133475643073126683
+    },
+    {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/model/D2C_FES_INT.xml",
-      "size": 69504,
-      "date": 133514220673021543
+      "size": 69689,
+      "date": 133518111010203285
+    },
+    {
+      "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/model/TrimWizardInclude.xml",
+      "size": 754,
+      "date": 133518006614322599
     },
     {
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/panel/panel.cfg",
@@ -184,6 +204,21 @@
       "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/panel.NOREG/panel.cfg",
       "size": 2355,
       "date": 133514218777732223
+    },
+    {
+      "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/texture.DEFAULT/DISCUS2C_DECALS_ALBD.PNG.DDS",
+      "size": 5592560,
+      "date": 133517750844253889
+    },
+    {
+      "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/texture.DEFAULT/DISCUS2C_DECALS_ALBD.png.DDS.FLAGS",
+      "size": 22,
+      "date": 133475643072935451
+    },
+    {
+      "path": "SimObjects/Airplanes/gotfriends-discus2c-fes/texture.DEFAULT/DISCUS2C_DECALS_ALBD.PNG.DDS.json",
+      "size": 144,
+      "date": 133475643073126683
     }
   ]
 }

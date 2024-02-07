@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModelBehaviors>
+	<Template Name="CX_TRIM_WIZARD">
+		<UseTemplate Name="ASOBO_GT_Update">
+			<FREQUENCY>30</FREQUENCY>
+			<UPDATE_CODE>
+				(L:PITCH_HOLD) 1 == if{ (L:TRIM_PITCH) (A:PLANE PITCH DEGREES, degrees) - s1 0.005 * (L:TRIM_INT) + d (&gt;L:TRIM_INT) l1 0.1 * (L:TRIM_INT) + (L:INITIAL_TRIM) - 16383 * (&gt;K:AXIS_ELEV_TRIM_SET) } 0
+				(A:SIM ON GROUND, bool) 1 != if{ (A:BRAKE INDICATOR, Position) 0 &gt; s0 (L:PITCH_HOLD) ! &amp;&amp; if{ (A:PLANE PITCH DEGREES, degrees) (&gt;L:TRIM_PITCH) (A:ELEVATOR TRIM INDICATOR, Position) (&gt;L:INITIAL_TRIM) 0 (&gt;L:TRIM_INT) } l0 (&gt;L:PITCH_HOLD) } els{ 0 (&gt;L:PITCH_HOLD) } 0
+			</UPDATE_CODE>
+		</UseTemplate>			
+	</Template>
+</ModelBehaviors>
