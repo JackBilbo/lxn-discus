@@ -169,7 +169,7 @@ class v8_varioclass extends BaseInstrument {
         };
 
         let vm = SimVar.GetSimVarValue("L:VARIO_MODE","percent") == 0 ? "stf" : "te";
-        if(this.variomode != vm) {
+        if(this.variomode != vm && !this.isBusy) {
             this.setVariomode(vm);
         }
 
@@ -212,7 +212,6 @@ class v8_varioclass extends BaseInstrument {
 
     toggleVariomode() {
         this.isBusy = true;
-        // window.setTimeout(()=> { this.isBusy = false; }, 500);
 
         if(this.variomode == "stf") {
             this.setVariomode("te");
@@ -233,7 +232,7 @@ class v8_varioclass extends BaseInstrument {
             this.root.querySelector(".currentMode span").innerHTML = "STF";
             
             SimVar.SetSimVarValue("L:VARIO_STF_MODE","number", 1);
-            SimVar.SetSimVarValue("L:VARIO_MODE","number",0);
+            SimVar.SetSimVarValue("L:VARIO_MODE","number",0).then(() => { this.isBusy = false; });
         } else {
             this.root.classList.remove("stfmode");
             this.showPage(0);
@@ -245,9 +244,9 @@ class v8_varioclass extends BaseInstrument {
             this.root.querySelector(".currentMode span").innerHTML = "TE";
 
             SimVar.SetSimVarValue("L:VARIO_STF_MODE","number", 0);
-            SimVar.SetSimVarValue("L:VARIO_MODE","number",100);
+            SimVar.SetSimVarValue("L:VARIO_MODE","number",100).then(() => { this.isBusy = false; });
         }
-        this.isBusy = false;
+        
     }
 
     updatecurrent(currentvalue) {
@@ -303,7 +302,7 @@ class v8_varioclass extends BaseInstrument {
         this.root.querySelector(".scale").innerHTML = "";
 
         if(this.maxScale == 10) { this.root.querySelector(".scale").classList.add("imperial"); } else { this.root.querySelector(".scale").classList.remove("imperial"); }
-        if(this.scale == "log") { this.root.querySelector(".scale").classList.add("log"); } else { this.root.querySelector(".scale").classList.remove("log"); }
+        if(this.scale == "log" && this.variomode == "te") { this.root.querySelector(".scale").classList.add("log"); } else { this.root.querySelector(".scale").classList.remove("log"); }
 
         for(let i = -this.maxScale; i <= this.maxScale; i = i + step) {
             let angle = this.calcAngle(i);
@@ -329,7 +328,7 @@ class v8_varioclass extends BaseInstrument {
 
     calcAngle(val) {
         let angle;
-        if (this.scale != "log") {
+        if (this.scale != "log" || this.variomode == "stf") {
             angle = (120 / this.maxScale) * val;
         } else {
             angle = 120 * Math.log(Math.abs(val) + 1) / Math.log(this.maxScale + 1); 

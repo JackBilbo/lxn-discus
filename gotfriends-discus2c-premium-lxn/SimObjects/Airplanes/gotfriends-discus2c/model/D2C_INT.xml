@@ -16,8 +16,7 @@
 		<Include ModelBehaviorFile="Asobo\Airliner\Boeing.xml"/>
 		<Include ModelBehaviorFile="Asobo\Airliner\FMC.xml"/>
 		<Include ModelBehaviorFile="Asobo\NAVCOM\AS92.xml"/>
-		<Include ModelBehaviorFile="Asobo\Transponder\AS21.xml"/>	
-		<Include ModelBehaviorFile=".\TrimWizardInclude.xml"/>	
+		<Include ModelBehaviorFile="Asobo\Transponder\AS21.xml"/>		
 <!-- ###################################### -->
 <!-- ########## PRIMARY CONTROLS ########## -->
 <!-- ###################################### -->	
@@ -1032,6 +1031,13 @@
 				<UPDATE_CODE>(A:BRAKE RIGHT POSITION, percent) (A:BRAKE LEFT POSITION, percent) &gt; if{ (A:BRAKE RIGHT POSITION, percent) (&gt;A:BRAKE LEFT POSITION, percent) }</UPDATE_CODE>
 			</UseTemplate>
 		</Component>
+
+		<Include RelativeFile="TrimWizardInclude.xml"/>
+		 <Component ID="TRIM_WIZARD">
+            <UseTemplate Name="CX_TRIM_WIZARD">
+            </UseTemplate>
+        </Component>
+
 <!-- ###################################### -->
 <!-- ############# EMISSIVES ############## -->
 <!-- ###################################### -->
