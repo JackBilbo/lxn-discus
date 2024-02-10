@@ -1032,12 +1032,6 @@
 			</UseTemplate>
 		</Component>
 
-		<Include RelativeFile="TrimWizardInclude.xml"/>
-		 <Component ID="TRIM_WIZARD">
-            <UseTemplate Name="CX_TRIM_WIZARD">
-            </UseTemplate>
-        </Component>
-
 <!-- ###################################### -->
 <!-- ############# EMISSIVES ############## -->
 <!-- ###################################### -->

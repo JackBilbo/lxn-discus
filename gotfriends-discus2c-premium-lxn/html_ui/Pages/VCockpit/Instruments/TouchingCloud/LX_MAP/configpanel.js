@@ -13,7 +13,6 @@ class configpanel {
         this.ballastIsInit = false;
         this.cockpitwarnings = true;
         this.showDynamicstf = true;
-        this.AutoSTFMode = true;
 
         this.unitstore = SimVar.GetSimVarValue("L:UNITS_IMPERIAL","percent");
     }
@@ -209,7 +208,7 @@ class configpanel {
     }
 
     toggleAipLayer(val) {
-        if (val == "on") { NAVMAP.hasAipLayer = true; if(typeof(TOPOMAP.addLayer) == "function") { NAVMAP.addAipLayer() } } else { NAVMAP.removeAipLayer(); NAVMAP.hasAipLayer = false; }
+        NAVMAP.hasAipLayer = false;
     }
 
     toggleCockpitwarnings(val) {
@@ -245,7 +244,7 @@ class configpanel {
     }
 
     toggleAutoSTF(val) {
-        if (val == "on") { this.AutoSTFMode = true; } else { this.AutoSTFMode = false; }
+         this.AutoSTFMode = false;
     }
 
 

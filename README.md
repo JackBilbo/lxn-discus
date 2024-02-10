@@ -3,17 +3,18 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <h2>Fixes and Updates:</h2>
 
-<strong>Update for Discus version 2.0.8</strong>
+<strong>New feature: "Dynamic" calculation of STF depending on lift</strong>
 
-<p>Before using this version please make sure, you're flying verison 2.0.8 of GotFriends Discus.</p>
+<p>By default, Speed-to-fly-calculation is now corrected for current netto value. As a result, STF is lower in lift, higher in sinking air. You can switch that option off in the interface settings on the config page. If turned off, you are back to to simply calculating a "static" STF for polar sink in still air. Both values are available as variables to show in data fields. Waypoint arrival heights are always calculated based on the "static" STF, assuming that lift and sink will level out over some distance. Most of the adjustments and calculations for this new STF handling provided by CumulusX.</p>
 
-<strong>New keybind MacCready</strong>
+<strong>New "STF" Vario Mode</strong>
 
-<p>You can now use the native INCREASE/DECREASE MAC CREADY SETTING. This will change the MC value by 1kt or 0.5m/s per button press. Known issue: when using metric settings, there are occaional rounding errors. If you're using the original digital vario, the blue MC marker will not move when using those keybinds until you touch the rotary button.
+<p>The mode switch to the bottom right of the vario now switches between "normal" Mode, indicating total energy and a new "STF" Mode, that indicates the deviation from calculated speed to fly. Arrow pointing up means "fly slower", down is "faster". Vario sound is also switched to STF-control. To toggle modes from your stick, simpl bind "TOGGLE VARIOMETER SWITCH" to a button. 
 
-<strong>Small Update to Ballast System</strong>
+<strong>Removed outdated options</strong>
 
-<p>Tail Ballast does not empty when dumping ballast in flight. This is now correctly displayed on the ballas management page. Also total ballast and ballast percentage no longer count down to zero when dumping, as tail ballast stays onboard.</p>
+<p>Removed "Auto MacCready Mode" and "Aviation layer" from config toggles</p>
+
 
 <h2>Installation:</h2>
 
@@ -34,6 +35,7 @@ Several functions can be operated by keybinds from joystick or throttle:
 - Map Zoom:           INCREASE/DECREASE TRANSPONDER (10)
 - Map Orientation:    INCREASE/DECREASE TRANSPONDER (1)
 - set MacCready       INCREASE/DECREASE MACCREADY SETTING
+- toggle Vario-Mode:  TOGGLE VARIOMETER SWITCH
 
 
 <h1>Manual and Handling</h1>
