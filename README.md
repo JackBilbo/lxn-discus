@@ -5,7 +5,9 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <strong>New feature: "Dynamic" calculation of STF depending on lift</strong>
 
-<p>By default, Speed-to-fly-calculation is now corrected for current netto value. As a result, STF is lower in lift, higher in sinking air. You can switch that option off in the interface settings on the config page. If turned off, you are back to to simply calculating a "static" STF for polar sink in still air. Both values are available as variables to show in data fields. Waypoint arrival heights are always calculated based on the "static" STF, assuming that lift and sink will level out over some distance. Most of the adjustments and calculations for this new STF handling provided by CumulusX.</p>
+<p>By default, Speed-to-fly-calculation is now corrected for current netto value. As a result, STF is lower in lift, higher in sinking air. 
+Simply speaking, this leads to a higher average of lift over time by staying less time in sink areas and longer in lift areas. Thereby total time for a given distance is reduced.
+You can switch that option off in the interface settings on the config page. If turned off, you are back to to simply calculating a "static" STF for polar sink in still air. Both values are available as variables to show in data fields. Waypoint arrival heights are always calculated based on the "static" STF, assuming that lift and sink will level out over some distance. Most of the adjustments and calculations for this new STF handling provided by CumulusX.</p>
 
 <strong>New "STF" Vario Mode</strong>
 
@@ -13,7 +15,7 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <strong>Removed outdated options</strong>
 
-<p>Removed "Auto MacCready Mode" and "Aviation layer" from config toggles</p>
+<p>Removed "Auto MacCready Mode" from config toggles.</p>
 
 
 <h2>Installation:</h2>

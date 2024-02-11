@@ -208,7 +208,7 @@ class configpanel {
     }
 
     toggleAipLayer(val) {
-        NAVMAP.hasAipLayer = false;
+        if (val == "on") { NAVMAP.hasAipLayer = true; if(typeof(TOPOMAP.addLayer) == "function") { NAVMAP.addAipLayer() } } else { NAVMAP.removeAipLayer(); NAVMAP.hasAipLayer = false; }
     }
 
     toggleCockpitwarnings(val) {
