@@ -3,6 +3,8 @@ Replacement mod for the GotFriends Discus' Nav computer
 
 <h2>Fixes and Updates:</h2>
 
+<p>Fixed native winch behaviour</p>
+
 <strong>New feature: "Dynamic" calculation of STF depending on lift</strong>
 
 <p>By default, Speed-to-fly-calculation is now corrected for current netto value. As a result, STF is lower in lift, higher in sinking air. 
