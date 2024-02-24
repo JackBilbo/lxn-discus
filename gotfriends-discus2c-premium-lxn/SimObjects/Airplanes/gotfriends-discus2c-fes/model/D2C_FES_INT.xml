@@ -977,7 +977,7 @@
 							(A:PLANE BANK DEGREES, radians) (A:ROTATON VELOCITY BODY Y, radians per second) + 250 * l1 10 * 20 min -20 max + (&gt;A:AILERON TRIM PCT, percent)
 						}
 					}
-					(A:TOW PLANE CONNECTION, Bool) ! (SIM ON GROUND, Bool) ! and (A:TOTAL WORLD VELOCITY, meters per second) 15 &gt; and
+					(A:TOW PLANE CONNECTION, Bool) ! (A:TOW WINCH CONNECTION, Bool) ! and (SIM ON GROUND, Bool) ! and (A:TOTAL WORLD VELOCITY, meters per second) 15 &gt; and
 					if{ 1 (&gt;K:TOW_PLANE_RELEASE) 1 (&gt;L:TOW_HANDLE, bool) }
 				</UPDATE_CODE>
 			</UseTemplate>
