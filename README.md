@@ -108,20 +108,17 @@ Links to remote control functions of "Kinetic Assistant" by "Touching Cloud". Pl
 - <b>Aircraft Settings:</b> Options that are originally controlled by knobs and buttons around the display. Moved here to free up the buttons for future use.
 - <b>Units of Measurement:</b> allows you to select the units of measurement to use for various categories or generally "metric" or "imperial" system. Only "metric" or "imperial" settings have an effect on other instruments in the cockpit. Detailled settings only work inside the nav computer.
 - <b>Interface Options:</b> Settings for the Nav Interface: 
-  - "Readability Mode" can be activated here to get some bigger readouts (and less data fields) 
-  - toggle liftdot-trail on the map
-  - Visual stall warning: If activated, the screen will flash red when the aircraft is close to a stall.
-  - Wind Indicator: Toggles the wind arrows on the map
-  - Course Pointer Arrow: displays left/right arrows on top of the map to guide you to your nav target.
-  - Auto MacCready: Will update your MC setting based on the last "thermal" (i.e. last time you circled). 
-  - Aviation Map Layer: Overlays airspace information on top of the topographic map, if you really want to avoid flying into control zones etc.
-  - Cockpit Warnings: If active, you'll get various popup warnings on screen: gear, ballast, overspeed warnings.
-  - Auto Log: Automaticalls logs flight data: time, total climb, average groundspeed and total distance can be displayed in data fields. This is only meant as informative display during flight. The mod cannot write any real logfiles.
-
+  - "Readability Mode" can be activated here to get some bigger readouts (and less data fields)
+  - "STF corrected for Netto": if active speed to fly is calculated dynamically: slower in lift, faster in sink. Arrival height is always based on the "static" STF calculated for zero lift conditions.
+  - "Dotted Glider Path": toggle liftdot-trail on the map
+  - "Visual stall warning": If activated, the screen will flash red when the aircraft is close to a stall.
+  - "Wind Indicator": Toggles the wind arrow on the map
+  - "Course Pointer Arrow": displays left/right arrows on top of the map to guide you to your nav target.
+  - "Aviation Map Layer": Overlays airspace information on top of the topographic map, if you really want to avoid flying into control zones etc.
+  - "Cockpit Warnings": If active, you'll get various popup warnings on screen: gear, ballast, overspeed warnings.
+  - "Auto Log": Automatically logs flight data: time, total climb, average groundspeed and total distance can be displayed in data fields. Switch "on" if you want to display any of that info in a data field. This is only meant as informative display during flight. The mod cannot write any real logfiles.
 
 All config settings apart from ballast are persistent between sessions. Just make sure to click "CLOSE & SAVE" after making any changes.
-
-
 
 
 <h2>Speed to Fly, MacCready and why you should care</h2>
@@ -130,7 +127,7 @@ Every glider has it's very own "best glide" speed: the speed where it will glide
 
 Gliders usually fly from one source of lift to the next, climb back to altitude and on to the next thermal or ridge. Very early pilots realized, that flying "best glide speed" is not the most efficient way to go. If you fly faster, you lose more altitude but reach the next updraft faster and can use the time saved to regain that lost altitude. But how much faster? This is obviously dependent on the strength of the lift you're heading for and that's what Paul MacCready and other glider pilots based the theory of "Speed to Fly" on.
 
-Speed to Fly (STF) is calculated from a complicated formula using aircraft performance, ballast and the expected strength of the next source of climb, set by the pilot with the top right rotary button - the "MacCready" value. The higher the MC value, the higher the resulting speed to fly. The nav computer displays the STF as a numerical value under the speed tape and as a green area on the speed tape.
+Speed to Fly (STF) is calculated from a complicated formula using aircraft performance, ballast and the expected strength of the next source of climb, set by the pilot with the top right rotary button - the "MacCready" value. The higher the MC value, the higher the resulting speed to fly. The nav computer displays the STF as a numerical value under the speed tape and as a green area on the speed tape. If you activate "STF corrected for Netto" in the interface options, STF is also shifted for lift conditions, asking you to fly slower in lift, faster in sinking air, in theory resulting in a better overall climb performance.
 
 Calculation of all estimated arrival heights and time enroute is based on STF. This allows you to plan ahead, especially when flying different phases of a task. As you change the MC setting, you'll see the estimated arrival height and time go up and down. For example, when on final glide to your destination airport you can turn up MC until the estimated arrival is close to zero and the computer will tell you how fast you can fly. On the other hand, if you're low and slow in difficult conditions, turn MC to zero and the computer tells you the speed for best glide with current ballast and if you will make it home at all.
 
@@ -162,20 +159,23 @@ Multiple mods changing the same aircraft are prone to conflict somehow. If you r
 The rework is losely based on the realworld LXN V80 vario but doesn't attempt to exactly emulate its funcionality. It contains a slightly enlarged scale and needles for better readability with five indicators:
 
 - orange: current climb/sink (TE or netto as selected by the bottom right knob)
-- turquoise: current vertical wind component (RL-inspiration: https://gliding.lxnav.com/news/hawk-wind-calculation/)
+- turquoise: current vertical wind component minus the gliders current polar sink - simply put: if the needle is above zero you should be able to climb. (RL-inspiration: https://gliding.lxnav.com/news/hawk-wind-calculation/)
 - red square: 10s average climb/sink.
 - small green T: total true average of the last thermal (as calculated by the thermal helper page in the LX computer). When flying in thermal conditions this marker can help with judging you MC setting: if you're leaving a thermal and this marker is below the blue MC marker, you overestimated the climb and might consider dialling MC down a bit. If it's the other way around you could go a little more aggressive.
 - blue triangle: MacCready setting
 
 The orange arc marks the range of values measured during the last ten seconds.
 
-The center of the instrument can display four different screens:
+The center right button on the vario can be clicked to switch between a linear and a non-linear scale.
 
-- data fields for current and average climb plus a (VERY) tiny speedtape and STF-Marker
+The center of the instrument can display five different screens:
+
+- data fields for current and average climb plus a (VERY) tiny speedtape and STF-Marker. STF Marker changes color when it reachs top or bottom limits to indicate the need to change speed: red means slow down, green faster. If the marker is blue and movonmg you're within about 20kmh of your STF
 - horizontal wind info (HAWK-style see above)
 - simple artificial horizon
 - slider to adjust "current" needle smoothing (calculating average values) between 0 and 5 seconds. Allows to change the sensitivity of the vario needle in gusty conditions. Higher values will make the vario less responsive when entering lift, but filter out rapid movement from rapidly changing wind speeds. When flying in a weather preset with 0 gusts, you can safely set this to 0. When you encounter gusts (as in live weather most of the time) adjust the smoothing upward to calm down the needle.
+- STF mode with two data fields: STF and MacCready-Setting. This page is automatically activated when switching to STF mode.
 
 Screens can be cycled using the top and bottom button on the right. Center button toggles between the default linear and a logarithmic scale. You can also cycle screens using alt/a alt/s on the keyboard (doesn't work in VR for some reason).
 
-Audio output of the vario is completely unchanged.
+Using the bottom right knob (or the keybind TOGGLE VARIOMETER SWITCH) the vario can be switched to STF or "Sollfahrt" Mode. In this mode the vario only shows a single orange arrow indicating deviation from speed to fly. The scale also changes to +/- 25 kph/kts and shows a tiny "STF" on the bottom right. Indication is simple: If the arrow is pointing down, fly faster, if it rises up, slow down. Audio output is also coupled to STF in this mode. When you switch to STF mode, the center screen is also switched to STF mode, indicating the current STF and MC setting. This mode is most useful when flying between sources of lift to optimize the flight path.
